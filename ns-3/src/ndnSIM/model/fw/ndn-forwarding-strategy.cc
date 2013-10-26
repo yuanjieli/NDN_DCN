@@ -157,7 +157,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
         }
       else
         {
-          NS_LOG_UNCOND("Fail to create PIT entry");
           return;
         }
     }
