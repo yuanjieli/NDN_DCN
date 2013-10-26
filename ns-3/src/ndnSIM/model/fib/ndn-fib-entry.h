@@ -161,6 +161,60 @@ public:
   {
     return m_status;
   }
+  
+  void
+  IncreaseNack()
+  {
+  	m_nack++;
+  }
+  
+  void
+  SetNack(uint32_t rhs)
+  {
+  	m_nack = rhs;
+  }
+  
+  uint32_t
+  GetNack() const
+  {
+  	return m_nack;
+  }
+  
+  void
+  IncreaseDataIn()
+  {
+  	m_data_in++;
+  }
+  
+  void
+  SetDataIn(uint32_t rhs)
+  {
+  	m_data_in = rhs;
+  }
+  
+  uint32_t
+  GetDataIn() const
+  {
+  	return m_data_in;
+  }
+  
+  void
+  IncreaseDataCE()
+  {
+  	m_data_ce++;
+  }
+  
+  void
+  SetDataCE(uint32_t rhs)
+  {
+  	m_data_ce = rhs;
+  }
+  
+  uint32_t
+  GetDataCE() const
+  {
+  	return m_data_ce;
+  }
 
 private:
   friend std::ostream& operator<< (std::ostream& os, const FaceMetric &metric);
@@ -179,6 +233,10 @@ private:
   Time m_rttVar;       ///< \brief round-trip time variation
 
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
+
+	uint32_t m_nack;		 ///< \brief nack counter
+	uint32_t m_data_in;  ///< \brief incoming data counter
+	uint32_t m_data_ce;  ///< \brief incoming marked data counter
 };
 
 /// @cond include_hidden
