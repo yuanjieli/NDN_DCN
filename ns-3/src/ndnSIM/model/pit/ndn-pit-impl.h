@@ -353,6 +353,8 @@ template<class Policy>
 Ptr<Entry>
 PitImpl<Policy>::Create (Ptr<const Interest> header)
 {
+	if(m_fib2==0)
+		NS_LOG_UNCOND("m_fib2 is NULL!");
   NS_LOG_DEBUG (header->GetName ());
   Ptr<fib::Entry> fibEntry = m_fib->LongestPrefixMatch (*header);
   Ptr<fib2::Entry> fib2Entry = m_fib2->LongestPrefixMatch (*header);
