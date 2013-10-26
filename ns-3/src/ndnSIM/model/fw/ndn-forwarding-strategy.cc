@@ -229,6 +229,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
 {
   NS_LOG_FUNCTION (inFace << header->GetName () << payload << origPacket);
   m_inData (header, payload, inFace);
+  
 
   // Lookup PIT entry
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
@@ -260,6 +261,19 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
     }
   else
     {
+    	//Update counter
+    	/////////////////////////////////////////////////////
+    	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+    	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+      = fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face);
+      if(record==fibEntry->m_faces.get<fib::i_face> ().end ())
+      {
+      	NS_LOG_UNCOND("FIB does not exist");
+      }
+      record->IncreaseDataIn();
+      if(header->GetCE()==1)
+      	record->IncreaseDataCE();
+    	/////////////////////////////////////////////////////
       bool cached = false;
 
       FwHopCountTag hopCountTag;
