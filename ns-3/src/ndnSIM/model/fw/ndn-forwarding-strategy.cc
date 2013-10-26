@@ -30,6 +30,7 @@
 #include "ns3/ndn-fib2.h"
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndn-face.h"
+#include "ns3/ndn-app-face.h"
 
 #include "ns3/assert.h"
 #include "ns3/ptr.h"
@@ -416,31 +417,37 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	Ptr<Packet> target = origPacket->Copy();
     	Ptr<ContentObject> NewHeader = Create<ContentObject> ();
     	target->RemoveHeader(*NewHeader);
-    	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();
-    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
-      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
-      
-      NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
-      NS_ASSERT(record!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
-      
-      //update dataout counter
-      fib2Entry->m_faces.modify (record,
-                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
-			//mark the data with probability
-      uint32_t max_data_out = 0;
-      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
-       face != fib2Entry->m_faces.end ();
-       face++)
+    	
+    	if(DynamicCast<AppFace>(incoming.m_face)==0)
     	{
-      	if(max_data_out<face->GetDataOut())
-      		max_data_out = face->GetDataOut();
+    		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();
+	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
+	      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
+	      
+	      NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
+	      NS_ASSERT(record!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
+	      
+	      //update dataout counter
+	      fib2Entry->m_faces.modify (record,
+	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
+				//mark the data with probability
+	      uint32_t max_data_out = 0;
+	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
+	       face != fib2Entry->m_faces.end ();
+	       face++)
+	    	{
+	      	if(max_data_out<face->GetDataOut())
+	      		max_data_out = face->GetDataOut();
+	    	}
+	    	
+	    	uint32_t N = rand()%max_data_out;
+	    	if(N<=record->GetDataOut())
+	    		NewHeader->SetCE(1);
+	    	else
+	    		NewHeader->SetCE(0);
     	}
     	
-    	uint32_t N = rand()%max_data_out;
-    	if(N<=record->GetDataOut())
-    		NewHeader->SetCE(1);
-    	else
-    		NewHeader->SetCE(0);
+    	
     		
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
