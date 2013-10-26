@@ -72,9 +72,9 @@ public:
     , m_sRtt   (Seconds (0))
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
-    , m_nack (1)
-    , m_data_in (1)
-    , m_data_ce (1)
+    , m_nack (1)	//not zero, because we wanna avoid werid conditions
+    , m_data_in (1) //not zero, because we wanna avoid werid conditions
+    , m_data_ce (1) //not zero, because we wanna avoid werid conditions
   { }
 
   /**

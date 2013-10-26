@@ -72,6 +72,7 @@ public:
     , m_sRtt   (Seconds (0))
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
+    , m_data_out (1) //not zero, because we wanna avoid werid conditions
   { }
 
   /**
@@ -161,6 +162,24 @@ public:
   {
     return m_status;
   }
+  
+  void
+  IncreaseDataOut()
+  {
+  	m_data_out++;
+  }
+  
+  void
+  SetDataOut(uint32_t rhs)
+  {
+  	m_data_out = rhs;
+  }
+  
+  uint32_t
+  GetDataOut() const
+  {
+  	return m_data_out;
+  }
 
 private:
   friend std::ostream& operator<< (std::ostream& os, const FaceMetric &metric);
@@ -179,6 +198,7 @@ private:
   Time m_rttVar;       ///< \brief round-trip time variation
 
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
+  uint32_t m_data_out;	///< \brief data outgoing rate (for every available face)
 };
 
 /// @cond include_hidden
@@ -311,6 +331,7 @@ public:
 private:
   friend std::ostream& operator<< (std::ostream& os, const Entry &entry);
 
+	void ResetCount();
 public:
   Ptr<const Name> m_prefix; ///< \brief Prefix of the FIB entry
   FaceMetricContainer::type m_faces; ///< \brief Indexed list of faces
