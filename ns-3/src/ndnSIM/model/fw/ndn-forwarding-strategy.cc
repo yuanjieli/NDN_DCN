@@ -158,6 +158,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       else
         {
           FailedToCreatePitEntry (inFace, header, origPacket);
+          NS_LOG_UNCOND("Fail to create PIT entry");
           return;
         }
     }
@@ -171,6 +172,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
   if (isDuplicated)
     {
+    	NS_LOG_UNCOND("Duplicate Interest");
       DidReceiveDuplicateInterest (inFace, header, origPacket, pitEntry);
       return;
     }

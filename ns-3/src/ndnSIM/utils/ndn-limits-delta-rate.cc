@@ -117,8 +117,8 @@ LimitsDeltaRate::GetAvailableInterestIncrement () const
 {
 	double Delta = m_bucketMax - m_bucket; 
 	Delta = Delta > 0 ? Delta : 0; 
-	//return Delta;	
-	return Delta/(m_nack+1);	
+	return Delta;	
+	//return Delta/(m_nack+1);	
 	//return 1/(m_nack+1);	//only care about whether remote links are congested as long as local links allow forwarding
 }
 
