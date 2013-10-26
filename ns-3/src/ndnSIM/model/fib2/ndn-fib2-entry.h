@@ -73,7 +73,7 @@ public:
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
     , m_data_out (1) //not zero, because we wanna avoid werid conditions
-  { }
+  {}
 
   /**
    * \brief Comparison operator used by boost::multi_index::identity<>
@@ -270,6 +270,7 @@ public:
   : m_prefix (prefix)
   , m_needsProbing (false)
   {
+  	ResetCount();
   }
 
   /**
