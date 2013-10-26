@@ -105,7 +105,7 @@ Ptr<Entry>
 Fib2Impl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
 {
   NS_LOG_FUNCTION (this->GetObject<Node> ()->GetId () << boost::cref(*prefix) << boost::cref(*face) << metric);
-
+	NS_LOG_UNCOND("Haha!");
   // will add entry if doesn't exists, or just return an iterator to the existing entry
   std::pair< super::iterator, bool > result = super::insert (*prefix, 0);
   if (result.first != super::end ())
@@ -127,11 +127,11 @@ Fib2Impl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
           this->GetObject<ForwardingStrategy> ()->DidAddFib2Entry (result.first->payload ());
         }
       
+      NS_LOG_UNCOND("Succeed!");
       return result.first->payload ();
     }
   else
   {
-  	NS_LOG_UNCOND("Fib2Impl::Add returns 0!");
     return 0;
   }
 }
