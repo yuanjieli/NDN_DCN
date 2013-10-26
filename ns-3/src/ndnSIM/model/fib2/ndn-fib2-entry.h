@@ -331,7 +331,7 @@ public:
 private:
   friend std::ostream& operator<< (std::ostream& os, const Entry &entry);
 
-	void ResetCount();
+	void ResetCount()
 public:
   Ptr<const Name> m_prefix; ///< \brief Prefix of the FIB entry
   FaceMetricContainer::type m_faces; ///< \brief Indexed list of faces
