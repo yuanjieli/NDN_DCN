@@ -1,54 +1,47 @@
-# project ns (3-dev) configured on Sat Oct 26 09:36:39 2013 by
-# waf 1.6.11 (abi 98, python 20605f0 on linux2)
-# using ./waf configure --boost-includes=/usr/local/include/ --boost-libs=/usr/local/lib/ --disable-python
+# project ns (3-dev) configured on Sat Oct 26 10:44:19 2013 by
+# waf 1.6.11 (abi 98, python 20705f0 on darwin)
+# using ./waf configure --disable-python
 #
 ----------------------------------------
 Setting top to
-/home/yuanjie/NDN_DCN/ns-3
+/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3
 ----------------------------------------
 Setting out to
-/home/yuanjie/NDN_DCN/ns-3/build
+/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build
 ----------------------------------------
 Checking for 'gcc' (c compiler)
-find program=['gcc', 'cc'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='CC' -> '/usr/bin/gcc'
-find program=['ar'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='AR' -> '/usr/bin/ar'
-/usr/bin/gcc
+find program=['gcc', 'cc'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='CC' -> '/opt/local/bin/gcc'
+find program=['ar'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='AR' -> '/opt/local/bin/ar'
+/opt/local/bin/gcc
 ----------------------------------------
 Checking for 'g++' (c++ compiler)
-find program=['g++', 'c++'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='CXX' -> '/usr/bin/g++'
+find program=['g++', 'c++'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='CXX' -> '/opt/local/bin/g++'
 (tool ar is already loaded, skipping)
-/usr/bin/g++
+/opt/local/bin/g++
 ----------------------------------------
 Checking for program pkg-config
-not found
-find program=['pkg-config'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='PKG_CONFIG' -> ''
-from /home/yuanjie/NDN_DCN/ns-3: Could not find the program pkg-config
----------------------------------------------------------
-Checking for compilation flag -Wl,--soname=foo... support
-==>
-#include <stdio.h>
-int main() { return 0; }
-
-<==
-[1/2] [32mcxx: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
-[0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wl,--soname=foo', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cc', '-c', '-o', 'test.cc.1.o']
-[2/2] [33mcxxprogram: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
-[0m
-['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
-ok
----------------------------------------------------------
+/opt/local/bin/pkg-config
+find program=['pkg-config'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='PKG_CONFIG' -> '/opt/local/bin/pkg-config'
+----------------------------------------
 Checking boost includes
-1_53
----------------------------------------------------------
+1_54
+----------------------------------------
 Checking boost libs
 ok
----------------------------------------------------------
+----------------------------------------
 Checking for click location
 not found
-from /home/yuanjie/NDN_DCN/ns-3/src/config-store: pkg-config is not available
-from /home/yuanjie/NDN_DCN/ns-3/src/config-store: pkg-config is not available
----------------------------------------------------------
+--------------------------------------------------
+Checking for pkg-config flags for GTK_CONFIG_STORE
+['/opt/local/bin/pkg-config', '--cflags', '--libs', 'gtk+-2.0 >= 2.12']: '-D_REENTRANT -I/opt/local/include/gtk-2.0 -I/opt/local/lib/gtk-2.0/include -I/opt/local/include/pango-1.0 -I/opt/local/include/gio-unix-2.0/ -I/opt/local/include -I/opt/local/include/cairo -I/opt/local/include/atk-1.0 -I/opt/local/include/cairo -I/opt/local/include/pixman-1 -I/opt/local/include/libpng15 -I/opt/local/include -I/opt/local/include/gdk-pixbuf-2.0 -I/opt/local/include/libpng15 -I/opt/local/include/pango-1.0 -I/opt/local/include/harfbuzz -I/opt/local/include/pango-1.0 -I/opt/local/include/glib-2.0 -I/opt/local/lib/glib-2.0/include -I/opt/local/include -I/opt/local/include/freetype2 -I/opt/local/include -I/opt/local/include/freetype2 -I/opt/local/include -L/opt/local/lib -lgtk-x11-2.0 -lgdk-x11-2.0 -lpangocairo-1.0 -lgio-2.0 -lXrender -lXinerama -lXi -lXrandr -lXcursor -lXcomposite -lXdamage -lXfixes -lX11 -lXext -latk-1.0 -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lpangoft2-1.0 -lpango-1.0 -lm -lgobject-2.0 -lglib-2.0 -lintl -lfontconfig -lfreetype \n' (exit code 0)
+
+ok
+--------------------------------------------------
+Checking for pkg-config flags for LIBXML2
+['/opt/local/bin/pkg-config', '--cflags', '--libs', 'libxml-2.0 >= 2.6']: '-I/opt/local/include/libxml2 -L/opt/local/lib -lxml2 \n' (exit code 0)
+
+ok
+--------------------------------------------------
 Checking for type uint128_t
 ==>
 #include <stdint.h>
@@ -61,26 +54,26 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_9a9aa0a48a7447bdd461f06307f32dc7/test.cpp -> build/.conf_check_9a9aa0a48a7447bdd461f06307f32dc7/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
-err: ../test.cpp: In function ‘int main()’:
-../test.cpp:4: error: ‘uint128_t’ was not declared in this scope
-../test.cpp:4: error: expected primary-expression before ‘)’ token
-../test.cpp:4: error: expected ‘)’ before numeric constant
-../test.cpp:5: error: ‘uint128_t’ was not declared in this scope
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp: In function 'int main()':
+../test.cpp:4:7: error: 'uint128_t' was not declared in this scope
+../test.cpp:4:18: error: expected primary-expression before ')' token
+../test.cpp:4:20: error: expected ')' before numeric constant
+../test.cpp:5:14: error: 'uint128_t' was not declared in this scope
 
-from /home/yuanjie/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
     bld.compile()
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
     raise Errors.BuildError(self.producer.error)
 BuildError: Build failed
  -> task in 'testprog' failed (exit status 1): 
-	{task 17165136: cxx test.cpp -> test.cpp.1.o}
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+	{task 4359843664: cxx test.cpp -> test.cpp.1.o}
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 
 not found
-from /home/yuanjie/NDN_DCN/ns-3/src/core: The configuration failed
----------------------------------------------------------
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: The configuration failed
+--------------------------------------------------
 Checking for type __uint128_t
 ==>
 #include <stdint.h>
@@ -93,15 +86,15 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_703a8a276d4ad265d967b1b45f1fc578/test.cpp -> build/.conf_check_703a8a276d4ad265d967b1b45f1fc578/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_703a8a276d4ad265d967b1b45f1fc578/testbuild/test.cpp.1.o -> build/.conf_check_703a8a276d4ad265d967b1b45f1fc578/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_703a8a276d4ad265d967b1b45f1fc578/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_703a8a276d4ad265d967b1b45f1fc578/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking high precision time implementation
 128-bit integer
----------------------------------------------------------
+--------------------------------------------------
 Checking for header stdint.h
 ==>
 #include <stdint.h>
@@ -113,12 +106,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_c59373285bc13999c3df79164cb29af1/test.cpp -> build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/test.cpp.1.o -> build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header inttypes.h
 ==>
 #include <inttypes.h>
@@ -130,12 +123,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/test.cpp -> build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/test.cpp.1.o -> build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header sys/inttypes.h
 ==>
 #include <sys/inttypes.h>
@@ -147,22 +140,23 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_2ca1edb217ad9cef6c81468eb5adffbb/test.cpp -> build/.conf_check_2ca1edb217ad9cef6c81468eb5adffbb/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
-err: ../test.cpp:1:26: error: sys/inttypes.h: No such file or directory
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:26: fatal error: sys/inttypes.h: No such file or directory
+compilation terminated.
 
-from /home/yuanjie/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
     bld.compile()
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
     raise Errors.BuildError(self.producer.error)
 BuildError: Build failed
  -> task in 'testprog' failed (exit status 1): 
-	{task 17216720: cxx test.cpp -> test.cpp.1.o}
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+	{task 4360021520: cxx test.cpp -> test.cpp.1.o}
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 
 not found
-from /home/yuanjie/NDN_DCN/ns-3/src/core: The configuration failed
----------------------------------------------------------
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: The configuration failed
+--------------------------------------------------
 Checking for header sys/types.h
 ==>
 #include <sys/types.h>
@@ -174,12 +168,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_293985459965597c97c3759b44ed252b/test.cpp -> build/.conf_check_293985459965597c97c3759b44ed252b/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_293985459965597c97c3759b44ed252b/testbuild/test.cpp.1.o -> build/.conf_check_293985459965597c97c3759b44ed252b/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_293985459965597c97c3759b44ed252b/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_293985459965597c97c3759b44ed252b/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header sys/stat.h
 ==>
 #include <sys/stat.h>
@@ -191,12 +185,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_114df6287ed99356d14a06682bc98197/test.cpp -> build/.conf_check_114df6287ed99356d14a06682bc98197/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_114df6287ed99356d14a06682bc98197/testbuild/test.cpp.1.o -> build/.conf_check_114df6287ed99356d14a06682bc98197/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_114df6287ed99356d14a06682bc98197/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_114df6287ed99356d14a06682bc98197/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header dirent.h
 ==>
 #include <dirent.h>
@@ -208,12 +202,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_38008f7ca978e5462e378992d39050f1/test.cpp -> build/.conf_check_38008f7ca978e5462e378992d39050f1/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_38008f7ca978e5462e378992d39050f1/testbuild/test.cpp.1.o -> build/.conf_check_38008f7ca978e5462e378992d39050f1/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_38008f7ca978e5462e378992d39050f1/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_38008f7ca978e5462e378992d39050f1/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header stdlib.h
 ==>
 #include <stdlib.h>
@@ -225,12 +219,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_29f41b0aad55c9546dfc9b7ce9859059/test.cpp -> build/.conf_check_29f41b0aad55c9546dfc9b7ce9859059/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_29f41b0aad55c9546dfc9b7ce9859059/testbuild/test.cpp.1.o -> build/.conf_check_29f41b0aad55c9546dfc9b7ce9859059/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_29f41b0aad55c9546dfc9b7ce9859059/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_29f41b0aad55c9546dfc9b7ce9859059/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header signal.h
 ==>
 #include <signal.h>
@@ -242,12 +236,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_cc227f9b4319ad1c726eca4fb806395e/test.cpp -> build/.conf_check_cc227f9b4319ad1c726eca4fb806395e/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_cc227f9b4319ad1c726eca4fb806395e/testbuild/test.cpp.1.o -> build/.conf_check_cc227f9b4319ad1c726eca4fb806395e/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_cc227f9b4319ad1c726eca4fb806395e/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_cc227f9b4319ad1c726eca4fb806395e/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header pthread.h
 ==>
 
@@ -262,12 +256,12 @@ int main ()
 <==
 [1/2] [32mcxx: build/.conf_check_2be466e82e703a744ee152afe2b58299/test.cpp -> build/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-pthread', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/test.cpp.1.o -> build/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/testprog
 [0m
-['/usr/bin/g++', '-pthread', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_2be466e82e703a744ee152afe2b58299/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header stdint.h
 ==>
 #include <stdint.h>
@@ -279,12 +273,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_c59373285bc13999c3df79164cb29af1/test.cpp -> build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_INTTYPES_H=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/test.cpp.1.o -> build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_c59373285bc13999c3df79164cb29af1/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header inttypes.h
 ==>
 #include <inttypes.h>
@@ -296,12 +290,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/test.cpp -> build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/test.cpp.1.o -> build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_591f7be6a22ba3cd4f507fd8bc09bd2a/testbuild/testprog']
 yes
----------------------------------------------------------
+--------------------------------------------------
 Checking for header sys/inttypes.h
 ==>
 #include <sys/inttypes.h>
@@ -313,22 +307,23 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_2ca1edb217ad9cef6c81468eb5adffbb/test.cpp -> build/.conf_check_2ca1edb217ad9cef6c81468eb5adffbb/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
-err: ../test.cpp:1:26: error: sys/inttypes.h: No such file or directory
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:26: fatal error: sys/inttypes.h: No such file or directory
+compilation terminated.
 
-from /home/yuanjie/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
     bld.compile()
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
     raise Errors.BuildError(self.producer.error)
 BuildError: Build failed
  -> task in 'testprog' failed (exit status 1): 
-	{task 18123792: cxx test.cpp -> test.cpp.1.o}
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+	{task 4360058640: cxx test.cpp -> test.cpp.1.o}
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 
 not found
-from /home/yuanjie/NDN_DCN/ns-3/src/core: The configuration failed
----------------------------------------------------------
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: The configuration failed
+--------------------------------------------------
 Checking for library rt
 ==>
 
@@ -339,12 +334,26 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_fc0bab0b855f90bf0795892663948c43/test.cpp -> build/.conf_check_fc0bab0b855f90bf0795892663948c43/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-pthread', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE___UINT128_T=1', '-DINT64X64_USE_128=1', '-DHAVE_SYS_TYPES_H=1', '-DHAVE_SYS_STAT_H=1', '-DHAVE_DIRENT_H=1', '-DHAVE_STDLIB_H=1', '-DHAVE_GETENV=1', '-DHAVE_SIGNAL_H=1', '-DHAVE_PTHREAD_H=1', '-DHAVE_STDINT_H=1', '-DHAVE_INTTYPES_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_fc0bab0b855f90bf0795892663948c43/testbuild/test.cpp.1.o -> build/.conf_check_fc0bab0b855f90bf0795892663948c43/testbuild/testprog
 [0m
-['/usr/bin/g++', '-pthread', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_fc0bab0b855f90bf0795892663948c43/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lrt']
-yes
----------------------------------------------------------
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_fc0bab0b855f90bf0795892663948c43/testbuild/testprog', '-lrt']
+err: ld: library not found for -lrt
+collect2: error: ld returned 1 exit status
+
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: Test does not build: Traceback (most recent call last):
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
+    bld.compile()
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 4360058064: cxxprogram test.cpp.1.o -> testprog}
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_fc0bab0b855f90bf0795892663948c43/testbuild/testprog', '-lrt']
+
+not found
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/core: The configuration failed
+--------------------------------------------------
 Checking for header netpacket/packet.h
 ==>
 #include <netpacket/packet.h>
@@ -356,25 +365,36 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_0927534631877d46f179382e3e16c60a/test.cpp -> build/.conf_check_0927534631877d46f179382e3e16c60a/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
-[2/2] [33mcxxprogram: build/.conf_check_0927534631877d46f179382e3e16c60a/testbuild/test.cpp.1.o -> build/.conf_check_0927534631877d46f179382e3e16c60a/testbuild/testprog
-[0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_0927534631877d46f179382e3e16c60a/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
-yes
----------------------------------------------------------
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:30: fatal error: netpacket/packet.h: No such file or directory
+compilation terminated.
+
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/emu: Test does not build: Traceback (most recent call last):
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
+    bld.compile()
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 4359598288: cxx test.cpp -> test.cpp.1.o}
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/emu: The configuration failed
+--------------------------------------------------
 Checking for NSC location
 not found
 (tool boost is already loaded, skipping)
----------------------------------------------------------
+--------------------------------------------------
 Checking boost includes
-1_53
----------------------------------------------------------
+1_54
+--------------------------------------------------
 Checking boost libs
 ok
----------------------------------------------------------
+--------------------------------------------------
 Checking for OpenFlow location
 not found
----------------------------------------------------------
+--------------------------------------------------
 Checking for library sqlite3
 ==>
 
@@ -385,27 +405,12 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_39b3cecfac3989b2ed760243cef109e6/test.cpp -> build/.conf_check_39b3cecfac3989b2ed760243cef109e6/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_39b3cecfac3989b2ed760243cef109e6/testbuild/test.cpp.1.o -> build/.conf_check_39b3cecfac3989b2ed760243cef109e6/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_39b3cecfac3989b2ed760243cef109e6/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lsqlite3']
-err: /usr/bin/ld: cannot find -lsqlite3
-collect2: ld returned 1 exit status
-
-from /home/yuanjie/NDN_DCN/ns-3/src/stats: Test does not build: Traceback (most recent call last):
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
-    bld.compile()
-  File "/home/yuanjie/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
-    raise Errors.BuildError(self.producer.error)
-BuildError: Build failed
- -> task in 'testprog' failed (exit status 1): 
-	{task 17219472: cxxprogram test.cpp.1.o -> testprog}
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_39b3cecfac3989b2ed760243cef109e6/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-lsqlite3']
-
-not found
-from /home/yuanjie/NDN_DCN/ns-3/src/stats: The configuration failed
-from /home/yuanjie/NDN_DCN/ns-3/src/stats: pkg-config is not available
----------------------------------------------------------
+['/opt/local/bin/g++', 'test.cpp.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_39b3cecfac3989b2ed760243cef109e6/testbuild/testprog', '-lsqlite3']
+yes
+--------------------------------------------------
 Checking for header linux/if_tun.h
 ==>
 #include <linux/if_tun.h>
@@ -417,20 +422,39 @@ int main() {
 <==
 [1/2] [32mcxx: build/.conf_check_e2bf758aaca47858b67848f504a8de27/test.cpp -> build/.conf_check_e2bf758aaca47858b67848f504a8de27/testbuild/test.cpp.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
-[2/2] [33mcxxprogram: build/.conf_check_e2bf758aaca47858b67848f504a8de27/testbuild/test.cpp.1.o -> build/.conf_check_e2bf758aaca47858b67848f504a8de27/testbuild/testprog
-[0m
-['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_e2bf758aaca47858b67848f504a8de27/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
-yes
----------------------------------------------------------
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:26: fatal error: linux/if_tun.h: No such file or directory
+compilation terminated.
+
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/tap-bridge: Test does not build: Traceback (most recent call last):
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Tools/c_config.py", line 445, in run_c_code
+    bld.compile()
+  File "/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/.waf-1.6.11-30618c54883417962c38f5d395f83584/waflib/Build.py", line 190, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 4359985616: cxx test.cpp -> test.cpp.1.o}
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/src/tap-bridge: The configuration failed
+--------------------------------------------------
 Checking for program sudo
 /usr/bin/sudo
-find program=['sudo'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='SUDO' -> '/usr/bin/sudo'
----------------------------------------------------------
+find program=['sudo'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='SUDO' -> '/usr/bin/sudo'
+--------------------------------------------------
 Checking for program valgrind
 /usr/local/bin/valgrind
-find program=['valgrind'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='VALGRIND' -> '/usr/local/bin/valgrind'
-from /home/yuanjie/NDN_DCN/ns-3: pkg-config is not available
+find program=['valgrind'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='VALGRIND' -> '/usr/local/bin/valgrind'
+--------------------------------------------------
+Checking for pkg-config flags for GSL
+['/opt/local/bin/pkg-config', '--cflags', '--libs', 'gsl']: '' (exit code 1)
+Package gsl was not found in the pkg-config search path.
+Perhaps you should add the directory containing `gsl.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'gsl' found
+
+not found
 ----------------------------------------------------------------
 Checking for compilation flag -Wno-error=deprecated-d... support
 ==>
@@ -440,10 +464,10 @@ int main() { return 0; }
 <==
 [1/2] [32mcxx: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wno-error=deprecated-declarations', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_IF_TUN_H=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wno-error=deprecated-declarations', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cc.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog']
 ok
 ----------------------------------------------------------------
 Checking for compilation flag -Wno-error=deprecated-d... support
@@ -454,10 +478,10 @@ int main() { return 0; }
 <==
 [1/2] [32mc: build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/test.c -> build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o
 [0m
-['/usr/bin/gcc', '-Wno-error=deprecated-declarations', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_IF_TUN_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+['/opt/local/bin/gcc', '-Wno-error=deprecated-declarations', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.c', '-c', '-o', 'test.c.1.o']
 [2/2] [33mcprogram: build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o -> build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog
 [0m
-['/usr/bin/gcc', 'test.c.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/gcc', 'test.c.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog']
 ok
 ----------------------------------------------------------------
 Checking for compilation flag -fstrict-aliasing... support
@@ -468,10 +492,10 @@ int main() { return 0; }
 <==
 [1/2] [32mcxx: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wno-error=deprecated-declarations', '-fstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_IF_TUN_H=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wno-error=deprecated-declarations', '-fstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cc.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog']
 ok
 ----------------------------------------------------------------
 Checking for compilation flag -fstrict-aliasing... support
@@ -482,10 +506,10 @@ int main() { return 0; }
 <==
 [1/2] [32mc: build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/test.c -> build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o
 [0m
-['/usr/bin/gcc', '-fstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_IF_TUN_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+['/opt/local/bin/gcc', '-fstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.c', '-c', '-o', 'test.c.1.o']
 [2/2] [33mcprogram: build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o -> build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog
 [0m
-['/usr/bin/gcc', 'test.c.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/gcc', 'test.c.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog']
 ok
 ----------------------------------------------------------------
 Checking for compilation flag -Wstrict-aliasing... support
@@ -496,10 +520,10 @@ int main() { return 0; }
 <==
 [1/2] [32mcxx: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/test.cc -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o
 [0m
-['/usr/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wno-error=deprecated-declarations', '-fstrict-aliasing', '-Wstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_IF_TUN_H=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
+['/opt/local/bin/g++', '-O0', '-ggdb', '-g3', '-Wall', '-Werror', '-Wno-error=deprecated-declarations', '-fstrict-aliasing', '-Wstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.cc', '-c', '-o', 'test.cc.1.o']
 [2/2] [33mcxxprogram: build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/test.cc.1.o -> build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog
 [0m
-['/usr/bin/g++', 'test.cc.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/g++', 'test.cc.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_fe0ca542f39064c5a14ee41a2e983996/testbuild/testprog']
 ok
 ----------------------------------------------------------------
 Checking for compilation flag -Wstrict-aliasing... support
@@ -510,13 +534,13 @@ int main() { return 0; }
 <==
 [1/2] [32mc: build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/test.c -> build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o
 [0m
-['/usr/bin/gcc', '-Wstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DHAVE_PACKET_H=1', '-DHAVE_IF_TUN_H=1', '../test.c', '-c', '-o', 'test.c.1.o']
+['/opt/local/bin/gcc', '-Wstrict-aliasing', '-DNS3_ASSERT_ENABLE', '-DNS3_LOG_ENABLE', '-DSQLITE3=1', '../test.c', '-c', '-o', 'test.c.1.o']
 [2/2] [33mcprogram: build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/test.c.1.o -> build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog
 [0m
-['/usr/bin/gcc', 'test.c.1.o', '-o', '/home/yuanjie/NDN_DCN/ns-3/build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+['/opt/local/bin/gcc', 'test.c.1.o', '-o', '/Users/yuanjieli/Documents/Research/NDN_DCN/ns-3/build/.conf_check_d8a2c40aecfb7c8eac7dd03fcbfb1110/testbuild/testprog']
 ok
 ----------------------------------------------------------------
 Checking for program doxygen
 not found
-find program=['doxygen'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/usr/games'] var='DOXYGEN' -> ''
-from /home/yuanjie/NDN_DCN/ns-3: Could not find the program doxygen
+find program=['doxygen'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin', '/opt/X11/bin', '/usr/texbin'] var='DOXYGEN' -> ''
+from /Users/yuanjieli/Documents/Research/NDN_DCN/ns-3: Could not find the program doxygen
