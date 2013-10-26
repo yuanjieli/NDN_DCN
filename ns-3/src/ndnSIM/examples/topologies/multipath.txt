@@ -1,0 +1,23 @@
+#Multipath, multiple data flows, single hop
+
+router
+
+# node  comment     yPos    xPos
+C1      NA          0       0
+C2      NA          1       1
+R       NA          0       1
+P1      NA          0       3
+P2      NA          0       4
+
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+   C1        R          10Mbps      1        1ms     20
+   R         C1         10Mbps      1        1ms     20
+   C2        R          10Mbps      1        1ms     20 
+   R         C2         10Mbps      1        1ms     20
+   R         P1         1Mbps      1        1ms     20
+   P1        R          1Mbps      1        1ms     20
+   R         P2         2Mbps      1        1ms     20
+   P2        R          2Mbps      1        1ms     20

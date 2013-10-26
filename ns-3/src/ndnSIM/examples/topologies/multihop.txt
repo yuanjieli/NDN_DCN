@@ -1,0 +1,31 @@
+#To show the multihop behavior in TCP
+
+router
+
+# node  comment     yPos    xPos
+C1      NA          0       0
+C2      NA          1       1
+R1      NA          0       1
+R2      NA          0       2
+R3      NA          0       3
+P1      NA          0       4
+#P2      NA          0       5
+
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+   C1        R1         10Mbps      1        1ms     20
+   R1        C1         10Mbps      1        1ms     20
+   C2        R2         10Mbps      1        1ms     20 
+   R2        C2         10Mbps      1        1ms     20
+   R1        R2         5Mbps       1        1ms     20
+   R2        R1         5Mbps       1        1ms     20 
+   R1        R3         5Mbps       1        1ms     20
+   R3        R1         5Mbps       1        1ms     20 
+   R2        P1         1Mbps       1        1ms     20
+   P1        R2         1Mbps       1        1ms     20
+#   R3        P2         2Mbps       1        1ms     20
+#   P2        R3         2Mbps       1        1ms     20
+   R3        P1         2Mbps       1        1ms     20
+   P1        R3         2Mbps       1        1ms     20
