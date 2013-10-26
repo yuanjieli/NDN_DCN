@@ -270,9 +270,11 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       {
       	NS_LOG_UNCOND("FIB does not exist");
       }
-      record->IncreaseDataIn();
+      m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseDataIn, ll::_1));
       if(header->GetCE()==1)
-      	record->IncreaseDataCE();
+      	m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));
     	/////////////////////////////////////////////////////
       bool cached = false;
 
@@ -423,6 +425,10 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
       	NS_LOG_UNCOND("Yuanjie:something is wrong");
       	return;
       }
+      //update dataout counter
+      m_faces.modify (record,
+                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
+			//mark the data with probability
       uint32_t max_data_out = 0;
       for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
        face != fib2Entry->m_faces.end ();
