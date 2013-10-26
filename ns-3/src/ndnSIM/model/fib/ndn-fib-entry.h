@@ -222,7 +222,7 @@ public:
   double
   GetSharingMetric() const
   {
-  	return (double)m_data_in*(double)*m_data_in/(double)m_data_ce-(double)m_nack;
+  	return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;
   }
 
 private:
