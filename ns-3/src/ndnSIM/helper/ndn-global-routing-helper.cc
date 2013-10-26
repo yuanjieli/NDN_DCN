@@ -449,6 +449,18 @@ GlobalRoutingHelper::CalculateAllPossibleRoutes ()
 void
 GlobalRoutingHelper::CalculateFIB2 ()
 {
+	//clear old entries
+	for (NodeList::Iterator node = NodeList::Begin (); node != NodeList::End (); node++)
+	{
+		Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
+	  if (source == 0)
+		{
+			NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
+			continue;
+		}
+		Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
+		fib2->InvalidateAll ();
+	}
 	//FIXME: for each entry, put ALL faces into it
 	//for each node(producer)'s all available prefixes 
 	for (NodeList::Iterator node = NodeList::Begin (); node != NodeList::End (); node++)
@@ -471,7 +483,6 @@ GlobalRoutingHelper::CalculateFIB2 ()
 					  continue;
 					}
 					Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
-		      //fib2->InvalidateAll ();
 		      NS_ASSERT (fib2 != 0);
 		      
 		      Ptr<L3Protocol> ndn = (*node2)->GetObject<L3Protocol> ();

@@ -130,7 +130,10 @@ Fib2Impl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
       return result.first->payload ();
     }
   else
+  {
+  	NS_LOG_UNCOND("Fib2Impl::Add returns 0!");
     return 0;
+  }
 }
 
 void
