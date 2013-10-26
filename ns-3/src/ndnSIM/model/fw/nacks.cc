@@ -108,7 +108,7 @@ Nacks::OnNack (Ptr<Face> inFace,
   {
   	NS_LOG_UNCOND("FIB does not exist");
   }
-  m_faces.modify (record,
+  fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
  
   DidReceiveValidNack (inFace, header->GetNack (), header, origPacket, pitEntry);
