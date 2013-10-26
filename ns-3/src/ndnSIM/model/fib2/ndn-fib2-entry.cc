@@ -170,7 +170,7 @@ Entry::ResetCount()
     {
       
       m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetDataOut, ll::_1, 1));
+                      ll::bind (&FaceMetric::SetDataOut, ll::_1, 2));
     }
     
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
