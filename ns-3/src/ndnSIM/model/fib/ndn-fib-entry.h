@@ -220,7 +220,7 @@ public:
   }
   
   double
-  GetForwardingMetric() const
+  GetSharingMetric() const
   {
   	return (double)m_data_in*(double)*m_data_in/(double)m_data_ce-(double)m_nack;
   }

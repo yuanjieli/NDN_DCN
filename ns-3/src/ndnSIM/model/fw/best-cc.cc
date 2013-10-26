@@ -116,11 +116,11 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	    
 	    fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
       = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it);
-      if (record->GetForwardingMetric()>max_M 
+      if (record->GetSharingMetric()>max_M 
 	      &&  CanSendOutInterest (inFace, *it, header, origPacket, pitEntry))
 	      {
 	      	optimalFace = *it;
-	      	max_M = record->GetForwardingMetric();
+	      	max_M = record->GetSharingMetric();
 	      }		
       
 	  }
