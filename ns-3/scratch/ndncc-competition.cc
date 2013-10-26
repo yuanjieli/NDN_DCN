@@ -32,7 +32,7 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {
-	int simulation_time = 400;
+	int simulation_time = 100;
   // setting default parameters for PointToPoint links and channels
   Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1ms"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
