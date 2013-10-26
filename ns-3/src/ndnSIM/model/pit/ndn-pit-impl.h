@@ -358,9 +358,6 @@ PitImpl<Policy>::Create (Ptr<const Interest> header)
   Ptr<fib2::Entry> fib2Entry = m_fib2->LongestPrefixMatch (*header);
   if (fibEntry == 0 || fib2Entry == 0)
   {
-  	if(m_fib2==NULL)
-  		NS_LOG_UNCOND("m_fib2 is NULL");
-  	NS_LOG_UNCOND("fib2Entry is NULL");
     return 0;
   }
 
