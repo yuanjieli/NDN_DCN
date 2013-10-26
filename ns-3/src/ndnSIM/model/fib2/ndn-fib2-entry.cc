@@ -24,6 +24,8 @@
 #include "ns3/log.h"
 #include "ns3/simulator.h"
 
+#include "ns3/node.h"
+
 #define NDN_RTO_ALPHA 0.125
 #define NDN_RTO_BETA 0.25
 #define NDN_RTO_K 4
