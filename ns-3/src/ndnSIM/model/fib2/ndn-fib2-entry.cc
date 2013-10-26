@@ -78,7 +78,7 @@ Entry::UpdateFaceRtt (Ptr<Face> face, const Time &sample)
 {
   FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
   NS_ASSERT_MSG (record != m_faces.get<i_face> ().end (),
-                 "Update status can be performed only on existing faces of CcxnFibEntry");
+                 "Update status can be performed only on existing faces of CcxnFib2Entry");
 
   m_faces.modify (record,
                   ll::bind (&FaceMetric::UpdateRtt, ll::_1, sample));
@@ -94,7 +94,7 @@ Entry::UpdateStatus (Ptr<Face> face, FaceMetric::Status status)
 
   FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
   NS_ASSERT_MSG (record != m_faces.get<i_face> ().end (),
-                 "Update status can be performed only on existing faces of CcxnFibEntry");
+                 "Update status can be performed only on existing faces of CcxnFib2Entry");
 
   m_faces.modify (record,
                   ll::bind (&FaceMetric::SetStatus, ll::_1, status));

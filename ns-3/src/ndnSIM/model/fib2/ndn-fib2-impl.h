@@ -61,7 +61,7 @@ private:
 
 /**
  * \ingroup ndn
- * \brief Class implementing FIB functionality
+ * \brief Class implementing FIB2 functionality
  */
 class Fib2Impl : public Fib2,
                 protected ndnSIM::trie_with_policy< Name,
