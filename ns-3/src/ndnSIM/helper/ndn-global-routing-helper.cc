@@ -450,6 +450,7 @@ void
 GlobalRoutingHelper::CalculateFIB2 ()
 {
 	//FIXME: for each entry, put ALL faces into it
+	//for each node(producer)'s all available prefixes 
 	for (NodeList::Iterator node = NodeList::Begin (); node != NodeList::End (); node++)
     {
 	      Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
@@ -458,28 +459,39 @@ GlobalRoutingHelper::CalculateFIB2 ()
 				  NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
 				  continue;
 				}
+				std::list< Ptr<Name> > LocalPrefixList = source->GetLocalPrefixes();
 	
-	
-	      Ptr<Fib2>  fib2  = source->GetObject<Fib2> ();
-	      fib2->InvalidateAll ();
-	      NS_ASSERT (fib2 != 0);
-	      
-	      Ptr<L3Protocol> ndn = (*node)->GetObject<L3Protocol> ();
-  			NS_ASSERT_MSG (ndn != 0, "Cannot install GlobalRoutingHelper before Ndn is installed on a node");
-	      
-	      std::list< Ptr<Name> > LocalPrefixList = source->GetLocalPrefixes();
-	      
-	      for(std::list< Ptr<Name> >::iterator it = LocalPrefixList.begin(); it != LocalPrefixList.end(); it++)
-	      { 
-	      	//for each prefix
-	      	for(uint32_t i=0; i != ndn->GetNFaces(); i++)
-		      {
-		      	//put every face into it
-		      	NS_LOG_UNCOND("Fib2 is adding "<<*(*it)<<" to node"<<(*node)->GetId());
-		      	fib2->Add (*it, ndn->GetFace(i), 0);
-		      }  
-	      }
-	          
+				//for all nodes
+				for (NodeList::Iterator node2 = NodeList::Begin (); node2 != NodeList::End (); node2++)
+				{
+					Ptr<GlobalRouter> source2 = (*node2)->GetObject<GlobalRouter> ();
+		      if (source2 == 0)
+					{
+					  NS_LOG_DEBUG ("Node " << (*node2)->GetId () << " does not export GlobalRouter interface");
+					  continue;
+					}
+					Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
+		      fib2->InvalidateAll ();
+		      NS_ASSERT (fib2 != 0);
+		      
+		      Ptr<L3Protocol> ndn = (*node2)->GetObject<L3Protocol> ();
+  				NS_ASSERT_MSG (ndn != 0, "Cannot install GlobalRoutingHelper before Ndn is installed on a node");
+		      
+		      for(std::list< Ptr<Name> >::iterator it = LocalPrefixList.begin(); it != LocalPrefixList.end(); it++)
+		      { 
+		      	//for each prefix
+		      	for(uint32_t i=0; i != ndn->GetNFaces(); i++)
+			      {
+			      	//put every face into it
+			      	NS_LOG_UNCOND("Fib2 is adding "<<*(*it)
+			      								<<" to node "<<(*node2)->GetId()
+			      								<<" at face "<<i);
+			      	fib2->Add (*it, ndn->GetFace(i), 0);
+			      }  
+		      }
+					
+				}
+	             
     }
 }
 
