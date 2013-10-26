@@ -76,7 +76,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 {
 	  NS_LOG_FUNCTION (this << header->GetName ());
 	  int propagatedCount = 0;
-	  double max_M = -1;
+	  double max_M = -100000;
 	  Ptr<Face> optimalFace=0;
   
   

@@ -72,9 +72,9 @@ public:
     , m_sRtt   (Seconds (0))
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
-    , m_nack (1)	//not zero, because we wanna avoid werid conditions
-    , m_data_in (1) //not zero, because we wanna avoid werid conditions
-    , m_data_ce (1) //not zero, because we wanna avoid werid conditions
+    , m_nack (0)	//not zero, because we wanna avoid werid conditions
+    , m_data_in (0) //not zero, because we wanna avoid werid conditions
+    , m_data_ce (0) //not zero, because we wanna avoid werid conditions
   { }
 
   /**
@@ -222,7 +222,10 @@ public:
   double
   GetSharingMetric() const
   {
-  	return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;
+  	if(m_data_ce==0)	//boundary condition at begining
+  		return -(double)m_nack;
+  	else
+  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;
   }
 
 private:

@@ -72,7 +72,7 @@ public:
     , m_sRtt   (Seconds (0))
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
-    , m_data_out (1) //not zero, because we wanna avoid werid conditions
+    , m_data_out (0) //not zero, because we wanna avoid werid conditions
   {}
 
   /**

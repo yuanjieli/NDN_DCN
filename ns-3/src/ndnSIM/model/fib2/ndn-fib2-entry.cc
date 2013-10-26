@@ -175,8 +175,8 @@ Entry::ResetCount()
 	    								<<" nodeID="<<face->GetFace()->GetNode()->GetId()
 	      							<<" faceID="<<face->GetFace()->GetId()
 	    								<<" Data_out="<<face->GetDataOut());
-      /*m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetDataOut, ll::_1, 1));*/
+      m_faces.modify (face,
+                      ll::bind (&FaceMetric::SetDataOut, ll::_1, 0));
     }
     
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
