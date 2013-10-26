@@ -458,7 +458,7 @@ GlobalRoutingHelper::CalculateFIB2 ()
 			NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
 			continue;
 		}
-		Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
+		Ptr<Fib2>  fib2  = source->GetObject<Fib2> ();
 		fib2->InvalidateAll ();
 	}
 	//FIXME: for each entry, put ALL faces into it
