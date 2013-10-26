@@ -398,7 +398,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     {
     	//by Felix: mark the data packet
     	////////////////////////////////////////////////////////////////////
-    	Ptr<const Packet> target = origPacket->Copy();
+    	Ptr<Packet> target = origPacket->Copy();
     	Ptr<ContentObject> NewHeader = Create<ContentObject> ();
     	target->RemoveHeader(*NewHeader);
     	fib2::Entry fib2Entry=pitEntry->GetFib2Entry();
