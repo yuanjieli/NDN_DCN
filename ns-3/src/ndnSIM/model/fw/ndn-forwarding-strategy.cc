@@ -419,11 +419,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();
     	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
       = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
-      if(record==fib2Entry->m_faces.get<fib2::i_face> ().end ())
-      {
-      	NS_LOG_UNCOND("SatisfyPendingInterest: fail to match fib2Entry");
-      	return;
-      }
+      
+      NS_ASSERT(record!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
+      
       //update dataout counter
       fib2Entry->m_faces.modify (record,
                       ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
