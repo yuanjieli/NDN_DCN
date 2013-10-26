@@ -72,7 +72,7 @@ StackHelper::StackHelper ()
   m_strategyFactory.    SetTypeId ("ns3::ndn::fw::Flooding");
   m_contentStoreFactory.SetTypeId ("ns3::ndn::cs::Lru");
   m_fibFactory.         SetTypeId ("ns3::ndn::fib::Default");
-  m_fib2Factory.				SetTypeId ("ns3::ndn::fib::Default");
+  m_fib2Factory.				SetTypeId ("ns3::ndn::fib2::Default");
   m_pitFactory.         SetTypeId ("ns3::ndn::pit::Persistent");
 
   m_netDeviceCallbacks.push_back (std::make_pair (PointToPointNetDevice::GetTypeId (), MakeCallback (&StackHelper::PointToPointNetDeviceCallback, this)));

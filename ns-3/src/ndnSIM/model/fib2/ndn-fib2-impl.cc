@@ -34,7 +34,7 @@
 #include <boost/lambda/bind.hpp>
 namespace ll = boost::lambda;
 
-NS_LOG_COMPONENT_DEFINE ("ndn.fib2.FibImpl");
+NS_LOG_COMPONENT_DEFINE ("ndn.fib2.Fib2Impl");
 
 namespace ns3 {
 namespace ndn {
