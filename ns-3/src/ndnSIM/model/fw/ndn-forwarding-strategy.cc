@@ -40,6 +40,7 @@
 
 #include "ns3/ndnSIM/utils/ndn-fw-hop-count-tag.h"
 
+
 #include <boost/ref.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -96,6 +97,7 @@ TypeId ForwardingStrategy::GetTypeId (void)
 
 ForwardingStrategy::ForwardingStrategy ()
 {
+	srand(time(0));
 }
 
 ForwardingStrategy::~ForwardingStrategy ()
@@ -394,7 +396,36 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
   //satisfy all pending incoming Interests
   BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
     {
-      bool ok = incoming.m_face->Send (origPacket->Copy ());
+    	//by Felix: mark the data packet
+    	////////////////////////////////////////////////////////////////////
+    	Ptr<const Packet> target = origPacket->Copy();
+    	Ptr<const ContentObject> header = Create<ContentObject>();
+    	target->RemoveHeader(*header);
+    	fib2::Entry fib2Entry=pitEntry->GetFib2Entry();
+    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
+      = fib2Entry->m_faces.get<i_face> ().find (incoming.m_face); 
+      if(record==fib2Entry->m_faces.get<fib2::i_face> ().end ())
+      {
+      	NS_LOG_UNCOND("Yuanjie:something is wrong");
+      	return;
+      }
+      uint32_t max_data_out = 0;
+      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
+       face != fib2Entry->m_faces.end ();
+       face++)
+    	{
+      	if(max_data_out<face->GetDataOut())
+      		max_data_out = face->GetDataOut();
+    	}
+    	
+    	uint32_t N = rand()%max_data_out;
+    	if(N<=record->GetDataOut())
+    		header->SetCE(1);
+    		
+    	target->AddHeader(*header);	
+    	////////////////////////////////////////////////////////////////////
+      
+      bool ok = incoming.m_face->Send (target);
 
       DidSendOutData (inFace, incoming.m_face, header, payload, origPacket, pitEntry);
       NS_LOG_DEBUG ("Satisfy " << *incoming.m_face);
