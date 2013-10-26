@@ -166,7 +166,6 @@ Entry::Invalidate ()
 void
 Entry::ResetCount()
 {
-	NS_LOG_UNCOND("ResetCount?");
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
