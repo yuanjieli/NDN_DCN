@@ -494,9 +494,9 @@ GlobalRoutingHelper::CalculateFIB2 ()
 		      	for(uint32_t i=0; i != ndn->GetNFaces(); i++)
 			      {
 			      	//put every face into it
-			      	NS_LOG_UNCOND("Fib2 is adding "<<*(*it)
+			      	/*NS_LOG_UNCOND("Fib2 is adding "<<*(*it)
 			      								<<" to node "<<(*node2)->GetId()
-			      								<<" at face "<<i);
+			      								<<" at face "<<i);*/
 			      	fib2->Add (*it, ndn->GetFace(i), 0);
 			      }  
 		      }

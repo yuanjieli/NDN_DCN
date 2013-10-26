@@ -424,7 +424,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
 	      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
 	      
-	      NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
+	      //NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
 	      NS_ASSERT(record!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
 	      
 	      //update dataout counter
