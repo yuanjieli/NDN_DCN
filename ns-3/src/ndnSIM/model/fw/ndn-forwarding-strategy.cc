@@ -449,7 +449,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 		    		NewHeader->SetCE(0);
 	    	}
 	    	else	//no data forwarded yet
-	    		NewHeader->SetCE(0);
+	    		NewHeader->SetCE(1);
 	    	
     	}
     	

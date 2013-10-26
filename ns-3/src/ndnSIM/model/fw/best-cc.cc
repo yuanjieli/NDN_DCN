@@ -125,7 +125,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
       
 	  }
 	  
-	  if (max_M == -1) //no interface available, return a NACK
+	  if (max_M == -100000) //no interface available, return a NACK
 	  	return false;
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
