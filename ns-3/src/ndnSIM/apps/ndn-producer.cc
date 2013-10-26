@@ -120,6 +120,7 @@ Producer::OnInterest (const Ptr<const Interest> &interest, Ptr<Packet> origPacke
   Ptr<ContentObject> header = Create<ContentObject> ();
   header->SetName (Create<Name> (interest->GetName ()));
   header->SetFreshness (m_freshness);
+  header->SetCE(0);
 
   NS_LOG_INFO ("node("<< GetNode()->GetId() <<") respodning with ContentObject:\n" << boost::cref(*header));
   
