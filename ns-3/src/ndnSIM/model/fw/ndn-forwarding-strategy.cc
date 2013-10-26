@@ -399,8 +399,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	//by Felix: mark the data packet
     	////////////////////////////////////////////////////////////////////
     	Ptr<const Packet> target = origPacket->Copy();
-    	Ptr<const ContentObject> header = Create<ContentObject>();
-    	target->RemoveHeader(*header);
+    	Ptr<ContentObject> Newheader = Create<ContentObject> ();
+    	target->RemoveHeader(*NewHeader);
     	fib2::Entry fib2Entry=pitEntry->GetFib2Entry();
     	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
       = fib2Entry->m_faces.get<i_face> ().find (incoming.m_face); 
@@ -420,9 +420,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	uint32_t N = rand()%max_data_out;
     	if(N<=record->GetDataOut())
-    		header->SetCE(1);
+    		NewHeader->SetCE(1);
     		
-    	target->AddHeader(*header);	
+    	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
       
       bool ok = incoming.m_face->Send (target);
