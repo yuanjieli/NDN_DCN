@@ -3,6 +3,8 @@
 #ifndef _NS3_CONFIG_STORE_CONFIG_H_WAF
 #define _NS3_CONFIG_STORE_CONFIG_H_WAF
 
-#define HAVE_LIBXML2 1
+#define PYTHONDIR "/usr/local/lib/python2.6/dist-packages"
+#define PYTHONARCHDIR "/usr/local/lib/python2.6/dist-packages"
+#define HAVE_PYTHON_H 1
 
 #endif /* _NS3_CONFIG_STORE_CONFIG_H_WAF */
