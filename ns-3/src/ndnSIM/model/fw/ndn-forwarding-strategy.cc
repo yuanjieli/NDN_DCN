@@ -401,9 +401,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	Ptr<Packet> target = origPacket->Copy();
     	Ptr<ContentObject> NewHeader = Create<ContentObject> ();
     	target->RemoveHeader(*NewHeader);
-    	fib2::Entry fib2Entry=pitEntry->GetFib2Entry();
+    	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();
     	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
-      = fib2Entry->m_faces.get<i_face> ().find (incoming.m_face); 
+      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
       if(record==fib2Entry->m_faces.get<fib2::i_face> ().end ())
       {
       	NS_LOG_UNCOND("Yuanjie:something is wrong");
