@@ -72,6 +72,9 @@ public:
     , m_sRtt   (Seconds (0))
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
+    , m_nack (1)
+    , m_data_in (1)
+    , m_data_ce (1)
   { }
 
   /**
@@ -308,6 +311,7 @@ public:
   : m_prefix (prefix)
   , m_needsProbing (false)
   {
+  	ResetCount();
   }
 
   /**
@@ -368,6 +372,8 @@ public:
 
 private:
   friend std::ostream& operator<< (std::ostream& os, const Entry &entry);
+  	
+  void ResetCount();
 
 public:
   Ptr<const Name> m_prefix; ///< \brief Prefix of the FIB entry

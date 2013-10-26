@@ -161,6 +161,26 @@ Entry::Invalidate ()
     }
 }
 
+void
+Entry::ResetCount()
+{
+	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {
+      m_faces.modify (face,
+                      ll::bind (&FaceMetric::SetNack, ll::_1, 1));
+
+      m_faces.modify (face,
+                      ll::bind (&FaceMetric::SetDataIn, ll::_1, 1));
+                      	
+      m_faces.modify (face,
+                      ll::bind (&FaceMetric::SetDataCE, ll::_1, 1));
+    }
+    
+  Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
+}
+
 const FaceMetric &
 Entry::FindBestCandidate (uint32_t skip/* = 0*/) const
 {
