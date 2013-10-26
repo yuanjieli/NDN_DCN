@@ -471,7 +471,7 @@ GlobalRoutingHelper::CalculateFIB2 ()
 					  continue;
 					}
 					Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
-		      fib2->InvalidateAll ();
+		      //fib2->InvalidateAll ();
 		      NS_ASSERT (fib2 != 0);
 		      
 		      Ptr<L3Protocol> ndn = (*node2)->GetObject<L3Protocol> ();

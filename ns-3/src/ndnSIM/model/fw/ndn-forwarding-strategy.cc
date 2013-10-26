@@ -421,7 +421,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
       = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
       if(record==fib2Entry->m_faces.get<fib2::i_face> ().end ())
       {
-      	NS_LOG_UNCOND("Yuanjie:something is wrong");
+      	NS_LOG_UNCOND("SatisfyPendingInterest: fail to match fib2Entry");
       	return;
       }
       //update dataout counter
