@@ -218,6 +218,12 @@ public:
   {
   	return m_data_ce;
   }
+  
+  double
+  GetForwardingMetric() const
+  {
+  	return (double)m_data_in*(double)*m_data_in/(double)m_data_ce-(double)m_nack;
+  }
 
 private:
   friend std::ostream& operator<< (std::ostream& os, const FaceMetric &metric);

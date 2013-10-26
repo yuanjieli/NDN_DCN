@@ -105,13 +105,24 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	      	max_M = 0;
 	      	break;
 	      }
-	    Ptr<LimitsDeltaRate> faceLimits = (*it)->GetObject<LimitsDeltaRate> ();
+	    /*Ptr<LimitsDeltaRate> faceLimits = (*it)->GetObject<LimitsDeltaRate> ();
+	    
 	    if (faceLimits->GetAvailableInterestIncrement()>max_M 
 	      &&  CanSendOutInterest (inFace, *it, header, origPacket, pitEntry))
 	      {
 	      	optimalFace = *it;
 	      	max_M = faceLimits->GetAvailableInterestIncrement();
-	      }
+	      }*/
+	    
+	    fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it);
+      if (record->GetForwardingMetric()>max_M 
+	      &&  CanSendOutInterest (inFace, *it, header, origPacket, pitEntry))
+	      {
+	      	optimalFace = *it;
+	      	max_M = record->GetForwardingMetric();
+	      }		
+      
 	  }
 	  
 	  if (max_M == -1) //no interface available, return a NACK
