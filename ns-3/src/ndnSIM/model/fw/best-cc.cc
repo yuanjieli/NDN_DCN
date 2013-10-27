@@ -132,6 +132,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  
 	  if (max_M == -100000) //no interface available, return a NACK
 	  	return false;
+	  NS_ASSERT(OptimalCandidates.size()!=0);
 	  
 	  optimalFace = OptimalCandidates.at(rand()%OptimalCandidates.size());
 	  
