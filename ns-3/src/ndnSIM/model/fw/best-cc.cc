@@ -96,7 +96,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  	}
 	
 		//Step2: choose ONE face based on our congestion control strategy
-		
+		std::vector< Ptr<Face> > OptimalCandidates;
 	  for(std::vector< Ptr<Face> >::iterator it = vecFaces.begin(); it !=vecFaces.end(); it++)
 	  {
 	  	if (DynamicCast<AppFace> (*it) !=0)	//this is an application
@@ -114,7 +114,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	      	max_M = faceLimits->GetAvailableInterestIncrement();
 	      }*/
 	    
-	    std::vector< Ptr<Face> > OptimalCandidates;
 	    fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
       = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it);
       if (record->GetSharingMetric()>=max_M 
