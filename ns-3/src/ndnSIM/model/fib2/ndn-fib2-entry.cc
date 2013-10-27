@@ -178,7 +178,7 @@ Entry::ResetCount()
       /*m_faces.modify (face,
                       ll::bind (&FaceMetric::SetDataOut, ll::_1, 0));*/
       m_faces.modify (face,
-                      ll::bind (&FaceMetric::ResetCounter, ll::_1, 0));
+                      ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
     
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
