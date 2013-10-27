@@ -75,6 +75,9 @@ public:
     , m_nack (0)	//not zero, because we wanna avoid werid conditions
     , m_data_in (0) //not zero, because we wanna avoid werid conditions
     , m_data_ce (0) //not zero, because we wanna avoid werid conditions
+    , m_nack_old (0)
+    , m_data_in_old (0)
+    , m_data_ce_old (0)
   { }
 
   /**
@@ -222,10 +225,29 @@ public:
   double
   GetSharingMetric() const
   {
-  	if(m_data_ce==0)	//boundary condition at begining
+  	/*if(m_data_ce==0)	//boundary condition at begining
   		return -(double)m_nack;
   	else
-  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;
+  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;*/
+  	
+  	//we used instant NACK counter, but old data counter
+  	if(m_data_ce_old==0)	//boundary condition at begining
+  		return -(double)m_nack;
+  	else
+  		return (double)m_data_in_old*(double)m_data_in_old/(double)m_data_ce_old-(double)m_nack;
+  	
+  }
+  
+  void 
+  ResetCounter ()
+  {
+  	m_data_in_old = m_data_in;
+  	m_data_ce_old = m_data_ce;
+  	m_nack_old = m_nack;
+  	
+  	m_data_in = 0;
+  	m_data_ce = 0;
+  	m_nack = 0;
   }
 
 private:
@@ -249,6 +271,10 @@ private:
 	uint32_t m_nack;		 ///< \brief nack counter
 	uint32_t m_data_in;  ///< \brief incoming data counter
 	uint32_t m_data_ce;  ///< \brief incoming marked data counter
+	//the following variables are used for storing counters last round
+	uint32_t m_nack_old;
+	uint32_t m_data_in_old;
+	uint32_t m_data_ce_old;
 };
 
 /// @cond include_hidden

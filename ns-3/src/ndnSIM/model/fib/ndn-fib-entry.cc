@@ -178,14 +178,16 @@ Entry::ResetCount()
 	    								<<" NACK="<<face->GetNack()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								<<" Data_CE="<<face->GetDataCE());
-      m_faces.modify (face,
+      /*m_faces.modify (face,
                       ll::bind (&FaceMetric::SetNack, ll::_1, 0));
 
       m_faces.modify (face,
                       ll::bind (&FaceMetric::SetDataIn, ll::_1, 0));
                       	
       m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetDataCE, ll::_1, 0));
+                      ll::bind (&FaceMetric::SetDataCE, ll::_1, 0));*/
+      m_faces.modify (face,
+                      ll::bind (&FaceMetric::ResetCounter, ll::_1, 0));
     }
     
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);

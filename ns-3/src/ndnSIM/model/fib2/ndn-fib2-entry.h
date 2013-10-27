@@ -73,6 +73,7 @@ public:
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
     , m_data_out (0) //not zero, because we wanna avoid werid conditions
+    , m_data_out_old (0)
   {}
 
   /**
@@ -178,9 +179,16 @@ public:
   uint32_t
   GetDataOut() const
   {
-  	return m_data_out;
+  	//return m_data_out;
+  	return m_data_out_old;
   }
 
+	void
+	ResetCounter()
+	{
+		m_data_out_old = m_data_out;
+		m_data_out = 0;
+	}
 private:
   friend std::ostream& operator<< (std::ostream& os, const FaceMetric &metric);
 
@@ -199,6 +207,7 @@ private:
 
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
   uint32_t m_data_out;	///< \brief data outgoing rate (for every available face)
+	uint32_t m_data_out_old;
 };
 
 /// @cond include_hidden
