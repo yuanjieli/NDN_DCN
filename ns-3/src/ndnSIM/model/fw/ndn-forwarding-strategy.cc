@@ -436,8 +436,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	       face != fib2Entry->m_faces.end ();
 	       face++)
 	    	{
-	      	if(max_data_out<face->GetDataOut())
-	      		max_data_out = face->GetDataOut();
+	      	//if(max_data_out<face->GetDataOut())
+	      		//max_data_out = face->GetDataOut();
+	      	max_data_out += face->GetDataOut();
 	    	}
 	    	
 	    	if(max_data_out)
