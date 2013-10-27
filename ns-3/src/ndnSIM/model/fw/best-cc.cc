@@ -122,9 +122,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	      	if(record->GetSharingMetric()>max_M)	
 	      	{
 	      		OptimalCandidates.clear();
-	      		
 	      	}
 	      	OptimalCandidates.push_back(*it); //we wanna evenly distribute traffic over paths with equal maximum value
+	      	NS_LOG_UNCOND("OptimalCandidates.size()"<<OptimalCandidates.size());
 	      	max_M = record->GetSharingMetric();
 	      }		
       
@@ -132,6 +132,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  
 	  if (max_M == -100000) //no interface available, return a NACK
 	  	return false;
+	  	
 	  NS_ASSERT(OptimalCandidates.size()!=0);
 	  
 	  optimalFace = OptimalCandidates.at(rand()%OptimalCandidates.size());
