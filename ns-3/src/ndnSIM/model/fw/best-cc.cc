@@ -114,12 +114,18 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	      	max_M = faceLimits->GetAvailableInterestIncrement();
 	      }*/
 	    
+	    std::vector< Ptr<Face> > OptimalCandidates;
 	    fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
       = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it);
-      if (record->GetSharingMetric()>max_M 
+      if (record->GetSharingMetric()>=max_M 
 	      &&  CanSendOutInterest (inFace, *it, header, origPacket, pitEntry))
 	      {
-	      	optimalFace = *it;
+	      	if(record->GetSharingMetric()>max_M)	
+	      	{
+	      		OptimalCandidates.clear();
+	      		
+	      	}
+	      	OptimalCandidates.push_back(*it); //we wanna evenly distribute traffic over paths with equal maximum value
 	      	max_M = record->GetSharingMetric();
 	      }		
       
@@ -127,6 +133,8 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  
 	  if (max_M == -100000) //no interface available, return a NACK
 	  	return false;
+	  
+	  optimalFace = OptimalCandidates.at(rand()%OptimalCandidates.size());
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
 	  faceLimits->BorrowLimit ();
