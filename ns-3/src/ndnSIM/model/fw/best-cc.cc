@@ -101,7 +101,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  {
 	  	if (DynamicCast<AppFace> (*it) !=0)	//this is an application
 	      {
-	      	optimalFace = *it;
+	      	OptimalCandidates.push_back(*it);
 	      	max_M = 0;
 	      	break;
 	      }
@@ -124,7 +124,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	      		OptimalCandidates.clear();
 	      	}
 	      	OptimalCandidates.push_back(*it); //we wanna evenly distribute traffic over paths with equal maximum value
-	      	NS_LOG_UNCOND("OptimalCandidates.size()"<<OptimalCandidates.size());
 	      	max_M = record->GetSharingMetric();
 	      }		
       
