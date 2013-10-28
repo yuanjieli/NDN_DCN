@@ -225,16 +225,16 @@ public:
   double
   GetSharingMetric() const
   {
-  	/*if(m_data_ce==0)	//boundary condition at begining
+  	if(m_data_ce==0)	//boundary condition at begining
   		return -(double)m_nack;
   	else
-  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;*/
+  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;
   	
   	//we used instant NACK counter, but old data counter
-  	if(m_data_ce_old==0)	//boundary condition at begining
+  	/*if(m_data_ce_old==0)	//boundary condition at begining
   		return -(double)m_nack;
   	else
-  		return (double)m_data_in_old*(double)m_data_in_old/(double)m_data_ce_old-(double)m_nack;
+  		return (double)m_data_in_old*(double)m_data_in_old/(double)m_data_ce_old-(double)m_nack;*/
   	
   }
   
