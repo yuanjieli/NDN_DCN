@@ -185,25 +185,38 @@ Entry::ResetCount()
     }
     
   //set fraction of traffic
+  double minCost = 1000000;
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+  {
+  	if(face->GetRoutingMetric()<minCost)
+  		minCost = face->GetRoutingMetric();
+  }
   double totalMetric = 0;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
-    {    	
-    	totalMetric += (1+face->GetDataIn())*(1+face->GetDataIn())
-    	              /((1+face->GetNack())*(1+face->GetDataCE()));	    								
+    {  
+    	if(face->GetRoutingMetric()==minCost)  	
+	    	totalMetric += (1+face->GetDataIn())*(1+face->GetDataIn())
+	    	              /((1+face->GetNack())*(1+face->GetDataCE()));	    								
     }   
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
-    {    	
-    	double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
+    { 
+    	if(face->GetRoutingMetric()==minCost)
+    	{
+    		double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
     	              /((1+face->GetNack())*(1+face->GetDataCE())); 
     	              
-    	NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
-    	m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetSharingMetirc, ll::_1,100*tmp/totalMetric));								
+	    	NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
+	    	m_faces.modify (face,
+	                      ll::bind (&FaceMetric::SetSharingMetirc, ll::_1,100*tmp/totalMetric));
+    	}   	
+    									
     }   
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
