@@ -200,6 +200,8 @@ Entry::ResetCount()
     {    	
     	double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
     	              /((1+face->GetNack())*(1+face->GetDataCE())); 
+    	              
+    	NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
     	m_faces.modify (face,
                       ll::bind (&FaceMetric::SetSharingMetirc, ll::_1,100*tmp/totalMetric));								
     }   
