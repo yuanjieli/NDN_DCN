@@ -234,12 +234,6 @@ public:
   	return m_sharing_metric;
   }
   
-  void
-  SetSharingMetirc(double rhs) //if 50%, rhs=50
- 	{
- 		m_sharing_metric = rhs;
- 	}
-  
   void 
   ResetCounter ()
   {
@@ -249,8 +243,8 @@ public:
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack;
   	
   	//avoid zero devision
-  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
+  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));
   	
   	m_data_in = 0;
   	m_data_ce = 0;

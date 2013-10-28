@@ -169,29 +169,58 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  	}
 	
 		//Step2: choose ONE face based on our congestion control strategy
-		double target = rand()%100;
-		double coin = 0;
-		for(std::vector< Ptr<Face> >::iterator it = vecFaces.begin(); it !=vecFaces.end(); it++)
+		double totalMetric = -1;
+		std::vector< Ptr<Face> > OptimalCandidates;
+	  for(std::vector< Ptr<Face> >::iterator it = vecFaces.begin(); it !=vecFaces.end(); it++)
 	  {
 	  	if (DynamicCast<AppFace> (*it) !=0)	//this is an application
 	      {
-	      	optimalFace = *it;
+	      	OptimalCandidates.push_back(*it);
+	      	totalMetric = 0;
 	      	break;
 	      }
-	      
+	   
 	    fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
       = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it);
+      if (CanSendOutInterest (inFace, *it, header, origPacket, pitEntry))
+	      {
+	      	OptimalCandidates.push_back(*it); //we wanna evenly distribute traffic over paths with equal maximum value
+	      	if(totalMetric==-1)
+	      		totalMetric = record->GetSharingMetric();
+	      	else
+	      		totalMetric += record->GetSharingMetric();
+	      }		
       
-      coin += record->GetSharingMetric();	
-      if (CanSendOutInterest (inFace, *it, header, origPacket, pitEntry)
-      && coin>=target)
-      {
-      	optimalFace = *it;
-      	break;
-      }
-    }
-      	
-		
+	  }
+	  
+	  if (totalMetric == -1) //no interface available, return a NACK
+	  	return false;
+	  	
+	  NS_ASSERT(OptimalCandidates.size()!=0);
+	  
+	  if(totalMetric!=0)
+	  {
+	  	int target = rand()%(int)totalMetric;
+	  	int coin = 0;
+	  
+		  for(std::vector< Ptr<Face> >::iterator it_optimal = OptimalCandidates.begin();
+		  		it_optimal != OptimalCandidates.end(); it_optimal++)
+		  {
+		  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it_optimal);
+	      coin += record->GetSharingMetric();
+	      	
+	      if(coin>=target)
+	      {
+	      	optimalFace = *it_optimal;
+	      	break;
+	      }
+		  }
+	  }
+	  else	//app-face
+	  	optimalFace = OptimalCandidates[0];
+	  
+	  
 	  NS_ASSERT(optimalFace!=0);
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();

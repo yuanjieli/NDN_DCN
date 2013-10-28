@@ -184,27 +184,6 @@ Entry::ResetCount()
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
     
-  //set fraction of traffic
-  double totalMetric = 0;
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-    {    	
-    	totalMetric += (1+face->GetDataIn())*(1+face->GetDataIn())
-    	              /((1+face->GetNack())*(1+face->GetDataCE()));	    								
-    }   
-    
-  NS_ASSERT(totalMetric!=0);
-  
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-    {    	
-    	double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
-    	              /((1+face->GetNack())*(1+face->GetDataCE())); 
-    	m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetSharingMetirc, ll::_1,100*tmp/totalMetric));								
-    }   
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
 
