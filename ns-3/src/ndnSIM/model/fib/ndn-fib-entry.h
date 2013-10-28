@@ -184,7 +184,7 @@ public:
   uint32_t
   GetNack() const
   {
-  	return m_nack;
+  	return m_nack_old;
   }
   
   void
@@ -202,7 +202,7 @@ public:
   uint32_t
   GetDataIn() const
   {
-  	return m_data_in;
+  	return m_data_in_old;
   }
   
   void
@@ -220,7 +220,7 @@ public:
   uint32_t
   GetDataCE() const
   {
-  	return m_data_ce;
+  	return m_data_ce_old;
   }
   
   double
@@ -234,17 +234,23 @@ public:
   	return m_sharing_metric;
   }
   
+  void
+  SetSharingMetirc(double rhs) //if 50%, rhs=50
+ 	{
+ 		m_sharing_metric = rhs;
+ 	}
+  
   void 
   ResetCounter ()
   {
-  	double alpha = 1;
+  	double alpha = 1;	//weighted sum
   	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack;
   	
   	//avoid zero devision
-  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));
+  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
   	
   	m_data_in = 0;
   	m_data_ce = 0;

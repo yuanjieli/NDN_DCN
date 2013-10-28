@@ -172,24 +172,39 @@ Entry::ResetCount()
     {
     	
     	if(face->GetFace()->GetNode()->GetId()==0)
-	    	NS_LOG_UNCOND("prefix="<<*m_prefix
+	    	NS_LOG_UNCOND(
 	    								<<" nodeID="<<face->GetFace()->GetNode()->GetId()
+	    								<<" prefix="<<*m_prefix
 	    								<<" faceID="<<face->GetFace()->GetId()
+	    								<<" metric="<<face->GetSharingMetric()
 	    								<<" NACK="<<face->GetNack()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								<<" Data_CE="<<face->GetDataCE());
-      /*m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetNack, ll::_1, 0));
-
-      m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetDataIn, ll::_1, 0));
-                      	
-      m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetDataCE, ll::_1, 0));*/
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
     
+  //set fraction of traffic
+  double totalMetric = 0;
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {    	
+    	totalMetric += (1+face->GetDataIn())*(1+face->GetDataIn())
+    	              /((1+face->GetNack())*(1+face->GetDataCE()));	    								
+    }   
+    
+  NS_ASSERT(totalMetric!=0);
+  
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {    	
+    	double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
+    	              /((1+face->GetNack())*(1+face->GetDataCE())); 
+    	m_faces.modify (face,
+                      ll::bind (&FaceMetric::ResetCounter, ll::_1,100*tmp/totalMetric));								
+    }   
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
 
