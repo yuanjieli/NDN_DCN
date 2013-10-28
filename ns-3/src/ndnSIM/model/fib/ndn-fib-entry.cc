@@ -203,7 +203,7 @@ Entry::ResetCount()
     	double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
     	              /((1+face->GetNack())*(1+face->GetDataCE())); 
     	m_faces.modify (face,
-                      ll::bind (&FaceMetric::ResetCounter, ll::_1,100*tmp/totalMetric));								
+                      ll::bind (&FaceMetric::SetSharingMetirc, ll::_1,100*tmp/totalMetric));								
     }   
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
