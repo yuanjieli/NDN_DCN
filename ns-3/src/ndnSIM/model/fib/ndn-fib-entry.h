@@ -78,7 +78,7 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
-    , m_sharing_metric (1)	//initally every face's metric is same, so we will equally distribute traffic
+    , m_sharing_metric (100000)	//initially arbitrary large number. Will be updated later
   { }
 
   /**
