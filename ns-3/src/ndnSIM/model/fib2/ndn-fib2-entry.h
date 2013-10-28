@@ -179,8 +179,8 @@ public:
   uint32_t
   GetDataOut() const
   {
-  	//return m_data_out;
-  	return m_data_out_old;
+  	return m_data_out;
+  	//return m_data_out_old;
   }
 
 	void
