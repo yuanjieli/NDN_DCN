@@ -175,7 +175,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		if(metricFace.GetRoutingCost()==minCost)
 	  		{
 	  			coin += metricFace.GetSharingMetric();
-	  			NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
+	  			//NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
 	  			if(coin>=target)
 	  			{
 	  				optimalFace = metricFace.GetFace();
