@@ -191,7 +191,7 @@ Entry::ResetCount()
        face++)
   {
   	if(face->GetRoutingCost()<minCost)
-  		minCost = face->GetRoutingMetric();
+  		minCost = face->GetRoutingCost();
   }
   double totalMetric = 0;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
