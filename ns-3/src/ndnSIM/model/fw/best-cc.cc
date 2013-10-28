@@ -160,45 +160,34 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		if(metricFace.GetRoutingCost()<minCost)
 	  			minCost = metricFace.GetRoutingCost();
 	  	}
-	  	
+	  
+	  double totalMetric = -1;	
+	  //Step2: choose ONE face based on our congestion control strategy
 	  std::vector< Ptr<Face> > vecFaces;
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  	{
+	  		if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
+	  		{
+	  			optimalFace = metricFace.GetFace();
+	  			totalMetric = -2;
+	  			break;	
+	  		}
 	  		if(metricFace.GetRoutingCost()==minCost)
+	  		{
 	  			vecFaces.push_back(metricFace.GetFace ());
+	  			if(totalMetric==-1)
+	  				totalMetric = metricFace.GetSharingMetric();
+	  			else
+	  				totalMetric += metricFace.GetSharingMetric();
+	  		}
 	  	}
-	
-		//Step2: choose ONE face based on our congestion control strategy
-		double totalMetric = -1;
-		std::vector< Ptr<Face> > OptimalCandidates;
-	  for(std::vector< Ptr<Face> >::iterator it = vecFaces.begin(); it !=vecFaces.end(); it++)
-	  {
-	  	if (DynamicCast<AppFace> (*it) !=0)	//this is an application
-	      {
-	      	OptimalCandidates.push_back(*it);
-	      	totalMetric = 0;
-	      	break;
-	      }
-	   
-	    fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it);
-      if (CanSendOutInterest (inFace, *it, header, origPacket, pitEntry))
-	      {
-	      	OptimalCandidates.push_back(*it); //we wanna evenly distribute traffic over paths with equal maximum value
-	      	if(totalMetric==-1)
-	      		totalMetric = record->GetSharingMetric();
-	      	else
-	      		totalMetric += record->GetSharingMetric();
-	      }		
-      
-	  }
 	  
 	  if (totalMetric == -1) //no interface available, return a NACK
 	  	return false;
 	  	
-	  NS_ASSERT(OptimalCandidates.size()!=0);
+	  NS_ASSERT(vecFaces.size()!=0);
 	  
-	  if(totalMetric!=0)
+	  if(totalMetric!=-2)	//not an application
 	  {
 	  	int target = rand()%(int)totalMetric;
 	  	int coin = 0;
@@ -217,8 +206,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	      }
 		  }
 	  }
-	  else	//app-face
-	  	optimalFace = OptimalCandidates[0];
 	  
 	  
 	  NS_ASSERT(optimalFace!=0);
