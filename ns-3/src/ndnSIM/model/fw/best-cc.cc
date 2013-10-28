@@ -161,7 +161,8 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			minCost = metricFace.GetRoutingCost();
 	  	}
 	  
-	  double totalMetric = -1;	
+	  double target = rand()%100;
+	  double coin = 0;	
 	  //Step2: choose ONE face based on our congestion control strategy
 	  std::vector< Ptr<Face> > vecFaces;
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
@@ -169,42 +170,18 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
 	  		{
 	  			optimalFace = metricFace.GetFace();
-	  			totalMetric = -2;
 	  			break;	
 	  		}
 	  		if(metricFace.GetRoutingCost()==minCost)
 	  		{
-	  			vecFaces.push_back(metricFace.GetFace ());
-	  			if(totalMetric==-1)
-	  				totalMetric = metricFace.GetSharingMetric();
-	  			else
-	  				totalMetric += metricFace.GetSharingMetric();
+	  			coin += metricFace.GetSharingMetric();
+	  			if(coin>=target)
+	  			{
+	  				optimalFace = metricFace.GetFace();
+	  				break;
+	  			}
 	  		}
 	  	}
-	  
-	  if (totalMetric == -1) //no interface available, return a NACK
-	  	return false;
-	  
-	  if(totalMetric!=-2)	//not an application
-	  {
-	  	int target = rand()%(int)totalMetric;
-	  	int coin = 0;
-	  
-		  for(std::vector< Ptr<Face> >::iterator it_optimal = vecFaces.begin();
-		  		it_optimal != vecFaces.end(); it_optimal++)
-		  {
-		  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it_optimal);
-	      coin += record->GetSharingMetric();
-	      	
-	      if(coin>=target)
-	      {
-	      	optimalFace = *it_optimal;
-	      	break;
-	      }
-		  }
-	  }
-	
 	  
 	  
 	  NS_ASSERT(optimalFace!=0);
