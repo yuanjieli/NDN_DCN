@@ -184,8 +184,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  
 	  if (totalMetric == -1) //no interface available, return a NACK
 	  	return false;
-	  	
-	  NS_ASSERT(vecFaces.size()!=0);
 	  
 	  if(totalMetric!=-2)	//not an application
 	  {
