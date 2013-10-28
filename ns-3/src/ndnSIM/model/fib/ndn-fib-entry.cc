@@ -173,7 +173,7 @@ Entry::ResetCount()
     	
     	if(face->GetFace()->GetNode()->GetId()==0)
 	    	NS_LOG_UNCOND(
-	    								<<" nodeID="<<face->GetFace()->GetNode()->GetId()
+	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
 	    								<<" prefix="<<*m_prefix
 	    								<<" faceID="<<face->GetFace()->GetId()
 	    								<<" metric="<<face->GetSharingMetric()
