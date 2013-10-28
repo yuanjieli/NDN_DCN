@@ -190,7 +190,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
   {
-  	if(face->GetRoutingMetric()<minCost)
+  	if(face->GetRoutingCost()<minCost)
   		minCost = face->GetRoutingMetric();
   }
   double totalMetric = 0;
@@ -198,7 +198,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {  
-    	if(face->GetRoutingMetric()==minCost)  	
+    	if(face->GetRoutingCost()==minCost)  	
 	    	totalMetric += (1+face->GetDataIn())*(1+face->GetDataIn())
 	    	              /((1+face->GetNack())*(1+face->GetDataCE()));	    								
     }   
@@ -207,7 +207,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     { 
-    	if(face->GetRoutingMetric()==minCost)
+    	if(face->GetRoutingCost()==minCost)
     	{
     		double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
     	              /((1+face->GetNack())*(1+face->GetDataCE())); 
