@@ -195,16 +195,18 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  for(std::vector< Ptr<Face> >::iterator it_optimal = vecFaces.begin();
 		  		it_optimal != vecFaces.end(); it_optimal++)
 		  {
-		  	
-	      coin += it_optimal->GetSharingMetric();
+		  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it_optimal);
+	      coin += record->GetSharingMetric();
 	      	
 	      if(coin>=target)
 	      {
-	      	optimalFace = it_optimal->GetFace();
+	      	optimalFace = *it_optimal;
 	      	break;
 	      }
 		  }
 	  }
+	
 	  
 	  
 	  NS_ASSERT(optimalFace!=0);
