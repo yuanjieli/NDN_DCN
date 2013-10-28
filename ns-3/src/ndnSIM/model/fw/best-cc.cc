@@ -198,21 +198,27 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  	
 	  NS_ASSERT(OptimalCandidates.size()!=0);
 	  
-	  int coin = rand()%(int)totalMetric;
-	  
-	  for(std::vector< Ptr<Face> >::iterator it_optimal = OptimalCandidates.begin();
-	  		it_optimal != OptimalCandidates.end(); it_optimal++)
+	  if(totalMetric!=0)
 	  {
-	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it_optimal);
-      	
-      coin -= record->GetSharingMetric();
-      if(coin<=0)
-      {
-      	optimalFace = *it_optimal;
-      	break;
-      }
+	  	int coin = rand()%(int)totalMetric;
+	  
+		  for(std::vector< Ptr<Face> >::iterator it_optimal = OptimalCandidates.begin();
+		  		it_optimal != OptimalCandidates.end(); it_optimal++)
+		  {
+		  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it_optimal);
+	      	
+	      coin -= record->GetSharingMetric();
+	      if(coin<=0)
+	      {
+	      	optimalFace = *it_optimal;
+	      	break;
+	      }
+		  }
 	  }
+	  else	//app-face
+	  	optimalFace = OptimalCandidates[0];
+	  
 	  
 	  NS_ASSERT(optimalFace!=0);
 	  
