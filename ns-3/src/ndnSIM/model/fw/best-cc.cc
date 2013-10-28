@@ -200,16 +200,17 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  
 	  if(totalMetric!=0)
 	  {
-	  	int coin = rand()%(int)totalMetric;
+	  	int target = rand()%(int)totalMetric;
+	  	int coin = 0;
 	  
 		  for(std::vector< Ptr<Face> >::iterator it_optimal = OptimalCandidates.begin();
 		  		it_optimal != OptimalCandidates.end(); it_optimal++)
 		  {
 		  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	      = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (*it_optimal);
+	      coin += record->GetSharingMetric();
 	      	
-	      coin -= record->GetSharingMetric();
-	      if(coin<=0)
+	      if(coin>=target)
 	      {
 	      	optimalFace = *it_optimal;
 	      	break;
