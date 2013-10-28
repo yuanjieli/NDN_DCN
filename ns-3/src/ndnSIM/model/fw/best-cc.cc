@@ -176,7 +176,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		{
 	  			coin += metricFace.GetSharingMetric();
 	  			//NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
-	  			if(coin>=target)
+	  			if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 	  			{
 	  				optimalFace = metricFace.GetFace();
 	  				break;
