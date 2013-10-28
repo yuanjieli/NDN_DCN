@@ -76,14 +76,7 @@ public:
   OnNack (Ptr<Face> inFace,
           Ptr<const Interest> header,
           Ptr<const Packet> origPacket);                     	
-                       	
-  
-  /*virtual void
-  DidReceiveValidNack (Ptr<Face> inFace,
-                       uint32_t nackCode,
-                       Ptr<const Interest> header,
-                       Ptr<const Packet> origPacket,
-                       Ptr<pit::Entry> pitEntry); */                    	
+                                       	
                        	
 protected:
   static LogComponent g_log;

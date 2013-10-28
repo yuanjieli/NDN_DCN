@@ -78,6 +78,7 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
+    , m_sharing_metric (1)	//initally every face's metric is same, so we will equally distribute traffic
   { }
 
   /**
@@ -225,17 +226,12 @@ public:
   double
   GetSharingMetric() const
   {
-  	if(m_data_ce==0)	//boundary condition at begining
+  	/*if(m_data_ce==0)	//boundary condition at begining
   		return -(double)m_nack;
   	else
-  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;
+  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;*/
   	
-  	//we used instant NACK counter, but old data counter
-  	/*if(m_data_ce_old==0)	//boundary condition at begining
-  		return -(double)m_nack;
-  	else
-  		return (double)m_data_in_old*(double)m_data_in_old/(double)m_data_ce_old-(double)m_nack;*/
-  	
+  	return m_sharing_metric;
   }
   
   void 
@@ -244,6 +240,10 @@ public:
   	m_data_in_old = m_data_in;
   	m_data_ce_old = m_data_ce;
   	m_nack_old = m_nack;
+  	
+  	//avoid zero devision
+  	m_sharing_metric = (m_data_in+1)*(m_data_in+1)
+  									 /(double)((m_data_ce+1)*(m_nack+1));
   	
   	m_data_in = 0;
   	m_data_ce = 0;
@@ -275,6 +275,8 @@ private:
 	uint32_t m_nack_old;
 	uint32_t m_data_in_old;
 	uint32_t m_data_ce_old;
+
+	double m_sharing_metric;	///< fraction of traffic this face can forward
 };
 
 /// @cond include_hidden
