@@ -60,7 +60,7 @@ main (int argc, char *argv[])
   p2p.Install (nodes.Get (1), nodes.Get (2));
   p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (2), nodes.Get (4));
-  p2p.SetDeviceAttribute("DataRate", StringValue ("15Mbps"));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("25Mbps"));
   
   p2p.Install (nodes.Get (3), nodes.Get (4));
   p2p.SetDeviceAttribute("DataRate", StringValue ("100Mbps"));	//lonely flow
