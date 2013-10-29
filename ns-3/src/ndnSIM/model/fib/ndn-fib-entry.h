@@ -78,7 +78,7 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
-    , m_sharing_metric (100000)	//initially arbitrary large number. Will be updated later
+    , m_sharing_metric (0)	//initially arbitrary large number. Will be updated later
   { }
 
   /**
@@ -355,7 +355,7 @@ public:
   : m_prefix (prefix)
   , m_needsProbing (false)
   {
-  	ResetCount();
+  	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
   }
 
   /**

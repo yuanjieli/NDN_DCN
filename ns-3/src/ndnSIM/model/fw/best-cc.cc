@@ -185,7 +185,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  	}
 	  
 	  
-	  NS_ASSERT(optimalFace!=0);
+	  if(optimalFace==0)return false;
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
 	  faceLimits->BorrowLimit ();
