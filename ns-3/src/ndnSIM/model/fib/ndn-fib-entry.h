@@ -27,6 +27,7 @@
 #include "ns3/ndn-name.h"
 #include "ns3/ndn-limits.h"
 #include "ns3/traced-value.h"
+#include "ns3/simulator.h"
 
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/tag.hpp>
