@@ -199,7 +199,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
   
 }
 
-void
+/*void
 BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
                Ptr<const Packet> origPacket)
@@ -208,6 +208,64 @@ BestCC::OnNack (Ptr<Face> inFace,
   Ptr<LimitsDeltaRate> faceLimits = inFace->GetObject<LimitsDeltaRate> ();
   if(faceLimits)
   	faceLimits->IncreaseNack ();
+}*/
+
+//DON'T DO REROUTING
+void
+BestCC::OnNack (Ptr<Face> inFace,
+               Ptr<const Interest> header,
+               Ptr<const Packet> origPacket)
+{
+  //super::OnNack (inFace, header, origPacket);
+  Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
+  if (pitEntry == 0)
+  {
+      // somebody is doing something bad
+      m_dropNacks (header, inFace);
+      return;
+  }
+  uint32_t nackCode = header->GetNack ();
+  if (nackCode == Interest::NACK_GIVEUP_PIT)
+    {
+      pitEntry->RemoveIncoming (inFace);
+    }
+    
+  if (nackCode == Interest::NACK_LOOP ||
+      nackCode == Interest::NACK_CONGESTION ||
+      nackCode == Interest::NACK_GIVEUP_PIT)
+    {
+      pitEntry->SetWaitingInVain (inFace);
+
+      if (!pitEntry->AreAllOutgoingInVain ()) // not all ougtoing are in vain
+        {
+          NS_LOG_DEBUG ("Not all outgoing are in vain");
+          // suppress
+          // Don't do anything, we are still expecting data from some other face
+          m_dropNacks (header, inFace);
+          return;
+        }
+
+      Ptr<Packet> nonNackInterest = Create<Packet> ();
+      Ptr<Interest> nonNackHeader = Create<Interest> (*header);
+      nonNackHeader->SetNack (Interest::NORMAL_INTEREST);
+      nonNackInterest->AddHeader (*nonNackHeader);
+
+      //by Felix: all the forwarding options are in vain. A Nack will be forwarded
+      DidExhaustForwardingOptions (inFace, nonNackHeader, nonNackInterest, pitEntry);
+    }
+      
+  Ptr<LimitsDeltaRate> faceLimits = inFace->GetObject<LimitsDeltaRate> ();
+  if(faceLimits)
+  	faceLimits->IncreaseNack ();
+  
+  //update per-fib nack counter	
+  fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   = pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (inFace);
+  	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+      {
+        	pitEntry->GetFibEntry ()->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+      }
 }
 
 class PerOutFaceDeltaLimits;
