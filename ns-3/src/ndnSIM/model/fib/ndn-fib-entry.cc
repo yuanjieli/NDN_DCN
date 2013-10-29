@@ -176,7 +176,7 @@ Entry::ResetCount()
 	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
 	    								<<" prefix="<<*m_prefix
 	    								<<" faceID="<<face->GetFace()->GetId()
-	    								<<" metric="<<face->GetSharingMetric()
+	    								<<" metric="<<face->GetFraction()
 	    								<<" NACK="<<face->GetNack()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								<<" Data_CE="<<face->GetDataCE());
