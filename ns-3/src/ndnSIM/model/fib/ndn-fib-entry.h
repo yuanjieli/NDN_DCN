@@ -79,7 +79,8 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
-    , m_sharing_metric (0)	//initially arbitrary large number. Will be updated later
+    , m_sharing_metric (1)	
+    , m_fraction (0) //initially arbitrary large number. Will be updated later
   { }
 
   /**
@@ -225,6 +226,12 @@ public:
   }
   
   double
+  GetFraction() const
+  {
+  	return m_fraction;
+  }
+  
+  double
   GetSharingMetric() const
   {
   	/*if(m_data_ce==0)	//boundary condition at begining
@@ -236,9 +243,9 @@ public:
   }
   
   void
-  SetSharingMetirc(double rhs) //if 50%, rhs=50
+  SetFraction(double rhs) //if 50%, rhs=50
  	{
- 		m_sharing_metric = rhs;
+ 		m_fraction = rhs;
  	}
   
   void 
@@ -249,9 +256,10 @@ public:
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack;
   	
-  	//avoid zero devision
   	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
   									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
+		m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)(m_data_ce_old+1)-m_nack_old;
   	
   	m_data_in = 0;
   	m_data_ce = 0;
@@ -284,7 +292,8 @@ private:
 	uint32_t m_data_in_old;
 	uint32_t m_data_ce_old;
 
-	double m_sharing_metric;	///< fraction of traffic this face can forward
+  double m_fraction;				///< fraction of traffic this face can forward(%)
+	double m_sharing_metric;	///< used for calculating m_fraction
 };
 
 /// @cond include_hidden

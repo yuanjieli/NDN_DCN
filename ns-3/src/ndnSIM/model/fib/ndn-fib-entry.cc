@@ -199,8 +199,7 @@ Entry::ResetCount()
        face++)
     {  
     	if(face->GetRoutingCost()==minCost)  	
-	    	totalMetric += (1+face->GetDataIn())*(1+face->GetDataIn())
-	    	              /((1+face->GetNack())*(1+face->GetDataCE()));	    								
+	    	totalMetric += face->GetSharingMetric();	    								
     }   
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
@@ -209,12 +208,11 @@ Entry::ResetCount()
     { 
     	if(face->GetRoutingCost()==minCost)
     	{
-    		double tmp =  (1+face->GetDataIn())*(1+face->GetDataIn())
-    	              /((1+face->GetNack())*(1+face->GetDataCE())); 
+    		double tmp = face->GetSharingMetric(); 
     	              
 	    	//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
 	    	m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetSharingMetirc, ll::_1,100*tmp/totalMetric));
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
     	}   	
     									
     }   

@@ -174,7 +174,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		}
 	  		if(metricFace.GetRoutingCost()==minCost)
 	  		{
-	  			coin += metricFace.GetSharingMetric();
+	  			coin += metricFace.GetFraction();
 	  			//NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
 	  			if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 	  			{
