@@ -79,8 +79,8 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
-    , m_sharing_metric (1)	
     , m_fraction (0) //initially arbitrary large number. Will be updated later
+    , m_sharing_metric (1)
   { }
 
   /**
