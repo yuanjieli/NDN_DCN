@@ -256,9 +256,11 @@ public:
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
   	
+  	m_sharing_metric = (m_data_in_old-m_nack_old)*(m_data_in_old-m_nack_old)
+  									 /(double)(m_data_ce_old+1);
   	//better tradeoff between cooperation and competition
-  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));
+  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
 		/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
   									 /(double)(m_data_ce_old+1)-m_nack_old;*/
   	
