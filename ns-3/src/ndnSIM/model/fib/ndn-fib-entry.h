@@ -381,6 +381,7 @@ public:
   Entry (const Ptr<const Name> &prefix)
   : m_prefix (prefix)
   , m_needsProbing (false)
+  , m_inited (false)
   {
   	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
   }
@@ -451,6 +452,7 @@ public:
   FaceMetricContainer::type m_faces; ///< \brief Indexed list of faces
 
   bool m_needsProbing;      ///< \brief flag indicating that probing should be performed
+	bool m_inited;					///< whether it is initialized
 };
 
 std::ostream& operator<< (std::ostream& os, const Entry &entry);

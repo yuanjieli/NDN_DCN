@@ -221,13 +221,25 @@ Entry::ResetCount()
 	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));*/
 	                      
 	      //balance the congestion level
-	      double fraction = face->GetFraction()
-	      								+ K * (face->GetSharingMetric()*totalNack/totalMetric-face->GetNack());
-	      m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
+	      if(m_inited)
+	      {
+		      double fraction = face->GetFraction()
+		      								+ K * (face->GetSharingMetric()*totalNack/totalMetric-face->GetNack());
+		      m_faces.modify (face,
+		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
+		    }
+		    else
+		    {
+		    	double tmp = face->GetSharingMetric(); 
+    	              
+	    		//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
+	    		m_faces.modify (face,
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
+		    }
     	}   	
     									
-    }   
+    }  
+  m_inited = true; 
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
 
