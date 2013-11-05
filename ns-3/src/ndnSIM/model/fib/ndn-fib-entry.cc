@@ -186,6 +186,7 @@ Entry::ResetCount()
     
   //set fraction of traffic
   double minCost = 1000000;
+  double K = 0.0025;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
@@ -194,12 +195,16 @@ Entry::ResetCount()
   		minCost = face->GetRoutingCost();
   }
   double totalMetric = 0;
+  double totalNack = 0;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
     {  
-    	if(face->GetRoutingCost()==minCost)  	
-	    	totalMetric += face->GetSharingMetric();	    								
+    	if(face->GetRoutingCost()==minCost)  
+    	{	
+	    	totalMetric += face->GetSharingMetric();
+	    	totalNack += face->GetNack();
+	    }	    								
     }   
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
@@ -211,8 +216,10 @@ Entry::ResetCount()
     		double tmp = face->GetSharingMetric(); 
     	              
 	    	//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
+	    	double fraction = face->GetFraction()
+	    									+ K*(100*tmp*totalNack/totalMetric-face->GetNack());
 	    	m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
     	}   	
     									
     }   
