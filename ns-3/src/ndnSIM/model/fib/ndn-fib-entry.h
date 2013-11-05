@@ -259,8 +259,8 @@ public:
   	
   	//division-based scheme								 
   	//better tradeoff between cooperation and competition
-  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));
+  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
   									 
   									 
   	//subtraction-based scheme								 
@@ -273,6 +273,10 @@ public:
   	
   	//iterative approach without NACK count
   	//m_sharing_metric = m_data_in_old+1;
+  	
+  	//used for balancing congestion
+  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)(m_data_ce_old+1);
   	
   	m_data_in = 0;
   	m_data_ce = 0;
