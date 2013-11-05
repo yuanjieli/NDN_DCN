@@ -225,6 +225,7 @@ Entry::ResetCount()
 	      {
 		      double fraction = face->GetFraction()
 		      								+ K * (face->GetSharingMetric()*totalNack/totalMetric-face->GetNack());
+		      NS_LOG_UNCOND("fraction="<<fraction);
 		      m_faces.modify (face,
 		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
 		    }
