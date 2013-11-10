@@ -154,7 +154,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 {
 	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
-	if (inFace != 0)
+	if (DynamicCast<AppFace>(inFace)==0)
 	{
 		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
 		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
