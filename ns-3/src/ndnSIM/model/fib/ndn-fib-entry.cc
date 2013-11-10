@@ -183,6 +183,7 @@ Entry::ResetCount()
 	    								<<" faceID="<<face->GetFace()->GetId()
 	    								<<" metric="<<face->GetFraction()
 	    								<<" NACK="<<face->GetNack()
+	    								<<" NACK_CE="<<face->GetNackCE()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								<<" Data_CE="<<face->GetDataCE());
       m_faces.modify (face,
