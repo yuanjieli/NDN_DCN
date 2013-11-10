@@ -204,7 +204,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 					    		NewHeader->SetCE(0);
 			        }
 			        else
-			        	NewHeader->SetCE(1);
+			        	NewHeader->SetCE(0);
 			        				
     			}
           else
