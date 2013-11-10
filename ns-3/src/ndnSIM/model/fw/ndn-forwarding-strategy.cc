@@ -437,7 +437,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	      fib2Entry->m_faces.modify (record2,
 	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
 				//mark the data with probability
-	      uint32_t max_data_out = record->GetDataIn();	//we need to consider real BW consumption too
+	      //uint32_t max_data_out = record->GetDataIn();	//we need to consider real BW consumption too
+	      uint32_t max_data_out = 0;
 	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
 	       face != fib2Entry->m_faces.end ();
 	       face++)
