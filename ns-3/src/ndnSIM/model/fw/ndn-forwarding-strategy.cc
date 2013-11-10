@@ -408,7 +408,16 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 {
   if (inFace != 0)
     pitEntry->RemoveIncoming (inFace);
-	
+
+	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
+	if (inFace != 0)
+	{
+		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
+		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
+	}
+	     
+		
   //satisfy all pending incoming Interests
   BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
     {
@@ -420,10 +429,6 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	if(DynamicCast<AppFace>(incoming.m_face)==0)
     	{
-    		Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
-				fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-				      = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
-				NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
     		
     		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
 	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
@@ -436,7 +441,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	      fib2Entry->m_faces.modify (record2,
 	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
 				//mark the data with probability
-	      uint32_t max_data_out = record->GetDataIn();	//we need to consider real BW consumption too
+	      //we need to consider real BW consumption too	
+	      uint32_t max_data_out = inFace==0 ? 0 : record->GetDataIn();
+	      
 	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
 	       face != fib2Entry->m_faces.end ();
 	       face++)
