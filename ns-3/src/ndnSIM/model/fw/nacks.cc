@@ -157,7 +157,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       Ptr<Interest> nackHeader = Create<Interest> (*header);
       nackHeader->SetNack (Interest::NACK_GIVEUP_PIT);
       packet->AddHeader (*nackHeader);
-      Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
 	    	
 
       FwHopCountTag hopCountTag;
@@ -174,6 +173,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
           //update nack counter
+          Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
           fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
 	      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
 	      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
