@@ -198,6 +198,8 @@ Entry::ResetCount()
   		minCost = face->GetRoutingCost();
   }
   double K_bound = MAX_BOUND;
+  double w_lower_bound = 5;	//lower bound for probing traffic
+  double w_upper_bound = 100;	//upper bound for w
   double K = 0;
   double q_var = 0;
   double q_mean = 0;
@@ -232,14 +234,14 @@ Entry::ResetCount()
     		if(tmp>0)
     		{
     			q_var += tmp;
-    			double tmp2 = (100.0-face->GetFraction())/tmp;
+    			double tmp2 = (w_upper_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     		}
     		else if(tmp<0)
     		{
     			q_var += -tmp;
-    			double tmp2 = -face->GetFraction()/tmp;
+    			double tmp2 = (w_lower_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     		}
