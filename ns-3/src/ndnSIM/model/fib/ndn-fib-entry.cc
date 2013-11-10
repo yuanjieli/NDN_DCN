@@ -261,7 +261,7 @@ Entry::ResetCount()
     	              
 	    		//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
 	    		m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/facecount));
 		    }
     	}   	
     									
