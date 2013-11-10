@@ -198,7 +198,7 @@ public:
   uint32_t
   GetNackOut() const
   {
-  	return m_nack_out;
+  	return m_nack_out+1;
   }
 
 	void

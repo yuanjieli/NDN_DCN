@@ -152,6 +152,14 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
                                     Ptr<const Packet> origPacket,
                                     Ptr<pit::Entry> pitEntry)
 {
+	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
+	if (inFace != 0)
+	{
+		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
+		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
+	}
+	
   if (m_nacksEnabled)
     {
       Ptr<Packet> packet = Create<Packet> ();
@@ -173,20 +181,34 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
-          //update nack counter
-          if(DynamicCast<AppFace>(incoming.m_face)==0)
-          {
-          	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
-	          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
-		      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
-		      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
-		      	fib2Entry->m_faces.modify (record2,
-		                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
-          }
           
+          Ptr<Packet> target = packet->Copy();
+    			Ptr<Interest> NewHeader = Create<Interest> ();
+    			target->RemoveHeader(*Interest);
+    			if(DynamicCast<AppFace>(incoming.m_face)==0)
+    			{
+	    				//update nack counter 
+	          	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
+		          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
+			      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
+			      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
+			      	fib2Entry->m_faces.modify (record2,
+			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
+			                      	
+			        //Mark the packet
+			        uint32_t N = rand()%record->GetNackIn();
+			        if(N<=record2->GetNackOut())
+			        	NewHeader->SetCE(1);
+				    	else
+				    		NewHeader->SetCE(0);				
+    			}
+          else
+          	NewHeader->SetCE(1);
 	                      	
-          incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
-
+	        target->AddHeader(*NewHeader);	
+          //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
+					incoming.m_face->Send(target);
+					
           m_outNacks (nackHeader, incoming.m_face);
         }
 
