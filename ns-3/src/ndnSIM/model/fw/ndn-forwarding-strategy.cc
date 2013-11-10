@@ -272,9 +272,9 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       }
       fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseDataIn, ll::_1));
-      if(header->GetCE()==1)
+      /*if(header->GetCE()==1)
       	fibEntry->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));
+                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));*/
     	/////////////////////////////////////////////////////
       bool cached = false;
 
