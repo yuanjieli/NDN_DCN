@@ -232,14 +232,14 @@ Entry::ResetCount()
     		if(tmp>0)
     		{
     			q_var += tmp;
-    			double tmp2 = (1.0-face->GetFraction()/100.0)/tmp;
+    			double tmp2 = (100.0-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     		}
     		else if(tmp<0)
     		{
     			q_var += -tmp;
-    			double tmp2 = -face->GetFraction()/(100.0*tmp);
+    			double tmp2 = -face->GetFraction()/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     		}
