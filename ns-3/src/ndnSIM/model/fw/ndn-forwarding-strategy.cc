@@ -411,8 +411,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 
 	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	      = fibEntry->m_faces.get<fib::i_face> ().find (inFace.m_face); 
+	      = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
 	NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
+		
   //satisfy all pending incoming Interests
   BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
     {
