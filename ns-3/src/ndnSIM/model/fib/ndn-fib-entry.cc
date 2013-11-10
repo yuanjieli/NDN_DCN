@@ -26,6 +26,8 @@
 
 #include "ns3/node.h"
 
+#include <cmath>
+
 #define NDN_RTO_ALPHA 0.125
 #define NDN_RTO_BETA 0.25
 #define NDN_RTO_K 4
@@ -34,8 +36,11 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 namespace ll = boost::lambda;
+	
 
 NS_LOG_COMPONENT_DEFINE ("ndn.fib.Entry");
+
+#define MAX_BOUND 10000000
 
 namespace ns3 {
 namespace ndn {
@@ -184,8 +189,96 @@ Entry::ResetCount()
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
     
+  double minCost = MAX_BOUND;
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+  {
+  	if(face->GetRoutingCost()<minCost)
+  		minCost = face->GetRoutingCost();
+  }
+  double K_bound = MAX_BOUND;
+  double K = 0;
+  double q_var = 0;
+  double q_mean = 0;
+  double totalMetric = 0;
+  double totalNack = 0;
+  uint32_t facecount = 0;
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {  
+    	if(face->GetRoutingCost()==minCost)
+    	{  
+    		totalMetric += face->GetSharingMetric();	
+	    	totalNack += face->GetNack();
+	    	facecount ++;
+	    }    								
+    }
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {  
+    	if(face->GetRoutingCost()==minCost)
+    		q_mean += face->GetSharingMetric()/(face->GetNack()*totalMetric);								
+    }
+  q_mean /= facecount;
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {  
+    	if(face->GetRoutingCost()==minCost)
+    	{
+    		double w = face->GetSharingMetric()/totalMetric
+    		double tmp = q_mean - w/face->GetNack();
+    		if(tmp>0)
+    		{
+    			q_var += tmp;
+    			double tmp2 = (1.0-w)/tmp;
+    			if(K_bound>tmp2)
+    				K_bound = tmp2;
+    		}
+    		else if(tmp<0)
+    		{
+    			q_var += -tmp;
+    			double tmp2 = -w/tmp;
+    			if(K_bound>tmp2)
+    				K_bound = tmp2;
+    		}
+    	}							
+    }
+  q_var /= facecount;
+  K = K_bound*tanh(q_var/q_mean);  
+  
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    { 
+    	if(face->GetRoutingCost()==minCost)
+    	{
+	      if(m_inited)
+	      {
+		      double fraction = face->GetFraction()
+		      								+ K * (face->GetSharingMetric()/(face->GetNack()*totalMetric) - q_mean);
+		      m_faces.modify (face,
+		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
+		    }
+		    else
+		    {
+		    	double tmp = face->GetSharingMetric(); 
+    	              
+	    		//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
+	    		m_faces.modify (face,
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
+		    }
+    	}   	
+    									
+    }  
+  m_inited = true; 
+  
+    
   //set fraction of traffic
-  double minCost = 1000000;
+  /*double minCost = 1000000;
   double K = 0.25;	//used for balancing congestion
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
@@ -214,12 +307,13 @@ Entry::ResetCount()
     	if(face->GetRoutingCost()==minCost)
     	{
     		//proportional scheme
-    		/*double tmp = face->GetSharingMetric(); 
+    		//double tmp = face->GetSharingMetric(); 
     	              
 	    	//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
-	    	m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));*/
+	    	//m_faces.modify (face,
+	      //                ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
 	                      
+	      
 	      //balance the congestion level
 	      if(m_inited)
 	      {
@@ -239,7 +333,7 @@ Entry::ResetCount()
     	}   	
     									
     }  
-  m_inited = true; 
+  m_inited = true; */
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
 
