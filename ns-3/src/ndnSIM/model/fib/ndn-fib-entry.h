@@ -180,12 +180,12 @@ public:
   }
   
   void
-  SetNack(uint32_t rhs)
+  SetNack(double rhs)
   {
   	m_nack = rhs;
   }
   
-  uint32_t
+  double
   GetNack() const
   {
   	return m_nack_old+1;
@@ -198,12 +198,12 @@ public:
   }
   
   void
-  SetNackCE(uint32_t rhs)
+  SetNackCE(double rhs)
   {
   	m_nack_ce = rhs;
   }
   
-  uint32_t
+  double
   GetNackCE() const
   {
   	return m_nack_ce_old+1;
@@ -216,12 +216,12 @@ public:
   }
   
   void
-  SetDataIn(uint32_t rhs)
+  SetDataIn(double rhs)
   {
   	m_data_in = rhs;
   }
   
-  uint32_t
+  double
   GetDataIn() const
   {
   	return m_data_in_old+1;
@@ -234,12 +234,12 @@ public:
   }
   
   void
-  SetDataCE(uint32_t rhs)
+  SetDataCE(double rhs)
   {
   	m_data_ce = rhs;
   }
   
-  uint32_t
+  double
   GetDataCE() const
   {
   	return m_data_ce_old+1;
@@ -271,7 +271,7 @@ public:
   void 
   ResetCounter ()
   {
-  	double alpha = 1;//1/8.0;	//weighted sum
+  	double alpha = 1/8.0;	//weighted sum
   	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
@@ -327,15 +327,15 @@ private:
 
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
 
-	uint32_t m_nack;		 ///< \brief nack counter
-	uint32_t m_nack_ce;	 ///< \brief marked nack counter
-	uint32_t m_data_in;  ///< \brief incoming data counter
-	uint32_t m_data_ce;  ///< \brief incoming marked data counter
+	double m_nack;		 ///< \brief nack counter
+	double m_nack_ce;	 ///< \brief marked nack counter
+	double m_data_in;  ///< \brief incoming data counter
+	double m_data_ce;  ///< \brief incoming marked data counter
 	//the following variables are used for storing counters last round
-	uint32_t m_nack_old;
-	uint32_t m_nack_ce_old;
-	uint32_t m_data_in_old;
-	uint32_t m_data_ce_old;
+	double m_nack_old;
+	double m_nack_ce_old;
+	double m_data_in_old;
+	double m_data_ce_old;
 
   double m_fraction;				///< fraction of traffic this face can forward(%)
 	double m_sharing_metric;	///< used for calculating m_fraction

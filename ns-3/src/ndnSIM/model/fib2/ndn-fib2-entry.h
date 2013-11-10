@@ -171,12 +171,12 @@ public:
   }
   
   void
-  SetDataOut(uint32_t rhs)
+  SetDataOut(double rhs)
   {
   	m_data_out = rhs;
   }
   
-  uint32_t
+  double
   GetDataOut() const
   {
   	return m_data_out_old;
@@ -190,12 +190,12 @@ public:
   }
   
   void
-  SetNackOut(uint32_t rhs)
+  SetNackOut(double rhs)
   {
   	m_nack_out = rhs;
   }
   
-  uint32_t
+  double
   GetNackOut() const
   {
   	return m_nack_out_old+1;
@@ -204,10 +204,11 @@ public:
 	void
 	ResetCounter()
 	{
-		m_data_out_old = m_data_out;
-		m_data_out = 0;
+		m_data_out_old = m_data_out;	
 		m_nack_out_old = m_nack_out;
+		
 		m_nack_out = 0;
+		m_data_out = 0;
 	}
 private:
   friend std::ostream& operator<< (std::ostream& os, const FaceMetric &metric);
@@ -226,10 +227,10 @@ private:
   Time m_rttVar;       ///< \brief round-trip time variation
 
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
-  uint32_t m_data_out;	///< \brief data outgoing rate (for every available face)
-	uint32_t m_data_out_old;
-	uint32_t m_nack_out;
-	uint32_t m_nack_out_old;
+  double m_data_out;	///< \brief data outgoing rate (for every available face)
+	double m_data_out_old;
+	double m_nack_out;
+	double m_nack_out_old;
 };
 
 /// @cond include_hidden
