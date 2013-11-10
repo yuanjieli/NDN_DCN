@@ -409,6 +409,10 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
   if (inFace != 0)
     pitEntry->RemoveIncoming (inFace);
 
+	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	      = fibEntry->m_faces.get<fib::i_face> ().find (inFace.m_face); 
+	NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
   //satisfy all pending incoming Interests
   BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
     {
@@ -420,16 +424,13 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	if(DynamicCast<AppFace>(incoming.m_face)==0)
     	{
-    		Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
-    		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();
-    		fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	      = fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face); 	
+    		
+    		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
 	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
 	      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
 	      
 	      //NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
-	      NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ()
-	      				&&record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
+	      NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
 	      
 	      //update dataout counter
 	      fib2Entry->m_faces.modify (record2,
