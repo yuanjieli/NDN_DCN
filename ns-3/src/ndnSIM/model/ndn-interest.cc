@@ -49,6 +49,7 @@ Interest::Interest ()
   , m_interestLifetime (Seconds (0))
   , m_nonce (0)
   , m_nackType (NORMAL_INTEREST)
+  , m_ce (0)
 {
 }
 
@@ -58,6 +59,7 @@ Interest::Interest (const Interest &interest)
   , m_interestLifetime    (interest.m_interestLifetime)
   , m_nonce               (interest.m_nonce)
   , m_nackType            (interest.m_nackType)
+  , m_ce									(interest.m_ce)
 {
 }
 
@@ -143,10 +145,22 @@ Interest::GetNack () const
   return m_nackType;
 }
 
+void
+Interest::SetCE (uint8_t rhs)
+{
+	m_ce = rhs;
+}
+
+uint8_t
+Interest::GetCE () const
+{
+	return m_ce;
+}
+
 uint32_t
 Interest::GetSerializedSize (void) const
 {
-  size_t size = 2 + (1 + 4 + 2 + 1 + (m_name->GetSerializedSize ()) + (2 + 0) + (2 + 0));
+  size_t size = 2 + (1 + 4 + 2 + 1 + (m_name->GetSerializedSize ()) + (2 + 0) + (2 + 0))+1;
   NS_LOG_INFO ("Serialize size = " << size);
 
   return size;
@@ -173,6 +187,8 @@ Interest::Serialize (Buffer::Iterator start) const
   
   start.WriteU16 (0); // no selectors
   start.WriteU16 (0); // no options
+  
+  start.WriteU8 (m_ce);
 }
 
 uint32_t
@@ -198,6 +214,8 @@ Interest::Deserialize (Buffer::Iterator start)
   
   i.ReadU16 ();
   i.ReadU16 ();
+  
+  m_ce = i.ReadU8 ();
 
   NS_ASSERT (GetSerializedSize () == (i.GetDistanceFrom (start)));
 
