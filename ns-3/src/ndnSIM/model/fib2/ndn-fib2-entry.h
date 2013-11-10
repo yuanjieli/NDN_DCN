@@ -179,7 +179,7 @@ public:
   uint32_t
   GetDataOut() const
   {
-  	return m_data_out;
+  	return m_data_out_old;
   	//return m_data_out_old;
   }
   
@@ -198,7 +198,7 @@ public:
   uint32_t
   GetNackOut() const
   {
-  	return m_nack_out+1;
+  	return m_nack_out_old+1;
   }
 
 	void
