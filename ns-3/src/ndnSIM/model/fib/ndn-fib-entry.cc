@@ -229,7 +229,7 @@ Entry::ResetCount()
     {  
     	if(face->GetRoutingCost()==minCost)
     	{
-    		double w = face->GetSharingMetric()/totalMetric
+    		double w = face->GetSharingMetric()/totalMetric;
     		double tmp = q_mean - w/face->GetNack();
     		if(tmp>0)
     		{
