@@ -182,12 +182,32 @@ public:
   	return m_data_out;
   	//return m_data_out_old;
   }
+  
+  void
+  IncreaseNackOut()
+  {
+  	m_nack_out++;
+  }
+  
+  void
+  SetNackOut(uint32_t rhs)
+  {
+  	m_nack_out = rhs;
+  }
+  
+  uint32_t
+  GetNackOut() const
+  {
+  	return m_nack_out;
+  }
 
 	void
 	ResetCounter()
 	{
 		m_data_out_old = m_data_out;
 		m_data_out = 0;
+		m_nack_out_old = m_nack_out;
+		m_nack_out = 0;
 	}
 private:
   friend std::ostream& operator<< (std::ostream& os, const FaceMetric &metric);
@@ -208,6 +228,8 @@ private:
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
   uint32_t m_data_out;	///< \brief data outgoing rate (for every available face)
 	uint32_t m_data_out_old;
+	uint32_t m_nack_out;
+	uint32_t m_nack_out_old;
 };
 
 /// @cond include_hidden

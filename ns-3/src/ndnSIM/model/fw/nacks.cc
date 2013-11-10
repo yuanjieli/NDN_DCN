@@ -157,6 +157,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       Ptr<Interest> nackHeader = Create<Interest> (*header);
       nackHeader->SetNack (Interest::NACK_GIVEUP_PIT);
       packet->AddHeader (*nackHeader);
+      Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
+	    	
 
       FwHopCountTag hopCountTag;
       if (origPacket->PeekPacketTag (hopCountTag))
@@ -171,6 +173,12 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
+          //update nack counter
+          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
+	      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
+	      	fib2Entry->m_faces.modify (record2,
+	                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
+	                      	
           incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
 
           m_outNacks (nackHeader, incoming.m_face);

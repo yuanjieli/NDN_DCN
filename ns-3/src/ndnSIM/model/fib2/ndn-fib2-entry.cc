@@ -174,7 +174,8 @@ Entry::ResetCount()
 	      NS_LOG_UNCOND("prefix="<<*m_prefix
 	    								<<" nodeID="<<face->GetFace()->GetNode()->GetId()
 	      							<<" faceID="<<face->GetFace()->GetId()
-	    								<<" Data_out="<<face->GetDataOut());
+	    								<<" Data_out="<<face->GetDataOut()
+	    								<<" Nack_out="<<face->GetNackOut());
       /*m_faces.modify (face,
                       ll::bind (&FaceMetric::SetDataOut, ll::_1, 0));*/
       m_faces.modify (face,
