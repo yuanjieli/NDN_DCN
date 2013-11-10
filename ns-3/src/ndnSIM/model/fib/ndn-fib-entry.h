@@ -186,7 +186,7 @@ public:
   uint32_t
   GetNack() const
   {
-  	return m_nack_old;
+  	return m_nack_old+1;
   }
   
   void
@@ -204,7 +204,7 @@ public:
   uint32_t
   GetDataIn() const
   {
-  	return m_data_in_old;
+  	return m_data_in_old+1;
   }
   
   void
@@ -222,7 +222,7 @@ public:
   uint32_t
   GetDataCE() const
   {
-  	return m_data_ce_old;
+  	return m_data_ce_old+1;
   }
   
   double
