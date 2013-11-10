@@ -173,7 +173,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
           //update nack counter
-          if(incoming.m_face!=0)
+          if(DynamicCast<AppFace>(incoming.m_face)==0)
           {
           	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
 	          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
