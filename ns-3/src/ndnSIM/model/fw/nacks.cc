@@ -174,10 +174,11 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
           //update nack counter
-          /*fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
+          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
 	      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
+	      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
 	      	fib2Entry->m_faces.modify (record2,
-	                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));*/
+	                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
 	                      	
           incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
 
