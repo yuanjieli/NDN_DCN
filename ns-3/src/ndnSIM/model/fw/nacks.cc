@@ -157,7 +157,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)
 	{
 		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
-		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
 	}
 	
   if (m_nacksEnabled)
@@ -196,11 +195,17 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
 			                      	
 			        //Mark the packet
-			        uint32_t N = rand()%record->GetNack();
-			        if(N<=record2->GetNackOut())
+			        if(record!=fibEntry->m_faces.get<fib::i_face> ().end ())
+			        {
+			        	uint32_t N = rand()%record->GetNack();
+				        if(N<=record2->GetNackOut())
+				        	NewHeader->SetCE(1);
+					    	else
+					    		NewHeader->SetCE(0);
+			        }
+			        else
 			        	NewHeader->SetCE(1);
-				    	else
-				    		NewHeader->SetCE(0);				
+			        				
     			}
           else
           	NewHeader->SetCE(1);
