@@ -450,7 +450,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	    	if(max_data_out)
 	    	{
 	    		uint32_t N = rand()%max_data_out;
-		    	if(N<=record->GetDataOut())
+		    	if(N<=record2->GetDataOut())
 		    		NewHeader->SetCE(1);
 		    	else
 		    		NewHeader->SetCE(0);
