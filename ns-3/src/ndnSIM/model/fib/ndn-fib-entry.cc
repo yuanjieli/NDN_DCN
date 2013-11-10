@@ -183,7 +183,6 @@ Entry::ResetCount()
 	    								<<" faceID="<<face->GetFace()->GetId()
 	    								<<" metric="<<face->GetFraction()
 	    								<<" NACK="<<face->GetNack()
-	    								<<" NACK_CE="<<face->GetNackCE()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								<<" Data_CE="<<face->GetDataCE());
       m_faces.modify (face,
@@ -204,25 +203,18 @@ Entry::ResetCount()
   double K = 0;
   double q_var = 0;
   double q_mean = 0;
-  double totalMetric = 0;
   uint32_t facecount = 0;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
     {  
     	if(face->GetRoutingCost()==minCost)
-    	{  
-    		totalMetric += face->GetSharingMetric();	
+    	{ 
+    		q_mean += face->GetSharingMetric(); 
 	    	facecount ++;
 	    }    								
     }
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-    {  
-    	if(face->GetRoutingCost()==minCost)
-    		q_mean += face->GetSharingMetric()/(face->GetNack()*totalMetric);								
-    }
+  
   q_mean /= facecount;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
@@ -230,8 +222,7 @@ Entry::ResetCount()
     {  
     	if(face->GetRoutingCost()==minCost)
     	{
-    		double w = face->GetSharingMetric()/totalMetric;
-    		double tmp = w/face->GetNack()-q_mean;
+    		double tmp = face->GetSharingMetric()-q_mean;
     		if(tmp>0)
     		{
     			q_var += tmp;
@@ -260,7 +251,7 @@ Entry::ResetCount()
 	      if(m_inited)
 	      {
 		      double fraction = face->GetFraction()
-		      								+ K * (face->GetSharingMetric()/(face->GetNack()*totalMetric) - q_mean);
+		      								+ K * (face->GetSharingMetric() - q_mean);
 		      m_faces.modify (face,
 		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
 		    }
