@@ -184,7 +184,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
           
           Ptr<Packet> target = packet->Copy();
     			Ptr<Interest> NewHeader = Create<Interest> ();
-    			target->RemoveHeader(*Interest);
+    			target->RemoveHeader(*NewHeader);
     			if(DynamicCast<AppFace>(incoming.m_face)==0)
     			{
 	    				//update nack counter 
