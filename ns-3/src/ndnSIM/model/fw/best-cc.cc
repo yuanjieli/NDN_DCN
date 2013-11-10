@@ -265,6 +265,9 @@ BestCC::OnNack (Ptr<Face> inFace,
       {
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+          if(header->GetCE()==1)
+	      		pitEntry->GetFibEntry ()->m_faces.modify (record,
+	                      ll::bind (&fib::FaceMetric::IncreaseNackCE, ll::_1));
       }
 }
 

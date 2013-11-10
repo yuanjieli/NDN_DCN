@@ -73,10 +73,12 @@ public:
     , m_sRtt   (Seconds (0))
     , m_rttVar (Seconds (0))
     , m_realDelay (Seconds (0))
-    , m_nack (0)	//not zero, because we wanna avoid werid conditions
-    , m_data_in (0) //not zero, because we wanna avoid werid conditions
-    , m_data_ce (0) //not zero, because we wanna avoid werid conditions
+    , m_nack (0)	
+    , m_nack_ce (0)
+    , m_data_in (0) 
+    , m_data_ce (0) 
     , m_nack_old (0)
+    , m_nack_ce_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
     , m_fraction (0) //initially arbitrary large number. Will be updated later
@@ -190,6 +192,24 @@ public:
   }
   
   void
+  IncreaseNackCE()
+  {
+  	m_nack_ce++;
+  }
+  
+  void
+  SetNackCE(uint32_t rhs)
+  {
+  	m_nack_ce = rhs;
+  }
+  
+  uint32_t
+  GetNackCE() const
+  {
+  	return m_nack_ce_old+1;
+  }
+  
+  void
   IncreaseDataIn()
   {
   	m_data_in++;
@@ -255,6 +275,7 @@ public:
   	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
+  	m_nack_ce_old = alpha*m_nack_ce+(1-alpha)*m_nack_ce_old;
   	
   	
   	//division-based scheme								 
@@ -283,6 +304,7 @@ public:
   	m_data_in = 0;
   	m_data_ce = 0;
   	m_nack = 0;
+  	m_nack_ce = 0;
   }
 
 private:
@@ -304,10 +326,12 @@ private:
   Time m_realDelay;    ///< \brief real propagation delay to the producer, calculated based on NS-3 p2p link delays
 
 	uint32_t m_nack;		 ///< \brief nack counter
+	uint32_t m_nack_ce;	 ///< \brief marked nack counter
 	uint32_t m_data_in;  ///< \brief incoming data counter
 	uint32_t m_data_ce;  ///< \brief incoming marked data counter
 	//the following variables are used for storing counters last round
 	uint32_t m_nack_old;
+	uint32_t m_nack_ce_old;
 	uint32_t m_data_in_old;
 	uint32_t m_data_ce_old;
 
