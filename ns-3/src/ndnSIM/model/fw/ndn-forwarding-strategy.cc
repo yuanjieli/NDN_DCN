@@ -420,18 +420,22 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	if(DynamicCast<AppFace>(incoming.m_face)==0)
     	{
+    		Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
     		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();
-	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record
+    		fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	      = fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face); 	
+	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
 	      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
 	      
 	      //NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
-	      NS_ASSERT(record!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
+	      NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ()
+	      				&&record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
 	      
 	      //update dataout counter
-	      fib2Entry->m_faces.modify (record,
+	      fib2Entry->m_faces.modify (record2,
 	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
 				//mark the data with probability
-	      uint32_t max_data_out = 0;
+	      uint32_t max_data_out = record->GetDataIn();	//we need to consider real BW consumption too
 	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
 	       face != fib2Entry->m_faces.end ();
 	       face++)
@@ -440,6 +444,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	      		max_data_out = face->GetDataOut();
 	      	//max_data_out += face->GetDataOut();
 	    	}
+	    	
+	    	
 	    	
 	    	if(max_data_out)
 	    	{
