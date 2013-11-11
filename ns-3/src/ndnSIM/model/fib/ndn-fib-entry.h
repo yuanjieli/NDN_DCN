@@ -188,7 +188,7 @@ public:
   double
   GetNack() const
   {
-  	return m_nack_old+1;
+  	return m_nack_old;
   }
   
   void
@@ -206,7 +206,7 @@ public:
   double
   GetNackCE() const
   {
-  	return m_nack_ce_old+1;
+  	return m_nack_ce_old;
   }
   
   void
@@ -224,7 +224,7 @@ public:
   double
   GetDataIn() const
   {
-  	return m_data_in_old+1;
+  	return m_data_in_old;
   }
   
   void
@@ -242,7 +242,7 @@ public:
   double
   GetDataCE() const
   {
-  	return m_data_ce_old+1;
+  	return m_data_ce_old;
   }
   
   double
@@ -271,7 +271,7 @@ public:
   void 
   ResetCounter ()
   {
-  	double alpha = 1/8.0;	//weighted sum
+  	double alpha = 1;//1/8.0;	//weighted sum
   	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
