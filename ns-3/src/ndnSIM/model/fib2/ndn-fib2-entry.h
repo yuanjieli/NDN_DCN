@@ -204,8 +204,9 @@ public:
 	void
 	ResetCounter()
 	{
-		m_data_out_old = m_data_out;	
-		m_nack_out_old = m_nack_out;
+		double alpha = 1/8.0;
+		m_data_out_old = alpha*m_data_out+(1-alpha)*m_data_out_old;	
+		m_nack_out_old = alpha*m_nack_out+(1-alpha)*m_nack_out_old;
 		
 		m_nack_out = 0;
 		m_data_out = 0;
