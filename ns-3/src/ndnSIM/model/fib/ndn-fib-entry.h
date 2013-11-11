@@ -279,7 +279,7 @@ public:
   	
   	
   	//estimate cache ratio
-  	m_sharing_metric = (1.0-(m_data_ce_old+1)/(m_data_in_old+1))
+  	m_sharing_metric = (100.0-100.0*(m_data_ce_old)/(m_data_in_old+1))
   									 * m_fraction/(m_nack_old+1);
   	
   	m_data_in = 0;
