@@ -406,17 +406,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
                                             Ptr<const Packet> origPacket,
                                             Ptr<pit::Entry> pitEntry)
 {
+	//if inFace==0, it implies the Interest is satisfied by CS!!!
   if (inFace != 0)
     pitEntry->RemoveIncoming (inFace);
-
-	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
-	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
-	if (inFace != 0)
-	{
-		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
-		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
-	}
-	     
 		
   //satisfy all pending incoming Interests
   BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
@@ -440,32 +432,12 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	      //update dataout counter
 	      fib2Entry->m_faces.modify (record2,
 	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
-				//mark the data with probability
-	      //we need to consider real BW consumption too	
-	      uint32_t max_data_out = inFace==0 ? 0 : record->GetDataIn();
-	      
-	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
-	       face != fib2Entry->m_faces.end ();
-	       face++)
-	    	{
-	      	if(max_data_out<face->GetDataOut())
-	      		max_data_out = face->GetDataOut();
-	      	//max_data_out += face->GetDataOut();
-	    	}
-	    	
-	    	
-	    	
-	    	if(max_data_out)
-	    	{
-	    		uint32_t N = rand()%max_data_out;
-		    	if(N<=record2->GetDataOut())
-		    		NewHeader->SetCE(1);
-		    	else
-		    		NewHeader->SetCE(0);
-	    	}
-	    	else	//no data forwarded yet
-	    		NewHeader->SetCE(1);
-	    	
+	                      	
+				//mark the data with probability    
+	    	if(inFace==0)	//satisfied by CS
+		    	NewHeader->SetCE(1);  
+	 		 	else	//no data forwarded yet
+	    		NewHeader->SetCE(0);   	
     	}
     	
     	

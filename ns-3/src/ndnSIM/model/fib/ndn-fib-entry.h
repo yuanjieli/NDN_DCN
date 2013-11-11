@@ -278,30 +278,8 @@ public:
   	m_nack_ce_old = alpha*m_nack_ce+(1-alpha)*m_nack_ce_old;
   	
   	
-  	//division-based scheme								 
-  	//better tradeoff between cooperation and competition
-  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
-  									 
-  									 
-  	//subtraction-based scheme								 
-		/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)(m_data_ce_old+1)-m_nack_old;*/
-  									 
-  	//cooperation/price_of_competition
-  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
-  	
-  	//iterative approach without NACK count
-  	//m_sharing_metric = m_data_in_old+1;
-  	
-  	//used for balancing congestion
-  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
-  									 /(double)(m_data_ce_old+1);*/
-  	//use potential cooperation level directly
-  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1));
-  	//When balancing congestion, what if I only use data rate (not interest rate)
-  	//m_sharing_metric = m_data_in_old+1;
+  	//estimate cache ratio
+  	m_sharing_metric = (1.0-(m_data_ce_old+1)/(m_data_in_old+1))*m_fraction/(m_nack_old+1);
   	
   	m_data_in = 0;
   	m_data_ce = 0;

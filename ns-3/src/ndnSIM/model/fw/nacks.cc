@@ -152,12 +152,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
                                     Ptr<const Packet> origPacket,
                                     Ptr<pit::Entry> pitEntry)
 {
-	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
-	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
-	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)
-	{
-		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
-	}
 	
   if (m_nacksEnabled)
     {
@@ -193,22 +187,9 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
 			      	fib2Entry->m_faces.modify (record2,
 			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
-			                      	
-			        //Mark the packet
-			        if(record!=fibEntry->m_faces.get<fib::i_face> ().end ())
-			        {
-			        	uint32_t N = rand()%(int)(record->GetNack());
-				        if(N<=record2->GetNackOut())
-				        	NewHeader->SetCE(1);
-					    	else
-					    		NewHeader->SetCE(0);
-			        }
-			        else
-			        	NewHeader->SetCE(1);
-			        				
+			                    
     			}
-          else
-          	NewHeader->SetCE(1);
+          
 	                      	
 	        target->AddHeader(*NewHeader);	
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
