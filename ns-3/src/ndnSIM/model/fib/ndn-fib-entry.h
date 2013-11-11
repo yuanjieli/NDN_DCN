@@ -299,7 +299,7 @@ public:
   	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
   									 /(double)(m_data_ce_old+1);*/
   	//use potential cooperation level directly
-  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1));
+  	m_sharing_metric = (m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1));
   	//When balancing congestion, what if I only use data rate (not interest rate)
   	//m_sharing_metric = m_data_in_old+1;
   	
