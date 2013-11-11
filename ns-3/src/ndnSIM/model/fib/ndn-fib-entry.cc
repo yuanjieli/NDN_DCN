@@ -256,12 +256,10 @@ Entry::ResetCount()
 		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
 		    }
 		    else
-		    {
-		    	double tmp = face->GetSharingMetric(); 
-    	              
+		    {          
 	    		//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
 	    		m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/facecount));
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100.0/facecount));
 		    }
     	}   	
     									
