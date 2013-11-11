@@ -197,7 +197,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			        //Mark the packet
 			        if(record!=fibEntry->m_faces.get<fib::i_face> ().end ())
 			        {
-			        	uint32_t N = rand()%record->GetNack();
+			        	uint32_t N = rand()%(int)(record->GetNack());
 				        if(N<=record2->GetNackOut())
 				        	NewHeader->SetCE(1);
 					    	else
