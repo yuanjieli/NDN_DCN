@@ -188,7 +188,7 @@ public:
   double
   GetNack() const
   {
-  	return m_nack_old;
+  	return m_nack_old+1;
   }
   
   void
@@ -206,7 +206,7 @@ public:
   double
   GetNackCE() const
   {
-  	return m_nack_ce_old;
+  	return m_nack_ce_old+1;
   }
   
   void
@@ -224,7 +224,7 @@ public:
   double
   GetDataIn() const
   {
-  	return m_data_in_old;
+  	return m_data_in_old+1;
   }
   
   void
@@ -242,7 +242,7 @@ public:
   double
   GetDataCE() const
   {
-  	return m_data_ce_old;
+  	return m_data_ce_old+1;
   }
   
   double
@@ -271,16 +271,37 @@ public:
   void 
   ResetCounter ()
   {
-  	double alpha = 1;//1/8.0;	//weighted sum
+  	double alpha = 1/8.0;	//weighted sum
   	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
   	m_nack_ce_old = alpha*m_nack_ce+(1-alpha)*m_nack_ce_old;
   	
   	
-  	//estimate cache ratio
-  	m_sharing_metric = (100.0-100.0*(m_data_ce_old)/(m_data_in_old+1))
-  									 * m_fraction/(m_nack_old+1);
+  	//division-based scheme								 
+  	//better tradeoff between cooperation and competition
+  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
+  									 
+  									 
+  	//subtraction-based scheme								 
+		/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)(m_data_ce_old+1)-m_nack_old;*/
+  									 
+  	//cooperation/price_of_competition
+  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)((m_data_ce_old+1)*(m_nack_old+1));*/
+  	
+  	//iterative approach without NACK count
+  	//m_sharing_metric = m_data_in_old+1;
+  	
+  	//used for balancing congestion
+  	/*m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)
+  									 /(double)(m_data_ce_old+1);*/
+  	//use potential cooperation level directly
+  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
+  	//When balancing congestion, what if I only use data rate (not interest rate)
+  	//m_sharing_metric = m_data_in_old+1;
   	
   	m_data_in = 0;
   	m_data_ce = 0;
