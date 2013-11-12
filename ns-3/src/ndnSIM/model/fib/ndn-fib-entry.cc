@@ -229,6 +229,8 @@ Entry::ResetCount()
     			double tmp2 = (w_upper_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
+    				
+    			NS_LOG_UNCOND("tmp="<<tmp<<" tmp2="<<tmp2);
     		}
     		else if(tmp<0)
     		{
@@ -236,6 +238,8 @@ Entry::ResetCount()
     			double tmp2 = (w_lower_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
+    				
+    			NS_LOG_UNCOND("tmp="<<tmp<<" tmp2="<<tmp2);
     		}
     	}							
     }
