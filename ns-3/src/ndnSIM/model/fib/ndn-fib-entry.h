@@ -293,8 +293,8 @@ public:
   	
   	
   	
-  	m_sharing_metric = alpha*m_sharing_metric
-  									 + (1-alpha)*(m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
+  	m_sharing_metric = (1-alpha)*m_sharing_metric
+  									 + alpha*(m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	
   	m_data_in = 0;
   	m_data_ce = 0;
