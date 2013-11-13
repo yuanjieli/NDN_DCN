@@ -223,9 +223,10 @@ Entry::ResetCount()
     	if(face->GetRoutingCost()==minCost)
     	{
     		double tmp = face->GetSharingMetric()-q_mean;
+    		q_var += tmp*tmp;
     		if(tmp>0)
     		{
-    			q_var += tmp;
+    			//q_var += tmp;
     			double tmp2 = (w_upper_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
@@ -234,7 +235,7 @@ Entry::ResetCount()
     		}
     		else if(tmp<0)
     		{
-    			q_var += -tmp;
+    			//q_var += -tmp;
     			double tmp2 = (w_lower_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
@@ -243,7 +244,8 @@ Entry::ResetCount()
     		}
     	}							
     }
-  q_var /= facecount;
+  //q_var /= facecount;
+  q_var = sqrt(q_var/facecount);
   K = K_bound*tanh(q_var/q_mean);  
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
