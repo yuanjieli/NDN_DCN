@@ -176,7 +176,7 @@ Entry::ResetCount()
        face++)
     {
     	
-    	if(face->GetFace()->GetNode()->GetId()==2)
+    	if(face->GetFace()->GetNode()->GetId()==3)
 	    	NS_LOG_UNCOND(
 	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
 	    								<<" prefix="<<*m_prefix
@@ -231,7 +231,6 @@ Entry::ResetCount()
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     				
-    			NS_LOG_UNCOND("tmp="<<tmp<<" tmp2="<<tmp2);
     		}
     		else if(tmp<0)
     		{
@@ -240,7 +239,6 @@ Entry::ResetCount()
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     				
-    			NS_LOG_UNCOND("tmp="<<tmp<<" tmp2="<<tmp2);
     		}
     	}							
     }
