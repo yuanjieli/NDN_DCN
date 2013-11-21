@@ -175,6 +175,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		if(metricFace.GetRoutingCost()==minCost)
 	  		{
 	  			coin += metricFace.GetFraction();
+	  			//if this link is already a bottleneck link, increase NACK by 1
+	  			if(!CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+	  				pitEntry->GetFibEntry ()->m_faces.modify (metricFace,
+                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
 	  			//NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
 	  			if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 	  			{
