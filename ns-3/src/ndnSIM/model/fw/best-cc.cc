@@ -192,7 +192,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  if(optimalFace==0)return false;
 	  
 	  //If we cannot send interest through optimalFace, increase NACK
-	  if(CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 	  {
 	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
