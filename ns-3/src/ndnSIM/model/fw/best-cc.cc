@@ -177,8 +177,12 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			coin += metricFace.GetFraction();
 	  			//if this link is already a bottleneck link, increase NACK by 1
 	  			if(!CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
-	  				pitEntry->GetFibEntry ()->m_faces.modify (metricFace,
+	  			{
+	  				fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator nack_record
+	   				= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (metricFace.GetFace());
+	  				pitEntry->GetFibEntry ()->m_faces.modify (nack_record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+          }
 	  			//NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
 	  			if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 	  			{
