@@ -177,7 +177,7 @@ public:
   void
   IncreaseNack()
   {
-  	NS_LOG_UNCOND("m_nack="<<m_nack);
+
   	m_nack++;
   }
   
