@@ -176,15 +176,11 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  		{
 	  			coin += metricFace.GetFraction();
 	  			//if this link is already a bottleneck link, increase NACK by 1
-	  			if(!CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
-	  			{
-	  				fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator nack_record
-	   				= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (metricFace.GetFace());
-	  				pitEntry->GetFibEntry ()->m_faces.modify (nack_record,
-                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-          }
-	  			//NS_LOG_UNCOND("coin="<<coin<<" target="<<target);
-	  			if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+	  			
+	  			//if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+	  			//at this stage, we don't care whether this face can send interests
+	  			//This would fix the bug when local link becomes bottleneck
+	  			if(coin>=target)
 	  			{
 	  				optimalFace = metricFace.GetFace();
 	  				break;
@@ -194,6 +190,20 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  
 	  
 	  if(optimalFace==0)return false;
+	  
+	  //If we cannot send interest through optimalFace, increase NACK
+	  if(CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+	  {
+	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+  	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+      {
+      		
+        	pitEntry->GetFibEntry ()->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+      }
+	  	return false;
+	  }	
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
 	  faceLimits->BorrowLimit ();
