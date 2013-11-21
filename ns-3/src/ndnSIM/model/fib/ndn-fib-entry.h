@@ -190,7 +190,8 @@ public:
   double
   GetNack() const
   {
-  	return m_nack_old+1;
+  	//return m_nack_old+1;
+  	return m_nack+1;
   }
   
   void
