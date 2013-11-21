@@ -263,6 +263,8 @@ BestCC::OnNack (Ptr<Face> inFace,
 	   = pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (inFace);
   	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
+      		if(inFace->GetNode()->GetId()==3)
+      			NS_LOG_UNCOND("Increase NACK!");
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
           if(header->GetCE()==1)
