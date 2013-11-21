@@ -113,7 +113,7 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   consumerHelper.SetPrefix ("/prefix3");
-  consumers = consumerHelper.Install (nodes.Get (3)); 
+  consumers = consumerHelper.Install (nodes.Get (2)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
