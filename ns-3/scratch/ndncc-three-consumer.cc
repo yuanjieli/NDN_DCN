@@ -49,7 +49,7 @@ main (int argc, char *argv[])
 
   // Creating nodes
   NodeContainer nodes;
-  nodes.Create (6);
+  nodes.Create (8);
 
   // Connecting nodes using two links
   PointToPointHelper p2p;
@@ -57,10 +57,12 @@ main (int argc, char *argv[])
   p2p.Install (nodes.Get (0), nodes.Get (3));
   p2p.Install (nodes.Get (1), nodes.Get (3));
   p2p.Install (nodes.Get (2), nodes.Get (3));
-  p2p.SetDeviceAttribute("DataRate", StringValue ("12Mbps"));
   p2p.Install (nodes.Get (3), nodes.Get (4));
-  p2p.SetDeviceAttribute("DataRate", StringValue ("18Mbps"));  
   p2p.Install (nodes.Get (3), nodes.Get (5));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("12Mbps"));
+  p2p.Install (nodes.Get (4), nodes.Get (6));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("18Mbps"));  
+  p2p.Install (nodes.Get (5), nodes.Get (7));
   
   
   
@@ -81,22 +83,22 @@ main (int argc, char *argv[])
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix1");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (4)); 
-  producerHelper.Install (nodes.Get (5)); 
+  producerHelper.Install (nodes.Get (6)); 
+  producerHelper.Install (nodes.Get (7)); 
   producerHelper.SetPrefix ("/prefix2");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (4)); 
+  producerHelper.Install (nodes.Get (6)); 
   producerHelper.SetPrefix ("/prefix3");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (5)); 
+  producerHelper.Install (nodes.Get (7)); 
   
   //Add routes here
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.Install (nodes);
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (4));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (5));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get (4));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix3", nodes.Get (5));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (6));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (7));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get (6));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix3", nodes.Get (7));
   ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
   ndnGlobalRoutingHelper.CalculateFIB2 ();
   
