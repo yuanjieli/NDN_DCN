@@ -107,10 +107,10 @@ main (int argc, char *argv[])
   consumers = consumerHelper.Install (nodes.Get (1)); 
   consumers.Start (Seconds (1));	
   consumers.Stop (Seconds (simulation_time));
-  /*consumerHelper.SetPrefix ("/prefix2");
+  consumerHelper.SetPrefix ("/prefix2");
   consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));*/
+  consumers.Stop (Seconds (simulation_time));
   
 
   Simulator::Stop (Seconds (simulation_time));
