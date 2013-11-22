@@ -198,7 +198,7 @@ Entry::ResetCount()
   		minCost = face->GetRoutingCost();
   }
   double K_bound = MAX_BOUND;
-  double w_lower_bound = 50;	//lower bound for probing traffic
+  double w_lower_bound = 1;	//lower bound for probing traffic
   double w_upper_bound = 100;	//upper bound for w
   double K = 0;
   double q_var = 0;
@@ -208,7 +208,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {  
-    	//if(face->GetRoutingCost()==minCost)
+    	if(face->GetRoutingCost()==minCost)
     	{ 
     		q_mean += face->GetSharingMetric(); 
 	    	facecount ++;
@@ -220,7 +220,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {  
-    	//if(face->GetRoutingCost()==minCost)
+    	if(face->GetRoutingCost()==minCost)
     	{
     		double tmp = face->GetSharingMetric()-q_mean;
     		q_var += tmp*tmp;
@@ -250,7 +250,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     { 
-    	//if(face->GetRoutingCost()==minCost)
+    	if(face->GetRoutingCost()==minCost)
     	{
 	      if(m_inited)
 	      {

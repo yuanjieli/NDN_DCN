@@ -161,7 +161,15 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			minCost = metricFace.GetRoutingCost();
 	  	}
 	  
-	  double target = rand()%100;
+	  double totalweight = 0;
+	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+	  {
+	  	if(metricFace.GetRoutingCost()==minCost
+	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
+	  		minCost = metricFace.GetRoutingCost();
+	  }
+	  
+	  double target = rand()%(int)totalweight;
 	  double coin = 0;	
 	  //Step2: choose ONE face based on our congestion control strategy
 	  std::vector< Ptr<Face> > vecFaces;
@@ -172,7 +180,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			optimalFace = metricFace.GetFace();
 	  			break;	
 	  		}
-	  		//if(metricFace.GetRoutingCost()==minCost)
+	  		if(metricFace.GetRoutingCost()==minCost)
 	  		{
 	  			coin += metricFace.GetFraction();
 	  			//if this link is already a bottleneck link, increase NACK by 1
