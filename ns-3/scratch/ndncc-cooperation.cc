@@ -47,17 +47,9 @@ main (int argc, char *argv[])
   CommandLine cmd;
   cmd.Parse (argc, argv);
 
-  // Creating nodes
-  NodeContainer nodes;
-  nodes.Create (4);
-
-  // Connecting nodes using two links
-  PointToPointHelper p2p;
-  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
-  p2p.Install (nodes.Get (0), nodes.Get (1));
-  p2p.Install (nodes.Get (0), nodes.Get (2));
-  p2p.Install (nodes.Get (1), nodes.Get (3));
-  p2p.Install (nodes.Get (2), nodes.Get (3));
+  AnnotatedTopologyReader topologyReader ("", 1);
+  topologyReader.SetFileName ("scratch/cooperation_map.txt");
+  topologyReader.Read ();
   
   
   
@@ -79,28 +71,28 @@ main (int argc, char *argv[])
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix1");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (3)); 
+  producerHelper.Install (Names::Find<Node> ("S4")); 
   producerHelper.SetPrefix ("/prefix2");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (1)); 
+  producerHelper.Install (Names::Find<Node> ("S2")); 
   producerHelper.SetPrefix ("/prefix3");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (3)); 
+  producerHelper.Install (Names::Find<Node> ("S4")); 
   
   
   //Manually Add routes here, because we have non-shortest path
   //To be compatible with our code, set all paths with equal cost
   //S1
-  ndn::StackHelper::AddRoute (nodes.Get(0),"/prefix1",0,2);
-  ndn::StackHelper::AddRoute (nodes.Get(0),"/prefix1",1,2);	
-  ndn::StackHelper::AddRoute (nodes.Get(0),"/prefix2",0,1);	
+  ndn::StackHelper::AddRoute ("S1","/prefix1","S2",2);
+  ndn::StackHelper::AddRoute ("S1","/prefix1","S3",2);	
+  ndn::StackHelper::AddRoute ("S1","/prefix2","S2",1);	
   //S2
-  ndn::StackHelper::AddRoute (nodes.Get(1),"/prefix1",0,1);	
-  ndn::StackHelper::AddRoute (nodes.Get(1),"/prefix1",1,1);	
+  ndn::StackHelper::AddRoute ("S2","/prefix1","S1",1);	
+  ndn::StackHelper::AddRoute ("S4","/prefix1","S1",1);	
   //S3
-  ndn::StackHelper::AddRoute (nodes.Get(2),"/prefix1",0,1);	
-  ndn::StackHelper::AddRoute (nodes.Get(2),"/prefix1",1,1);	
-  ndn::StackHelper::AddRoute (nodes.Get(2),"/prefix3",1,1);				
+  ndn::StackHelper::AddRoute ("S3","/prefix1","S1",1);	
+  ndn::StackHelper::AddRoute ("S3","/prefix1","S4",1);	
+  ndn::StackHelper::AddRoute ("S2","/prefix3","S4",1);				
   	
   
   
@@ -108,12 +100,12 @@ main (int argc, char *argv[])
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix1");
-  consumers = consumerHelper.Install (nodes.Get (0)); 
+  consumers = consumerHelper.Install (Names::Find<Node> ("S1")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
   consumerHelper.SetPrefix ("/prefix1");
-  consumers = consumerHelper.Install (nodes.Get (1)); 
+  consumers = consumerHelper.Install (Names::Find<Node> ("S2")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
