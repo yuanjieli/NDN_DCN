@@ -17,7 +17,7 @@
  *
  * Author: Yuanjie Li <yuanjie.li@cs.ucla.edu>
  */
-// ndncc-cooperation.cc Proof of concept for our cooperation scheme
+// ndncc-multipath-fairness.cc Two consumers. One has two producers, the other has just one
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/point-to-point-module.h"
@@ -32,7 +32,7 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {
-	int simulation_time = 100;
+	int simulation_time = 200;
   // setting default parameters for PointToPoint links and channels
   Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1ms"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
@@ -47,9 +47,17 @@ main (int argc, char *argv[])
   CommandLine cmd;
   cmd.Parse (argc, argv);
 
-  AnnotatedTopologyReader topologyReader ("", 1);
-  topologyReader.SetFileName ("scratch/cooperation_map.txt");
-  topologyReader.Read ();
+  // Creating nodes
+  NodeContainer nodes;
+  nodes.Create (4);
+
+  // Connecting nodes using two links
+  PointToPointHelper p2p;
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.Install (nodes.Get (0), nodes.Get (1));
+  p2p.Install (nodes.Get (0), nodes.Get (2));
+  p2p.Install (nodes.Get (1), nodes.Get (3));
+  p2p.Install (nodes.Get (2), nodes.Get (3));
   
   
   
@@ -71,48 +79,33 @@ main (int argc, char *argv[])
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix1");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (Names::Find<Node> ("S4")); 
+  producerHelper.Install (nodes.Get (3)); 
   producerHelper.SetPrefix ("/prefix2");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (Names::Find<Node> ("S2")); 
-  producerHelper.SetPrefix ("/prefix3");
-  producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (Names::Find<Node> ("S4")); 
+  producerHelper.Install (nodes.Get (1)); 
   
-  
-  //Manually Add routes here, because we have non-shortest path
-  //To be compatible with our code, set all paths with equal cost
-  //S1
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S2",2);
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S3",2);	
-  ndn::StackHelper::AddRoute ("S1","/prefix2","S2",1);	
-  //S2
-  ndn::StackHelper::AddRoute ("S2","/prefix1","S1",1);	
-  ndn::StackHelper::AddRoute ("S2","/prefix1","S4",1);	
-  //S3
-  ndn::StackHelper::AddRoute ("S3","/prefix1","S4",1);	
-  ndn::StackHelper::AddRoute ("S3","/prefix3","S4",1);
-  	
+  //Add routes here
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
-  ndnGlobalRoutingHelper.InstallAll ();
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", Names::Find<Node> ("S4"));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", Names::Find<Node> ("S2"));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix3", Names::Find<Node> ("S4"));
-  //ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
-  ndnGlobalRoutingHelper.CalculateFIB2 ();			
-  	
-  
+  ndnGlobalRoutingHelper.Install (nodes);
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix", nodes.Get (4));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get (6));
+  ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
+  ndnGlobalRoutingHelper.CalculateFIB2 ();
   
   // Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix1");
-  consumers = consumerHelper.Install (Names::Find<Node> ("S1")); 
+  consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
   consumerHelper.SetPrefix ("/prefix1");
-  consumers = consumerHelper.Install (Names::Find<Node> ("S2")); 
+  consumers = consumerHelper.Install (nodes.Get (1)); 
+  consumers.Start (Seconds (1));	
+  consumers.Stop (Seconds (simulation_time));
+  consumerHelper.SetPrefix ("/prefix2");
+  consumers = consumerHelper.Install (nodes.Get (5)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
