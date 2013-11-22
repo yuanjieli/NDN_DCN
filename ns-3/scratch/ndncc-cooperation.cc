@@ -87,8 +87,8 @@ main (int argc, char *argv[])
   //Add routes here
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.Install (nodes);
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix", nodes.Get (4));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get (6));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (3));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get (1));
   ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
   ndnGlobalRoutingHelper.CalculateFIB2 ();
   
@@ -105,7 +105,7 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (1));	
   consumers.Stop (Seconds (simulation_time));
   consumerHelper.SetPrefix ("/prefix2");
-  consumers = consumerHelper.Install (nodes.Get (5)); 
+  consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
