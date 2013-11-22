@@ -167,7 +167,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  std::vector< Ptr<Face> > vecFaces;
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  	{
-	  		if(metricFace.GetFace()==inFace)continue;
 	  		if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
 	  		{
 	  			optimalFace = metricFace.GetFace();
@@ -181,6 +180,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			//if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 	  			//at this stage, we don't care whether this face can send interests
 	  			//This would fix the bug when local link becomes bottleneck
+	  			if(metricFace.GetFace()==inFace)continue;
 	  			if(coin>=target)
 	  			{
 	  				optimalFace = metricFace.GetFace();
