@@ -87,7 +87,7 @@ main (int argc, char *argv[])
   ndn::StackHelper::AddRoute ("S1","/prefix1","S3",2);	
   ndn::StackHelper::AddRoute ("S1","/prefix2","S2",1);	
   //S2
-  //ndn::StackHelper::AddRoute ("S2","/prefix1","S1",1);	
+  ndn::StackHelper::AddRoute ("S2","/prefix1","S1",1);	
   ndn::StackHelper::AddRoute ("S2","/prefix1","S4",1);	
   //S3
   ndn::StackHelper::AddRoute ("S3","/prefix1","S4",1);	
