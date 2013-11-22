@@ -18,7 +18,7 @@ S1      S3      10Mbps          1       1ms     50
 S3      S1      10Mbps          1       1ms     50
 S2      S4      10Mbps          1       1ms     50
 S4      S2      10Mbps          1       1ms     50
-S3      S4      10Mbps          1       1ms     50
-S4      S3      10Mbps          1       1ms     50
+#S3      S4      10Mbps          1       1ms     50
+#S4      S3      10Mbps          1       1ms     50
 
 
