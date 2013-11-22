@@ -83,7 +83,7 @@ main (int argc, char *argv[])
   //Manually Add routes here, because we have non-shortest path
   //To be compatible with our code, set all paths with equal cost
   //S1
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S2",1);
+  /*ndn::StackHelper::AddRoute ("S1","/prefix1","S2",1);
   ndn::StackHelper::AddRoute ("S1","/prefix1","S3",1);	
   ndn::StackHelper::AddRoute ("S1","/prefix2","S2",1);	
   //S2
@@ -92,14 +92,14 @@ main (int argc, char *argv[])
   //S3
   ndn::StackHelper::AddRoute ("S3","/prefix1","S1",1);	
   ndn::StackHelper::AddRoute ("S3","/prefix1","S4",1);	
-  ndn::StackHelper::AddRoute ("S2","/prefix3","S4",1);
+  ndn::StackHelper::AddRoute ("S2","/prefix3","S4",1);*/
   	
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
-  /*ndnGlobalRoutingHelper.AddOrigins ("/prefix1", Names::Find<Node> ("S4"));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", Names::Find<Node> ("S4"));
   ndnGlobalRoutingHelper.AddOrigins ("/prefix2", Names::Find<Node> ("S2"));
   ndnGlobalRoutingHelper.AddOrigins ("/prefix3", Names::Find<Node> ("S4"));
-  ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();*/
+  ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
   ndnGlobalRoutingHelper.CalculateFIB2 ();			
   	
   
