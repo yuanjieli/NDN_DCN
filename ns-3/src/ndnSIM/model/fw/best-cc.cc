@@ -278,7 +278,9 @@ BestCC::OnNack (Ptr<Face> inFace,
   	faceLimits->IncreaseNack ();
   
   //update per-fib nack counter	
-  fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+  if(nackCode == Interest::NACK_GIVEUP_PIT)
+  {
+  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	   = pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (inFace);
   	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
@@ -289,6 +291,8 @@ BestCC::OnNack (Ptr<Face> inFace,
 	      		pitEntry->GetFibEntry ()->m_faces.modify (record,
 	                      ll::bind (&fib::FaceMetric::IncreaseNackCE, ll::_1));
       }
+  }
+  
 }
 
 class PerOutFaceDeltaLimits;
