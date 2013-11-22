@@ -161,13 +161,13 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			minCost = metricFace.GetRoutingCost();
 	  	}
 	  
-	  double totalweight = 100;
-	  /*BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+	  double totalweight = 0;
+	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  {
 	  	if(metricFace.GetRoutingCost()==minCost
 	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 	  		totalweight += metricFace.GetFraction();;
-	  }*/
+	  }
 	  
 	  double target = rand()%(int)totalweight;
 	  double coin = 0;	
