@@ -161,14 +161,15 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			minCost = metricFace.GetRoutingCost();
 	  	}
 	  
-	  double totalweight = 0;
+	  double totalweight = 100;
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  {
 	  	if(metricFace.GetRoutingCost()==minCost
 	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
-	  		totalweight += metricFace.GetFraction();;
+	  		totalweight -= metricFace.GetFraction();
 	  }
-	  if(totalweight==0)totalweight = 100;	//initialization issues
+	  
+	  totalweight = 100 - totalweight;
 	  double target = rand()%(int)totalweight;
 	  double coin = 0;	
 	  //Step2: choose ONE face based on our congestion control strategy
