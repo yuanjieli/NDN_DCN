@@ -208,7 +208,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {  
-    	if(face->GetRoutingCost()==minCost)
+    	//if(face->GetRoutingCost()==minCost)
     	{ 
     		q_mean += face->GetSharingMetric(); 
 	    	facecount ++;
@@ -220,7 +220,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {  
-    	if(face->GetRoutingCost()==minCost)
+    	//if(face->GetRoutingCost()==minCost)
     	{
     		double tmp = face->GetSharingMetric()-q_mean;
     		q_var += tmp*tmp;
@@ -250,7 +250,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     { 
-    	if(face->GetRoutingCost()==minCost)
+    	//if(face->GetRoutingCost()==minCost)
     	{
 	      if(m_inited)
 	      {

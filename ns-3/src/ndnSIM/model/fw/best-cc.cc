@@ -172,7 +172,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			optimalFace = metricFace.GetFace();
 	  			break;	
 	  		}
-	  		if(metricFace.GetRoutingCost()==minCost)
+	  		//if(metricFace.GetRoutingCost()==minCost)
 	  		{
 	  			coin += metricFace.GetFraction();
 	  			//if this link is already a bottleneck link, increase NACK by 1
@@ -180,7 +180,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  			//if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 	  			//at this stage, we don't care whether this face can send interests
 	  			//This would fix the bug when local link becomes bottleneck
-	  			if(metricFace.GetFace()==inFace)continue;
 	  			if(coin>=target)
 	  			{
 	  				optimalFace = metricFace.GetFace();
