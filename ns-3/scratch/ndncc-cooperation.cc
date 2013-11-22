@@ -55,8 +55,11 @@ main (int argc, char *argv[])
   PointToPointHelper p2p;
   p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (0), nodes.Get (1));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("20Mbps"));
   p2p.Install (nodes.Get (0), nodes.Get (2));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("20Mbps"));
   p2p.Install (nodes.Get (1), nodes.Get (3));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (2), nodes.Get (3));
   
   
@@ -104,10 +107,10 @@ main (int argc, char *argv[])
   consumers = consumerHelper.Install (nodes.Get (1)); 
   consumers.Start (Seconds (1));	
   consumers.Stop (Seconds (simulation_time));
-  consumerHelper.SetPrefix ("/prefix2");
+  /*consumerHelper.SetPrefix ("/prefix2");
   consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
+  consumers.Stop (Seconds (simulation_time));*/
   
 
   Simulator::Stop (Seconds (simulation_time));

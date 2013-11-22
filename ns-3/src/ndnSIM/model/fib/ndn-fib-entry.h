@@ -281,9 +281,9 @@ public:
   	m_nack_ce_old = alpha*m_nack_ce+(1-alpha)*m_nack_ce_old;
   	
   	
+  
+  	m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	
-  	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
-  	m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1); 
   	
   	m_data_in = 0;
   	m_data_ce = 0;
