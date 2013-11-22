@@ -83,8 +83,8 @@ main (int argc, char *argv[])
   //Manually Add routes here, because we have non-shortest path
   //To be compatible with our code, set all paths with equal cost
   //S1
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S2",2);
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S3",2);	
+  ndn::StackHelper::AddRoute ("S1","/prefix1","S2",1);
+  ndn::StackHelper::AddRoute ("S1","/prefix1","S3",1);	
   ndn::StackHelper::AddRoute ("S1","/prefix2","S2",1);	
   //S2
   ndn::StackHelper::AddRoute ("S2","/prefix1","S1",1);	
