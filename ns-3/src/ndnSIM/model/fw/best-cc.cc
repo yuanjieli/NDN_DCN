@@ -164,7 +164,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  double totalweight = 0;
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  {
-	  	if(metricFace.GetRoutingCost()==minCost)
+	  	if(metricFace.GetRoutingCost()==minCost
 	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 	  		totalweight -= metricFace.GetFraction();
 	  }
