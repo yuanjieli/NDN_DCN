@@ -258,7 +258,8 @@ BestCC::OnNack (Ptr<Face> inFace,
       pitEntry->RemoveIncoming (inFace);
     }
     
-  if (nackCode == Interest::NACK_CONGESTION ||
+  if (nackCode == Interest::NACK_LOOP				||
+  		nackCode == Interest::NACK_CONGESTION ||
       nackCode == Interest::NACK_GIVEUP_PIT)
     {
       pitEntry->SetWaitingInVain (inFace);
@@ -280,7 +281,7 @@ BestCC::OnNack (Ptr<Face> inFace,
       //by Felix: all the forwarding options are in vain. A Nack will be forwarded
       DidExhaustForwardingOptions (inFace, nonNackHeader, nonNackInterest, pitEntry);
     }
-  else if (nackCode == Interest::NACK_LOOP)//reroute for looped Interests
+  /*else if (nackCode == Interest::NACK_LOOP)//reroute for looped Interests
   	{
   		pitEntry->SetWaitingInVain (inFace);
 
@@ -306,7 +307,7 @@ BestCC::OnNack (Ptr<Face> inFace,
         	//by Felix: all the forwarding options are in vain. A Nack will be forwarded
           DidExhaustForwardingOptions (inFace, nonNackHeader, nonNackInterest, pitEntry);
         }
-  	}
+  	}*/
       
   Ptr<LimitsDeltaRate> faceLimits = inFace->GetObject<LimitsDeltaRate> ();
   if(faceLimits)
