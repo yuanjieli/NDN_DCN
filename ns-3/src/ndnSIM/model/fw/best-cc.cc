@@ -165,7 +165,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  {
 	  	if(metricFace.GetRoutingCost()==minCost)
-	  	//&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
+	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 	  		totalweight -= metricFace.GetFraction();
 	  }
 	  if(totalweight==0) totalweight = 100;
@@ -176,7 +176,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  std::vector< Ptr<Face> > vecFaces;
 	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 	  	{
-	  		//if(metricFace.GetFace()==inFace)continue;
+	  		if(metricFace.GetFace()==inFace)continue;
 	  		if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
 	  		{
 	  			optimalFace = metricFace.GetFace();
