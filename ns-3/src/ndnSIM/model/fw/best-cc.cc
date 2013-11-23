@@ -298,16 +298,7 @@ BestCC::OnNack (Ptr<Face> inFace,
       nonNackHeader->SetNack (Interest::NORMAL_INTEREST);
       nonNackInterest->AddHeader (*nonNackHeader);
 
-      FwHopCountTag hopCountTag;
-      if (origPacket->PeekPacketTag (hopCountTag))
-        {
-     	  nonNackInterest->AddPacketTag (hopCountTag);
-        }
-      else
-        {
-          NS_LOG_DEBUG ("No FwHopCountTag tag associated with received NACK");
-        }
-
+      
 			//by Felix: try to propagate this interest to other available output interfaces
       bool propagated = DoPropagateInterest (inFace, nonNackHeader, nonNackInterest, pitEntry);
       if (!propagated)
