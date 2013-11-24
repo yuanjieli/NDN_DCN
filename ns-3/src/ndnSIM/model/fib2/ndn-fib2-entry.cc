@@ -170,12 +170,12 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {
-    	if(face->GetFace()->GetNode()->GetId()==2)
+    	/*if(face->GetFace()->GetNode()->GetId()==2)
 	      NS_LOG_UNCOND("prefix="<<*m_prefix
 	    								<<" nodeID="<<face->GetFace()->GetNode()->GetId()
 	      							<<" faceID="<<face->GetFace()->GetId()
 	    								<<" Data_out="<<face->GetDataOut()
-	    								);
+	    								);*/
       /*m_faces.modify (face,
                       ll::bind (&FaceMetric::SetDataOut, ll::_1, 0));*/
       m_faces.modify (face,
