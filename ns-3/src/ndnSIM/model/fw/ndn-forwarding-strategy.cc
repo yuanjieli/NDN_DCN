@@ -418,7 +418,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
 	}
 	
-	//Get incoming data rate
+	//Get total incoming data rate
 	uint32_t max_data_in = 0;
 	BOOST_FOREACH (const fib::FaceMetric &metricFace, fibEntry->m_faces.get<fib::i_metric> ())
 	{
@@ -462,18 +462,21 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	      	//max_data_out += face->GetDataOut();
 	    	}
 	    	
-	    	
-	    	
-	    	if(max_data_out)
-	    	{
-	    		uint32_t N = rand()%max_data_out;
-		    	if(N<=record2->GetDataOut())
+	    	if(inFace==0)
+	    		NewHeader->SetCE(0);
+	    	else{
+	    		if(max_data_out)
+		    	{
+		    		uint32_t N = rand()%max_data_out;
+			    	if(N<=record2->GetDataOut())
+			    		NewHeader->SetCE(1);
+			    	else
+			    		NewHeader->SetCE(0);
+		    	}
+		    	else	//no data forwarded yet
 		    		NewHeader->SetCE(1);
-		    	else
-		    		NewHeader->SetCE(0);
+	    		
 	    	}
-	    	else	//no data forwarded yet
-	    		NewHeader->SetCE(1);
 	    	
     	}
     	
