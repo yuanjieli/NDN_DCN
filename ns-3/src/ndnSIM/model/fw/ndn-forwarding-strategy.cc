@@ -462,9 +462,6 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	      	//max_data_out += face->GetDataOut();
 	    	}
 	    	
-	    	if(inFace==0)
-	    		NewHeader->SetCE(0);
-	    	else{
 	    		if(max_data_out)
 		    	{
 		    		uint32_t N = rand()%max_data_out;
@@ -476,7 +473,6 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 		    	else	//no data forwarded yet
 		    		NewHeader->SetCE(1);
 	    		
-	    	}
 	    	
     	}
     	
