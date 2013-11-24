@@ -406,6 +406,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
                                             Ptr<const Packet> origPacket,
                                             Ptr<pit::Entry> pitEntry)
 {
+	//if inFace==0, it is a cache hit
   if (inFace != 0)
     pitEntry->RemoveIncoming (inFace);
 
@@ -415,6 +416,13 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	{
 		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
 		NS_ASSERT(record!=fibEntry->m_faces.get<fib::i_face> ().end ());
+	}
+	
+	//Get incoming data rate
+	uint32_t max_data_in = 0;
+	BOOST_FOREACH (const fib::FaceMetric &metricFace, fibEntry->m_faces.get<fib::i_metric> ())
+	{
+		max_data_in += metricFace.GetDataIn();
 	}
 	     
 		
@@ -442,7 +450,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
 				//mark the data with probability
 	      //we need to consider real BW consumption too	
-	      uint32_t max_data_out = inFace==0 ? 0 : record->GetDataIn();
+	      uint32_t max_data_in = max_data_in;
+	      //uint32_t max_data_out = inFace==0 ? 0 : record->GetDataIn();
 	      
 	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
 	       face != fib2Entry->m_faces.end ();
