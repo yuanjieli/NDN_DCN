@@ -39,7 +39,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("50"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("100"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
 
@@ -83,7 +83,10 @@ main (int argc, char *argv[])
   // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
-  producerHelper.SetPrefix ("/prefix");
+  producerHelper.SetPrefix ("/prefix1");
+  producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
+  producerHelper.Install (nodes.Get(5)); 
+  producerHelper.SetPrefix ("/prefix2");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
   producerHelper.Install (nodes.Get(5)); 
   
@@ -94,7 +97,8 @@ main (int argc, char *argv[])
   	
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix", nodes.Get(5));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get(5));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get(5));
   ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
   ndnGlobalRoutingHelper.CalculateFIB2 ();			
   	
@@ -103,12 +107,12 @@ main (int argc, char *argv[])
   // Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
-  consumerHelper.SetPrefix ("/prefix");
+  consumerHelper.SetPrefix ("/prefix1");
   consumers = consumerHelper.Install (nodes.Get(0)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  consumerHelper.SetPrefix ("/prefix");
+  consumerHelper.SetPrefix ("/prefix2");
   consumers = consumerHelper.Install (nodes.Get(1)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
