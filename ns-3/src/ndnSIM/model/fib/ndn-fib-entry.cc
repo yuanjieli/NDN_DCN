@@ -172,7 +172,7 @@ void
 Entry::ResetCount()
 {
 	//reset overall data rate
-	if(*prefix=="/prefix1" || *prefix=="/prefix2")
+	if(*m_prefix=="/prefix1" || *m_prefix=="/prefix2")
 		NS_LOG_UNCOND("prefix="<<*prefix<<" rate="<<m_data);
 	m_data = 0;
 	//reset each face's count
