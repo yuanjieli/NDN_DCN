@@ -228,7 +228,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
       	if(app!=0)
       	{
-      		app->OnNack(packet->Copy(), origPacket->Copy());
+      		app->OnNack(nackHeader, origPacket);
       	}
       	
       }
