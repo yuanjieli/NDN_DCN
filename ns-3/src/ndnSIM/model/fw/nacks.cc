@@ -29,6 +29,7 @@
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndnSIM/utils/ndn-fw-hop-count-tag.h"
 #include "ns3/ndn-app-face.h"
+#include "ns3/ndn-app.h"
 
 #include "ns3/assert.h"
 #include "ns3/ptr.h"
