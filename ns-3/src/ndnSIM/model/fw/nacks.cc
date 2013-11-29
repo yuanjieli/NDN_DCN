@@ -225,7 +225,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       NS_ASSERT(node!=0);
       for(uint32_t k=0; k!=node->GetNApplications(); k++)
       {
-      	Ptr<ConsumerOm> app = DynamicCast<ConsumerOm>(node->GetApplication(k));
+      	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
       	if(app!=0)
       	{
       		app->OnNack(packet->Copy(), origPacket);
