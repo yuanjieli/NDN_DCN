@@ -239,6 +239,7 @@ BestCC::OnNack (Ptr<Face> inFace,
 }*/
 
 //DON'T DO REROUTING
+//Copy NACK to all applications of this node
 void
 BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
@@ -272,42 +273,16 @@ BestCC::OnNack (Ptr<Face> inFace,
           m_dropNacks (header, inFace);
           return;
         }
-
+			
       Ptr<Packet> nonNackInterest = Create<Packet> ();
       Ptr<Interest> nonNackHeader = Create<Interest> (*header);
       nonNackHeader->SetNack (Interest::NORMAL_INTEREST);
       nonNackInterest->AddHeader (*nonNackHeader);
 
       //by Felix: all the forwarding options are in vain. A Nack will be forwarded
+      //In DidExhaustForwardingOptions(), we will copy NACK to all applications too
       DidExhaustForwardingOptions (inFace, nonNackHeader, nonNackInterest, pitEntry);
     }
-  /*else if (nackCode == Interest::NACK_LOOP)//reroute for looped Interests
-  	{
-  		pitEntry->SetWaitingInVain (inFace);
-
-      if (!pitEntry->AreAllOutgoingInVain ()) // not all ougtoing are in vain
-        {
-          NS_LOG_DEBUG ("Not all outgoing are in vain");
-          // suppress
-          // Don't do anything, we are still expecting data from some other face
-          m_dropNacks (header, inFace);
-          return;
-        }
-
-      Ptr<Packet> nonNackInterest = Create<Packet> ();
-      Ptr<Interest> nonNackHeader = Create<Interest> (*header);
-      nonNackHeader->SetNack (Interest::NORMAL_INTEREST);
-      nonNackInterest->AddHeader (*nonNackHeader);
-
-      
-			//by Felix: try to propagate this interest to other available output interfaces
-      bool propagated = DoPropagateInterest (inFace, nonNackHeader, nonNackInterest, pitEntry);
-      if (!propagated)
-        {
-        	//by Felix: all the forwarding options are in vain. A Nack will be forwarded
-          DidExhaustForwardingOptions (inFace, nonNackHeader, nonNackInterest, pitEntry);
-        }
-  	}*/
       
   Ptr<LimitsDeltaRate> faceLimits = inFace->GetObject<LimitsDeltaRate> ();
   if(faceLimits)

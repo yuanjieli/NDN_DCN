@@ -29,6 +29,7 @@
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndnSIM/utils/ndn-fw-hop-count-tag.h"
 #include "ns3/ndn-app-face.h"
+#include "ns3/ndn-comsumer-om.h"
 
 #include "ns3/assert.h"
 #include "ns3/ptr.h"
@@ -177,6 +178,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
           NS_LOG_DEBUG ("No FwHopCountTag tag associated with original Interest");
         }
 
+			//Forward NACK to all faces in PIT
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
@@ -208,7 +210,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			        				
     			}
           else
-          	NewHeader->SetCE(1);
+          	//NewHeader->SetCE(1);
+          	continue;	//later we will copy NACK to applications. No further actions here
 	                      	
 	        target->AddHeader(*NewHeader);	
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
@@ -216,6 +219,20 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 					
           m_outNacks (nackHeader, incoming.m_face);
         }
+        
+      //copy NACK to all applications of this node
+      Ptr<Node> node = inFace->GetNode();
+      NS_ASSERT(node!=0);
+      for(uint32_t k=0; k!=node->GetNApplications(); k++)
+      {
+      	Ptr<ConsumerOm> app = DynamicCast<ConsumerOm>(node->GetApplication(k));
+      	if(app!=0)
+      	{
+      		app->OnNack(packet->Copy(), origPacket);
+      	}
+      	
+      }
+      
 
       pitEntry->ClearOutgoing (); // to force erasure of the record
     }
