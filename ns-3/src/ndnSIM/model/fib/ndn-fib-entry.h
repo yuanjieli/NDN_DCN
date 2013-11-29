@@ -408,6 +408,7 @@ public:
   : m_prefix (prefix)
   , m_needsProbing (false)
   , m_inited (false)
+  , m_data (0)
   {
   	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
   }
@@ -467,6 +468,18 @@ public:
   {
     m_faces.erase (face);
   }
+  
+  void
+  IncreaseData ()
+  {
+  		m_data ++;
+  }
+  
+  uint32_t
+  GetData ()
+  {
+  	return m_data;
+  }
 
 private:
   friend std::ostream& operator<< (std::ostream& os, const Entry &entry);
@@ -479,6 +492,8 @@ public:
 
   bool m_needsProbing;      ///< \brief flag indicating that probing should be performed
 	bool m_inited;					///< whether it is initialized
+	
+	uint32_t m_data;				///< brief used for measuring real throughput
 };
 
 std::ostream& operator<< (std::ostream& os, const Entry &entry);

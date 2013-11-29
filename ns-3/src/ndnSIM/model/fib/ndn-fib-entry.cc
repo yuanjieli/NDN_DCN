@@ -171,6 +171,10 @@ Entry::Invalidate ()
 void
 Entry::ResetCount()
 {
+	//reset overall data rate
+	m_data = 0;
+	
+	//reset each face's count
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
