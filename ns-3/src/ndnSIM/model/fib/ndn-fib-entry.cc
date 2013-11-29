@@ -172,6 +172,7 @@ void
 Entry::ResetCount()
 {
 	//reset overall data rate
+	//FIXME: To show throughput, change the condition here!
 	if(m_faces.begin()->GetFace()->GetNode()->GetId()== 0
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
 		NS_LOG_UNCOND("prefix="<<*m_prefix<<" rate="<<m_data);
