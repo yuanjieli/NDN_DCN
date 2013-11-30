@@ -221,11 +221,11 @@ public:
   uint8_t
   GetNack () const;
   
-  void
+  /*void
   SetCE (uint8_t rhs);
   
   uint8_t
-  GetCE () const;
+  GetCE () const;*/
 
   //////////////////////////////////////////////////////////////////
 
@@ -269,7 +269,7 @@ private:
   Time  m_interestLifetime;      ///< InterestLifetime
   uint32_t m_nonce;              ///< Nonce. not used if zero
   uint8_t  m_nackType;           ///< Negative Acknowledgement type
-  uint8_t	 m_ce;								 ///< used for estimating total NACK
+  //uint8_t	 m_ce;								 ///< used for estimating total NACK
 };
 
 typedef Interest InterestHeader;
