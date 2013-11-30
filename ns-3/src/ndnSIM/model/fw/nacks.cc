@@ -229,7 +229,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		if(!bignore)
       		{
 	      		nackHeader->SetIntraSharing(1);
-	      		app->OnNack(nackHeader->Copy(), origPacket->Copy());
+	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
       	}
       	
