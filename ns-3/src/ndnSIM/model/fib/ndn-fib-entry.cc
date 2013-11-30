@@ -177,7 +177,7 @@ Entry::ResetCount()
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
 		NS_LOG_UNCOND(m_faces.begin()->GetFace()->GetNode()->GetId()<<" "
 							    <<Simulator::Now().GetSeconds()<<" "
-							    <<m_data);
+							    <<m_data/109.5);
 	m_data = 0;
 	//reset each face's count
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
