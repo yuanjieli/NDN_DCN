@@ -173,9 +173,10 @@ Entry::ResetCount()
 {
 	//reset overall data rate
 	//FIXME: To show throughput, change the condition here!
-	if(m_faces.begin()->GetFace()->GetNode()->GetId()== 0
+	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 1
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
-		NS_LOG_UNCOND("prefix="<<*m_prefix<<" rate="<<m_data);
+		NS_LOG_UNCOND("node="<<m_faces.begin()->GetFace()->GetNode()->GetId()
+							  <<" prefix="<<*m_prefix<<" rate="<<m_data);
 	m_data = 0;
 	//reset each face's count
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
