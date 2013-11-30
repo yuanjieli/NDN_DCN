@@ -176,7 +176,6 @@ Entry::ResetCount()
 	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 1
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
 		NS_LOG_UNCOND(m_faces.begin()->GetFace()->GetNode()->GetId()<<" "
-							    <<*m_prefix<<" "
 							    <<Simulator::Now().GetSeconds()<<" "
 							    <<m_data);
 	m_data = 0;
