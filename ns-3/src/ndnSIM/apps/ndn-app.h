@@ -97,7 +97,7 @@ public:
    */
    
   Ptr<Face>
-  GetFace(){return m_face;}
+  GetFace();
   
   virtual void
   OnContentObject (const Ptr<const ContentObject> &contentObject,

@@ -122,6 +122,12 @@ App::OnContentObject (const Ptr<const ContentObject> &contentObject,
   m_receivedContentObjects (contentObject, payload, this, m_face);
 }
 
+Ptr<Face>
+App::GetFace()
+{
+	return m_face;
+}
+
 // Application Methods
 void 
 App::StartApplication () // Called at time specified by Start
