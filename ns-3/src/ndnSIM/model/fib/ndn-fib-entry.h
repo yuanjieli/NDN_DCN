@@ -192,11 +192,7 @@ public:
   	//return m_nack+1;
   }
   
-  void
-  IncreaseNackCE()
-  {
-  	m_nack_ce++;
-  }
+  
   
   void
   IncreaseDataIn()
@@ -264,7 +260,6 @@ public:
   	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
   	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
   	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
-  	m_nack_ce_old = alpha*m_nack_ce+(1-alpha)*m_nack_ce_old;
   	
   	
   
@@ -275,7 +270,6 @@ public:
   	m_data_in = 0;
   	m_data_ce = 0;
   	m_nack = 0;
-  	m_nack_ce = 0;
   	
   	//history-based cooperation/competition, rather than history-based counter
   	/*m_data_ce_old = m_data_ce;
