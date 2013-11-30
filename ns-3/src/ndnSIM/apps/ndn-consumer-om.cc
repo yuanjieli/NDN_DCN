@@ -149,9 +149,9 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	Consumer::OnNack (interest, packet);
 		
 	//rule out nacks with different prefixes
-	std::set<std::string>::iterator rhs = interest->GetName().GetComponents.begin();
+	std::list<std::string>::iterator rhs = interest->GetNamePtr()->GetComponents.begin();
 	bool match = true;
-	for(std::set<std::string>::iterator it = m_interestName.GetComponents.begin();
+	for(std::list<std::string>::iterator it = m_interestName.GetComponents.begin();
 			it != m_interestName.GetComponents.end(); it++)
 	{
 		if(rhs==interest->GetName().GetComponents.end()
