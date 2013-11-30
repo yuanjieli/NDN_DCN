@@ -164,7 +164,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	if(!match)
 	{
-		NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
 		return;
 	}
 		
@@ -189,7 +189,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 void
 ConsumerOm::ShowInterestLimit()
 {
-	NS_LOG_UNCOND(GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit);
+	//NS_LOG_UNCOND(GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit);
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);

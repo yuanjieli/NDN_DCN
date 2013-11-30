@@ -175,8 +175,10 @@ Entry::ResetCount()
 	//FIXME: To show throughput, change the condition here!
 	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 1
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
-		NS_LOG_UNCOND("node="<<m_faces.begin()->GetFace()->GetNode()->GetId()
-							  <<" prefix="<<*m_prefix<<" rate="<<m_data);
+		NS_LOG_UNCOND(m_faces.begin()->GetFace()->GetNode()->GetId()<<" "
+							    <<*m_prefix<<" "
+							    <<Simulator::Now().GetSeconds()<<" "
+							    <<m_data);
 	m_data = 0;
 	//reset each face's count
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
@@ -184,7 +186,7 @@ Entry::ResetCount()
        face++)
     {
     	
-    	/*if(face->GetFace()->GetNode()->GetId()==0
+    	if(face->GetFace()->GetNode()->GetId()==0
     	|| face->GetFace()->GetNode()->GetId()==1)
 	    	NS_LOG_UNCOND(
 	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
@@ -193,7 +195,7 @@ Entry::ResetCount()
 	    								<<" metric="<<face->GetFraction()
 	    								<<" NACK="<<face->GetNack()
 	    								<<" Data_in="<<face->GetDataIn()
-	    								<<" Data_CE="<<face->GetDataCE());*/
+	    								<<" Data_CE="<<face->GetDataCE());
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
