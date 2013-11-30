@@ -223,7 +223,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       			if(incoming.m_face == app->GetFace())
       			{
       				ignore = true;
-      				NS_LOG_UNCOND("IGNORE face "<<app->GetFace()->GetId()<<" at node "<<app->GetFace()->GetNode()->GetId());
       				break;
       			}
       		}
