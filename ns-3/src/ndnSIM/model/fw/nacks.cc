@@ -217,16 +217,17 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	{
       		//Further decide whether this face belongs to PIT
       		//if so, continue
-      		bool bignore = false;
+      		bool ignore = false;
       		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       		{
       			if(incoming.m_face == app->GetFace())
       			{
-      				bignore = true;
+      				ignore = true;
+      				NS_LOG_UNCOND("IGNORE face "<<app->GetFace()->GetId()<<" at node "<<app->GetFace()->GetNode()->GetId());
       				break;
       			}
       		}
-      		if(!bignore)
+      		if(!ignore)
       		{
 	      		nackHeader->SetIntraSharing(1);
 	      		app->OnNack(nackHeader, origPacket->Copy());
