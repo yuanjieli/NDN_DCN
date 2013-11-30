@@ -174,7 +174,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		if(interest->GetIntraSharing()==0)
 			m_limit = m_limit - m_beta;
 		else
-			m_limit = m_limit - 20;
+			m_limit = m_limit - 2;
 		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
 			m_limit = m_initLimit;	
 			

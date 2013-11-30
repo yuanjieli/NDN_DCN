@@ -265,8 +265,6 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
     	/////////////////////////////////////////////////////
     	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
     	fibEntry->IncreaseData();
-    	if(inFace->GetNode()->GetId()==1)
-    		NS_LOG_UNCOND("Data++ inFace="<<inFace->GetId());
     	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
       = fibEntry->m_faces.get<fib::i_face> ().find (inFace);
       if(record==fibEntry->m_faces.get<fib::i_face> ().end ())
