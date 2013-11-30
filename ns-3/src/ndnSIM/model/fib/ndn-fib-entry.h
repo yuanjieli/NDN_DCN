@@ -239,10 +239,7 @@ public:
   double
   GetSharingMetric() const
   {
-  	/*if(m_data_ce==0)	//boundary condition at begining
-  		return -(double)m_nack;
-  	else
-  		return (double)m_data_in*(double)m_data_in/(double)m_data_ce-(double)m_nack;*/
+  	
   	
   	return m_sharing_metric;
   }
@@ -271,20 +268,6 @@ public:
   	m_data_ce = 0;
   	m_nack = 0;
   	
-  	//history-based cooperation/competition, rather than history-based counter
-  	/*m_data_ce_old = m_data_ce;
-  	m_nack_old = m_nack;
-  	m_nack_ce_old = m_nack_ce;
-  	
-  	
-  	
-  	m_sharing_metric = (1-alpha)*m_sharing_metric
-  									 + alpha*(m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
-  	
-  	m_data_in = 0;
-  	m_data_ce = 0;
-  	m_nack = 0;
-  	m_nack_ce = 0;*/
   }
 
 private:
