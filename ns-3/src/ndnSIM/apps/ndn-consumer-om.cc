@@ -143,6 +143,23 @@ void
 ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 {
 	Consumer::OnNack (interest, packet);
+		
+	//rule out nacks with different prefixes
+	std::set<std::string>::iterator rhs = interest->GetName().GetComponents.begin();
+	bool match = true;
+	for(std::set<std::string>::iterator it = m_interestName.GetComponents.begin();
+			it != m_interestName.GetComponents.end(); it++)
+	{
+		if(rhs==interest->GetName().GetComponents.end()
+		|| *it!=*rhs)
+		{
+			match = false;
+			break;
+		}
+		rhs++;
+	}
+	if(!match)return;
+		
 	//update interest limit
 	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
 	{
