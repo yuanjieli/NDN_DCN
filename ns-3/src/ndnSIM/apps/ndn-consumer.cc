@@ -293,6 +293,7 @@ Consumer::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> origPacket)
   if (!m_active) return;
 
   App::OnNack (interest, origPacket); // tracing inside
+  if(interest->GetIntraSharing()==1)return;	//not our nacks
 
   // NS_LOG_DEBUG ("Nack type: " << interest->GetNack ());
 

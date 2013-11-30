@@ -171,7 +171,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       FwHopCountTag hopCountTag;
       if (origPacket->PeekPacketTag (hopCountTag))
         {
-     	  packet->AddPacketTag (hopCountTag);
+     	  	packet->AddPacketTag (hopCountTag);
         }
       else
         {
@@ -186,6 +186,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
           Ptr<Packet> target = packet->Copy();
     			Ptr<Interest> NewHeader = Create<Interest> ();
     			target->RemoveHeader(*NewHeader);
+    			//This is for faces who want the data, so SetIntraSharing = 0
+    			NewHeader->SetIntraSharing (0);
     			if(DynamicCast<AppFace>(incoming.m_face)==0)
     			{
 	    				//update nack counter 
@@ -195,23 +197,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
 			      	fib2Entry->m_faces.modify (record2,
 			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
-			                      	
-			        //Mark the packet
-			        /*if(record!=fibEntry->m_faces.get<fib::i_face> ().end ())
-			        {
-			        	uint32_t N = rand()%(int)(record->GetNack());
-				        if(N<=record2->GetNackOut())
-				        	NewHeader->SetCE(1);
-					    	else
-					    		NewHeader->SetCE(0);
-			        }
-			        else
-			        	NewHeader->SetCE(1); */
 			        				
-    			}
-          else
-          	//NewHeader->SetCE(1);
-          	continue;	//later we will copy NACK to applications. No further actions here
+    			}       
 	                      	
 	        target->AddHeader(*NewHeader);	
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
@@ -228,7 +215,22 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
       	if(app!=0)
       	{
-      		app->OnNack(nackHeader, origPacket->Copy());
+      		//Further decide whether this face belongs to PIT
+      		//if so, continue
+      		bool bignore = false;
+      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      		{
+      			if(incoming.m_face == app->GetFace())
+      			{
+      				bignore = true;
+      				break;
+      			}
+      		}
+      		if(!bignore)
+      		{
+	      		nackHeader->SetIntraSharing(1);
+	      		app->OnNack(nackHeader->Copy(), origPacket->Copy());
+	      	}
       	}
       	
       }

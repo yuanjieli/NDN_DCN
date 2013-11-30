@@ -95,6 +95,10 @@ public:
    * @param contentObject ContentObject header
    * @param payload payload (potentially virtual) of the ContentObject packet (may include packet tags of original packet)
    */
+   
+  Ptr<Face>
+  GetFace(){return m_face;}
+  
   virtual void
   OnContentObject (const Ptr<const ContentObject> &contentObject,
                    Ptr<Packet> payload);
