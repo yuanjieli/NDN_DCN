@@ -33,6 +33,10 @@
 #include "ns3/ndn-interest.h"
 #include "ns3/ndn-content-object.h"
 
+#include <set>
+#include <list>
+#include <string>
+
 NS_LOG_COMPONENT_DEFINE ("ndn.ConsumerOm");
 
 namespace ns3 {
