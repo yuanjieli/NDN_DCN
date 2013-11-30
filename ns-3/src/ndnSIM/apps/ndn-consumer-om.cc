@@ -162,7 +162,11 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		}
 		rhs++;
 	}
-	if(!match)return;
+	if(!match)
+	{
+		NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		return;
+	}
 		
 	//update interest limit
 	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
