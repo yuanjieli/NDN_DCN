@@ -82,6 +82,7 @@ public:
     , m_data_ce_old (0)
     , m_fraction (0) //initially arbitrary large number. Will be updated later
     , m_sharing_metric (1)
+    , m_real_fraction (1)
   { }
 
   /**
@@ -209,7 +210,7 @@ public:
   double
   GetDataIn() const
   {
-  	return m_data_in_old+1;
+  	return m_data_in+1;
   }
   
   void
@@ -236,6 +237,12 @@ public:
   	return m_fraction;
   }
   
+  void
+  SetFraction(double rhs) //if 50%, rhs=50
+ 	{
+ 		m_fraction = rhs;
+ 	}
+  
   double
   GetSharingMetric() const
   {
@@ -245,10 +252,18 @@ public:
   }
   
   void
-  SetFraction(double rhs) //if 50%, rhs=50
- 	{
- 		m_fraction = rhs;
- 	}
+  SetRealFraction(double rhs)
+  {
+  	m_real_fraction = rhs;
+  }
+  
+  double
+  GetRealFraction() const
+  {
+  	return m_real_fraction;
+  }
+  
+  
   
   void 
   ResetCounter ()
@@ -298,6 +313,7 @@ private:
 
   double m_fraction;				///< fraction of traffic this face can forward(%)
 	double m_sharing_metric;	///< used for calculating m_fraction
+	double m_real_fraction;		///< real fraction of traffic last round
 };
 
 /// @cond include_hidden
