@@ -179,7 +179,7 @@ Entry::ShowRate ()
 							    <<m_data/109.5);
 	m_data = 0;
 	
-	Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
+	Simulator::Schedule(Seconds(1), &Entry::ShowRate, this);
 }
 
 void
