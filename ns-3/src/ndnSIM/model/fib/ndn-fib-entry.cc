@@ -225,7 +225,6 @@ Entry::ResetCount()
     	{ 
     		q_mean += face->GetSharingMetric(); 
 	    	facecount ++;
-	    	totaldata += face->GetDataIn();
 	    }    								
     }
   
