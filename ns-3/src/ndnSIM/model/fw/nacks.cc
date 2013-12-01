@@ -201,13 +201,13 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
     			}   
     			
     			//if some fib faces contribute nack, count more nacks
-			    if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
+			    /*if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
 			    != fibEntry->m_faces.get<fib::i_face> ().end ())
 			    {
 			    	pitEntry->GetFibEntry ()->m_faces.modify (record,
 			                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
 			        
-			    }
+			    }*/
 			     
 	                      	
 	        target->AddHeader(*NewHeader);	
