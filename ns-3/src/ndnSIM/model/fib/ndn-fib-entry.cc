@@ -180,39 +180,7 @@ Entry::ResetCount()
 							    <<m_data/109.5);
 	m_data = 0;
 	
-	
-    
-  double minCost = MAX_BOUND;
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-  {
-  	if(face->GetRoutingCost()<minCost)
-  		minCost = face->GetRoutingCost();
-  }
-  double K_bound = MAX_BOUND;
-  double w_lower_bound = 3;	//lower bound for probing traffic
-  double w_upper_bound = 100;	//upper bound for w
-  double K = 0;
-  double q_var = 0;
-  double q_mean = 0;
-  uint32_t facecount = 0;
-  double totaldata = 0;
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-    {  
-    	if(face->GetRoutingCost()==minCost)
-    	{ 
-    		q_mean += face->GetSharingMetric(); 
-	    	facecount ++;
-	    	totaldata += face->GetDataIn();
-	    }    								
-    }
-  
-  q_mean /= facecount;
-  
-  //reset each face's count
+	//reset each face's count
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
@@ -231,10 +199,37 @@ Entry::ResetCount()
 	    								);
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
-      m_faces.modify (face,
-                      ll::bind (&FaceMetric::SetRealFraction, ll::_1,100*face->GetDataIn()/totaldata));
     }
     
+  double minCost = MAX_BOUND;
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+  {
+  	if(face->GetRoutingCost()<minCost)
+  		minCost = face->GetRoutingCost();
+  }
+  double K_bound = MAX_BOUND;
+  double w_lower_bound = 3;	//lower bound for probing traffic
+  double w_upper_bound = 100;	//upper bound for w
+  double K = 0;
+  double q_var = 0;
+  double q_mean = 0;
+  uint32_t facecount = 0;
+  
+  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
+       face != m_faces.end ();
+       face++)
+    {  
+    	if(face->GetRoutingCost()==minCost)
+    	{ 
+    		q_mean += face->GetSharingMetric(); 
+	    	facecount ++;
+	    	totaldata += face->GetDataIn();
+	    }    								
+    }
+  
+  q_mean /= facecount;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)

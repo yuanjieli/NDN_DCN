@@ -228,7 +228,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		}
       		if(!ignore)
       		{
-	      		nackHeader->SetIntraSharing(record->GetRealFraction());
+	      		nackHeader->SetIntraSharing(record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
       	}
