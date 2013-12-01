@@ -169,9 +169,8 @@ Entry::Invalidate ()
 }
 
 void
-Entry::ResetCount()
+Entry::ShowRate ()
 {
-	//reset overall data rate
 	//FIXME: To show throughput, change the condition here!
 	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 1
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
@@ -179,6 +178,15 @@ Entry::ResetCount()
 							    <<Simulator::Now().GetSeconds()<<" "
 							    <<m_data/109.5);
 	m_data = 0;
+	
+	Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
+}
+
+void
+Entry::ResetCount()
+{
+	//reset overall data rate
+	
 	
 	//reset each face's count
 	for (FaceMetricByFace::type::iterator face = m_faces.begin ();
@@ -343,7 +351,7 @@ Entry::ResetCount()
     									
     }  
   m_inited = true; */
-  Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
+  Simulator::Schedule(Seconds(5), &Entry::ResetCount, this);
 }
 
 const FaceMetric &
