@@ -201,6 +201,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			        //if this face is also a FIB face, increase more nacks
 			        if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
 			        != fibEntry->m_faces.get<fib::i_face> ().end ())
+			        	fib2Entry->m_faces.modify (record2,
+			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
 			        				
     			}       
 	                      	
