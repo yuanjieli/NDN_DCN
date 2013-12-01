@@ -375,7 +375,7 @@ public:
   , m_data (0)
   {
   	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
-  	Simulator::Schedule (Seconds (0.001), &Entry::ShowRate, this);
+  	
   }
 
   /**
@@ -445,8 +445,6 @@ public:
   {
   	return m_data;
   }
-
-	void ShowRate();
 	
 private:
   friend std::ostream& operator<< (std::ostream& os, const Entry &entry);
