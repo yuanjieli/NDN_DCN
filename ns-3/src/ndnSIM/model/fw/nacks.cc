@@ -203,7 +203,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			        if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
 			        != fibEntry->m_faces.get<fib::i_face> ().end ())
 			        	fibEntry->m_faces.modify (record,
-			                      ll::bind (&fib::FaceMetric::IncreaseNackOut, ll::_1));				
+			                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));				
     			}       
 	                      	
 	        target->AddHeader(*NewHeader);	
