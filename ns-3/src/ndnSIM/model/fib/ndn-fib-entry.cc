@@ -265,8 +265,8 @@ Entry::ResetCount()
     }
   //q_var /= facecount;
   q_var = sqrt(q_var/facecount);
-  //K = K_bound*tanh(q_var/q_mean/5);  
-  K = K_bound*tanh(q_var/q_mean); 
+  K = K_bound*tanh(q_var/q_mean/5);  
+  //K = K_bound*tanh(q_var/q_mean); 
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
@@ -351,7 +351,7 @@ Entry::ResetCount()
     									
     }  
   m_inited = true; */
-  Simulator::Schedule(Seconds(5), &Entry::ResetCount, this);
+  Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
 
 const FaceMetric &
