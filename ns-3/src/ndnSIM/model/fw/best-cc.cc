@@ -302,7 +302,20 @@ BestCC::OnNack (Ptr<Face> inFace,
           /*if(header->GetCE()==1)
 	      		pitEntry->GetFibEntry ()->m_faces.modify (record,
 	                      ll::bind (&fib::FaceMetric::IncreaseNackCE, ll::_1));*/
+	       
+	       //if some incoming faces are also in the fib               
+	       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+			    {
+			    	if(pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (incoming.m_face)
+			    	!= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+			    	{
+			    		pitEntry->GetFibEntry ()->m_faces.modify (record,
+			                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+			    	}
+			    }
       }
+      
+    
   }
   
 }
