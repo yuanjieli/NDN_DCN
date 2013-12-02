@@ -174,8 +174,10 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	{
 		if(interest->GetIntraSharing()==0)
 			m_limit = m_limit - m_beta;
-		else
+		else{
 			m_limit = m_limit - m_beta*200;//*(double)(interest->GetIntraSharing())/100.0;  
+			NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
+		}
 		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
 			m_limit = m_initLimit;	
 			
