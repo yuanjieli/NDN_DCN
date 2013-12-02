@@ -212,6 +212,13 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
       }
+      if(inFace->GetNode()->GetId()==0)
+			{
+				if (DynamicCast<AppFace>(inFace)!=0)
+					NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is application");
+				else
+					NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is interface");
+			}
 	  	return false;
 	  }	
 	  
