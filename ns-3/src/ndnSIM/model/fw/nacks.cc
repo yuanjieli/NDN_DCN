@@ -239,7 +239,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		if(!ignore)
       		{
       			NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
-      									<<" face="<<inFace->GEtId()
+      									<<" face="<<inFace->GetId()
       									<<" Fraction="<<record->GetFraction());
 	      		nackHeader->SetIntraSharing(1);
 	      		app->OnNack(nackHeader, origPacket->Copy());
