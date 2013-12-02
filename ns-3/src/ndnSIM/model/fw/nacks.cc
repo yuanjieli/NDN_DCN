@@ -153,7 +153,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
                                     Ptr<const Packet> origPacket,
                                     Ptr<pit::Entry> pitEntry)
 {
-	NS_LOG_UNCOND("Exhaust: node="<<inFace->GetNode()->GetId()<<" faceID="<<inFace->GetId());
 	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
 	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)
@@ -189,7 +188,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
     			target->RemoveHeader(*NewHeader);
     			//This is for faces who want the data, so SetIntraSharing = 0
     			NewHeader->SetIntraSharing (0);
-    			if(DynamicCast<AppFace>(incoming.m_face)==0)
+    			/*if(DynamicCast<AppFace>(incoming.m_face)==0)
     			{
 	    				//update nack counter 
 	          	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
@@ -199,7 +198,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			      	fib2Entry->m_faces.modify (record2,
 			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
 			                      			
-    			}   
+    			}*/   
     			
     			//if some fib faces contribute nack, count more nacks
 			    /*if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
