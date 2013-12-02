@@ -227,8 +227,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       			//if incoming face is also a fib face, 100-fraction 
       			//should be the overlapping face between this interest and 
       			//local node's interest
-      			if(inFace->GetNode()->GetId()==1)
-      				NS_LOG_UNCOND("fraction="<<100-record->GetFraction());
+      			/*if(inFace->GetNode()->GetId()==1)
+      				NS_LOG_UNCOND("fraction="<<100-record->GetFraction());*/
 	      		nackHeader->SetIntraSharing(100-record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
