@@ -217,18 +217,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
       	if(app!=0)
       	{
-      		//Further decide whether this face belongs to PIT
-      		//if so, continue     		
-      		bool ignore = false;
-      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-      		{
-      			if(incoming.m_face == app->GetFace())
-      			{
-      				ignore = true;
-      				break;
-      			}
-      		}
-      		if(!ignore)
+      		//if inFace is not an application face, we may have intra-sharing problem
+      		if(ynamicCast<AppFace>(inFace)==0)
       		{
       			//FIXME: STRANGE NACK
       			/*NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
