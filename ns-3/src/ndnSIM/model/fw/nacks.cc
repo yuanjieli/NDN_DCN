@@ -220,15 +220,9 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		//if inFace is not an application face, we may have intra-sharing problem
       		if(DynamicCast<AppFace>(inFace)==0)
       		{
-      			//FIXME: STRANGE NACK
-      			/*NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
-      									<<" face="<<inFace->GetId()
-      									<<" Fraction="<<record->GetFraction());*/
-      			//if incoming face is also a fib face, 100-fraction 
-      			//should be the overlapping face between this interest and 
-      			//local node's interest
-      			/*if(inFace->GetNode()->GetId()==1)
-      				NS_LOG_UNCOND("fraction="<<100-record->GetFraction());*/
+      			if(inFace->GetNode()->GetId()==0)
+      				NS_LOG_UNCOND("Extra NACK from face="<<inFace->GetId()
+      										<<" fraction="<<100-record->GetFraction());
 	      		nackHeader->SetIntraSharing(100-record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
