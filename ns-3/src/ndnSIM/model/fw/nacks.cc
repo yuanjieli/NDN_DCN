@@ -159,13 +159,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 	{
 		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
 	}
-	if(inFace->GetNode()->GetId()==0)
-	{
-		if (DynamicCast<AppFace>(inFace)!=0)
-			NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is application");
-		else
-			NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is interface");
-	}
+	
 	
   if (m_nacksEnabled)
     {
