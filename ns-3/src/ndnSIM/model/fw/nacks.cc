@@ -161,8 +161,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 	}
 	if(inFace->GetNode()->GetId()==0)
 	{
-		
-			NS_LOG_UNCOND("nodeID="<<inFace->GetId());
+		if (DynamicCast<AppFace>(inFace)!=0)
+			NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<"is application");
 	}
 	
   if (m_nacksEnabled)
