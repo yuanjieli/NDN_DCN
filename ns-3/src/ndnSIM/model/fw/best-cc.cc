@@ -211,14 +211,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-      }
-      if(inFace->GetNode()->GetId()==1)
-			{
-				if (DynamicCast<AppFace>(inFace)!=0)
-					NS_LOG_UNCOND("Haha! nodeID="<<inFace->GetId()<<" is application");
-				else
-					NS_LOG_UNCOND("Haha! nodeID="<<inFace->GetId()<<" is interface");
-			}
+      }<p dir="ltr" style="margin-left: 20px; margin-right: 0px"></p>
 	  	return false;
 	  }	
 	  
@@ -252,6 +245,7 @@ BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
                Ptr<const Packet> origPacket)
 {
+	NS_LOG_UNCOND("OnNack node="<<inFace->GetNode()->GetId()<<" face="<<inFace->GetId());
   //super::OnNack (inFace, header, origPacket);
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
   if (pitEntry == 0)
