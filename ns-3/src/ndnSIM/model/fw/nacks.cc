@@ -159,6 +159,11 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 	{
 		record = fibEntry->m_faces.get<fib::i_face> ().find (inFace); 
 	}
+	if(inFace->GetNode()->GetId()==1)
+	{
+		if(DynamicCast<AppFace>(inFace)!=0)
+			NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is application!");
+	}
 	
   if (m_nacksEnabled)
     {
@@ -199,16 +204,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
 			                      			
     			}*/   
-    			
-    			//if some fib faces contribute nack, count more nacks
-			    /*if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
-			    != fibEntry->m_faces.get<fib::i_face> ().end ())
-			    {
-			    	pitEntry->GetFibEntry ()->m_faces.modify (record,
-			                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-			        
-			    }*/
-			     
+    			 
 	                      	
 	        target->AddHeader(*NewHeader);	
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
