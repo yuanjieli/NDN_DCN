@@ -226,10 +226,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	if(app!=0)
       	{
       		//Further decide whether this face belongs to PIT
-      		//if so, continue
-      		nackHeader->SetIntraSharing(record->GetFraction());
-	      	app->OnNack(nackHeader, origPacket->Copy());
-      		/*bool ignore = false;
+      		//if so, continue     		
+      		bool ignore = false;
       		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       		{
       			if(incoming.m_face == app->GetFace())
@@ -242,7 +240,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		{
 	      		nackHeader->SetIntraSharing(record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
-	      	}*/
+	      	}
       	}
       	
       }
