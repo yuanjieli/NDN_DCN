@@ -479,6 +479,11 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
 	    		
 	    	
     	}
+    	else	//local application
+    	{
+    		if(inFace==0)	//local cache hit should not increase rate
+    			NewHeader->SetCE(2);
+    	}
     	
     	
     		
