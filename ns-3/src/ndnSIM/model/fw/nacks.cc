@@ -227,7 +227,9 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	{
       		//Further decide whether this face belongs to PIT
       		//if so, continue
-      		bool ignore = false;
+      		nackHeader->SetIntraSharing(record->GetFraction());
+	      	app->OnNack(nackHeader, origPacket->Copy());
+      		/*bool ignore = false;
       		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       		{
       			if(incoming.m_face == app->GetFace())
@@ -240,10 +242,11 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		{
 	      		nackHeader->SetIntraSharing(record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
-	      	}
+	      	}*/
       	}
       	
       }
+      
       
 
       pitEntry->ClearOutgoing (); // to force erasure of the record
