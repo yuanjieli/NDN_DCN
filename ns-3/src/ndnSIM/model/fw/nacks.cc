@@ -221,7 +221,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		//If you already decrease the rate, don't decrease again
       		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       		{
-      			if(app->GetFace()==incoming.m_face){
+      			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
       				ignore = true;
       				break;
       			}
