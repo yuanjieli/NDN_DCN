@@ -217,8 +217,17 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
       	if(app!=0)
       	{
+      		bool ignore = false;
+      		//If you already decrease the rate, don't decrease again
+      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      		{
+      			if(app->GetFace()==incoming.m_face){
+      				ignore = true;
+      				break;
+      			}
+      		}
       		//if inFace is not an application face, we may have intra-sharing problem
-      		if(DynamicCast<AppFace>(inFace)==0)
+      		if(!ignore && DynamicCast<AppFace>(inFace)==0)
       		{
       			if(inFace->GetNode()->GetId()==0)
       				NS_LOG_UNCOND("Extra NACK from face="<<inFace->GetId()
