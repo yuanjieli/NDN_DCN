@@ -153,6 +153,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
                                     Ptr<const Packet> origPacket,
                                     Ptr<pit::Entry> pitEntry)
 {
+	NS_LOG_UNCOND("Exhaust: node="<<inFace->GetNode()->GetId()<<" faceID="<<inFace->GetId());
 	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
 	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)
