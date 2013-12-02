@@ -245,6 +245,7 @@ BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
                Ptr<const Packet> origPacket)
 {
+	NS_LOG_UNCOND("OnNack node="<<inFace->GetNode()->GetId()<<" inFace="<<inFace->GetId()); 
   //super::OnNack (inFace, header, origPacket);
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
   if (pitEntry == 0)

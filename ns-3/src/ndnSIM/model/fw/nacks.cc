@@ -102,7 +102,6 @@ Nacks::OnNack (Ptr<Face> inFace,
       return;
     }
    
-  NS_LOG_UNCOND("OnNack node="<<inFace->GetNode()->GetId()<<" inFace="<<inFace->GetId()); 
   //Update counter
   Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
