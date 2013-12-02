@@ -174,7 +174,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		if(interest->GetIntraSharing()==0)
 			m_limit = m_limit - m_beta;
 		else
-			m_limit = m_limit - m_beta*10;//*(double)(interest->GetIntraSharing())/100.0;  
+			m_limit = m_limit - m_beta*2;//*(double)(interest->GetIntraSharing())/100.0;  
 		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
 			m_limit = m_initLimit;	
 			
@@ -192,7 +192,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 void
 ConsumerOm::ShowInterestLimit()
 {
-	//NS_LOG_UNCOND(GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit);
+	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit);
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
