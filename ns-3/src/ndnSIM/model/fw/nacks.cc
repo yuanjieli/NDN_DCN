@@ -218,7 +218,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	if(app!=0)
       	{
       		//if inFace is not an application face, we may have intra-sharing problem
-      		if(ynamicCast<AppFace>(inFace)==0)
+      		if(DynamicCast<AppFace>(inFace)==0)
       		{
       			//FIXME: STRANGE NACK
       			/*NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
