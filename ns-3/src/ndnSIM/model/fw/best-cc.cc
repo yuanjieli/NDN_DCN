@@ -215,9 +215,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
       if(inFace->GetNode()->GetId()==1)
 			{
 				if (DynamicCast<AppFace>(inFace)!=0)
-					NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is application");
+					NS_LOG_UNCOND("Haha! nodeID="<<inFace->GetId()<<" is application");
 				else
-					NS_LOG_UNCOND("nodeID="<<inFace->GetId()<<" is interface");
+					NS_LOG_UNCOND("Haha! nodeID="<<inFace->GetId()<<" is interface");
 			}
 	  	return false;
 	  }	
