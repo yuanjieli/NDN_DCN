@@ -298,7 +298,7 @@ BestCC::OnNack (Ptr<Face> inFace,
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-          NS_LOG_UNCOND("OnNack node="<<inFace->GetNode()->GetId()<<" fraction="<<record->GetFraction());             	
+          //NS_LOG_UNCOND("OnNack node="<<inFace->GetNode()->GetId()<<" fraction="<<record->GetFraction());             	
           /*if(header->GetCE()==1)
 	      		pitEntry->GetFibEntry ()->m_faces.modify (record,
 	                      ll::bind (&fib::FaceMetric::IncreaseNackCE, ll::_1));*/
