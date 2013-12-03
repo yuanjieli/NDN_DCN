@@ -273,7 +273,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       }
       
      	//For FIB incoming face, do not update
-     	//because interests from these faces do not follow stric static splitting
+     	//because interests from these faces do not follow strict static splitting
      	bool update = true;
      	BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
      	{
