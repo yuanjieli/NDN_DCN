@@ -168,7 +168,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 	  		totalweight += metricFace.GetFraction();
 	  }
-	  NS_ASSERT(totalweight!=0);
+	  if(totalweight==0)weight=100;
 	  double target = rand()%(int)totalweight;
 	  double coin = 0;	
 	  //Step2: choose ONE face based on our congestion control strategy
