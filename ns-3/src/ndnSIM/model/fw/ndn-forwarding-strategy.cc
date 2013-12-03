@@ -273,7 +273,6 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       }
       
      	
-     	bool update = true;
      	
    		fibEntry->m_faces.modify (record,
                     ll::bind (&fib::FaceMetric::IncreaseDataIn, ll::_1));
