@@ -272,23 +272,15 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       	NS_LOG_UNCOND("FIB does not exist");
       }
       
-     	//For FIB incoming face, do not update
-     	//because interests from these faces do not follow strict static splitting
-     	bool update = true;
-     	/*BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-     	{
-     		if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
-     			!= fibEntry->m_faces.get<fib::i_face> ().end())
-     		{update = false; break;}
-     	}*/
      	
-     	if(update){
-     		fibEntry->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::IncreaseDataIn, ll::_1));
-	      if(header->GetCE()==1)
-	      	fibEntry->m_faces.modify (record,
-	                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));
-     	}
+     	bool update = true;
+     	
+   		fibEntry->m_faces.modify (record,
+                    ll::bind (&fib::FaceMetric::IncreaseDataIn, ll::_1));
+      if(header->GetCE()==1)
+      	fibEntry->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));
+     	
       
       
     	/////////////////////////////////////////////////////
