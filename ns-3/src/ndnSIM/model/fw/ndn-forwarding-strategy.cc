@@ -272,7 +272,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       	NS_LOG_UNCOND("FIB does not exist");
       }
       
-     	//if PIT faces include face from FIB, do not update
+     	//For FIB incoming face, do not update
      	//because interests from these faces do not follow stric static splitting
      	bool update = true;
      	BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
