@@ -165,7 +165,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	if(!match)
 	{
-		NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
 		return;
 	}
 		
@@ -175,6 +175,8 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		if(interest->GetIntraSharing()==0)
 			m_limit = m_limit - m_beta;
 		else{
+			if(GetNode()->GetId()==0 && m_interestName=="/prefix1")
+				NS_LOG_UNCOND("Strange NACK with name"<<interest->GetName());
 			m_limit = m_limit - m_beta*2*(double)(interest->GetIntraSharing())/100.0;  
 			//NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
 		}
