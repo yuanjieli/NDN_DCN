@@ -80,11 +80,11 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
-    , m_fraction (1) //initially arbitrary large number. Will be updated later
+    , m_fraction (100) //initially arbitrary large number. Will be updated later
     , m_sharing_metric (1)
     
   { }
-
+ 
   /**
    * \brief Comparison operator used by boost::multi_index::identity<>
    */

@@ -166,7 +166,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  {
 	  	if(metricFace.GetRoutingCost()==minCost
 	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
-	  		totalweight -= metricFace.GetFraction();
+	  		totalweight += metricFace.GetFraction();
 	  }
 	  NS_ASSERT(totalweight!=0);
 	  double target = rand()%(int)totalweight;
