@@ -88,7 +88,7 @@ ConsumerOm::GetTypeId (void)
 }
     
 ConsumerOm::ConsumerOm ()
-  : m_initLimit (10.0)
+  : m_initLimit (100.0)
   , m_beta (1.1)
   , m_alpha (20.0)
   , m_limitInterval (1.0)
