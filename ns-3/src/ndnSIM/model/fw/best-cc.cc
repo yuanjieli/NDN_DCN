@@ -168,9 +168,8 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 	  		totalweight -= metricFace.GetFraction();
 	  }
-	  //if(totalweight==0) totalweight = 100;
 	  
-	  double target = rand()%(int)totalweight;
+	  double target = rand()%(int)(totalweight+1);
 	  double coin = 0;	
 	  //Step2: choose ONE face based on our congestion control strategy
 	  std::vector< Ptr<Face> > vecFaces;
