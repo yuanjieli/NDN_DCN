@@ -212,7 +212,7 @@ Entry::ResetCount()
   		minCost = face->GetRoutingCost();
   }
   double K_bound = MAX_BOUND;
-  double w_lower_bound = 1;	//lower bound for probing traffic
+  double w_lower_bound = 5;	//lower bound for probing traffic
   double w_upper_bound = 100;	//upper bound for w
   double K = 0;
   double q_var = 0;
@@ -260,7 +260,7 @@ Entry::ResetCount()
   //q_var /= facecount;
   //q_var = sqrt(q_var/facecount);
   K = K_bound*tanh(q_var/q_mean/5);  
-  K = K_bound*tanh(q_var/q_mean); 
+  //K = K_bound*tanh(q_var/q_mean); 
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
