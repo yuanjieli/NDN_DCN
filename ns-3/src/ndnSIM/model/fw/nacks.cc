@@ -102,17 +102,6 @@ Nacks::OnNack (Ptr<Face> inFace,
       return;
     }
    
-  //Update counter
-  Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
-	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-  = fibEntry->m_faces.get<fib::i_face> ().find (inFace);
-  if(record==fibEntry->m_faces.get<fib::i_face> ().end ())
-  {
-  	NS_LOG_UNCOND("FIB does not exist");
-  }
-  fibEntry->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
- 
   DidReceiveValidNack (inFace, header->GetNack (), header, origPacket, pitEntry);
 }
 
