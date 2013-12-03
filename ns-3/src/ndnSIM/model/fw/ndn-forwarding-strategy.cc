@@ -275,12 +275,12 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
      	//if PIT faces include face from FIB, do not update
      	//because interests from these faces do not follow stric static splitting
      	bool update = true;
-     	BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+     	/*BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
      	{
      		if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
      			!= fibEntry->m_faces.get<fib::i_face> ().end())
      		{update = false; break;}
-     	}
+     	}*/
      	
      	if(update){
      		fibEntry->m_faces.modify (record,
