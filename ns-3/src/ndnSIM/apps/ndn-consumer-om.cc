@@ -204,6 +204,7 @@ ConsumerOm::ShowInterestLimit()
 	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit<<" "<<m_interest_count);
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
+	m_interest_count = 0;
 }
 
 } // namespace ndn
