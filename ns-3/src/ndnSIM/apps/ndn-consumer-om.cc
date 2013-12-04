@@ -228,7 +228,7 @@ void
 ConsumerOm::SendRandomPacket()
 {
 	if (!m_active) return;
-
+	NS_LOG_UNCOND("Here!");
   NS_LOG_FUNCTION_NOARGS ();
 
   uint32_t seq=m_rand.GetValue (); 
