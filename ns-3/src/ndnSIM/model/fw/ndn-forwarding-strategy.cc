@@ -171,7 +171,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
   if (isDuplicated)
     {
-    	NS_LOG_UNCOND("Duplicated Interest?");
+    	NS_LOG_UNCOND("ForwardingStrategy::OnInterest: Duplicated Interest?");
       DidReceiveDuplicateInterest (inFace, header, origPacket, pitEntry);
       return;
     }
