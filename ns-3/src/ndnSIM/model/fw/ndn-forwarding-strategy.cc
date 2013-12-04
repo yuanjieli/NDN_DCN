@@ -274,7 +274,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       
      	
      	bool update = true;
-     	/*BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+     	BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
      	{
      		if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
      		!= fibEntry->m_faces.get<fib::i_face> ().end ())
@@ -282,7 +282,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
      			update = false;
      			break;
      		}
-     	}*/
+     	}
      	
      	if(update)
      	{
