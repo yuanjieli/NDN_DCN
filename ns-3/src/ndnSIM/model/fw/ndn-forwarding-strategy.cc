@@ -158,7 +158,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
         }
       else
         {
-        	NS_LOG_UNCOND("Siliently drop Interest?");
           return;
         }
     }
@@ -212,8 +211,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       m_dropInterests (header, inFace);
 			
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
-      NS_LOG_UNCOND("Suppress interests?");
-      return;
+      //return;
     }
 
   if (similarInterest)
