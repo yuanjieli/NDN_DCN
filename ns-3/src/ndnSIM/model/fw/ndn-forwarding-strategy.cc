@@ -273,12 +273,26 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
       }
       
      	
+     	bool update = true;
+     	BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+     	{
+     		if(fibEntry->m_faces.get<fib::i_face> ().find (incoming.m_face)
+     		!= fibEntry->m_faces.get<fib::i_face> ().end ())
+     		{
+     			update = false;
+     			break;
+     		}
+     	}
      	
-   		fibEntry->m_faces.modify (record,
+     	if(update)
+     	{
+     		fibEntry->m_faces.modify (record,
                     ll::bind (&fib::FaceMetric::IncreaseDataIn, ll::_1));
-      if(header->GetCE()==1)
-      	fibEntry->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));
+	      if(header->GetCE()==1)
+	      	fibEntry->m_faces.modify (record,
+	                      ll::bind (&fib::FaceMetric::IncreaseDataCE, ll::_1));
+     	}
+   		
      	
       
       
