@@ -93,6 +93,9 @@ ConsumerOm::ConsumerOm ()
   , m_alpha (20.0)
   , m_limitInterval (1.0)
   , m_firstTime (true)
+  , m_data_count (0)
+  , m_nack_count (0)
+  , m_extra_nack_count (0)
 {
   NS_LOG_FUNCTION_NOARGS ();
   m_seqMax = std::numeric_limits<uint32_t>::max ();
@@ -139,7 +142,8 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   	//SendPacket();
   	Simulator::Schedule (Seconds (0.0),
                          &Consumer::SendPacket, this);
-  	
+  
+  m_data_count++;	
   /*if(m_sendEvent.IsRunning())
   {
   	m_sendEvent.Cancel();
@@ -172,17 +176,20 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
 		return;
 	}
-		
+	
 	//update interest limit
 	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
 	{
-		if(interest->GetIntraSharing()==0)
+		if(interest->GetIntraSharing()==0){
 			m_limit = m_limit - m_beta;
+			m_nack_count++;
+		}
 		else{
 			/*if(GetNode()->GetId()==0 && m_interestName=="/prefix1")
 				NS_LOG_UNCOND("Strange NACK with name"<<interest->GetName());*/
 			m_limit = m_limit - 5*(double)(interest->GetIntraSharing())/100.0;  
 			//NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
+			m_extra_nack_count++;
 		}
 		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
 			m_limit = m_initLimit;	
@@ -201,10 +208,17 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 void
 ConsumerOm::ShowInterestLimit()
 {
-	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit<<" "<<m_interest_count);
+	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit
+								<<" interest="<<m_interest_count
+								<<" data="<<m_data_count
+								<<" nack="<<m_nack_count
+								<<" enack="<<m_extra_nack_count);
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
 	m_interest_count = 0;
+	m_data_count = 0;
+	m_nack_count = 0;
+	m_extra_nack_count = 0;
 }
 
 } // namespace ndn
