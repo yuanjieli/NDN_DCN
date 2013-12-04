@@ -83,7 +83,7 @@ TypeId ForwardingStrategy::GetTypeId (void)
     .AddTraceSource ("DropData", "DropData", MakeTraceSourceAccessor (&ForwardingStrategy::m_dropData))
 
     .AddAttribute ("CacheUnsolicitedData", "Cache overheard data that have not been requested",
-                   BooleanValue (false),
+                   BooleanValue (true),
                    MakeBooleanAccessor (&ForwardingStrategy::m_cacheUnsolicitedData),
                    MakeBooleanChecker ())
 
@@ -257,7 +257,6 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
           m_dropData (header, payload, inFace);
         }
 
-			NS_LOG_UNCOND("pitEntry is empty?");
       DidReceiveUnsolicitedData (inFace, header, payload, origPacket, cached);
       return;
     }
