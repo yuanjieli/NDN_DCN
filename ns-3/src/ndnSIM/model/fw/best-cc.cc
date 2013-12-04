@@ -178,7 +178,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	
 		  	if(metricFace.GetRoutingCost()==minCost
 		  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-		  	&& CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+		  	)
 		  		totalweight += metricFace.GetFraction();
 		  }
 		  
@@ -194,7 +194,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		
 		  		if(metricFace.GetRoutingCost()==minCost
 			  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-			  	&& CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+			  	)
 		  		{
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1
@@ -214,19 +214,19 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
   	}
   	
 	  //If we cannot send interest through optimalFace, increase NACK
-	  /*if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 	  {
 	  	//we found a face, but it cannot send
-	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	  	/*fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
   	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-      }
+      }*/
 	  	return false;
-	  }*/	
+	  }	
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
 	  faceLimits->BorrowLimit ();
