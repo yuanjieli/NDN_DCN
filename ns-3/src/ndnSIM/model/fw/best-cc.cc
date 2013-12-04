@@ -177,7 +177,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  {
 		  	if(metricFace.GetRoutingCost()==minCost
 		  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-		  	&& CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry)
+		  	&& CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 		  		totalweight += metricFace.GetFraction();
 		  }
 		  
