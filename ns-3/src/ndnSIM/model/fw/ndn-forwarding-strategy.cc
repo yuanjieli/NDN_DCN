@@ -210,14 +210,12 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       NS_LOG_DEBUG ("Suppress interests");
       m_dropInterests (header, inFace);
 			
-			NS_LOG_UNCOND("Suppress Interests?");
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
       return;
     }
 
   if (similarInterest)
     {
-    	NS_LOG_UNCOND("Similar Interest?");
       DidForwardSimilarInterest (inFace, header, origPacket, pitEntry);
     }
 
