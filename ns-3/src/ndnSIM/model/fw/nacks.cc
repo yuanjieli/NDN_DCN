@@ -154,8 +154,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
     {
       Ptr<Packet> packet = Create<Packet> ();
       Ptr<Interest> nackHeader = Create<Interest> (*header);
-      nackHeader->SetNack (Interest::NACK_GIVEUP_PIT);
-      //nackHeader->SetNack (Interest::NACK_CONGESTION);
+      //nackHeader->SetNack (Interest::NACK_GIVEUP_PIT);
+      nackHeader->SetNack (Interest::NACK_CONGESTION);
       packet->AddHeader (*nackHeader);
 	    	
 
@@ -264,7 +264,6 @@ Nacks::DidReceiveValidNack (Ptr<Face> inFace,
       if (!pitEntry->AreAllOutgoingInVain ()) // not all ougtoing are in vain
         {
           NS_LOG_DEBUG ("Not all outgoing are in vain");
-          NS_LOG_UNCOND("AreAllOutgoingInVain()");
           // suppress
           // Don't do anything, we are still expecting data from some other face
           m_dropNacks (header, inFace);

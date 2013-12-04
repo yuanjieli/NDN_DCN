@@ -178,8 +178,8 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	
 	//update interest limit
-	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
-	//if(interest->GetNack()==Interest::NACK_CONGESTION)
+	//if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
+	if(interest->GetNack()==Interest::NACK_CONGESTION)
 	{
 		if(interest->GetIntraSharing()==0){
 			m_limit = m_limit - m_beta;
