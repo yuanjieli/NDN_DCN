@@ -80,7 +80,7 @@ public:
     , m_nack_old (0)
     , m_data_in_old (0)
     , m_data_ce_old (0)
-    , m_interest (0)
+    , m_interest_count (0)
     , m_fraction (1) //initially arbitrary large number. Will be updated later
     , m_sharing_metric (1)
     
@@ -255,13 +255,13 @@ public:
   void
   IncreaseInterest()
   {
-  	m_interest++;
+  	m_interest_count++;
   }
   
   uint32_t 
   GetInterest() const
   {
-  	return m_interest;
+  	return m_interest_count;
   }
  
   
@@ -283,7 +283,7 @@ public:
   	m_data_ce = 0;
   	m_nack = 0;
   	
-  	m_interest = 0;
+  	m_interest_count = 0;
   	
   }
 
@@ -316,7 +316,7 @@ private:
   double m_fraction;				///< fraction of traffic this face can forward(%)
 	double m_sharing_metric;	///< used for calculating m_fraction
 	
-	uint32_t m_interest;			///< used for debug
+	uint32_t m_interest_count;			///< used for debug
 };
 
 /// @cond include_hidden
