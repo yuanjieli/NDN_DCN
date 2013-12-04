@@ -190,10 +190,11 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  std::vector< Ptr<Face> > vecFaces;
 		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 		  	{
-		  		if(metricFace.GetFace()==inFace)continue;
+		  		
 		  		
 		  		if(metricFace.GetRoutingCost()==minCost
-		  		&& CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+			  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
+			  	&& CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 		  		{
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1
