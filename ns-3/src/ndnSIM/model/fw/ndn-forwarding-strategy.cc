@@ -606,16 +606,16 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
                                        Ptr<const Packet> origPacket,
                                        Ptr<pit::Entry> pitEntry)
 {
-  /*bool isRetransmitted = m_detectRetransmissions && // a small guard
+  bool isRetransmitted = m_detectRetransmissions && // a small guard
                          DetectRetransmittedInterest (inFace, header, origPacket, pitEntry);
-  */
+
   pitEntry->AddIncoming (inFace/*, header->GetInterestLifetime ()*/);
   /// @todo Make lifetime per incoming interface
   pitEntry->UpdateLifetime (header->GetInterestLifetime ());
 
   bool propagated = DoPropagateInterest (inFace, header, origPacket, pitEntry);
 
-  /*if (!propagated && isRetransmitted) //give another chance if retransmitted
+  if (!propagated && isRetransmitted) //give another chance if retransmitted
     {
       // increase max number of allowed retransmissions
       pitEntry->IncreaseAllowedRetxCount ();
@@ -623,7 +623,7 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
 			NS_LOG_UNCOND("try again?");
       // try again
       propagated = DoPropagateInterest (inFace, header, origPacket, pitEntry);
-    }*/
+    }
 
   // if (!propagated)
   //   {
