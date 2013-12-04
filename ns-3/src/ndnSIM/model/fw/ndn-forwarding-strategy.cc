@@ -236,8 +236,6 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
   if (pitEntry == 0)
     {
-    	NS_LOG_UNCOND("Empty PIT at node="<<inFace->GetNode()->GetId()
-    							<<" face="<<inFace->GetId());
       bool cached = false;
 
       if (m_cacheUnsolicitedData)
