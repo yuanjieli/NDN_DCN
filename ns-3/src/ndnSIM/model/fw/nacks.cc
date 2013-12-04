@@ -154,8 +154,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
     {
       Ptr<Packet> packet = Create<Packet> ();
       Ptr<Interest> nackHeader = Create<Interest> (*header);
-      nackHeader->SetNack (Interest::NACK_GIVEUP_PIT);
-      //nackHeader->SetNack (Interest::NACK_CONGESTION);
+      //nackHeader->SetNack (Interest::NACK_GIVEUP_PIT);
+      nackHeader->SetNack (Interest::NACK_CONGESTION);
       packet->AddHeader (*nackHeader);
 	    	
 
