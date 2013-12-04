@@ -211,7 +211,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       m_dropInterests (header, inFace);
 			
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
-      //return;
+      return;
     }
 
   if (similarInterest)
