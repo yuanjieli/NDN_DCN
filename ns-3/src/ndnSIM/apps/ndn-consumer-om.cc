@@ -116,12 +116,14 @@ ConsumerOm::ScheduleNextPacket ()
   if (m_firstTime)
     {
       m_sendEvent = Simulator::Schedule (Seconds (0.0),
-                                         &Consumer::SendPacket, this);
+                                         //&Consumer::SendPacket, this);
+                                         &ConsumerOm::SendRandomPacket, this);
       m_firstTime = false;
     }
   else if (!m_sendEvent.IsRunning ())
     m_sendEvent = Simulator::Schedule (Seconds(1.0 / m_limit),
-                                       &Consumer::SendPacket, this);
+                                       //&Consumer::SendPacket, this);
+                                       &ConsumerOm::SendRandomPacket, this);
 }
 
 
@@ -139,7 +141,8 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   if(contentObject->GetCE()!=2)	//not a local cache hit
   	m_limit = m_limit + m_alpha/m_limit;	//here we choose parameter such that the convergence time is similar to TCP
   else	//local hit, send next requests immediately
-  	SendPacket();
+  	//SendPacket();
+  	SendRandomPacket();
   	
   
   m_data_count++;	
@@ -221,6 +224,52 @@ ConsumerOm::ShowInterestLimit()
 	m_extra_nack_count = 0;
 }
 
+void
+ConsumerOm::SendRandomPacket()
+{
+	if (!m_active) return;
 
+  NS_LOG_FUNCTION_NOARGS ();
+
+  uint32_t seq=m_rand.GetValue (); 
+
+  Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
+  (*nameWithSequence) (seq);
+  //
+
+  Interest interestHeader;
+  interestHeader.SetNonce               (m_rand.GetValue ());
+  interestHeader.SetName                (nameWithSequence);
+  interestHeader.SetInterestLifetime    (m_interestLifeTime);
+
+  // NS_LOG_INFO ("Requesting Interest: \n" << interestHeader);
+  NS_LOG_INFO ("> Interest for " << seq);
+
+  Ptr<Packet> packet = Create<Packet> ();
+  packet->AddHeader (interestHeader);
+  NS_LOG_DEBUG ("Interest packet size: " << packet->GetSize ());
+
+  NS_LOG_DEBUG ("Trying to add " << seq << " with " << Simulator::Now () << ". already " << m_seqTimeouts.size () << " items");
+
+  /*m_seqTimeouts.insert (SeqTimeout (seq, Simulator::Now ()));
+  m_seqFullDelay.insert (SeqTimeout (seq, Simulator::Now ()));
+
+  m_seqLastDelay.erase (seq);
+  m_seqLastDelay.insert (SeqTimeout (seq, Simulator::Now ()));
+
+  m_seqRetxCounts[seq] ++;
+
+  m_transmittedInterests (&interestHeader, this, m_face);
+
+  m_rtt->SentSeq (SequenceNumber32 (seq), 1);*/
+
+  FwHopCountTag hopCountTag;
+  packet->AddPacketTag (hopCountTag);
+
+  m_protocolHandler (packet);
+
+	m_interest_count++;
+  ScheduleNextPacket ();
+}
 } // namespace ndn
 } // namespace ns3
