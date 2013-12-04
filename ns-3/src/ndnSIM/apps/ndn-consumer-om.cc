@@ -261,10 +261,10 @@ ConsumerOm::SendRandomPacket()
 
   m_transmittedInterests (&interestHeader, this, m_face);
 
-  m_rtt->SentSeq (SequenceNumber32 (seq), 1);*/
+  m_rtt->SentSeq (SequenceNumber32 (seq), 1);
 
   FwHopCountTag hopCountTag;
-  packet->AddPacketTag (hopCountTag);
+  packet->AddPacketTag (hopCountTag);*/
 
   m_protocolHandler (packet);
 
