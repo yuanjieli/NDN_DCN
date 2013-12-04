@@ -433,7 +433,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     pitEntry->RemoveIncoming (inFace);
 
 	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
-	fibEntry->IncreaseData();
+	if(inFace!=0)
+		fibEntry->IncreaseData();
 	
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
 	if (inFace != 0)
