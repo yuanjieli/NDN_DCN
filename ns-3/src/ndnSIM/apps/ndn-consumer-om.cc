@@ -221,5 +221,6 @@ ConsumerOm::ShowInterestLimit()
 	m_extra_nack_count = 0;
 }
 
+
 } // namespace ndn
 } // namespace ns3

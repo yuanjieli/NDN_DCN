@@ -64,6 +64,9 @@ protected:
    */
   virtual void
   ScheduleNextPacket ();
+  
+  void
+  SendRandomPacket (); 	//don't send packet in sequential, which can avoid racing condition
     
 private:
   // void
@@ -97,6 +100,7 @@ protected:
   
   TracedCallback<Ptr<Node> /* node */, uint32_t /* appID */,
                  Time /* time */, double /*m_limit*/> m_TraceLimit;
+                 
   
   
 };
