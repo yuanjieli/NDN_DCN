@@ -218,10 +218,10 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		//if inFace is not an application face, we may have intra-sharing problem
       		if(!ignore && DynamicCast<AppFace>(inFace)==0)
       		{
-      			/*if(inFace->GetNode()->GetId()==0)
+      			if(inFace->GetNode()->GetId()==0)
       				NS_LOG_UNCOND("Extra NACK from face="<<inFace->GetId()
       										<<" fraction="<<100-record->GetFraction()
-      										<<" to"<<app->GetFace()->GetId());*/
+      										<<" to"<<app->GetFace()->GetId());
 	      		nackHeader->SetIntraSharing(100-record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
