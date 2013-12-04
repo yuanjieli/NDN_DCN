@@ -180,7 +180,7 @@ PerOutFaceDeltaLimits::CanSendOutInterest (Ptr<Face> inFace,
         }
     }
   
-  NS_LOG_INFO("NACK "<<DynamicCast<LimitsDeltaRate> (faceLimits)->GetCurrentLimitRate()
+  NS_LOG_UNCOND("NACK "<<DynamicCast<LimitsDeltaRate> (faceLimits)->GetCurrentLimitRate()
   						<<" "<<DynamicCast<LimitsDeltaRate> (faceLimits)->GetCurrentCounter());
   return false;
 }
