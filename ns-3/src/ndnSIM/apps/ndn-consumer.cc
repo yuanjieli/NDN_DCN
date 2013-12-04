@@ -91,6 +91,7 @@ Consumer::Consumer ()
   : m_rand (0, std::numeric_limits<uint32_t>::max ())
   , m_seq (0)
   , m_seqMax (0) // don't request anything
+  , m_interest_count (0)
 {
   NS_LOG_FUNCTION_NOARGS ();
 
@@ -235,6 +236,7 @@ Consumer::SendPacket ()
 
   m_protocolHandler (packet);
 
+	m_interest_count++;
   ScheduleNextPacket ();
 }
 
