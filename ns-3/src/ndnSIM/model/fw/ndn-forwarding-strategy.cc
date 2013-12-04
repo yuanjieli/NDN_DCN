@@ -234,6 +234,8 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
 
   // Lookup PIT entry
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
+  Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+  fibEntry->IncreaseData();
   if (pitEntry == 0)
     {
       bool cached = false;
@@ -264,7 +266,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
     {
     	//Update counter
     	/////////////////////////////////////////////////////
-    	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+    	//Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
     	//fibEntry->IncreaseData();
     	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
       = fibEntry->m_faces.get<fib::i_face> ().find (inFace);
@@ -432,9 +434,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
   if (inFace != 0)
     pitEntry->RemoveIncoming (inFace);
 
-	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
+	/*Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	if(inFace!=0)
-		fibEntry->IncreaseData();
+		fibEntry->IncreaseData();*/
 	
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
 	if (inFace != 0)
