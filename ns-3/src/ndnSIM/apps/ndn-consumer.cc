@@ -141,8 +141,8 @@ Consumer::CheckRetxTimeout ()
         break; // nothing else to do. All later packets need not be retransmitted
     }
 
-  m_retxEvent = Simulator::Schedule (m_retxTimer,
-                                     &Consumer::CheckRetxTimeout, this);
+  /*m_retxEvent = Simulator::Schedule (m_retxTimer,
+                                     &Consumer::CheckRetxTimeout, this);*/
 }
 
 // Application Methods
@@ -320,7 +320,6 @@ Consumer::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> origPacket)
 void
 Consumer::OnTimeout (uint32_t sequenceNumber)
 {
-	NS_LOG_UNCOND("OnTimeout node="<<GetNode()->GetId());
   NS_LOG_FUNCTION (sequenceNumber);
   // std::cout << Simulator::Now () << ", TO: " << sequenceNumber << ", current RTO: " << m_rtt->RetransmitTimeout ().ToDouble (Time::S) << "s\n";
 
