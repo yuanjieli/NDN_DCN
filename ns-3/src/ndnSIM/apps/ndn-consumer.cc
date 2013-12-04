@@ -320,6 +320,7 @@ Consumer::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> origPacket)
 void
 Consumer::OnTimeout (uint32_t sequenceNumber)
 {
+	NS_LOG_UNCOND("OnTimeout node="<<GetNode()->GetId());
   NS_LOG_FUNCTION (sequenceNumber);
   // std::cout << Simulator::Now () << ", TO: " << sequenceNumber << ", current RTO: " << m_rtt->RetransmitTimeout ().ToDouble (Time::S) << "s\n";
 
