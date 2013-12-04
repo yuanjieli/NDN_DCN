@@ -269,8 +269,7 @@ BestCC::OnNack (Ptr<Face> inFace,
       return;
   }
   uint32_t nackCode = header->GetNack ();
-  if (nackCode == Interest::NACK_GIVEUP_PIT ||
-  		nackCode == Interest::NACK_CONGESTION)
+  if (nackCode == Interest::NACK_GIVEUP_PIT)
     {
       pitEntry->RemoveIncoming (inFace);
     }
