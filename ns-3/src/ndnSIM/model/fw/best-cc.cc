@@ -171,10 +171,11 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		if(metricFace.GetRoutingCost()<minCost)
 		  			minCost = metricFace.GetRoutingCost();
 		  	}
-		  
+		  NS_LOG_UNCOND("minCost="<<minCost);
 		  double totalweight = 0;
 		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 		  {
+		  	NS_LOG_UNCOND("metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost());
 		  	if(metricFace.GetRoutingCost()==minCost
 		  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
 		  	&& CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
