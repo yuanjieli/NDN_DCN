@@ -91,6 +91,7 @@ protected:
   double							m_alpha;				//positive feedback
   double              m_limitInterval;
   bool                m_firstTime;
+  uint32_t						m_data_count;		//used for counting received data
   
   TracedCallback<Ptr<Node> /* node */, uint32_t /* appID */,
                  Time /* time */, double /*m_limit*/> m_TraceLimit;

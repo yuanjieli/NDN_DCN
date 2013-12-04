@@ -619,7 +619,8 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
     {
       // increase max number of allowed retransmissions
       pitEntry->IncreaseAllowedRetxCount ();
-
+			
+			NS_LOG_UNCOND("try again?");
       // try again
       propagated = DoPropagateInterest (inFace, header, origPacket, pitEntry);
     }
