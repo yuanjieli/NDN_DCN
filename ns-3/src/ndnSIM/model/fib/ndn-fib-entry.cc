@@ -195,6 +195,7 @@ Entry::ResetCount()
 	    								<<" prefix="<<*m_prefix
 	    								<<" faceID="<<face->GetFace()->GetId()
 	    								<<" metric="<<face->GetFraction()
+	    								<<" interest="<<face->GetInterest()
 	    								<<" NACK="<<face->GetNack()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								//<<" Data_CE="<<face->GetDataCE()

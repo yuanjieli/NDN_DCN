@@ -232,7 +232,16 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  faceLimits->BorrowLimit ();
 	  TrySendOutInterest (inFace, optimalFace, header, origPacket, pitEntry);
 	  propagatedCount++;
-  
+	  //////////////////////////////////////////
+	  fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+  	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+      {
+      		
+        	pitEntry->GetFibEntry ()->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseInterest, ll::_1));
+      }
+    //////////////////////////////////////////
   
   NS_LOG_INFO ("Propagated to " << propagatedCount << " faces");
   return propagatedCount > 0;
