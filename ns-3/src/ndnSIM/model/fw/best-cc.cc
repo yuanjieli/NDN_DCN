@@ -207,12 +207,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  			}
 		  		}
 		  	}
+		  	
+		  	if(optimalFace==0)return false;
   	}
   	
-	  
-	  
-	  if(optimalFace==0)return false;
-	  
 	  //If we cannot send interest through optimalFace, increase NACK
 	  /*if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 	  {
