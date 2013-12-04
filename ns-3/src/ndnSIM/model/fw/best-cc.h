@@ -182,6 +182,7 @@ PerOutFaceDeltaLimits::CanSendOutInterest (Ptr<Face> inFace,
   
   /*NS_LOG_UNCOND("NACK "<<DynamicCast<LimitsDeltaRate> (faceLimits)->GetCurrentLimitRate()
   						<<" "<<DynamicCast<LimitsDeltaRate> (faceLimits)->GetCurrentCounter());*/
+  NS_LOG_UNCOND("Link is fully utilized!");
   return false;
 }
 
