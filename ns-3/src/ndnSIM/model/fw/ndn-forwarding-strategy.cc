@@ -257,6 +257,7 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
           m_dropData (header, payload, inFace);
         }
 
+			NS_LOG_UNCOND("pitEntry is empty?");
       DidReceiveUnsolicitedData (inFace, header, payload, origPacket, cached);
       return;
     }
