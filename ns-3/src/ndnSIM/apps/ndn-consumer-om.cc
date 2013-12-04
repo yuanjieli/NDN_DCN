@@ -133,7 +133,7 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
 {
   Consumer::OnContentObject (contentObject, payload); // tracing inside
   //update interest limit
-  //if(contentObject->GetCE()!=2)	//not a local cache hit
+  if(contentObject->GetCE()!=2)	//not a local cache hit
   	m_limit = m_limit + m_alpha/m_limit;	//here we choose parameter such that the convergence time is similar to TCP
   
   /*if(m_sendEvent.IsRunning())
