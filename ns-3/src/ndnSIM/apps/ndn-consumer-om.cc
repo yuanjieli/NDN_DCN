@@ -93,7 +93,6 @@ ConsumerOm::ConsumerOm ()
   , m_alpha (20.0)
   , m_limitInterval (1.0)
   , m_firstTime (true)
-  , m_data_count (0)
 {
   NS_LOG_FUNCTION_NOARGS ();
   m_seqMax = std::numeric_limits<uint32_t>::max ();
@@ -136,15 +135,14 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   //update interest limit
   if(contentObject->GetCE()!=2)	//not a local cache hit
   	m_limit = m_limit + m_alpha/m_limit;	//here we choose parameter such that the convergence time is similar to TCP
-  else	//local hit, send next requests immediately
-  	SendPacket();
+  //else	//local hit, send next requests immediately
+  	//SendPacket();
   	
-  m_data_count++;
-  /*if(m_sendEvent.IsRunning())
+  if(m_sendEvent.IsRunning())
   {
   	m_sendEvent.Cancel();
   	ScheduleNextPacket ();
-  }*/
+  }
     
 }
 
@@ -201,9 +199,8 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 void
 ConsumerOm::ShowInterestLimit()
 {
-	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit<<" "<<m_data_count);
+	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit);
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
-	m_data_count = 0;
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
 }
 
