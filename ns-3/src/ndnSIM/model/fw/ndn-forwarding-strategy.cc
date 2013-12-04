@@ -208,9 +208,9 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
       // Suppress this interest if we're still expecting data from some other face
       NS_LOG_DEBUG ("Suppress interests");
-      m_dropInterests (header, inFace);
-			
+      m_dropInterests (header, inFace);	
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
+      NS_LOG_UNCOND("Suppress interests");
       return;
     }
 
