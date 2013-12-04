@@ -173,7 +173,7 @@ PerOutFaceDeltaLimits::CanSendOutInterest (Ptr<Face> inFace,
   Ptr<Limits> faceLimits = outFace->GetObject<Limits> ();
   if (faceLimits->IsBelowLimit ())
     {
-      if (super::CanSendOutInterest (inFace, outFace, header, origPacket, pitEntry))
+      //if (super::CanSendOutInterest (inFace, outFace, header, origPacket, pitEntry))
         {
           //faceLimits->BorrowLimit ();
           return true;

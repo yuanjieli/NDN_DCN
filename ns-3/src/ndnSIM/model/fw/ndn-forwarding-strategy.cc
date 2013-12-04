@@ -650,7 +650,6 @@ ForwardingStrategy::CanSendOutInterest (Ptr<Face> inFace,
   if (outFace == inFace)
     {
       // NS_LOG_DEBUG ("Same as incoming");
-      NS_LOG_UNCOND ("Same as incoming");
       return false; // same face as incoming, don't forward
     }
 
@@ -661,13 +660,11 @@ ForwardingStrategy::CanSendOutInterest (Ptr<Face> inFace,
     {
       if (!m_detectRetransmissions)
       {
-      	NS_LOG_UNCOND("!m_detectRetransmissions");
         return false; // suppress
       } 
       else if (outgoing->m_retxCount >= pitEntry->GetMaxRetxCount ())
         {
-          // NS_LOG_DEBUG ("Already forwarded before during this retransmission cycle (" <<outgoing->m_retxCount << " >= " << pitEntry->GetMaxRetxCount () << ")");
-          NS_LOG_UNCOND ("Already forwarded before during this retransmission cycle (" <<outgoing->m_retxCount << " >= " << pitEntry->GetMaxRetxCount () << ")");
+          NS_LOG_DEBUG ("Already forwarded before during this retransmission cycle (" <<outgoing->m_retxCount << " >= " << pitEntry->GetMaxRetxCount () << ")");
           return false; // already forwarded before during this retransmission cycle
         }
    }
