@@ -171,14 +171,14 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		if(metricFace.GetRoutingCost()<minCost)
 		  			minCost = metricFace.GetRoutingCost();
 		  	}
-		  NS_LOG_UNCOND("minCost="<<minCost);
+		  
 		  double totalweight = 0;
 		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 		  {
-		  	NS_LOG_UNCOND("metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost());
+		  	
 		  	if(metricFace.GetRoutingCost()==minCost
 		  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-		  	&& CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+		  	&& CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 		  		totalweight += metricFace.GetFraction();
 		  }
 		  
@@ -193,7 +193,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		if(metricFace.GetFace()==inFace)continue;
 		  		
 		  		if(metricFace.GetRoutingCost()==minCost
-		  		&& CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+		  		&& CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 		  		{
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1
