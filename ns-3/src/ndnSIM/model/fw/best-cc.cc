@@ -217,14 +217,14 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 	  {
 	  	//we found a face, but it cannot send
-	  	/*fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
   	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-      }*/
+      }
 	  	return false;
 	  }	
 	  
