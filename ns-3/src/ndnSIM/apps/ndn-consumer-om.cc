@@ -190,7 +190,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		else{
 			/*if(GetNode()->GetId()==0 && m_interestName=="/prefix1")
 				NS_LOG_UNCOND("Strange NACK with name"<<interest->GetName());*/
-			m_limit = m_limit - m_beta*(double)(interest->GetIntraSharing())/100.0;  
+			m_limit = m_limit - 10*(double)(interest->GetIntraSharing())/100.0;  
 			//NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
 			m_extra_nack_count++;
 		}
