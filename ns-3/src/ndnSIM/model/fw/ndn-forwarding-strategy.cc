@@ -591,7 +591,7 @@ ForwardingStrategy::ShouldSuppressIncomingInterest (Ptr<Face> inFace,
       // ?? not sure if we need to do that ?? ...
 
       // pitEntry->GetFibEntry ()->UpdateStatus (inFace, fib::FaceMetric::NDN_FIB_YELLOW);
-    	NS_LOG_UNCOND("Aha!");
+    	return true;
     }
   else
     if (!isNew && !isRetransmitted)
