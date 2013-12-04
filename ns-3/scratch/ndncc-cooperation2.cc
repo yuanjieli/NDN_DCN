@@ -17,7 +17,7 @@
  *
  * Author: Yuanjie Li <yuanjie.li@cs.ucla.edu>
  */
-// ndncc-cooperation.cc Proof of concept for our cooperation scheme
+// ndncc-multipath-fairness.cc Two consumers. One has two producers, the other has just one
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/point-to-point-module.h"
@@ -32,24 +32,36 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {
-	int simulation_time = 100;
+	int simulation_time = 300;
   // setting default parameters for PointToPoint links and channels
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1ms"));
+  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("50"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
+  //Config::SetDefault ("ns3::ndn::ForwardingStrategy::DetectRetransmissions", BooleanValue (false));
 
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
   cmd.Parse (argc, argv);
 
-  AnnotatedTopologyReader topologyReader ("", 1);
-  topologyReader.SetFileName ("scratch/cooperation_map.txt");
-  topologyReader.Read ();
+  // Creating nodes
+  NodeContainer nodes;
+  nodes.Create (4);
+
+  // Connecting nodes using two links
+  PointToPointHelper p2p;
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.Install (nodes.Get (0), nodes.Get (1));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.Install (nodes.Get (0), nodes.Get (2));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.Install (nodes.Get (1), nodes.Get (3));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.Install (nodes.Get (2), nodes.Get (3));
   
   
   
@@ -60,7 +72,7 @@ main (int argc, char *argv[])
   //ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC");
   //ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
-  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "1000000");	//WARNING: HUGE IMPACT!
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
   ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.InstallAll ();
   
@@ -71,43 +83,44 @@ main (int argc, char *argv[])
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix1");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (Names::Find<Node> ("S3")); 
-  producerHelper.Install (Names::Find<Node> ("S4")); 
+  producerHelper.Install (nodes.Get (3)); 
+  producerHelper.SetPrefix ("/prefix2");
+  producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
+  producerHelper.Install (nodes.Get (1)); 
   
-  
-  
-  //Manually Add routes here, because we have non-shortest path
-  //To be compatible with our code, set all paths with equal cost
-  //S1
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S2",2);
-  ndn::StackHelper::AddRoute ("S1","/prefix1","S3",2);	
-  //S2
-  ndn::StackHelper::AddRoute ("S2","/prefix1","S1",2);	
-  ndn::StackHelper::AddRoute ("S2","/prefix1","S4",2);	
-  	
+
+  //Add routes here
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
-  ndnGlobalRoutingHelper.InstallAll ();
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", Names::Find<Node> ("S4"));
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", Names::Find<Node> ("S3"));
+  ndnGlobalRoutingHelper.Install (nodes);
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (3));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix2", nodes.Get (1));
   //ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
-  ndnGlobalRoutingHelper.CalculateFIB2 ();			
-  	
-  
+  ndn::StackHelper::AddRoute (nodes.Get(0),"/prefix1",nodes.Get(1),1);
+  ndn::StackHelper::AddRoute (nodes.Get(0),"/prefix1",nodes.Get(2),1);
+  ndn::StackHelper::AddRoute (nodes.Get(0),"/prefix2",nodes.Get(1),1);
+  ndn::StackHelper::AddRoute (nodes.Get(1),"/prefix1",nodes.Get(3),1);
+  //ndn::StackHelper::AddRoute (nodes.Get(1),"/prefix1",nodes.Get(0),1);
+  ndn::StackHelper::AddRoute (nodes.Get(2),"/prefix1",nodes.Get(3),1);
+  ndnGlobalRoutingHelper.CalculateFIB2 ();
   
   // Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix1");
-  consumers = consumerHelper.Install (Names::Find<Node> ("S1")); 
+  consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  consumerHelper.SetPrefix ("/prefix1");
-  consumers = consumerHelper.Install (Names::Find<Node> ("S2")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
+  /*consumerHelper.SetPrefix ("/prefix1");
+  consumers = consumerHelper.Install (nodes.Get (1)); 
+  consumers.Start (Seconds (1));  //avoid race condition?	
+  consumers.Stop (Seconds (simulation_time));*/
 
+  /*consumerHelper.SetPrefix ("/prefix2");
+  consumers = consumerHelper.Install (nodes.Get (0)); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));*/
+    
   Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();

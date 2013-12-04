@@ -32,14 +32,14 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {
-	int simulation_time = 200;
+	int simulation_time = 300;
   // setting default parameters for PointToPoint links and channels
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1ms"));
+  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("100"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
 
@@ -55,9 +55,9 @@ main (int argc, char *argv[])
   PointToPointHelper p2p;
   p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (0), nodes.Get (1));
-  p2p.SetDeviceAttribute("DataRate", StringValue ("20Mbps"));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (0), nodes.Get (2));
-  p2p.SetDeviceAttribute("DataRate", StringValue ("20Mbps"));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (1), nodes.Get (3));
   p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
   p2p.Install (nodes.Get (2), nodes.Get (3));
@@ -71,7 +71,7 @@ main (int argc, char *argv[])
   //ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC");
   //ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
-  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "1000000");	//WARNING: HUGE IMPACT!
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
   ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.InstallAll ();
   
@@ -103,14 +103,15 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  consumerHelper.SetPrefix ("/prefix1");
+  /*consumerHelper.SetPrefix ("/prefix1");
   consumers = consumerHelper.Install (nodes.Get (1)); 
-  consumers.Start (Seconds (1));	
-  consumers.Stop (Seconds (simulation_time));
-  consumerHelper.SetPrefix ("/prefix2");
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));*/
+  
+  /*consumerHelper.SetPrefix ("/prefix2");
   consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
+  consumers.Stop (Seconds (simulation_time));*/
   
 
   Simulator::Stop (Seconds (simulation_time));
