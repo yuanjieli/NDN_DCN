@@ -606,9 +606,9 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
                                        Ptr<const Packet> origPacket,
                                        Ptr<pit::Entry> pitEntry)
 {
-  bool isRetransmitted = m_detectRetransmissions && // a small guard
+  /*bool isRetransmitted = m_detectRetransmissions && // a small guard
                          DetectRetransmittedInterest (inFace, header, origPacket, pitEntry);
-
+  */
   pitEntry->AddIncoming (inFace/*, header->GetInterestLifetime ()*/);
   /// @todo Make lifetime per incoming interface
   pitEntry->UpdateLifetime (header->GetInterestLifetime ());
