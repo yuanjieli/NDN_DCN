@@ -89,7 +89,7 @@ TypeId ForwardingStrategy::GetTypeId (void)
 
     .AddAttribute ("DetectRetransmissions", "If non-duplicate interest is received on the same face more than once, "
                                             "it is considered a retransmission",
-                   BooleanValue (false),
+                   BooleanValue (true),
                    MakeBooleanAccessor (&ForwardingStrategy::m_detectRetransmissions),
                    MakeBooleanChecker ())
     ;
@@ -147,7 +147,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
   m_inInterests (header, inFace);
 
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
-  bool similarInterest = true;
+  bool similarInterest = false;	//by Yuanjie: we don't check retransmission
   if (pitEntry == 0)
     {
       similarInterest = false;
@@ -210,7 +210,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       NS_LOG_DEBUG ("Suppress interests");
       m_dropInterests (header, inFace);	
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
-      NS_LOG_UNCOND("Suppress interests");
       return;
     }
 
