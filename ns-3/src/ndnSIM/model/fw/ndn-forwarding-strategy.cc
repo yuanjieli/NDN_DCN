@@ -211,6 +211,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       m_dropInterests (header, inFace);
 			
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
+      NS_LOG_UNCOND("Drop Interests here!");
       return;
     }
 
@@ -591,7 +592,6 @@ ForwardingStrategy::ShouldSuppressIncomingInterest (Ptr<Face> inFace,
       // ?? not sure if we need to do that ?? ...
 
       // pitEntry->GetFibEntry ()->UpdateStatus (inFace, fib::FaceMetric::NDN_FIB_YELLOW);
-    	return false;
     }
   else
     if (!isNew && !isRetransmitted)
