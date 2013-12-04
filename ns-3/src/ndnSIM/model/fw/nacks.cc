@@ -117,6 +117,7 @@ Nacks::DidReceiveDuplicateInterest (Ptr<Face> inFace,
     {
       NS_LOG_DEBUG ("Sending NACK_LOOP");
       Ptr<Interest> nackHeader = Create<Interest> (*header);
+      NS_LOG_UNCOND("Loop here?");
       nackHeader->SetNack (Interest::NACK_LOOP);
       Ptr<Packet> nack = Create<Packet> ();
       nack->AddHeader (*nackHeader);
