@@ -49,14 +49,20 @@ main (int argc, char *argv[])
 
   // Creating nodes
   NodeContainer nodes;
-  nodes.Create (4);
+  nodes.Create (8);
 
   // Connecting nodes using two links
   PointToPointHelper p2p;
-  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("100Mbps"));
   p2p.Install (nodes.Get (0), nodes.Get (1));
   p2p.Install (nodes.Get (1), nodes.Get (2));
-  p2p.Install (nodes.Get (2), nodes.Get (3));
+  p2p.Install (nodes.Get (1), nodes.Get (3));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("10Mbps"));
+  p2p.Install (nodes.Get (2), nodes.Get (4));
+  p2p.Install (nodes.Get (2), nodes.Get (5));
+  p2p.Install (nodes.Get (3), nodes.Get (6));
+  p2p.SetDeviceAttribute("DataRate", StringValue ("20Mbps"));
+  p2p.Install (nodes.Get (3), nodes.Get (7));
   
   
   
@@ -76,33 +82,39 @@ main (int argc, char *argv[])
   // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
-  producerHelper.SetPrefix ("/prefix");
+  producerHelper.SetPrefix ("/prefix1");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (3)); 
+  producerHelper.Install (nodes.Get (4)); 
+  producerHelper.Install (nodes.Get (5));
+  producerHelper.Install (nodes.Get (6));
+  producerHelper.Install (nodes.Get (7));   
   
   
   //Add routes here
   ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.Install (nodes);
-  ndnGlobalRoutingHelper.AddOrigins ("/prefix", nodes.Get (3));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (4));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (5));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (6));
+  ndnGlobalRoutingHelper.AddOrigins ("/prefix1", nodes.Get (7));
   ndnGlobalRoutingHelper.CalculateAllPossibleRoutes ();
   ndnGlobalRoutingHelper.CalculateFIB2 ();
   
   // Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
-  consumerHelper.SetPrefix ("/prefix");
+  consumerHelper.SetPrefix ("/prefix1");
   consumers = consumerHelper.Install (nodes.Get (0)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));  
-  consumerHelper.SetPrefix ("/prefix");
+  /*consumerHelper.SetPrefix ("/prefix1");
   consumers = consumerHelper.Install (nodes.Get (1)); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
-  consumerHelper.SetPrefix ("/prefix");
+  consumerHelper.SetPrefix ("/prefix1");
   consumers = consumerHelper.Install (nodes.Get (2)); 
   consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
+  consumers.Stop (Seconds (simulation_time));*/
   
 
   Simulator::Stop (Seconds (simulation_time));
