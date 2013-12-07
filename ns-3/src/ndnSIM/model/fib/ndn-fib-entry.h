@@ -193,7 +193,11 @@ public:
   	return m_nack+1;
   }
   
-  
+  double
+  GetNackOld() const
+  {
+  	return m_nack_old;
+  }
   
   void
   IncreaseDataIn()
@@ -276,7 +280,7 @@ public:
   
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
-  	m_sharing_metric = (double)(m_nack_old)*100.0/m_sharing_metric; 
+  	//m_sharing_metric = (double)(m_nack_old)*100.0/m_sharing_metric; 
   	
   	
   	m_data_in = 0;

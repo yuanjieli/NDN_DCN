@@ -226,19 +226,18 @@ Entry::ResetCount()
     {  
     	if(face->GetRoutingCost()==minCost)
     	{ 
-    		q_mean += face->GetSharingMetric(); 
+    		q_mean += face->GetNackOld(); 
 	    	facecount ++;
 	    }    								
     }
   
-  q_mean /= facecount;
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
     {  
     	if(face->GetRoutingCost()==minCost)
     	{
-    		double tmp = face->GetSharingMetric()-q_mean;
+    		double tmp = face->GetFraction()*q_mean-face->GetNackOld();
     		q_var += tmp*tmp;
     		if(tmp>0)
     		{
@@ -260,7 +259,7 @@ Entry::ResetCount()
     }
   //q_var /= facecount;
   //q_var = sqrt(q_var/facecount);
-  K = K_bound*tanh(q_var/q_mean/5);  
+  K = K_bound*tanh(sqrt(q_var)/q_mean/5);  
   //K = K_bound*tanh(q_var/q_mean);  
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
@@ -272,7 +271,7 @@ Entry::ResetCount()
 	      if(m_inited)
 	      {
 		      double fraction = face->GetFraction()
-		      								+ K * (face->GetSharingMetric() - q_mean);
+		      								+ K * (face->GetFraction()*q_mean-face->GetNackOld());
 		      m_faces.modify (face,
 		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
 		    }
@@ -289,63 +288,7 @@ Entry::ResetCount()
   m_inited = true; 
   
     
-  //set fraction of traffic
-  /*double minCost = 1000000;
-  double K = 0.25;	//used for balancing congestion
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-  {
-  	if(face->GetRoutingCost()<minCost)
-  		minCost = face->GetRoutingCost();
-  }
-  double totalMetric = 0;
-  double totalNack = 0;
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-    {  
-    	if(face->GetRoutingCost()==minCost)
-    	{  	
-	    	totalMetric += face->GetSharingMetric();	
-	    	totalNack += face->GetNack();
-	    }    								
-    }   
-  
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-    { 
-    	if(face->GetRoutingCost()==minCost)
-    	{
-    		//proportional scheme
-    		//double tmp = face->GetSharingMetric(); 
-    	              
-	    	//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
-	    	//m_faces.modify (face,
-	      //                ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
-	                      
-	      
-	      //balance the congestion level
-	      if(m_inited)
-	      {
-		      double fraction = face->GetFraction()
-		      								+ K * (face->GetSharingMetric()*totalNack/totalMetric-face->GetNack());
-		      m_faces.modify (face,
-		                      ll::bind (&FaceMetric::SetFraction, ll::_1,fraction));
-		    }
-		    else
-		    {
-		    	double tmp = face->GetSharingMetric(); 
-    	              
-	    		//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
-	    		m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100*tmp/totalMetric));
-		    }
-    	}   	
-    									
-    }  
-  m_inited = true; */
+ 
   Simulator::Schedule(Seconds(1), &Entry::ResetCount, this);
 }
 
