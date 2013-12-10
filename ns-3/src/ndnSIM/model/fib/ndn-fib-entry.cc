@@ -260,9 +260,8 @@ Entry::ResetCount()
     		}
     	}							
     }
-  //q_var /= facecount;
-  q_var = sqrt(q_var/facecount);
-  K = K_bound*tanh(q_var/q_mean/5);  
+  q_var = sqrt(q_var);
+  K = K_bound*tanh(q_var/q_mean/5/facecount);  
   //K = K_bound*tanh(q_var/q_mean);  
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();

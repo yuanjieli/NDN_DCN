@@ -219,7 +219,7 @@ public:
   double
   GetDataIn() const
   {
-  	return m_data_in+1;
+  	return m_data_in_old+1;
   }
   
   void
