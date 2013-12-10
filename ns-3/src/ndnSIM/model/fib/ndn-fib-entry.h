@@ -276,7 +276,6 @@ public:
   void 
   ResetCounter ()
   {
-  	double alpha = ALPHA;	 //weighted sum
   	m_data_in_old = ALPHA*m_data_in+(1-ALPHA)*m_data_in_old;
   	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
   	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
