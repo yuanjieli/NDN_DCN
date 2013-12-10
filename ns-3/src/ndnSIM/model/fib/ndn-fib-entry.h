@@ -39,6 +39,11 @@
 #include <boost/multi_index/member.hpp>
 #include <boost/multi_index/mem_fun.hpp>
 
+//parameters for weight update
+#define UPDATE_INTERVAL 1
+#define SHOW_RATE_INTERVAL 1
+#define ALPHA 1/8.0	//smoothed counter
+
 namespace ns3 {
 namespace ndn {
 
@@ -271,10 +276,10 @@ public:
   void 
   ResetCounter ()
   {
-  	double alpha = 1/8.0;	 //weighted sum
-  	m_data_in_old = alpha*m_data_in+(1-alpha)*m_data_in_old;
-  	m_data_ce_old = alpha*m_data_ce+(1-alpha)*m_data_ce_old;
-  	m_nack_old = alpha*m_nack+(1-alpha)*m_nack_old;
+  	double alpha = ALPHA;	 //weighted sum
+  	m_data_in_old = ALPHA*m_data_in+(1-ALPHA)*m_data_in_old;
+  	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
+  	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
   	
   	
   
@@ -395,6 +400,7 @@ public:
   , m_data (0)
   {
   	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
+  	Simulator::Schedule (Seconds (0.001), &Entry::ShowRate, this);
   	
   }
 
@@ -470,6 +476,7 @@ private:
   friend std::ostream& operator<< (std::ostream& os, const Entry &entry);
   	
   void ResetCount();
+  void ShowRate();
 
 public:
   Ptr<const Name> m_prefix; ///< \brief Prefix of the FIB entry
