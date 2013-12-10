@@ -398,8 +398,8 @@ public:
   , m_inited (false)
   , m_data (0)
   {
-  	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
   	Simulator::Schedule (Seconds (0.001), &Entry::ShowRate, this);
+  	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
   	
   }
 
