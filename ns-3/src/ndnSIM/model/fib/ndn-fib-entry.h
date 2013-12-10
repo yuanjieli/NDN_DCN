@@ -201,7 +201,7 @@ public:
   double
   GetNackOld() const
   {
-  	return m_nack_old+1;
+  	return m_nack_old;
   }
   
   void
