@@ -40,7 +40,7 @@
 #include <boost/multi_index/mem_fun.hpp>
 
 //parameters for weight update
-#define UPDATE_INTERVAL 5
+#define UPDATE_INTERVAL 10
 #define SHOW_RATE_INTERVAL 1
 #define ALPHA 1.0//1/8.0	//smoothed counter
 
