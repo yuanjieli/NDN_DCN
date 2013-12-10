@@ -204,6 +204,7 @@ Entry::ResetCount()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								//<<" Data_CE="<<face->GetDataCE()
 	    								);
+	    								
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
@@ -245,7 +246,6 @@ Entry::ResetCount()
     		q_var += tmp*tmp;
     		if(tmp>0)
     		{
-    			//q_var += tmp;
     			double tmp2 = (w_upper_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
@@ -253,7 +253,6 @@ Entry::ResetCount()
     		}
     		else if(tmp<0)
     		{
-    			//q_var += -tmp;
     			double tmp2 = (w_lower_bound-face->GetFraction())/tmp;
     			if(K_bound>tmp2)
     				K_bound = tmp2;
@@ -263,8 +262,8 @@ Entry::ResetCount()
     }
   //q_var /= facecount;
   q_var = sqrt(q_var/facecount);
-  //K = K_bound*tanh(q_var/q_mean/5);  
-  K = K_bound*tanh(q_var/q_mean);  
+  K = K_bound*tanh(q_var/q_mean/5);  
+  //K = K_bound*tanh(q_var/q_mean);  
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
@@ -281,8 +280,6 @@ Entry::ResetCount()
 		    }
 		    else
 		    {
-    	              
-	    		//NS_LOG_UNCOND("fraction="<<tmp*100/totalMetric);
 	    		m_faces.modify (face,
 	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100/facecount));
 		    }
