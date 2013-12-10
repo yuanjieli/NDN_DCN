@@ -193,8 +193,7 @@ Entry::ResetCount()
        face++)
     {
     	
-    	if(face->GetFace()->GetNode()->GetId()==0
-    	|| face->GetFace()->GetNode()->GetId()==1)
+    	if(face->GetFace()->GetNode()->GetId()<=3)
 	    	NS_LOG_UNCOND(
 	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
 	    								<<" prefix="<<*m_prefix
