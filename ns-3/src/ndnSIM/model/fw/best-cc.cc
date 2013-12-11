@@ -234,6 +234,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+          if(DynamicCast<AppFace> (inFace) ==0)
+          	pitEntry->GetFibEntry()->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
+          	
       }
 	  	return false;
 	  }	
@@ -306,8 +310,6 @@ BestCC::OnNack (Ptr<Face> inFace,
       bool remote_nack = false;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       {
-      	if(inFace->GetNode()->GetId()==1)
-      		NS_LOG_UNCOND("face="<<incoming.m_face->GetId());
       	if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote_nack = true;	//for remote requests
       			break;
