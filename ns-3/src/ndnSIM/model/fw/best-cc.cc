@@ -182,7 +182,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	  if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
 		  	  {	
 		  	  	continue;	//this face cannot send local requests
-		  	  	NS_LOG_UNCOND("Test 2");
 		  	  }
 		  	  	
 		  		totalweight += metricFace.GetFraction();
@@ -204,7 +203,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		{
 		  			if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
 		  			{
-		  				NS_LOG_UNCOND("Test 3");
 		  	  		continue;	//this face cannot send local requests
 		  	  	}
 		  			
@@ -280,7 +278,7 @@ BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
                Ptr<const Packet> origPacket)
 {
-	
+	NS_LOG_UNCOND("Begin of OnNack");	
   //super::OnNack (inFace, header, origPacket);
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
   if (pitEntry == 0)
@@ -341,7 +339,7 @@ BestCC::OnNack (Ptr<Face> inFace,
     
   }
   
-  NS_LOG_UNCOND("OnNack");
+  NS_LOG_UNCOND("End of OnNack");
   
 }
 

@@ -298,7 +298,6 @@ public:
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
   	//m_sharing_metric = (double)(m_nack_old)*100.0/m_sharing_metric; 
-  	NS_LOG_UNCOND("Test 1");
   	m_data_in = 0;
   	m_data_ce = 0;
   	m_nack = 0;
