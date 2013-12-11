@@ -179,11 +179,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	if(metricFace.GetRoutingCost()==minCost
 		  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 		  	{
-		  	  if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
-		  	  {	
-		  	  	continue;	//this face cannot send local requests
-		  	  }
-		  	  	
+		  	  
 		  		totalweight += metricFace.GetFraction();
 		  	}
 		  }
@@ -201,10 +197,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		if(metricFace.GetRoutingCost()==minCost
 			  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path  	
 		  		{
-		  			if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
-		  			{
-		  	  		continue;	//this face cannot send local requests
-		  	  	}
+		  			
 		  			
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1
@@ -223,12 +216,14 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  if(optimalFace==0)return false;
   	}
   	
+  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
 	  //If we cannot send interest through optimalFace, increase NACK
-	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry)
+	  ||(DynamicCast<AppFace> (inFace) !=0 && !record->CanSendLocal()))//unavailable for local requests
 	  {
 	  	//we found a face, but it cannot send
-	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+	  	
   	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
       		
