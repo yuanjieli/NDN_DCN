@@ -88,6 +88,8 @@ public:
     , m_fraction (1) //initially arbitrary large number. Will be updated later
     , m_sharing_metric (1)
     , m_interest_count (0)
+    , m_can_send_local(true)	//initially local requests can use any path
+    , m_remote_nack(false)
   { }
  
   /**
@@ -271,6 +273,18 @@ public:
   {
   	return m_interest_count;
   }
+  
+  bool
+  CanSendLocal() const
+  {
+  	return m_remote;
+  }
+  
+  void
+  ReceivedRemoteNack()
+  {
+  	m_remote_nack = true;
+  }
  
   
   void 
@@ -279,8 +293,7 @@ public:
   	m_data_in_old = ALPHA*m_data_in+(1-ALPHA)*m_data_in_old;
   	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
   	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
-  	
-  	
+  	m_remote = m_remote_nack;
   
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
@@ -290,6 +303,7 @@ public:
   	m_data_in = 0;
   	m_data_ce = 0;
   	m_nack = 0;
+  	m_remote_nack = false;
   	
   	m_interest_count = 0;
   	
@@ -323,7 +337,8 @@ private:
 
   double m_fraction;				///< fraction of traffic this face can forward(%)
 	double m_sharing_metric;	///< used for calculating m_fraction
-	
+	bool m_can_send_local;						///< Does remote identical requests fully utilize this path? If so, don't send local requests via this path next round
+	bool m_remote_nack;				///< received remote nack?
 	uint32_t m_interest_count;			///< used for debug
 };
 

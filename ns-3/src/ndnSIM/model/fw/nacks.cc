@@ -199,9 +199,25 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 					
           m_outNacks (nackHeader, incoming.m_face);
         }
-        
+       
+      //If this is a remote nack, we cannot send local requests next round
+      bool remote = false;
+      //If you already decrease the rate, don't decrease again
+      BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      {
+      		if(DynamicCast<AppFace>(incoming.m_face)==0){
+      			remote = true;
+      			break;
+      		}
+      }
+      if(remote)
+      {
+      	fibEntry->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
+      }
+      
       //copy NACK to all applications of this node
-      Ptr<Node> node = inFace->GetNode();
+      /*Ptr<Node> node = inFace->GetNode();
       NS_ASSERT(node!=0);
       for(uint32_t k=0; k!=node->GetNApplications(); k++)
       {
@@ -220,17 +236,13 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       		//if inFace is not an application face, we may have intra-sharing problem
       		if(!ignore && DynamicCast<AppFace>(inFace)==0)
       		{
-      			/*if(inFace->GetNode()->GetId()<=1)
-      				NS_LOG_UNCOND("Node="<<inFace->GetNode()->GetId()
-      										<<" Extra NACK from face="<<inFace->GetId()
-      										<<" fraction="<<100-record->GetFraction()
-      										<<" to"<<app->GetFace()->GetId());*/
+      			
 	      		nackHeader->SetIntraSharing(100-record->GetFraction());
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
       	}
       	
-      }
+      }*/
       
       
 
