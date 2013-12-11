@@ -42,7 +42,7 @@
 //parameters for weight update
 #define UPDATE_INTERVAL 10
 #define SHOW_RATE_INTERVAL 1
-#define ALPHA 1/16.0	//smoothed counter
+#define ALPHA 1.0//1/16.0	//smoothed counter
 
 namespace ns3 {
 namespace ndn {
