@@ -222,7 +222,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
     }
 
   super::DidExhaustForwardingOptions (inFace, header, origPacket, pitEntry);
-  NS_LOG_UNCOND("Test 1");
 }
 
 void
