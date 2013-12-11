@@ -195,7 +195,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         }
        
       //If this is a remote nack, we cannot send local requests next round
-      if(remote)
+      if(remote && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
       {
       	fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
