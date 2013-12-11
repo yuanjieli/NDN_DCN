@@ -281,9 +281,9 @@ public:
   }
   
   void
-  ReceivedRemoteNack(bool rhs)
+  ReceivedRemoteNack()
   {
-  	m_remote_nack = rhs;
+  	m_remote_nack = true;
   }
  
   
