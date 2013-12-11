@@ -40,9 +40,9 @@
 #include <boost/multi_index/mem_fun.hpp>
 
 //parameters for weight update
-#define UPDATE_INTERVAL 10
+#define UPDATE_INTERVAL 1
 #define SHOW_RATE_INTERVAL 1
-#define ALPHA 1//1/8.0	//smoothed counter
+#define ALPHA 1/8.0	//smoothed counter
 
 namespace ns3 {
 namespace ndn {
@@ -398,8 +398,8 @@ public:
   , m_inited (false)
   , m_data (0)
   {
-  	Simulator::Schedule (Seconds (1), &Entry::ShowRate, this);
-  	Simulator::Schedule (Seconds (1), &Entry::ResetCount, this);
+  	Simulator::Schedule (Seconds (0.001), &Entry::ShowRate, this);
+  	Simulator::Schedule (Seconds (0.001), &Entry::ResetCount, this);
   	
   }
 
