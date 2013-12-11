@@ -89,6 +89,7 @@ public:
     , m_sharing_metric (1)
     , m_can_send_local(true)	//initially local requests can use any path
     , m_remote_nack(false)
+    , remote_nack_smooth(0)
     , m_interest_count (0)
   { }
  
@@ -293,7 +294,8 @@ public:
   	m_data_in_old = ALPHA*m_data_in+(1-ALPHA)*m_data_in_old;
   	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
   	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
-  	m_can_send_local = !m_remote_nack;
+  	remote_nack_smooth = ALPHA*(double)m_remote_nack+(1-ALPHA)*remote_nack_smooth;
+  	m_can_send_local = remote_nack_smooth>=ALPHA;
   
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
@@ -337,6 +339,7 @@ private:
 	double m_sharing_metric;	///< used for calculating m_fraction
 	bool m_can_send_local;						///< Does remote identical requests fully utilize this path? If so, don't send local requests via this path next round
 	bool m_remote_nack;				///< received remote nack?
+	double remote_nack_smooth;	///<smooth the remote nack
 	uint32_t m_interest_count;			///< used for debug
 };
 
