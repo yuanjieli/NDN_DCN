@@ -239,9 +239,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  //if this face cannot send local request, return false
 	  if(DynamicCast<AppFace> (inFace) !=0 && !optimal_record->CanSendLocal())
 	  {
-	  	pitEntry->GetFibEntry ()->m_faces.modify (optimal_record,
-                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-	  	return false;	//don't update nack count here
+	  	/*pitEntry->GetFibEntry ()->m_faces.modify (optimal_record,
+                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));*/
+	  	return false;	
 	  }
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
