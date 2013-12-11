@@ -283,7 +283,8 @@ public:
   void
   ReceivedRemoteNack()
   {
-  	m_remote_nack = true;
+  	//m_remote_nack = true;
+  	m_can_send_local = false;
   }
  
   
@@ -293,7 +294,7 @@ public:
   	m_data_in_old = ALPHA*m_data_in+(1-ALPHA)*m_data_in_old;
   	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
   	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
-  	m_can_send_local = !m_remote_nack;
+  	//m_can_send_local = !m_remote_nack;
   
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
