@@ -191,24 +191,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
           m_outNacks (nackHeader, incoming.m_face);
         }
        
-      //If this is a remote nack, we cannot send local requests next round
-      bool remote_nack = false;
-      BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-      {
-      	if(DynamicCast<AppFace>(incoming.m_face)==0){
-      			remote_nack = true;	//for remote requests
-      			break;
-      		}
-      }
-      
-      if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
-      {
-      	if(record != fibEntry->m_faces.get<fib::i_face> ().end())
-      		fibEntry->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-      }
-      
-      
 
       pitEntry->ClearOutgoing (); // to force erasure of the record
     }

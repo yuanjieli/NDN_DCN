@@ -296,6 +296,28 @@ BestCC::OnNack (Ptr<Face> inFace,
   		nackCode == Interest::NACK_CONGESTION ||
       nackCode == Interest::NACK_GIVEUP_PIT)
     {
+    	//If this is a remote nack, we cannot send local requests next round
+    	///////////////////////////////////////////////////////////////////////////
+    	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
+    	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)
+			{
+				record = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (inFace); 
+			}	
+      bool remote_nack = false;
+      BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      {
+      	if(DynamicCast<AppFace>(incoming.m_face)==0){
+      			remote_nack = true;	//for remote requests
+      			break;
+      		}
+      }
+      if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
+      {
+      	if(record != fibEntry->m_faces.get<fib::i_face> ().end())
+      		fibEntry->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
+      }
+      ///////////////////////////////////////////////////////////////////////////
       pitEntry->SetWaitingInVain (inFace);
 
       if (!pitEntry->AreAllOutgoingInVain ()) // not all ougtoing are in vain
