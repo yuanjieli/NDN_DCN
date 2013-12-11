@@ -171,12 +171,12 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         }
 
 			//Forward NACK to all faces in PIT
-			bool remote_nack = false;
+			bool remote_nack = true;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
-          if(DynamicCast<AppFace>(incoming.m_face)==0){
-      			remote_nack = true;	//for remote requests
+          if(DynamicCast<AppFace>(incoming.m_face)!=0){
+      			remote_nack = false;	//for remote requests
       		}
       		
           Ptr<Packet> target = packet->Copy();
