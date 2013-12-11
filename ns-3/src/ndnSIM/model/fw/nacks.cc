@@ -198,6 +198,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	NS_LOG_UNCOND("Before");
       	if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote_nack = true;	//for remote requests
+      			NS_LOG_UNCOND("Middle");
       			break;
       		}
       	NS_LOG_UNCOND("After");
