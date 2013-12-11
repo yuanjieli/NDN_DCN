@@ -181,7 +181,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	{
 		  	  if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
 		  	  {	
-		  	  	NS_LOG_UNCOND("Passed");
 		  	  	continue;	//this face cannot send local requests
 		  	  }
 		  	  	
@@ -304,15 +303,15 @@ BestCC::OnNack (Ptr<Face> inFace,
 			{
 				record = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (inFace); 
 			}	
-      bool remote_nack = false;
+      bool remote_nack = true;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       {
-      	if(DynamicCast<AppFace>(incoming.m_face)==0){
-      			remote_nack = true;	//for remote requests
+      	if(DynamicCast<AppFace>(incoming.m_face)!=0){
+      			remote_nack = false;	//for remote requests
       			break;
       		}
       }
-      if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
+      if(remote_nack && inFace!=0)
       {
       	//if(record != pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().end())
       		pitEntry->GetFibEntry()->m_faces.modify (record,
