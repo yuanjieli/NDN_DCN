@@ -197,16 +197,17 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       {
       	if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote_nack = true;	//for remote requests
-      			NS_LOG_UNCOND("Middle");
       			break;
       		}
       }
-      NS_LOG_UNCOND("After");
-      /*if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
+      
+      if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
       {
+      	NS_LOG_UNCOND("Before");
       	fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-      }*/
+        NS_LOG_UNCOND("After");
+      }
       
       
 
