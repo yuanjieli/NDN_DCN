@@ -341,6 +341,8 @@ BestCC::OnNack (Ptr<Face> inFace,
     
   }
   
+  NS_LOG_UNCOND("OnNack");
+  
 }
 
 class PerOutFaceDeltaLimits;
