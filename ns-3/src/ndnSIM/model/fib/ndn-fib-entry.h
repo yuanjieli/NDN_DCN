@@ -295,7 +295,7 @@ public:
   	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
   	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
   	remote_nack_smooth = ALPHA*(double)m_remote_nack+(1-ALPHA)*remote_nack_smooth;
-  	m_can_send_local = remote_nack_smooth<1/100;
+  	m_can_send_local = remote_nack_smooth<ALPHA/2;
   
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
