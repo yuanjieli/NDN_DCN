@@ -158,7 +158,6 @@ void
 ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 {
 	Consumer::OnNack (interest, packet);
-	NS_LOG_UNCOND("Test OnNack");		
 	//update interest limit
 	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
 	//if(interest->GetNack()==Interest::NACK_CONGESTION)
