@@ -180,7 +180,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
 		  	{
 		  	  if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
+		  	  {	
 		  	  	continue;	//this face cannot send local requests
+		  	  	NS_LOG_UNCOND("Test 2");
+		  	  }
 		  	  	
 		  		totalweight += metricFace.GetFraction();
 		  	}
@@ -200,7 +203,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 			  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path  	
 		  		{
 		  			if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
+		  			{
+		  				NS_LOG_UNCOND("Test 3");
 		  	  		continue;	//this face cannot send local requests
+		  	  	}
 		  			
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1

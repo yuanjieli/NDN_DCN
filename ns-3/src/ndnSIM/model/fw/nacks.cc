@@ -207,6 +207,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       {
       		if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote = true;
+      			NS_LOG_UNCOND("Test 1");
       			break;
       		}
       }
