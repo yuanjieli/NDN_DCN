@@ -306,13 +306,14 @@ BestCC::OnNack (Ptr<Face> inFace,
       bool remote_nack = false;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       {
+      	if(inFace->GetNode()->GetId()==1)
+      		NS_LOG_UNCOND("face="<<incoming.m_face->GetId());
       	if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote_nack = true;	//for remote requests
       			break;
       		}
       }
-      if(remote_nack)
-      	NS_LOG_UNCOND("Aha!");
+      
       if(remote_nack && inFace!=0)
       {
       	//if(record != pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().end())
