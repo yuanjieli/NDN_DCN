@@ -220,7 +220,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
 	  //If we cannot send interest through optimalFace, increase NACK
 	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry)
-	  ||(DynamicCast<AppFace> (inFace) !=0 && !optimal_record.CanSendLocal()))//unavailable for local requests
+	  ||(DynamicCast<AppFace> (inFace) !=0 && !optimal_record->CanSendLocal()))//unavailable for local requests
 	  {
 	  	//we found a face, but it cannot send
 	  	
