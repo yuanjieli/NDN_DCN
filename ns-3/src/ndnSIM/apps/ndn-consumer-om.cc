@@ -54,7 +54,7 @@ ConsumerOm::GetTypeId (void)
 
     .AddAttribute ("InitLimit", "Initial Interest rate limit (packet/s)",
                    StringValue ("10.0"),
-                   MakeDoubleAccessor (&ConsumerOm::m_initLimit),
+                   MakeDoubleAccessor (&ConsumerOm::m_limit),
                    MakeDoubleChecker<double> ())
     
     .AddAttribute ("LimitInterval", "period to show the interest limit",
