@@ -175,9 +175,9 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
-          if(DynamicCast<AppFace>(incoming.m_face)==0){
+          /*if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote = true;	//for remote requests
-      		}
+      		}*/
       		
           Ptr<Packet> target = packet->Copy();
     			Ptr<Interest> NewHeader = Create<Interest> ();
