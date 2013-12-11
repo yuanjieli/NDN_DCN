@@ -283,7 +283,7 @@ public:
   void
   ReceivedRemoteNack()
   {
-  	m_remote_nack = true;
+  	m_remote_nack = false;
   }
  
   
