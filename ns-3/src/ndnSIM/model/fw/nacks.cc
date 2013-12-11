@@ -201,7 +201,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         }
        
       //If this is a remote nack, we cannot send local requests next round
-      bool remote = false;
+      /*bool remote = false;
       //If you already decrease the rate, don't decrease again
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       {
@@ -214,7 +214,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       {
       	fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-      }
+      }*/
       
       
 
