@@ -219,8 +219,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
   	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator optimal_record
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
 	  //If we cannot send interest through optimalFace, increase NACK
-	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry)
-	  ||(DynamicCast<AppFace> (inFace) !=0 && !optimal_record->CanSendLocal()))//unavailable for local requests
+	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))//unavailable for local requests
 	  {
 	  	//we found a face, but it cannot send
 	  	
@@ -229,13 +228,17 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (optimal_record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-          if(DynamicCast<AppFace> (inFace) ==0)
+          if(DynamicCast<AppFace> (inFace) ==0)	//remote nack
           	pitEntry->GetFibEntry()->m_faces.modify (optimal_record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
           	
       }
 	  	return false;
 	  }	
+	  
+	  //if this face cannot send local request, return false
+	  if(DynamicCast<AppFace> (inFace) !=0 && !optimal_record->CanSendLocal())
+	  	return false;	//don't update nack count here
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
 	  faceLimits->BorrowLimit ();
