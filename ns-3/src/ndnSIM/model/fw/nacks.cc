@@ -204,7 +204,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
       {
       	fibEntry->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
+                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1,true));
       }
       
       
