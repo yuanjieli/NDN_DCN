@@ -210,39 +210,11 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       			break;
       		}
       }
-      if(remote)
+      if(remote && DynamicCast<AppFace>(inFace)==0)
       {
       	fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
       }
-      
-      //copy NACK to all applications of this node
-      /*Ptr<Node> node = inFace->GetNode();
-      NS_ASSERT(node!=0);
-      for(uint32_t k=0; k!=node->GetNApplications(); k++)
-      {
-      	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
-      	if(app!=0)
-      	{
-      		bool ignore = false;
-      		//If you already decrease the rate, don't decrease again
-      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-      		{
-      			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
-      				ignore = true;
-      				break;
-      			}
-      		}
-      		//if inFace is not an application face, we may have intra-sharing problem
-      		if(!ignore && DynamicCast<AppFace>(inFace)==0)
-      		{
-      			
-	      		nackHeader->SetIntraSharing(100-record->GetFraction());
-	      		app->OnNack(nackHeader, origPacket->Copy());
-	      	}
-      	}
-      	
-      }*/
       
       
 
