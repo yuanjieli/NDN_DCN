@@ -195,20 +195,18 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       bool remote_nack = false;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       {
-      	NS_LOG_UNCOND("Before");
       	if(DynamicCast<AppFace>(incoming.m_face)==0){
       			remote_nack = true;	//for remote requests
       			NS_LOG_UNCOND("Middle");
       			break;
       		}
-      	NS_LOG_UNCOND("After");
       }
-      
-      if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
+      NS_LOG_UNCOND("After");
+      /*if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
       {
       	fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-      }
+      }*/
       
       
 
