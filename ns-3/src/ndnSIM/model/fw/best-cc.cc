@@ -197,8 +197,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		
 		  		
 		  		if(metricFace.GetRoutingCost()==minCost
-			  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-			  	)
+			  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path  	
 		  		{
 		  			if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
 		  	  		continue;	//this face cannot send local requests
@@ -217,7 +216,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		}
 		  	}
 		  	
-		  	if(optimalFace==0)return false;
+		  if(optimalFace==0)return false;
   	}
   	
 	  //If we cannot send interest through optimalFace, increase NACK
