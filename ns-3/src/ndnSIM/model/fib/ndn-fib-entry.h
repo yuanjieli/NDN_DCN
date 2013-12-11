@@ -40,9 +40,9 @@
 #include <boost/multi_index/mem_fun.hpp>
 
 //parameters for weight update
-#define UPDATE_INTERVAL 1
+#define UPDATE_INTERVAL 10
 #define SHOW_RATE_INTERVAL 1
-#define ALPHA 1/8.0	//smoothed counter
+#define ALPHA 1//1/8.0	//smoothed counter
 
 namespace ns3 {
 namespace ndn {
