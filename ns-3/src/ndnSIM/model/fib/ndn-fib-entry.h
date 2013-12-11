@@ -65,7 +65,7 @@ public:
   enum Status { NDN_FIB_GREEN = 1,
                 NDN_FIB_YELLOW = 2,
                 NDN_FIB_RED = 3 };
-public:
+public: 
   /**
    * \brief Metric constructor
    *
@@ -87,9 +87,6 @@ public:
     , m_data_ce_old (0)   
     , m_fraction (1) //initially arbitrary large number. Will be updated later
     , m_sharing_metric (1)
-    , m_can_send_local(true)	//initially local requests can use any path
-    , m_remote_nack(false)
-    , remote_nack_smooth(0)
     , m_interest_count (0)
   { }
  
@@ -274,18 +271,6 @@ public:
   {
   	return m_interest_count;
   }
-  
-  bool
-  CanSendLocal() const
-  {
-  	return m_can_send_local;
-  }
-  
-  void
-  ReceivedRemoteNack()
-  {
-  	m_remote_nack = true;
-  }
  
   
   void 
@@ -294,16 +279,17 @@ public:
   	m_data_in_old = ALPHA*m_data_in+(1-ALPHA)*m_data_in_old;
   	m_data_ce_old = ALPHA*m_data_ce+(1-ALPHA)*m_data_ce_old;
   	m_nack_old = ALPHA*m_nack+(1-ALPHA)*m_nack_old;
-  	remote_nack_smooth = ALPHA*(double)m_remote_nack+(1-ALPHA)*remote_nack_smooth;
-  	m_can_send_local = remote_nack_smooth<ALPHA/2;
+  	
+  	
   
   	//m_sharing_metric = (m_data_in_old+1)*(m_data_in_old+1)/(double)((m_data_ce_old+1)*(m_nack_old+1)); 
   	//m_sharing_metric = (m_data_in_old+1)/(double)(m_nack_old+1);  
   	//m_sharing_metric = (double)(m_nack_old)*100.0/m_sharing_metric; 
+  	
+  	
   	m_data_in = 0;
   	m_data_ce = 0;
   	m_nack = 0;
-  	m_remote_nack = false;
   	
   	m_interest_count = 0;
   	
@@ -337,9 +323,7 @@ private:
 
   double m_fraction;				///< fraction of traffic this face can forward(%)
 	double m_sharing_metric;	///< used for calculating m_fraction
-	bool m_can_send_local;						///< Does remote identical requests fully utilize this path? If so, don't send local requests via this path next round
-	bool m_remote_nack;				///< received remote nack?
-	double remote_nack_smooth;	///<smooth the remote nack
+	
 	uint32_t m_interest_count;			///< used for debug
 };
 

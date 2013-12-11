@@ -136,7 +136,7 @@ Nacks::DidReceiveDuplicateInterest (Ptr<Face> inFace,
       m_outNacks (nackHeader, inFace);
     }
 }
-
+   
 void
 Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
                                     Ptr<const Interest> header,
@@ -175,13 +175,22 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
           
-      		
           Ptr<Packet> target = packet->Copy();
     			Ptr<Interest> NewHeader = Create<Interest> ();
     			target->RemoveHeader(*NewHeader);
     			//This is for faces who want the data, so SetIntraSharing = 0
     			NewHeader->SetIntraSharing (0);
-    			
+    			/*if(DynamicCast<AppFace>(incoming.m_face)==0)
+    			{
+	    				//update nack counter 
+	          	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
+		          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
+			      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
+			      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
+			      	fib2Entry->m_faces.modify (record2,
+			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
+			                      			
+    			}*/   
     			 
 	                      	
 	        target->AddHeader(*NewHeader);	
@@ -190,7 +199,40 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 					
           m_outNacks (nackHeader, incoming.m_face);
         }
-       
+        
+      //copy NACK to all applications of this node
+      Ptr<Node> node = inFace->GetNode();
+      NS_ASSERT(node!=0);
+      for(uint32_t k=0; k!=node->GetNApplications(); k++)
+      {
+      	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
+      	if(app!=0)
+      	{
+      		bool ignore = false;
+      		//If you already decrease the rate, don't decrease again
+      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      		{
+      			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
+      				ignore = true;
+      				break;
+      			}
+      		}
+      		//if inFace is not an application face, we may have intra-sharing problem
+      		if(!ignore && DynamicCast<AppFace>(inFace)==0)
+      		{
+      			/*if(inFace->GetNode()->GetId()<=1)
+      				NS_LOG_UNCOND("Node="<<inFace->GetNode()->GetId()
+      										<<" Extra NACK from face="<<inFace->GetId()
+      										<<" fraction="<<100-record->GetFraction()
+      										<<" to"<<app->GetFace()->GetId());*/
+	      		nackHeader->SetIntraSharing(100-record->GetFraction());
+	      		app->OnNack(nackHeader, origPacket->Copy());
+	      	}
+      	}
+      	
+      }
+      
+      
 
       pitEntry->ClearOutgoing (); // to force erasure of the record
     }

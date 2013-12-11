@@ -177,11 +177,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  {
 		  	
 		  	if(metricFace.GetRoutingCost()==minCost
-		  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path
-		  	{
-		  	  
+		  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
+		  	)
 		  		totalweight += metricFace.GetFraction();
-		  	}
 		  }
 		  
 		  if(totalweight==0)return false;	//no available face
@@ -195,10 +193,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		
 		  		
 		  		if(metricFace.GetRoutingCost()==minCost
-			  	&& metricFace.GetFace()!=inFace)	//it happens when using non-shortest path  	
+			  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
+			  	)
 		  		{
-		  			
-		  			
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1
 		  			
@@ -213,36 +210,23 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		}
 		  	}
 		  	
-		  if(optimalFace==0)return false;
+		  	if(optimalFace==0)return false;
   	}
   	
-  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator optimal_record
-	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
 	  //If we cannot send interest through optimalFace, increase NACK
-	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))//unavailable for local requests
+	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 	  {
 	  	//we found a face, but it cannot send
-	  	
-  	  if (optimal_record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+  	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
       		
-        	pitEntry->GetFibEntry ()->m_faces.modify (optimal_record,
+        	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
-          if(DynamicCast<AppFace> (inFace) ==0)	//remote nack
-          	pitEntry->GetFibEntry()->m_faces.modify (optimal_record,
-                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-          	
       }
 	  	return false;
 	  }	
-	  
-	  //if this face cannot send local request, return false
-	  if(DynamicCast<AppFace> (inFace) !=0 && !optimal_record->CanSendLocal())
-	  {
-	  	/*pitEntry->GetFibEntry ()->m_faces.modify (optimal_record,
-                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));*/
-	  	return false;	
-	  }
 	  
 	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
 	  faceLimits->BorrowLimit ();
@@ -256,7 +240,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
       		
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseInterest, ll::_1));
-      }
+      }  
     //////////////////////////////////////////
   
   NS_LOG_INFO ("Propagated to " << propagatedCount << " faces");
@@ -284,6 +268,7 @@ BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
                Ptr<const Packet> origPacket)
 {
+	
   //super::OnNack (inFace, header, origPacket);
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
   if (pitEntry == 0)
@@ -302,29 +287,6 @@ BestCC::OnNack (Ptr<Face> inFace,
   		nackCode == Interest::NACK_CONGESTION ||
       nackCode == Interest::NACK_GIVEUP_PIT)
     {
-    	//If this is a remote nack, we cannot send local requests next round
-    	///////////////////////////////////////////////////////////////////////////
-    	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
-    	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)
-			{
-				record = pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().find (inFace); 
-			}	
-      bool remote_nack = false;
-      BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-      {
-      	if(DynamicCast<AppFace>(incoming.m_face)==0){
-      			remote_nack = true;	//for remote requests
-      			break;
-      		}
-      }
-      
-      if(remote_nack && inFace!=0)
-      {
-      	//if(record != pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().end())
-      		pitEntry->GetFibEntry()->m_faces.modify (record,
-                      ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-      }
-      ///////////////////////////////////////////////////////////////////////////
       pitEntry->SetWaitingInVain (inFace);
 
       if (!pitEntry->AreAllOutgoingInVain ()) // not all ougtoing are in vain
@@ -335,7 +297,6 @@ BestCC::OnNack (Ptr<Face> inFace,
           m_dropNacks (header, inFace);
           return;
         }
-        
 			
       Ptr<Packet> nonNackInterest = Create<Packet> ();
       Ptr<Interest> nonNackHeader = Create<Interest> (*header);
@@ -367,7 +328,6 @@ BestCC::OnNack (Ptr<Face> inFace,
     
   }
   
- 
 }
 
 class PerOutFaceDeltaLimits;

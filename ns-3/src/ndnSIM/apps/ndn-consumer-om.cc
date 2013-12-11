@@ -158,6 +158,27 @@ void
 ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 {
 	Consumer::OnNack (interest, packet);
+		
+	//rule out nacks with different prefixes
+	std::list<std::string>::const_iterator rhs = interest->GetName().begin();
+	bool match = true;
+	for(std::list<std::string>::iterator it = m_interestName.begin();
+			it != m_interestName.end(); it++)
+	{
+		if(rhs==interest->GetName().end()
+		|| *it!=*rhs)
+		{
+			match = false;
+			break;
+		}
+		rhs++;
+	}
+	if(!match)
+	{
+		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		return;
+	}
+	
 	//update interest limit
 	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
 	//if(interest->GetNack()==Interest::NACK_CONGESTION)
@@ -166,11 +187,11 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 			m_limit = m_limit - m_beta;
 			m_nack_count++;
 		}
-		/*else{
-			m_limit = m_limit - 500.0*(double)(interest->GetIntraSharing())/100.0;  
+		else{
+			m_limit = m_limit - 10.0*(double)(interest->GetIntraSharing())/100.0;  
 			//NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
 			m_extra_nack_count++;
-		}*/
+		}
 		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
 			m_limit = m_initLimit;	
 			
