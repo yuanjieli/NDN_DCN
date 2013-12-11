@@ -311,6 +311,7 @@ BestCC::OnNack (Ptr<Face> inFace,
       			break;
       		}
       }
+      NS_LOG_UNCOND("remote_nack=="<<remote_nack);
       if(remote_nack && inFace!=0)
       {
       	//if(record != pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().end())
