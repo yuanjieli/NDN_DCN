@@ -313,7 +313,7 @@ BestCC::OnNack (Ptr<Face> inFace,
       }
       if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)
       {
-      	if(record != pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().end())
+      	//if(record != pitEntry->GetFibEntry()->m_faces.get<fib::i_face> ().end())
       		pitEntry->GetFibEntry()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
       }
