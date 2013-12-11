@@ -192,13 +192,15 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         }
        
       //If this is a remote nack, we cannot send local requests next round
-      bool remote_nack = true;
+      bool remote_nack = false;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       {
-      	if(DynamicCast<AppFace>(incoming.m_face)!=0){
-      			remote_nack = false;	//for remote requests
+      	NS_LOG_UNCOND("Before");
+      	if(DynamicCast<AppFace>(incoming.m_face)==0){
+      			remote_nack = true;	//for remote requests
       			break;
       		}
+      	NS_LOG_UNCOND("After");
       }
       
       if(remote_nack && inFace!=0 && DynamicCast<AppFace>(inFace)==0)

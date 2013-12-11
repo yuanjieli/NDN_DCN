@@ -278,7 +278,6 @@ BestCC::OnNack (Ptr<Face> inFace,
                Ptr<const Interest> header,
                Ptr<const Packet> origPacket)
 {
-	NS_LOG_UNCOND("Begin of OnNack");	
   //super::OnNack (inFace, header, origPacket);
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
   if (pitEntry == 0)
@@ -339,8 +338,7 @@ BestCC::OnNack (Ptr<Face> inFace,
     
   }
   
-  NS_LOG_UNCOND("End of OnNack");
-  
+ 
 }
 
 class PerOutFaceDeltaLimits;
