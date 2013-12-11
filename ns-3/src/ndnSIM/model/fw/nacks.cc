@@ -171,26 +171,20 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         }
 
 			//Forward NACK to all faces in PIT
+			bool remote = false;
       BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
         {
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
-          
+          if(DynamicCast<AppFace>(incoming.m_face)==0){
+      			remote = true;	//for remote requests
+      		}
+      		
           Ptr<Packet> target = packet->Copy();
     			Ptr<Interest> NewHeader = Create<Interest> ();
     			target->RemoveHeader(*NewHeader);
     			//This is for faces who want the data, so SetIntraSharing = 0
     			NewHeader->SetIntraSharing (0);
-    			/*if(DynamicCast<AppFace>(incoming.m_face)==0)
-    			{
-	    				//update nack counter 
-	          	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
-		          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
-			      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
-			      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
-			      	fib2Entry->m_faces.modify (record2,
-			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
-			                      			
-    			}*/   
+    			
     			 
 	                      	
 	        target->AddHeader(*NewHeader);	
@@ -201,20 +195,11 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         }
        
       //If this is a remote nack, we cannot send local requests next round
-      /*bool remote = false;
-      //If you already decrease the rate, don't decrease again
-      BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-      {
-      		if(DynamicCast<AppFace>(incoming.m_face)==0){
-      			remote = true;
-      			break;
-      		}
-      }
-      if(remote && DynamicCast<AppFace>(inFace)==0)
+      if(remote)
       {
       	fibEntry->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
-      }*/
+      }
       
       
 
