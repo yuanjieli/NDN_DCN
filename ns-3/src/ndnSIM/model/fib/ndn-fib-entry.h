@@ -284,6 +284,7 @@ public:
   ReceivedRemoteNack()
   {
   	m_remote_nack = true;
+  	NS_LOG_UNCOND("Aha!");
   }
  
   

@@ -181,6 +181,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	{
 		  	  if(DynamicCast<AppFace> (inFace) !=0 && !metricFace.CanSendLocal())
 		  	  {	
+		  	  	NS_LOG_UNCOND("Passed");
 		  	  	continue;	//this face cannot send local requests
 		  	  }
 		  	  	
