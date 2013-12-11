@@ -216,21 +216,21 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  if(optimalFace==0)return false;
   	}
   	
-  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator optimal_record
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
 	  //If we cannot send interest through optimalFace, increase NACK
 	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry)
-	  ||(DynamicCast<AppFace> (inFace) !=0 && !record->CanSendLocal()))//unavailable for local requests
+	  ||(DynamicCast<AppFace> (inFace) !=0 && !optimal_record.CanSendLocal()))//unavailable for local requests
 	  {
 	  	//we found a face, but it cannot send
 	  	
-  	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+  	  if (optimal_record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
       {
       		
-        	pitEntry->GetFibEntry ()->m_faces.modify (record,
+        	pitEntry->GetFibEntry ()->m_faces.modify (optimal_record,
                       ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
           if(DynamicCast<AppFace> (inFace) ==0)
-          	pitEntry->GetFibEntry()->m_faces.modify (record,
+          	pitEntry->GetFibEntry()->m_faces.modify (optimal_record,
                       ll::bind (&fib::FaceMetric::ReceivedRemoteNack, ll::_1));
           	
       }
