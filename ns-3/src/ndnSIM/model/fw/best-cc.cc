@@ -184,6 +184,8 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  
 		  if(totalweight==0)return false;	//no available face
 		  	
+		  if(totalweight<1)totalweight = 1;
+		  	
 		  double target = rand()%(int)totalweight;
 		  double coin = 0;	
 		  //Step2: choose ONE face based on our congestion control strategy
