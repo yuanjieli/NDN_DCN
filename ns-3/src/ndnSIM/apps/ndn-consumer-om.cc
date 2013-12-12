@@ -149,7 +149,7 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   if(contentObject->GetCE()!=2)	//not a local cache hit
   {
   	m_limit = m_limit + m_alpha/m_limit;	//here we choose parameter such that the convergence time is similar to TCP
-  	m_alpha += 2/m_limit;
+  	m_alpha += 1/m_limit;
   	if(m_alpha>m_alpha_max)
   		m_alpha = m_alpha_max;
   }
