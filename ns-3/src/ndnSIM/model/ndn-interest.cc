@@ -49,7 +49,7 @@ Interest::Interest ()
   , m_interestLifetime (Seconds (0))
   , m_nonce (0)
   , m_nackType (NORMAL_INTEREST)
-  , m_intra_sharing (0)
+  , m_intra_sharing (500)	//larger than 100, normal nack
 {
 }
 
