@@ -92,6 +92,8 @@ protected:
   double              m_initLimit;		//initial Interest limit (packet/s)
   double              m_beta;					//negative feedback
   double							m_alpha;				//positive feedback
+  double							m_alpha_max;		//upper bound for postive feedback. Used for intra-sharing competition
+  bool								m_inited;
   double              m_limitInterval;
   bool                m_firstTime;
   uint32_t						m_data_count;		//used for counting received data

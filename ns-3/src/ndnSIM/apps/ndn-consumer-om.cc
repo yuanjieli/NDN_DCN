@@ -64,7 +64,7 @@ ConsumerOm::GetTypeId (void)
                    
     .AddAttribute ("DataFeedback", "Positive rate feedback when receiving DATA",
                    StringValue ("20.0"),
-                   MakeDoubleAccessor (&ConsumerOm::m_alpha),
+                   MakeDoubleAccessor (&ConsumerOm::m_alpha_max),
                    MakeDoubleChecker<double> ())
     
     .AddAttribute ("NackFeedback", "Negative rate feedback when receiving NACK",
@@ -91,6 +91,8 @@ ConsumerOm::ConsumerOm ()
   : m_initLimit (100.0)
   , m_beta (1.1)
   , m_alpha (20.0)
+  , m_alpha_max (20.0)
+  , m_inited(false)
   , m_limitInterval (1.0)
   , m_firstTime (true)
   , m_data_count (0)
@@ -136,10 +138,21 @@ void
 ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
                    				 Ptr<Packet> payload)
 {
+	if(!m_inited)
+	{
+		m_alpha = m_alpha_max;
+		m_inited = true;
+	}
+	
   Consumer::OnContentObject (contentObject, payload); // tracing inside
   //update interest limit
   if(contentObject->GetCE()!=2)	//not a local cache hit
+  {
   	m_limit = m_limit + m_alpha/m_limit;	//here we choose parameter such that the convergence time is similar to TCP
+  	m_alpha += 1/m_limit;
+  	if(m_alpha>m_alpha_max)
+  		m_alpha = m_alpha_max;
+  }
   else	//local hit, send next requests immediately
   	//SendPacket();
   	SendRandomPacket();
@@ -191,8 +204,9 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 			m_limit = m_limit - m_beta*(double)(interest->GetIntraSharing())/100.0;  
 			//NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
 			m_extra_nack_count++;
+			//To suppress intra-sharing competition, we may also want to decrease alpha for local requests
 			m_alpha --;
-			if(m_alpha<=0)m_alpha = 0;
+			if(m_alpha<=0)m_alpha = 1;
 		}
 		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
 			m_limit = m_initLimit;	
