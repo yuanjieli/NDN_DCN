@@ -179,7 +179,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
     			Ptr<Interest> NewHeader = Create<Interest> ();
     			target->RemoveHeader(*NewHeader);
     			//This is for faces who want the data, so SetIntraSharing = 0
-    			NewHeader->SetIntraSharing (500);	//larger than 100
+    			NewHeader->SetIntraSharing (120);	//larger than 100
     			/*if(DynamicCast<AppFace>(incoming.m_face)==0)
     			{
 	    				//update nack counter 
