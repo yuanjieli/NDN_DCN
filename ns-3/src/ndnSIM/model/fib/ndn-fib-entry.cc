@@ -280,7 +280,7 @@ Entry::ResetCount()
 		    else
 		    {
 	    		m_faces.modify (face,
-	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100/facecount));
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100.0/facecount));
 		    }
     	}   	
     									
