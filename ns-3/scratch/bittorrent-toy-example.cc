@@ -88,7 +88,7 @@ main (int argc, char *argv[])
   client->SetTorrent (sharedTorrent);
   Names::Find<Node> ("S4")->AddApplication (client);
   bitTorrentClients.Add (client);	
-  DynamicCast<BitTorrentClient> (Names::Find<Node> ("S4")->GetApplication (0))->SetInitialBitfield ("full");
+  DynamicCast<BitTorrentClient> (Names::Find<Node> ("S4")->GetApplication (1))->SetInitialBitfield ("full");
   
   // 4) Set up the BitTorrent metrics gatherer for output handling (here, we just log to the screen)
   GlobalMetricsGatherer* gatherer = GlobalMetricsGatherer::GetInstance ();
