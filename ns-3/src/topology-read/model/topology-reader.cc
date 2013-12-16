@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2010-2012 ComSys, RWTH Aachen University
+ * Copyright (c) 2010 Universita' di Firenze, Italy
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -15,244 +15,155 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Authors: Rene Glebke (principal author), Alexander Hocks
+ * Author: Tommaso Pecorella (tommaso.pecorella@unifi.it)
+ * Author: Valerio Sartini (valesar@gmail.com)
  */
 
-#include "brite-topology-reader.h"
-
-#include "ns3/abort.h"
 #include "ns3/log.h"
 
-#include <fstream>
-#include <string>
+#include "topology-reader.h"
 
-using namespace std;
 
 namespace ns3 {
 
-NS_LOG_COMPONENT_DEFINE ("BriteTopologyReader");
-NS_OBJECT_ENSURE_REGISTERED (BriteTopologyReader);
+NS_LOG_COMPONENT_DEFINE ("TopologyReader");
 
-TypeId BriteTopologyReader::GetTypeId (void)
+NS_OBJECT_ENSURE_REGISTERED (TopologyReader);
+
+TypeId TopologyReader::GetTypeId (void)
 {
-  static TypeId tid = TypeId ("ns3::BriteTopologyReader").SetParent<Object> ();
+  static TypeId tid = TypeId ("ns3::TopologyReader")
+    .SetParent<Object> ()
+  ;
   return tid;
 }
 
-BriteTopologyReader::BriteTopologyReader ()
+TopologyReader::TopologyReader ()
 {
   NS_LOG_FUNCTION (this);
 }
 
-BriteTopologyReader::~BriteTopologyReader ()
+TopologyReader::~TopologyReader ()
 {
   NS_LOG_FUNCTION (this);
 }
 
-// Reads in the supplied topology file
-NodeContainer BriteTopologyReader::Read ()
+void
+TopologyReader::SetFileName (const std::string &fileName)
 {
-  // Initialize possible return variables
-  NodeContainer nodes;
-  m_borderRouters.clear ();
-  m_routers.clear ();
-  m_autonomousSystems.clear ();
-  m_maxASId = -1;
+  m_fileName = fileName;
+}
 
-  // Open the input stream and declare the associated buffer variables
-  ifstream file;
-  istringstream lineBuffer;
-  string line;
-  string dummy;
+std::string
+TopologyReader::GetFileName () const
+{
+  return m_fileName;
+}
 
-  file.open (GetFileName ().c_str ());
-  if (!file.is_open ())
+/* Manipulating the address block */
+
+TopologyReader::ConstLinksIterator
+TopologyReader::LinksBegin (void) const
+{
+  return m_linksList.begin ();
+}
+
+TopologyReader::ConstLinksIterator
+TopologyReader::LinksEnd (void) const
+{
+  return m_linksList.end ();
+}
+
+int
+TopologyReader::LinksSize (void) const
+{
+  return m_linksList.size ();
+}
+
+bool
+TopologyReader::LinksEmpty (void) const
+{
+  return m_linksList.empty ();
+}
+
+void
+TopologyReader::AddLink (Link link)
+{
+  m_linksList.push_back (link);
+  return;
+}
+
+
+TopologyReader::Link::Link ( Ptr<Node> fromPtr, const std::string &fromName, Ptr<Node> toPtr, const std::string &toName )
+{
+  m_fromPtr = fromPtr;
+  m_fromName = fromName;
+  m_toPtr = toPtr;
+  m_toName = toName;
+}
+
+TopologyReader::Link::Link ()
+{
+}
+
+
+Ptr<Node> TopologyReader::Link::GetFromNode (void) const
+{
+  return m_fromPtr;
+}
+
+std::string
+TopologyReader::Link::GetFromNodeName (void) const
+{
+  return m_fromName;
+}
+
+Ptr<Node>
+TopologyReader::Link::GetToNode (void) const
+{
+  return m_toPtr;
+}
+
+std::string
+TopologyReader::Link::GetToNodeName (void) const
+{
+  return m_toName;
+}
+
+std::string
+TopologyReader::Link::GetAttribute (const std::string &name) const
+{
+  NS_ASSERT_MSG (m_linkAttr.find (name) != m_linkAttr.end (), "Requested topology link attribute not found");
+  return m_linkAttr.find (name)->second;
+}
+
+bool
+TopologyReader::Link::GetAttributeFailSafe (const std::string &name, std::string &value) const
+{
+  if ( m_linkAttr.find (name) == m_linkAttr.end () )
     {
-      NS_ABORT_MSG ("BriteTopologyReader: Topology file " << GetFileName ().c_str () << "not found. Aborting.");
+      return false;
     }
-
-  // Get number of nodes and edges in the layout
-  uint32_t numberOfNodes;
-  uint32_t numberOfEdges;
-  if (!file.eof ())
-    {
-      getline (file, line);
-      lineBuffer.str (line);
-
-      lineBuffer >> dummy >> dummy;
-      lineBuffer >> numberOfNodes;
-      lineBuffer >> dummy;
-      lineBuffer >> numberOfEdges;
-    }
-
-  // Skip to nodes section
-  bool sectionEnd = false;
-  while (!file.eof () && !sectionEnd)
-    {
-      line.clear ();
-      lineBuffer.clear ();
-      getline (file, line);
-      lineBuffer.str (line);
-
-      lineBuffer >> dummy;
-
-      if (dummy == "Nodes:")
-        {
-          sectionEnd = true;
-        }
-    }
-
-  // Now, create the respective nodes; distinguish between border routers and normal routers
-  string nodeId;
-  string nodeType;
-  int32_t ASId;
-  map<string, Ptr<Node> > nodeMap;
-  sectionEnd = false;
-  while (!file.eof () && !sectionEnd)
-    {
-      line.clear ();
-      lineBuffer.clear ();
-      getline (file, line);
-      lineBuffer.str (line);
-
-      uint32_t onNode = 0;
-
-      if (!line.empty ())
-        {
-          lineBuffer >> nodeId;
-          lineBuffer >> dummy >> dummy >> dummy >> dummy;
-          lineBuffer >> ASId;
-          lineBuffer >> nodeType;
-
-          Ptr<Node> node = CreateObject<Node> (onNode);
-
-          if (nodeType == "RT_BORDER" || nodeType == "AS_BORDER")
-            {
-              m_borderRouters[nodeId] = node;
-            }
-          else if (nodeType == "RT_BACKBONE" || nodeType == "AS_BACKBONE")
-            {
-              m_backboneRouters[nodeId] = node;
-            }
-          else
-            {
-              m_routers[nodeId] = node;
-            }
-
-          m_autonomousSystems[nodeId] = ASId;
-          if (static_cast<int64_t> (ASId) > static_cast<int64_t> (m_maxASId))
-            {
-              m_maxASId = ASId;
-            }
-
-          nodeMap[nodeId] = node;
-          nodes.Add (node);
-        }
-      else
-        {
-          sectionEnd = true;
-          line.clear ();
-          // getline(file, line); // May resolve compatibility issues w.r.t. C++ / Java versions of BRITE
-        }
-    }
-
-  // Skip to edges section
-  sectionEnd = false;
-  while (!file.eof () && !sectionEnd)
-    {
-      line.clear ();
-      lineBuffer.clear ();
-      getline (file, line);
-      lineBuffer.str (line);
-
-      lineBuffer >> dummy;
-
-      if (dummy == "Edges:")
-        {
-          sectionEnd = true;
-        }
-    }
-
-  // Now, create the links
-  string nodeA, nodeB;
-  string delay, bandwidth;
-  sectionEnd = false;
-  std::string lbr = "1";
-  while (!file.eof () && !sectionEnd)
-    {
-      line.clear ();
-      lineBuffer.clear ();
-      getline (file, line);
-      lineBuffer.str (line);
-
-      if (!line.empty ())
-        {
-          lineBuffer >> dummy;
-          lineBuffer >> nodeA >> nodeB;
-          lineBuffer >> dummy;
-          lineBuffer >> delay >> bandwidth;
-          if (delay == "-1")
-            {
-              delay = "0";
-            }
-          delay += "ms";
-          bandwidth += "Mbps";
-
-          Link link (nodeMap[nodeA], nodeA, nodeMap[nodeB], nodeB);
-          link.SetAttribute ("Device-Type", "topology");
-          link.SetAttribute ("Device-DataRate0", bandwidth);
-          link.SetAttribute ("Device-DataRate1", bandwidth);
-          link.SetAttribute ("Channel-Delay", delay);
-
-          AddLink (link);
-
-          NS_LOG_DEBUG ("BriteTopologyReader: Added link from node " << (nodeA) << " to node " << (nodeB) << " with a bandwidth of " << bandwidth  << " and delay of " << delay << ".");
-        }
-    }
-
-  m_nodes = nodes;
-
-  return m_nodes;
+  value = m_linkAttr.find (name)->second;
+  return true;
 }
 
-std::map<std::string, Ptr<Node> >::const_iterator BriteTopologyReader::GetLastBorderRouters (void) const
+void
+TopologyReader::Link::SetAttribute (const std::string &name, const std::string &value)
 {
-  return m_borderRouters.begin ();
+  m_linkAttr[name] = value;
 }
 
-uint32_t BriteTopologyReader::GetLastBorderRouterCount () const
+TopologyReader::Link::ConstAttributesIterator
+TopologyReader::Link::AttributesBegin (void)
 {
-  return m_borderRouters.size ();
+  return m_linkAttr.begin ();
 }
-
-uint32_t BriteTopologyReader::GetLastBackboneRouterCount () const
+TopologyReader::Link::ConstAttributesIterator
+TopologyReader::Link::AttributesEnd (void)
 {
-  return m_backboneRouters.size ();
+  return m_linkAttr.end ();
 }
 
-std::map<std::string, Ptr<Node> >::const_iterator BriteTopologyReader::GetLastBackboneRouters (void) const
-{
-  return m_backboneRouters.begin ();
-}
 
-std::map<std::string, Ptr<Node> >::const_iterator BriteTopologyReader::GetLastRouters (void) const
-{
-  return m_routers.begin ();
-}
-
-uint32_t BriteTopologyReader::GetLastRouterCount () const
-{
-  return m_routers.size ();
-}
-
-std::map<std::string, uint32_t > BriteTopologyReader::GetAutonomousSystems () const
-{
-  return m_autonomousSystems;
-}
-
-int32_t BriteTopologyReader::GetHighestASId () const
-{
-  return m_maxASId;
-}
-
-} // ns ns3
+} /* namespace ns3 */

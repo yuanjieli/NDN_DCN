@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2010-2012 ComSys, RWTH Aachen University
+ * Copyright (c) 2010 Universita' di Firenze, Italy
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -15,153 +15,198 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Authors: Rene Glebke (principal author), Alexander Hocks
+ * Author: Tommaso Pecorella (tommaso.pecorella@unifi.it)
+ * Author: Valerio Sartini (valesar@gmail.com)
  */
 
-#ifndef BRITE_TOPOLOGY_READER_H__
-#define BRITE_TOPOLOGY_READER_H__
-
-#include "ns3/net-device-container.h"
-#include "ns3/node-container.h"
-#include "ns3/string.h"
-#include "ns3/topology-reader.h"
+#ifndef TOPOLOGY_READER_H
+#define TOPOLOGY_READER_H
 
 #include <string>
+#include <map>
+#include <list>
+
+#include "ns3/object.h"
+#include "ns3/node-container.h"
+
 
 namespace ns3 {
+
 /**
  * \ingroup topology
  *
- * \brief Topology file reader (BRITE-format type) for the BitTorrent simulation framework.
+ * \brief Interface for input file readers management.
  *
- * This class takes an input file in BRITE format, extracts the nodes and links
- * contained therein and builds up a client-level topology based on the BRITE
- * topology. Up to a specified limit, a random number of client nodes are attached
- * to each (non-border)-router in the topology so that the final topology resembles
- * routers or AS's with routers where the routers each have connections to
- * several client nodes.
+ * This interface perform the shared tasks among all possible input file readers.
+ * Each different file format is handled by its own topology reader.
  */
-class BriteTopologyReader : public TopologyReader
+class TopologyReader : public Object
 {
-public:
-  static TypeId GetTypeId ();
 
-  BriteTopologyReader ();
-  virtual ~BriteTopologyReader ();
+public:
+  /**
+   * \brief Inner class holding the details about a link between two nodes.
+   *
+   * The link is not described in terms of technology. Rather it is only stating
+   * an association between two nodes. The nodes are characterized also with names
+   * reflecting how the nodes are called in the original topology file.
+   */
+  class Link
+  {
+public:
+  /**
+   * \brief Constant iterator to scan the map of link attributes.
+   */
+    typedef std::map<std::string, std::string>::const_iterator ConstAttributesIterator;
+
+    /**
+     * \brief Constructor
+     * \param fromPtr Ptr to the node the link is orginating from
+     * \param fromName name of the node the link is orginating from
+     * \param toPtr Ptr to the node the link is directed to
+     * \param toName name of the node the link is directed to
+     */
+    Link ( Ptr<Node> fromPtr, const std::string &fromName, Ptr<Node> toPtr, const std::string &toName );
+
+    /**
+     * \brief Returns a Ptr<Node> to the "from" node of the link
+     * \return a Ptr<Node> to the "from" node of the link
+     */
+    Ptr<Node> GetFromNode (void) const;
+    /**
+     * \brief Returns the name of the "from" node of the link
+     * \return the name of the "from" node of the link
+     */
+    std::string GetFromNodeName (void) const;
+    /**
+     * \brief Returns a Ptr<Node> to the "to" node of the link
+     * \return a Ptr<Node> to the "to" node of the link
+     */
+    Ptr<Node> GetToNode (void) const;
+    /**
+     * \brief Returns the name of the "to" node of the link
+     * \return the name of the "to" node of the link
+     */
+    std::string GetToNodeName (void) const;
+    /**
+     * \brief Returns the value of a link attribute. The attribute must exist.
+     *
+     * \param name the name of the attribute
+     *
+     * \return the value of the attribute
+     */
+    std::string GetAttribute (const std::string &name) const;
+    /**
+     * \brief Returns the value of a link attribute.
+     * \param name the name of the attribute
+     * \param value the value of the attribute
+     *
+     * \return true if the attribute was defined, false otherwise.
+     */
+    bool GetAttributeFailSafe (const std::string &name, std::string &value) const;
+    /**
+     * \brief Sets an arbitrary link attribute.
+     * \param name the name of the attribute
+     * \param value the value of the attribute
+     */
+    void SetAttribute (const std::string &name, const std::string &value);
+    /**
+     * \brief Returns an iterator to the begin of the attributes.
+     * \return a const iterator to the first attribute of a link.
+     */
+    ConstAttributesIterator AttributesBegin (void);
+    /**
+     * \brief Returns an iterator to the end of the attributes.
+     * \return a const iterator to the last attribute of a link.
+     */
+    ConstAttributesIterator AttributesEnd (void);
+
+private:
+    Link ();
+    std::string m_fromName;
+    Ptr< Node > m_fromPtr;
+    std::string m_toName;
+    Ptr< Node > m_toPtr;
+    std::map<std::string, std::string> m_linkAttr;
+  };
+
+  /**
+   * \brief Constant iterator to the list of the links.
+   */
+  typedef std::list< Link >::const_iterator ConstLinksIterator;
+
+  static TypeId GetTypeId (void);
+
+  TopologyReader ();
+  virtual ~TopologyReader ();
 
   /**
    * \brief Main topology reading function.
    *
-   * This method opens an input stream and reads the BRITE-format file.
-   * It reads until the end of the file and creates links
-   * between the respective nodes as denoted in the file.
+   * The data is parsed and the results are returned in the passed lists.
+   * The rationale behind this choice is to allow non-progressive node IDs
+   * in the topology files, as well as to separate the topology
+   * reader from the choices about actual IP number assignment and
+   * kind of links between nodes.
    *
-   * The Links created by this method contain (if applicable) references to the following values:\n
-   * * The data rate of the connection between the two nodes (attributes "Device-DataRate0" and "Device-DataRate1" (symmetric channels)).\n
-   * * The delay of the channel between the two nodes ("Channel-Delay").
-   *
-   * \return the container of the nodes created (or empty container if there was an error).
-   * Note that you can retrieve specially annotated nodes by special member functions.
+   * \return the container of the nodes created (or null if there was an error)
    */
-  virtual NodeContainer Read ();
+  virtual NodeContainer Read (void) = 0;
 
   /**
-   * \brief Get the nodes representing border routers / AS's in the last call to BriteTopologyReader::Read().
-   *
-   * Each BriteTopologyReader instance remembers the nodes tagged as border routers
-   * or single AS's which were found in the last call to the instance's Read function.
-   * This function returns a std::map<std::string, Ptr<Node> > to access these nodes.
-   *
-   * Note: This information is only kept until a subsequent call to the Read() function.
-   *
-   * \return a map of the nodes designated as border routers / AS's in the last run of Read, with strings as indices
+   * \brief Sets the input file name.
+   * \param fileName the input file name.
    */
-  std::map<std::string, Ptr<Node> >::const_iterator GetLastBorderRouters (void) const;
+  void SetFileName (const std::string &fileName);
 
   /**
-   * \brief Get the number of nodes representing border routers / AS's in the last call to BriteTopologyReader::Read().
-   *
-   * \return a number indicating the size of the map for which an iterator is returned by BriteTopologyReader::GetLastBorderRouters().
+   * \brief Returns the input file name.
+   * \return the input file name.
    */
-  uint32_t GetLastBorderRouterCount () const;
+  std::string GetFileName (void) const;
 
   /**
-   * \brief Get the nodes representing backbone routers / AS's in the last call to BriteTopologyReader::Read().
-   *
-   * Each BriteTopologyReader instance remembers the nodes tagged as backbone routers
-   * or single AS's which were found in the last call to the instance's Read function.
-   * This function returns a std::map<std::string, Ptr<Node> > to access these nodes.
-   *
-   * Note: This information is only kept until a subsequent call to the Read() function.
-   *
-   * \return a map of the nodes designated as backbone routers / AS's in the last run of Read, with strings as indices
+   * \brief Returns an iterator to the the first link in this block.
+   * \return a const iterator to the first link in this block.
    */
-  std::map<std::string, Ptr<Node> >::const_iterator GetLastBackboneRouters (void) const;
+  ConstLinksIterator LinksBegin (void) const;
 
   /**
-   * \brief Get the number of nodes representing border routers / AS's in the last call to BriteTopologyReader::Read().
-   *
-   * \return a number indicating the size of the map for which an iterator is returned by BriteTopologyReader::GetLastBorderRouters().
+   * \brief Returns an iterator to the the last link in this block.
+   * \return a const iterator to the last link in this block.
    */
-  uint32_t GetLastBackboneRouterCount () const;
+  ConstLinksIterator LinksEnd (void) const;
 
   /**
-   * \brief Get the nodes representing routers in the last call to BriteTopologyReader::Read().
-   *
-   * Each BriteTopologyReader instance remembers the nodes designated as routers
-   * which were found in the last call to the instance's Read function.
-   * This function returns a std::map<std::string, Ptr<Node> > to access these noes.
-   *
-   * Note: This list contains all nodes tagged as leaf or stub routers and such nodes not tagged at all.
-   *
-   * Note 2: This information is only kept until a subsequent call to the Read() function.
-   *
-   * \return a map of the nodes routers in the last run of Read, with strings as indices
+   * \brief Returns the number of links in this block.
+   * \return the number of links in this block.
    */
-  std::map<std::string, Ptr<Node> >::const_iterator GetLastRouters () const;
+  int LinksSize (void) const;
 
   /**
-   * \brief Get the number of nodes representing routers in the last call to BriteTopologyReader::Read().
-   *
-   * \return a number indicating the size of the map for which an iterator is returned by BriteTopologyReader::GetLastRouters().
+   * \brief Checks if the block contains any links.
+   * \return true if there are no links in this block, false otherwise.
    */
-  uint32_t GetLastRouterCount () const;
+  bool LinksEmpty (void) const;
 
   /**
-   * \brief Get the autonomous systems read bsy the last call to BriteTopologyReader::Read().
-   *
-   * For every node in the topology, the BRITE format specifies an AS (autonomous system) membership.
-   * This function returns a std::map<std::string, uint32_t> which for each node (represented by the key)
-   * yields the AS specified by BRITE (the value).
-   *
-   * \return a map of the autonomous systems, indexed by the name of the node as specified by the BRITE topology file.
+   * \brief Adds a link to the topology.
+   * \param link the link to be added.
    */
-  std::map<std::string, uint32_t > GetAutonomousSystems () const;
-
-  /**
-   * \brief get the highest ID of an autonomous system read in.
-   *
-   * \returns the ID of the highest ID of an autonomous system specified by the last BRITE file read in via BriteTopologyReader::Read().
-   * If assigned, the IDs of ASs in BRITE form a continuous sequence starting at 0, so the number of ASs specified by brite is GetHighestASId() - 1.
-   * The return value is -1 if no IDs were assigned (e.g., if BriteTopologyReader::Read() has not been called previously).
-   */
-  int32_t GetHighestASId () const;
-
+  void AddLink (Link link);
 
 private:
-  BriteTopologyReader (const BriteTopologyReader&);
-  BriteTopologyReader& operator= (const BriteTopologyReader&);
+  TopologyReader (const TopologyReader&);
+  TopologyReader& operator= (const TopologyReader&);
 
-protected:
-  NodeContainer m_nodes;
-  NodeContainer m_tapNodes;
-  std::map<std::string, Ptr<Node> > m_backboneRouters;
-  std::map<std::string, Ptr<Node> > m_borderRouters;
-  std::map<std::string, Ptr<Node> > m_routers;
-  std::map<std::string, uint32_t> m_autonomousSystems;
-  int32_t m_maxASId; // leave as signed
+  std::string m_fileName;
+  std::list<Link> m_linksList;
+
+  // end class TopologyReader
 };
 
-} // ns ns3
+// end namespace ns3
+};
 
-#endif // BRITE_TOPOLOGY_READER_H__
+
+#endif /* TOPOLOGY_READER_H */

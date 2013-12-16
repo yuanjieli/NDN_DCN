@@ -22,9 +22,10 @@
 #ifndef TOPOLOGY_READER_HELPER_H
 #define TOPOLOGY_READER_HELPER_H
 
-namespace ns3 {
+#include "ns3/topology-reader.h"
+#include <string>
 
-class TopologyReader;
+namespace ns3 {
 
 /**
  * \ingroup topology
