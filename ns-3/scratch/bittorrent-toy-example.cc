@@ -60,6 +60,9 @@ main (int argc, char *argv[])
   //Note: topologyReader only supports /24 netmask. So #nodes are limited!!!
   //Can change code later by referring topologyReader.cc
  	topologyReader.AssignIpv4Addresses("10.1.1.0"); 
+ 	
+ 	//Turn on global static routing
+  Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
   
  	
   // 1) Install a BitTorrentTracker application (with default values) on one of the nodes
