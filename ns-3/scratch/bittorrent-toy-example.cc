@@ -51,7 +51,7 @@ main (int argc, char *argv[])
   	
 	//Read topology from BCube
 	AnnotatedTopologyReader topologyReader ("", 25);
-  topologyReader.SetFileName ("scartch/toy-example.txt");
+  topologyReader.SetFileName ("scratch/toy-example.txt");
   NodeContainer nodes = topologyReader.Read ();
   
   InternetStackHelper internet;
