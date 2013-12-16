@@ -28,19 +28,19 @@
 #include "ns3/unused.h"
 #include "rocketfuel-topology-reader.h"
 
-namespace ns3 {
-
 NS_LOG_COMPONENT_DEFINE ("RocketfuelTopologyReader");
 
-NS_OBJECT_ENSURE_REGISTERED (RocketfuelTopologyReader);
+namespace ns3 {
 
-TypeId RocketfuelTopologyReader::GetTypeId (void)
-{
-  static TypeId tid = TypeId ("ns3::RocketfuelTopologyReader")
-    .SetParent<Object> ()
-  ;
-  return tid;
-}
+// NS_OBJECT_ENSURE_REGISTERED (RocketfuelTopologyReader);
+
+// TypeId RocketfuelTopologyReader::GetTypeId (void)
+// {
+//   static TypeId tid = TypeId ("ns3::RocketfuelTopologyReader")
+//     .SetParent<Object> ()
+//   ;
+//   return tid;
+// }
 
 RocketfuelTopologyReader::RocketfuelTopologyReader ()
 {
@@ -77,7 +77,7 @@ int linksNumber = 0;
 int nodesNumber = 0;
 std::map<std::string, Ptr<Node> > nodeMap;
 
-static inline void
+void
 PrintNodeInfo (std::string & uid, std::string & loc, bool dns, bool bb,
                std::vector <std::string>::size_type neighListSize,
                std::string & name, int radius)

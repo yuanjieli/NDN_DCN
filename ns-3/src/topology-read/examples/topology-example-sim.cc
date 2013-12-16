@@ -76,12 +76,15 @@ int main (int argc, char *argv[])
   // --------------------------------------------
 
   // Pick a topology reader based in the requested format.
+
+  Ptr<TopologyReader> inFile = 0;
   TopologyReaderHelper topoHelp;
-  topoHelp.SetFileName (input);
-  topoHelp.SetFileType (format);
-  Ptr<TopologyReader> inFile = topoHelp.GetTopologyReader ();
 
   NodeContainer nodes;
+
+  topoHelp.SetFileName (input);
+  topoHelp.SetFileType (format);
+  inFile = topoHelp.GetTopologyReader ();
 
   if (inFile != 0)
     {
