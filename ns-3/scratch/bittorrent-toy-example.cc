@@ -70,7 +70,7 @@ main (int argc, char *argv[])
   Names::Find<Node> ("S4")->AddApplication (bitTorrentTracker);	
   
   // 2) Load a torrent file via the tracker application
-  Ptr<Torrent> sharedTorrent = bitTorrentTracker->AddTorrent ("input/bittorrent/torrent-data", "input/bittorrent/torrent-data/100MB-full.dat.torrent");
+  Ptr<Torrent> sharedTorrent = bitTorrentTracker->AddTorrent ("input/bittorrent/torrent-data", "input/bittorrent/torrent-data/10MB-full.dat.torrent");
   
   // 3) Install BitTorrentClient applications on the desired number of nodes
   ApplicationContainer bitTorrentClients;
