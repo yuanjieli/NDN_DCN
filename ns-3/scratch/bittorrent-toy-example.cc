@@ -67,7 +67,7 @@ main (int argc, char *argv[])
  	
   // 1) Install a BitTorrentTracker application (with default values) on one of the nodes
   Ptr<BitTorrentTracker> bitTorrentTracker = Create<BitTorrentTracker> ();
-  Names::Find<Node> ("S3")->AddApplication (bitTorrentTracker);	
+  Names::Find<Node> ("S4")->AddApplication (bitTorrentTracker);	
   
   // 2) Load a torrent file via the tracker application
   Ptr<Torrent> sharedTorrent = bitTorrentTracker->AddTorrent ("input/bittorrent/torrent-data", "input/bittorrent/torrent-data/100MB-full.dat.torrent");
