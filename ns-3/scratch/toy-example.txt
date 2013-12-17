@@ -12,11 +12,11 @@ S4      NA    	10        40
 link
 
 #x      y       capacity(kbps)  OSPF    Delay   MaxPackets
-S1      S2      1Mbps          1       1ms     10
-S2      S1      1Mbps          1       1ms     10
-S1      S3      1Mbps          1       1ms     10
-S3      S1      1Mbps          1       1ms     10
-S2      S4      1Mbps          1       1ms     10
-S4      S2      1Mbps          1       1ms     10
-S3      S4      1Mbps          1       1ms     10
-S4      S3      1Mbps          1       1ms     10
+S1      S2      10Mbps          1       1ms     10
+S2      S1      10Mbps          1       1ms     10
+S1      S3      10Mbps          1       1ms     10
+S3      S1      10Mbps          1       1ms     10
+S2      S4      10Mbps          1       1ms     10
+S4      S2      10Mbps          1       1ms     10
+S3      S4      10Mbps          1       1ms     10
+S4      S3      10Mbps          1       1ms     10
