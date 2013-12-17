@@ -83,10 +83,10 @@ main (int argc, char *argv[])
   Names::Find<Node> ("S2")->AddApplication (client);
   bitTorrentClients.Add (client);	
   
-  /*client = Create<BitTorrentClient> ();
+  client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
   Names::Find<Node> ("S3")->AddApplication (client);
-  bitTorrentClients.Add (client);*/
+  bitTorrentClients.Add (client);
   
   client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
