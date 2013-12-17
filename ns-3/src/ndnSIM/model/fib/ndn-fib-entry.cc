@@ -172,7 +172,7 @@ void
 Entry::ShowRate()
 {
 	//FIXME: To show throughput, change the condition here!
-	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 1
+	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 2
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
 		NS_LOG_UNCOND(m_faces.begin()->GetFace()->GetNode()->GetId()<<" "
 							    <<Simulator::Now().GetSeconds()<<" "
