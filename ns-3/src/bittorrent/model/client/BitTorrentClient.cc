@@ -49,8 +49,8 @@ NS_OBJECT_ENSURE_REGISTERED (BitTorrentClient);
 
 BitTorrentClient::BitTorrentClient ()
 {
-  //m_protocol = "rarest-first";
-  m_protocol = "default";
+  m_protocol = "rarest-first";
+  //m_protocol = "default";
   m_bitfieldFillType = "empty";
   m_gatherMetricsEventPeriodicity = Seconds (60);
 

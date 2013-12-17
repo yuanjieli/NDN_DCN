@@ -46,9 +46,7 @@ main (int argc, char *argv[])
 {
 	
   CommandLine cmd;
-  cmd.Parse (argc, argv);
-  
-   Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue("ns3::TcpNewReno"));  
+  cmd.Parse (argc, argv);   
   	
 	//Read topology from BCube
 	AnnotatedTopologyReader topologyReader ("", 25);
