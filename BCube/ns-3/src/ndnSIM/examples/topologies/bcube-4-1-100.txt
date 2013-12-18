@@ -1,0 +1,97 @@
+#BCube(4,1)
+
+router
+
+# node  comment     yPos    xPos
+S00     NA          1       1
+S01     NA          1       1
+S02     NA          1       1
+S03     NA          1       1
+S10     NA          1       1
+S11     NA          1       1
+S12     NA          1       1
+S13     NA          1       1
+S20     NA          1       1
+S21     NA          1       1
+S22     NA          1       1
+S23     NA          1       1
+S30     NA          1       1
+S31     NA          1       1
+S32     NA          1       1
+S33     NA          1       1
+R0     NA          1       1
+R1     NA          1       1
+R2     NA          1       1
+R3     NA          1       1
+R4     NA          1       1
+R5     NA          1       1
+R6     NA          1       1
+R7     NA          1       1
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+R0        S00        100Mbps      1        1ms    20
+R0        S10        100Mbps      1        1ms    20
+R0        S20        100Mbps      1        1ms    20
+R0        S30        100Mbps      1        1ms    20
+R1        S01        100Mbps      1        1ms    20
+R1        S11        100Mbps      1        1ms    20
+R1        S21        100Mbps      1        1ms    20
+R1        S31        100Mbps      1        1ms    20
+R2        S02        100Mbps      1        1ms    20
+R2        S12        100Mbps      1        1ms    20
+R2        S22        100Mbps      1        1ms    20
+R2        S32        100Mbps      1        1ms    20
+R3        S03        100Mbps      1        1ms    20
+R3        S13        100Mbps      1        1ms    20
+R3        S23        100Mbps      1        1ms    20
+R3        S33        100Mbps      1        1ms    20
+R4        S00        100Mbps      1        1ms    20
+R4        S01        100Mbps      1        1ms    20
+R4        S02        100Mbps      1        1ms    20
+R4        S03        100Mbps      1        1ms    20
+R5        S10        100Mbps      1        1ms    20
+R5        S11        100Mbps      1        1ms    20
+R5        S12        100Mbps      1        1ms    20
+R5        S13        100Mbps      1        1ms    20
+R6        S20        100Mbps      1        1ms    20
+R6        S21        100Mbps      1        1ms    20
+R6        S22        100Mbps      1        1ms    20
+R6        S23        100Mbps      1        1ms    20
+R7        S30        100Mbps      1        1ms    20
+R7        S31        100Mbps      1        1ms    20
+R7        S32        100Mbps      1        1ms    20
+R7        S33        100Mbps      1        1ms    20
+S00        R0        100Mbps      1        1ms    20
+S00        R4        100Mbps      1        1ms    20
+S01        R1        100Mbps      1        1ms    20
+S01        R4        100Mbps      1        1ms    20
+S02        R2        100Mbps      1        1ms    20
+S02        R4        100Mbps      1        1ms    20
+S03        R3        100Mbps      1        1ms    20
+S03        R4        100Mbps      1        1ms    20
+S10        R0        100Mbps      1        1ms    20
+S10        R5        100Mbps      1        1ms    20
+S11        R1        100Mbps      1        1ms    20
+S11        R5        100Mbps      1        1ms    20
+S12        R2        100Mbps      1        1ms    20
+S12        R5        100Mbps      1        1ms    20
+S13        R3        100Mbps      1        1ms    20
+S13        R5        100Mbps      1        1ms    20
+S20        R0        100Mbps      1        1ms    20
+S20        R6        100Mbps      1        1ms    20
+S21        R1        100Mbps      1        1ms    20
+S21        R6        100Mbps      1        1ms    20
+S22        R2        100Mbps      1        1ms    20
+S22        R6        100Mbps      1        1ms    20
+S23        R3        100Mbps      1        1ms    20
+S23        R6        100Mbps      1        1ms    20
+S30        R0        100Mbps      1        1ms    20
+S30        R7        100Mbps      1        1ms    20
+S31        R1        100Mbps      1        1ms    20
+S31        R7        100Mbps      1        1ms    20
+S32        R2        100Mbps      1        1ms    20
+S32        R7        100Mbps      1        1ms    20
+S33        R3        100Mbps      1        1ms    20
+S33        R7        100Mbps      1        1ms    20

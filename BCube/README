@@ -1,0 +1,12 @@
+This copy is for BCube only. To support BCube, we make the following changes
+
+	- introduce tags for BCubeID
+	- For switch, introduce a special BCubeID-based switch table, so that
+		- It is oblivious to NDN
+		- It connects each server with PointToPointNetDevice
+		- For every packet (Interest/Data), it should be forwarded with broadcast address on a PointToPointNetDevice between server and switch
+		- When the switch receive the packet, it de-capsulates the tag, and forward the packet to server identified by that BCubeID
+		- To implement it, we need a special helper for switch, which accept serverID as input, and build switch table based on serverID and all the NetDevices installed on this node
+	- For servers, we need to re-implement StackHelper and/or L3Helper so that
+		- For each NetDevice, there would be two NetDeviceFaces associated with it: one for download from switch to the server, and the other for upload from server to switch. This is due to the fact that server has to utilize both download and upload link within each small BCube, but this may introduce loop from NDN's perspective because we forward interest through the inFace. To avoid, we decouple download face from upload face from NDN's perspective, although at low level they still use the same NetDevice
+		

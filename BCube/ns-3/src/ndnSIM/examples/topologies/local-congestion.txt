@@ -1,0 +1,26 @@
+#To show the effect of open-loop control in TCP
+
+router
+
+# node  comment     yPos    xPos
+C1      NA          0       0
+C2      NA          1       1
+C3      NA          1       2
+R1      NA          0       1
+R2      NA          0       2
+P       NA          0       3
+
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+   C1        R1         10Mbps      1        1ms     20
+   R1        C1         10Mbps      1        1ms     20
+   C2        R1         10Mbps      1        1ms     20 
+   R1        C2         10Mbps      1        1ms     20
+   C3        R2         10Mbps      1        1ms     20
+   R2        C3         10Mbps      1        1ms     20 
+   R1        R2         10Mbps      1        1ms     20
+   R2        R1         10Mbps      1        1ms     20 
+   R2        P          10Mbps      1        1ms     20
+   P         R2         10Mbps      1        1ms     20

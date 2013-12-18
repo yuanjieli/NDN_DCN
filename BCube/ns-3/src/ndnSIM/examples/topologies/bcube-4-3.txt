@@ -1,0 +1,2569 @@
+#BCube(4,3)
+
+router
+
+# node  comment     yPos    xPos
+S0000     NA          1       1
+S0001     NA          1       1
+S0002     NA          1       1
+S0003     NA          1       1
+S0010     NA          1       1
+S0011     NA          1       1
+S0012     NA          1       1
+S0013     NA          1       1
+S0020     NA          1       1
+S0021     NA          1       1
+S0022     NA          1       1
+S0023     NA          1       1
+S0030     NA          1       1
+S0031     NA          1       1
+S0032     NA          1       1
+S0033     NA          1       1
+S0100     NA          1       1
+S0101     NA          1       1
+S0102     NA          1       1
+S0103     NA          1       1
+S0110     NA          1       1
+S0111     NA          1       1
+S0112     NA          1       1
+S0113     NA          1       1
+S0120     NA          1       1
+S0121     NA          1       1
+S0122     NA          1       1
+S0123     NA          1       1
+S0130     NA          1       1
+S0131     NA          1       1
+S0132     NA          1       1
+S0133     NA          1       1
+S0200     NA          1       1
+S0201     NA          1       1
+S0202     NA          1       1
+S0203     NA          1       1
+S0210     NA          1       1
+S0211     NA          1       1
+S0212     NA          1       1
+S0213     NA          1       1
+S0220     NA          1       1
+S0221     NA          1       1
+S0222     NA          1       1
+S0223     NA          1       1
+S0230     NA          1       1
+S0231     NA          1       1
+S0232     NA          1       1
+S0233     NA          1       1
+S0300     NA          1       1
+S0301     NA          1       1
+S0302     NA          1       1
+S0303     NA          1       1
+S0310     NA          1       1
+S0311     NA          1       1
+S0312     NA          1       1
+S0313     NA          1       1
+S0320     NA          1       1
+S0321     NA          1       1
+S0322     NA          1       1
+S0323     NA          1       1
+S0330     NA          1       1
+S0331     NA          1       1
+S0332     NA          1       1
+S0333     NA          1       1
+S1000     NA          1       1
+S1001     NA          1       1
+S1002     NA          1       1
+S1003     NA          1       1
+S1010     NA          1       1
+S1011     NA          1       1
+S1012     NA          1       1
+S1013     NA          1       1
+S1020     NA          1       1
+S1021     NA          1       1
+S1022     NA          1       1
+S1023     NA          1       1
+S1030     NA          1       1
+S1031     NA          1       1
+S1032     NA          1       1
+S1033     NA          1       1
+S1100     NA          1       1
+S1101     NA          1       1
+S1102     NA          1       1
+S1103     NA          1       1
+S1110     NA          1       1
+S1111     NA          1       1
+S1112     NA          1       1
+S1113     NA          1       1
+S1120     NA          1       1
+S1121     NA          1       1
+S1122     NA          1       1
+S1123     NA          1       1
+S1130     NA          1       1
+S1131     NA          1       1
+S1132     NA          1       1
+S1133     NA          1       1
+S1200     NA          1       1
+S1201     NA          1       1
+S1202     NA          1       1
+S1203     NA          1       1
+S1210     NA          1       1
+S1211     NA          1       1
+S1212     NA          1       1
+S1213     NA          1       1
+S1220     NA          1       1
+S1221     NA          1       1
+S1222     NA          1       1
+S1223     NA          1       1
+S1230     NA          1       1
+S1231     NA          1       1
+S1232     NA          1       1
+S1233     NA          1       1
+S1300     NA          1       1
+S1301     NA          1       1
+S1302     NA          1       1
+S1303     NA          1       1
+S1310     NA          1       1
+S1311     NA          1       1
+S1312     NA          1       1
+S1313     NA          1       1
+S1320     NA          1       1
+S1321     NA          1       1
+S1322     NA          1       1
+S1323     NA          1       1
+S1330     NA          1       1
+S1331     NA          1       1
+S1332     NA          1       1
+S1333     NA          1       1
+S2000     NA          1       1
+S2001     NA          1       1
+S2002     NA          1       1
+S2003     NA          1       1
+S2010     NA          1       1
+S2011     NA          1       1
+S2012     NA          1       1
+S2013     NA          1       1
+S2020     NA          1       1
+S2021     NA          1       1
+S2022     NA          1       1
+S2023     NA          1       1
+S2030     NA          1       1
+S2031     NA          1       1
+S2032     NA          1       1
+S2033     NA          1       1
+S2100     NA          1       1
+S2101     NA          1       1
+S2102     NA          1       1
+S2103     NA          1       1
+S2110     NA          1       1
+S2111     NA          1       1
+S2112     NA          1       1
+S2113     NA          1       1
+S2120     NA          1       1
+S2121     NA          1       1
+S2122     NA          1       1
+S2123     NA          1       1
+S2130     NA          1       1
+S2131     NA          1       1
+S2132     NA          1       1
+S2133     NA          1       1
+S2200     NA          1       1
+S2201     NA          1       1
+S2202     NA          1       1
+S2203     NA          1       1
+S2210     NA          1       1
+S2211     NA          1       1
+S2212     NA          1       1
+S2213     NA          1       1
+S2220     NA          1       1
+S2221     NA          1       1
+S2222     NA          1       1
+S2223     NA          1       1
+S2230     NA          1       1
+S2231     NA          1       1
+S2232     NA          1       1
+S2233     NA          1       1
+S2300     NA          1       1
+S2301     NA          1       1
+S2302     NA          1       1
+S2303     NA          1       1
+S2310     NA          1       1
+S2311     NA          1       1
+S2312     NA          1       1
+S2313     NA          1       1
+S2320     NA          1       1
+S2321     NA          1       1
+S2322     NA          1       1
+S2323     NA          1       1
+S2330     NA          1       1
+S2331     NA          1       1
+S2332     NA          1       1
+S2333     NA          1       1
+S3000     NA          1       1
+S3001     NA          1       1
+S3002     NA          1       1
+S3003     NA          1       1
+S3010     NA          1       1
+S3011     NA          1       1
+S3012     NA          1       1
+S3013     NA          1       1
+S3020     NA          1       1
+S3021     NA          1       1
+S3022     NA          1       1
+S3023     NA          1       1
+S3030     NA          1       1
+S3031     NA          1       1
+S3032     NA          1       1
+S3033     NA          1       1
+S3100     NA          1       1
+S3101     NA          1       1
+S3102     NA          1       1
+S3103     NA          1       1
+S3110     NA          1       1
+S3111     NA          1       1
+S3112     NA          1       1
+S3113     NA          1       1
+S3120     NA          1       1
+S3121     NA          1       1
+S3122     NA          1       1
+S3123     NA          1       1
+S3130     NA          1       1
+S3131     NA          1       1
+S3132     NA          1       1
+S3133     NA          1       1
+S3200     NA          1       1
+S3201     NA          1       1
+S3202     NA          1       1
+S3203     NA          1       1
+S3210     NA          1       1
+S3211     NA          1       1
+S3212     NA          1       1
+S3213     NA          1       1
+S3220     NA          1       1
+S3221     NA          1       1
+S3222     NA          1       1
+S3223     NA          1       1
+S3230     NA          1       1
+S3231     NA          1       1
+S3232     NA          1       1
+S3233     NA          1       1
+S3300     NA          1       1
+S3301     NA          1       1
+S3302     NA          1       1
+S3303     NA          1       1
+S3310     NA          1       1
+S3311     NA          1       1
+S3312     NA          1       1
+S3313     NA          1       1
+S3320     NA          1       1
+S3321     NA          1       1
+S3322     NA          1       1
+S3323     NA          1       1
+S3330     NA          1       1
+S3331     NA          1       1
+S3332     NA          1       1
+S3333     NA          1       1
+R0     NA          1       1
+R1     NA          1       1
+R2     NA          1       1
+R3     NA          1       1
+R4     NA          1       1
+R5     NA          1       1
+R6     NA          1       1
+R7     NA          1       1
+R8     NA          1       1
+R9     NA          1       1
+R10     NA          1       1
+R11     NA          1       1
+R12     NA          1       1
+R13     NA          1       1
+R14     NA          1       1
+R15     NA          1       1
+R16     NA          1       1
+R17     NA          1       1
+R18     NA          1       1
+R19     NA          1       1
+R20     NA          1       1
+R21     NA          1       1
+R22     NA          1       1
+R23     NA          1       1
+R24     NA          1       1
+R25     NA          1       1
+R26     NA          1       1
+R27     NA          1       1
+R28     NA          1       1
+R29     NA          1       1
+R30     NA          1       1
+R31     NA          1       1
+R32     NA          1       1
+R33     NA          1       1
+R34     NA          1       1
+R35     NA          1       1
+R36     NA          1       1
+R37     NA          1       1
+R38     NA          1       1
+R39     NA          1       1
+R40     NA          1       1
+R41     NA          1       1
+R42     NA          1       1
+R43     NA          1       1
+R44     NA          1       1
+R45     NA          1       1
+R46     NA          1       1
+R47     NA          1       1
+R48     NA          1       1
+R49     NA          1       1
+R50     NA          1       1
+R51     NA          1       1
+R52     NA          1       1
+R53     NA          1       1
+R54     NA          1       1
+R55     NA          1       1
+R56     NA          1       1
+R57     NA          1       1
+R58     NA          1       1
+R59     NA          1       1
+R60     NA          1       1
+R61     NA          1       1
+R62     NA          1       1
+R63     NA          1       1
+R64     NA          1       1
+R65     NA          1       1
+R66     NA          1       1
+R67     NA          1       1
+R68     NA          1       1
+R69     NA          1       1
+R70     NA          1       1
+R71     NA          1       1
+R72     NA          1       1
+R73     NA          1       1
+R74     NA          1       1
+R75     NA          1       1
+R76     NA          1       1
+R77     NA          1       1
+R78     NA          1       1
+R79     NA          1       1
+R80     NA          1       1
+R81     NA          1       1
+R82     NA          1       1
+R83     NA          1       1
+R84     NA          1       1
+R85     NA          1       1
+R86     NA          1       1
+R87     NA          1       1
+R88     NA          1       1
+R89     NA          1       1
+R90     NA          1       1
+R91     NA          1       1
+R92     NA          1       1
+R93     NA          1       1
+R94     NA          1       1
+R95     NA          1       1
+R96     NA          1       1
+R97     NA          1       1
+R98     NA          1       1
+R99     NA          1       1
+R100     NA          1       1
+R101     NA          1       1
+R102     NA          1       1
+R103     NA          1       1
+R104     NA          1       1
+R105     NA          1       1
+R106     NA          1       1
+R107     NA          1       1
+R108     NA          1       1
+R109     NA          1       1
+R110     NA          1       1
+R111     NA          1       1
+R112     NA          1       1
+R113     NA          1       1
+R114     NA          1       1
+R115     NA          1       1
+R116     NA          1       1
+R117     NA          1       1
+R118     NA          1       1
+R119     NA          1       1
+R120     NA          1       1
+R121     NA          1       1
+R122     NA          1       1
+R123     NA          1       1
+R124     NA          1       1
+R125     NA          1       1
+R126     NA          1       1
+R127     NA          1       1
+R128     NA          1       1
+R129     NA          1       1
+R130     NA          1       1
+R131     NA          1       1
+R132     NA          1       1
+R133     NA          1       1
+R134     NA          1       1
+R135     NA          1       1
+R136     NA          1       1
+R137     NA          1       1
+R138     NA          1       1
+R139     NA          1       1
+R140     NA          1       1
+R141     NA          1       1
+R142     NA          1       1
+R143     NA          1       1
+R144     NA          1       1
+R145     NA          1       1
+R146     NA          1       1
+R147     NA          1       1
+R148     NA          1       1
+R149     NA          1       1
+R150     NA          1       1
+R151     NA          1       1
+R152     NA          1       1
+R153     NA          1       1
+R154     NA          1       1
+R155     NA          1       1
+R156     NA          1       1
+R157     NA          1       1
+R158     NA          1       1
+R159     NA          1       1
+R160     NA          1       1
+R161     NA          1       1
+R162     NA          1       1
+R163     NA          1       1
+R164     NA          1       1
+R165     NA          1       1
+R166     NA          1       1
+R167     NA          1       1
+R168     NA          1       1
+R169     NA          1       1
+R170     NA          1       1
+R171     NA          1       1
+R172     NA          1       1
+R173     NA          1       1
+R174     NA          1       1
+R175     NA          1       1
+R176     NA          1       1
+R177     NA          1       1
+R178     NA          1       1
+R179     NA          1       1
+R180     NA          1       1
+R181     NA          1       1
+R182     NA          1       1
+R183     NA          1       1
+R184     NA          1       1
+R185     NA          1       1
+R186     NA          1       1
+R187     NA          1       1
+R188     NA          1       1
+R189     NA          1       1
+R190     NA          1       1
+R191     NA          1       1
+R192     NA          1       1
+R193     NA          1       1
+R194     NA          1       1
+R195     NA          1       1
+R196     NA          1       1
+R197     NA          1       1
+R198     NA          1       1
+R199     NA          1       1
+R200     NA          1       1
+R201     NA          1       1
+R202     NA          1       1
+R203     NA          1       1
+R204     NA          1       1
+R205     NA          1       1
+R206     NA          1       1
+R207     NA          1       1
+R208     NA          1       1
+R209     NA          1       1
+R210     NA          1       1
+R211     NA          1       1
+R212     NA          1       1
+R213     NA          1       1
+R214     NA          1       1
+R215     NA          1       1
+R216     NA          1       1
+R217     NA          1       1
+R218     NA          1       1
+R219     NA          1       1
+R220     NA          1       1
+R221     NA          1       1
+R222     NA          1       1
+R223     NA          1       1
+R224     NA          1       1
+R225     NA          1       1
+R226     NA          1       1
+R227     NA          1       1
+R228     NA          1       1
+R229     NA          1       1
+R230     NA          1       1
+R231     NA          1       1
+R232     NA          1       1
+R233     NA          1       1
+R234     NA          1       1
+R235     NA          1       1
+R236     NA          1       1
+R237     NA          1       1
+R238     NA          1       1
+R239     NA          1       1
+R240     NA          1       1
+R241     NA          1       1
+R242     NA          1       1
+R243     NA          1       1
+R244     NA          1       1
+R245     NA          1       1
+R246     NA          1       1
+R247     NA          1       1
+R248     NA          1       1
+R249     NA          1       1
+R250     NA          1       1
+R251     NA          1       1
+R252     NA          1       1
+R253     NA          1       1
+R254     NA          1       1
+R255     NA          1       1
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+R0        S0000        100Mbps      1        1ms    20
+R0        S1000        100Mbps      1        1ms    20
+R0        S2000        100Mbps      1        1ms    20
+R0        S3000        100Mbps      1        1ms    20
+R1        S0001        100Mbps      1        1ms    20
+R1        S1001        100Mbps      1        1ms    20
+R1        S2001        100Mbps      1        1ms    20
+R1        S3001        100Mbps      1        1ms    20
+R2        S0002        100Mbps      1        1ms    20
+R2        S1002        100Mbps      1        1ms    20
+R2        S2002        100Mbps      1        1ms    20
+R2        S3002        100Mbps      1        1ms    20
+R3        S0003        100Mbps      1        1ms    20
+R3        S1003        100Mbps      1        1ms    20
+R3        S2003        100Mbps      1        1ms    20
+R3        S3003        100Mbps      1        1ms    20
+R4        S0010        100Mbps      1        1ms    20
+R4        S1010        100Mbps      1        1ms    20
+R4        S2010        100Mbps      1        1ms    20
+R4        S3010        100Mbps      1        1ms    20
+R5        S0011        100Mbps      1        1ms    20
+R5        S1011        100Mbps      1        1ms    20
+R5        S2011        100Mbps      1        1ms    20
+R5        S3011        100Mbps      1        1ms    20
+R6        S0012        100Mbps      1        1ms    20
+R6        S1012        100Mbps      1        1ms    20
+R6        S2012        100Mbps      1        1ms    20
+R6        S3012        100Mbps      1        1ms    20
+R7        S0013        100Mbps      1        1ms    20
+R7        S1013        100Mbps      1        1ms    20
+R7        S2013        100Mbps      1        1ms    20
+R7        S3013        100Mbps      1        1ms    20
+R8        S0020        100Mbps      1        1ms    20
+R8        S1020        100Mbps      1        1ms    20
+R8        S2020        100Mbps      1        1ms    20
+R8        S3020        100Mbps      1        1ms    20
+R9        S0021        100Mbps      1        1ms    20
+R9        S1021        100Mbps      1        1ms    20
+R9        S2021        100Mbps      1        1ms    20
+R9        S3021        100Mbps      1        1ms    20
+R10        S0022        100Mbps      1        1ms    20
+R10        S1022        100Mbps      1        1ms    20
+R10        S2022        100Mbps      1        1ms    20
+R10        S3022        100Mbps      1        1ms    20
+R11        S0023        100Mbps      1        1ms    20
+R11        S1023        100Mbps      1        1ms    20
+R11        S2023        100Mbps      1        1ms    20
+R11        S3023        100Mbps      1        1ms    20
+R12        S0030        100Mbps      1        1ms    20
+R12        S1030        100Mbps      1        1ms    20
+R12        S2030        100Mbps      1        1ms    20
+R12        S3030        100Mbps      1        1ms    20
+R13        S0031        100Mbps      1        1ms    20
+R13        S1031        100Mbps      1        1ms    20
+R13        S2031        100Mbps      1        1ms    20
+R13        S3031        100Mbps      1        1ms    20
+R14        S0032        100Mbps      1        1ms    20
+R14        S1032        100Mbps      1        1ms    20
+R14        S2032        100Mbps      1        1ms    20
+R14        S3032        100Mbps      1        1ms    20
+R15        S0033        100Mbps      1        1ms    20
+R15        S1033        100Mbps      1        1ms    20
+R15        S2033        100Mbps      1        1ms    20
+R15        S3033        100Mbps      1        1ms    20
+R16        S0100        100Mbps      1        1ms    20
+R16        S1100        100Mbps      1        1ms    20
+R16        S2100        100Mbps      1        1ms    20
+R16        S3100        100Mbps      1        1ms    20
+R17        S0101        100Mbps      1        1ms    20
+R17        S1101        100Mbps      1        1ms    20
+R17        S2101        100Mbps      1        1ms    20
+R17        S3101        100Mbps      1        1ms    20
+R18        S0102        100Mbps      1        1ms    20
+R18        S1102        100Mbps      1        1ms    20
+R18        S2102        100Mbps      1        1ms    20
+R18        S3102        100Mbps      1        1ms    20
+R19        S0103        100Mbps      1        1ms    20
+R19        S1103        100Mbps      1        1ms    20
+R19        S2103        100Mbps      1        1ms    20
+R19        S3103        100Mbps      1        1ms    20
+R20        S0110        100Mbps      1        1ms    20
+R20        S1110        100Mbps      1        1ms    20
+R20        S2110        100Mbps      1        1ms    20
+R20        S3110        100Mbps      1        1ms    20
+R21        S0111        100Mbps      1        1ms    20
+R21        S1111        100Mbps      1        1ms    20
+R21        S2111        100Mbps      1        1ms    20
+R21        S3111        100Mbps      1        1ms    20
+R22        S0112        100Mbps      1        1ms    20
+R22        S1112        100Mbps      1        1ms    20
+R22        S2112        100Mbps      1        1ms    20
+R22        S3112        100Mbps      1        1ms    20
+R23        S0113        100Mbps      1        1ms    20
+R23        S1113        100Mbps      1        1ms    20
+R23        S2113        100Mbps      1        1ms    20
+R23        S3113        100Mbps      1        1ms    20
+R24        S0120        100Mbps      1        1ms    20
+R24        S1120        100Mbps      1        1ms    20
+R24        S2120        100Mbps      1        1ms    20
+R24        S3120        100Mbps      1        1ms    20
+R25        S0121        100Mbps      1        1ms    20
+R25        S1121        100Mbps      1        1ms    20
+R25        S2121        100Mbps      1        1ms    20
+R25        S3121        100Mbps      1        1ms    20
+R26        S0122        100Mbps      1        1ms    20
+R26        S1122        100Mbps      1        1ms    20
+R26        S2122        100Mbps      1        1ms    20
+R26        S3122        100Mbps      1        1ms    20
+R27        S0123        100Mbps      1        1ms    20
+R27        S1123        100Mbps      1        1ms    20
+R27        S2123        100Mbps      1        1ms    20
+R27        S3123        100Mbps      1        1ms    20
+R28        S0130        100Mbps      1        1ms    20
+R28        S1130        100Mbps      1        1ms    20
+R28        S2130        100Mbps      1        1ms    20
+R28        S3130        100Mbps      1        1ms    20
+R29        S0131        100Mbps      1        1ms    20
+R29        S1131        100Mbps      1        1ms    20
+R29        S2131        100Mbps      1        1ms    20
+R29        S3131        100Mbps      1        1ms    20
+R30        S0132        100Mbps      1        1ms    20
+R30        S1132        100Mbps      1        1ms    20
+R30        S2132        100Mbps      1        1ms    20
+R30        S3132        100Mbps      1        1ms    20
+R31        S0133        100Mbps      1        1ms    20
+R31        S1133        100Mbps      1        1ms    20
+R31        S2133        100Mbps      1        1ms    20
+R31        S3133        100Mbps      1        1ms    20
+R32        S0200        100Mbps      1        1ms    20
+R32        S1200        100Mbps      1        1ms    20
+R32        S2200        100Mbps      1        1ms    20
+R32        S3200        100Mbps      1        1ms    20
+R33        S0201        100Mbps      1        1ms    20
+R33        S1201        100Mbps      1        1ms    20
+R33        S2201        100Mbps      1        1ms    20
+R33        S3201        100Mbps      1        1ms    20
+R34        S0202        100Mbps      1        1ms    20
+R34        S1202        100Mbps      1        1ms    20
+R34        S2202        100Mbps      1        1ms    20
+R34        S3202        100Mbps      1        1ms    20
+R35        S0203        100Mbps      1        1ms    20
+R35        S1203        100Mbps      1        1ms    20
+R35        S2203        100Mbps      1        1ms    20
+R35        S3203        100Mbps      1        1ms    20
+R36        S0210        100Mbps      1        1ms    20
+R36        S1210        100Mbps      1        1ms    20
+R36        S2210        100Mbps      1        1ms    20
+R36        S3210        100Mbps      1        1ms    20
+R37        S0211        100Mbps      1        1ms    20
+R37        S1211        100Mbps      1        1ms    20
+R37        S2211        100Mbps      1        1ms    20
+R37        S3211        100Mbps      1        1ms    20
+R38        S0212        100Mbps      1        1ms    20
+R38        S1212        100Mbps      1        1ms    20
+R38        S2212        100Mbps      1        1ms    20
+R38        S3212        100Mbps      1        1ms    20
+R39        S0213        100Mbps      1        1ms    20
+R39        S1213        100Mbps      1        1ms    20
+R39        S2213        100Mbps      1        1ms    20
+R39        S3213        100Mbps      1        1ms    20
+R40        S0220        100Mbps      1        1ms    20
+R40        S1220        100Mbps      1        1ms    20
+R40        S2220        100Mbps      1        1ms    20
+R40        S3220        100Mbps      1        1ms    20
+R41        S0221        100Mbps      1        1ms    20
+R41        S1221        100Mbps      1        1ms    20
+R41        S2221        100Mbps      1        1ms    20
+R41        S3221        100Mbps      1        1ms    20
+R42        S0222        100Mbps      1        1ms    20
+R42        S1222        100Mbps      1        1ms    20
+R42        S2222        100Mbps      1        1ms    20
+R42        S3222        100Mbps      1        1ms    20
+R43        S0223        100Mbps      1        1ms    20
+R43        S1223        100Mbps      1        1ms    20
+R43        S2223        100Mbps      1        1ms    20
+R43        S3223        100Mbps      1        1ms    20
+R44        S0230        100Mbps      1        1ms    20
+R44        S1230        100Mbps      1        1ms    20
+R44        S2230        100Mbps      1        1ms    20
+R44        S3230        100Mbps      1        1ms    20
+R45        S0231        100Mbps      1        1ms    20
+R45        S1231        100Mbps      1        1ms    20
+R45        S2231        100Mbps      1        1ms    20
+R45        S3231        100Mbps      1        1ms    20
+R46        S0232        100Mbps      1        1ms    20
+R46        S1232        100Mbps      1        1ms    20
+R46        S2232        100Mbps      1        1ms    20
+R46        S3232        100Mbps      1        1ms    20
+R47        S0233        100Mbps      1        1ms    20
+R47        S1233        100Mbps      1        1ms    20
+R47        S2233        100Mbps      1        1ms    20
+R47        S3233        100Mbps      1        1ms    20
+R48        S0300        100Mbps      1        1ms    20
+R48        S1300        100Mbps      1        1ms    20
+R48        S2300        100Mbps      1        1ms    20
+R48        S3300        100Mbps      1        1ms    20
+R49        S0301        100Mbps      1        1ms    20
+R49        S1301        100Mbps      1        1ms    20
+R49        S2301        100Mbps      1        1ms    20
+R49        S3301        100Mbps      1        1ms    20
+R50        S0302        100Mbps      1        1ms    20
+R50        S1302        100Mbps      1        1ms    20
+R50        S2302        100Mbps      1        1ms    20
+R50        S3302        100Mbps      1        1ms    20
+R51        S0303        100Mbps      1        1ms    20
+R51        S1303        100Mbps      1        1ms    20
+R51        S2303        100Mbps      1        1ms    20
+R51        S3303        100Mbps      1        1ms    20
+R52        S0310        100Mbps      1        1ms    20
+R52        S1310        100Mbps      1        1ms    20
+R52        S2310        100Mbps      1        1ms    20
+R52        S3310        100Mbps      1        1ms    20
+R53        S0311        100Mbps      1        1ms    20
+R53        S1311        100Mbps      1        1ms    20
+R53        S2311        100Mbps      1        1ms    20
+R53        S3311        100Mbps      1        1ms    20
+R54        S0312        100Mbps      1        1ms    20
+R54        S1312        100Mbps      1        1ms    20
+R54        S2312        100Mbps      1        1ms    20
+R54        S3312        100Mbps      1        1ms    20
+R55        S0313        100Mbps      1        1ms    20
+R55        S1313        100Mbps      1        1ms    20
+R55        S2313        100Mbps      1        1ms    20
+R55        S3313        100Mbps      1        1ms    20
+R56        S0320        100Mbps      1        1ms    20
+R56        S1320        100Mbps      1        1ms    20
+R56        S2320        100Mbps      1        1ms    20
+R56        S3320        100Mbps      1        1ms    20
+R57        S0321        100Mbps      1        1ms    20
+R57        S1321        100Mbps      1        1ms    20
+R57        S2321        100Mbps      1        1ms    20
+R57        S3321        100Mbps      1        1ms    20
+R58        S0322        100Mbps      1        1ms    20
+R58        S1322        100Mbps      1        1ms    20
+R58        S2322        100Mbps      1        1ms    20
+R58        S3322        100Mbps      1        1ms    20
+R59        S0323        100Mbps      1        1ms    20
+R59        S1323        100Mbps      1        1ms    20
+R59        S2323        100Mbps      1        1ms    20
+R59        S3323        100Mbps      1        1ms    20
+R60        S0330        100Mbps      1        1ms    20
+R60        S1330        100Mbps      1        1ms    20
+R60        S2330        100Mbps      1        1ms    20
+R60        S3330        100Mbps      1        1ms    20
+R61        S0331        100Mbps      1        1ms    20
+R61        S1331        100Mbps      1        1ms    20
+R61        S2331        100Mbps      1        1ms    20
+R61        S3331        100Mbps      1        1ms    20
+R62        S0332        100Mbps      1        1ms    20
+R62        S1332        100Mbps      1        1ms    20
+R62        S2332        100Mbps      1        1ms    20
+R62        S3332        100Mbps      1        1ms    20
+R63        S0333        100Mbps      1        1ms    20
+R63        S1333        100Mbps      1        1ms    20
+R63        S2333        100Mbps      1        1ms    20
+R63        S3333        100Mbps      1        1ms    20
+R64        S0000        100Mbps      1        1ms    20
+R64        S0100        100Mbps      1        1ms    20
+R64        S0200        100Mbps      1        1ms    20
+R64        S0300        100Mbps      1        1ms    20
+R65        S0001        100Mbps      1        1ms    20
+R65        S0101        100Mbps      1        1ms    20
+R65        S0201        100Mbps      1        1ms    20
+R65        S0301        100Mbps      1        1ms    20
+R66        S0002        100Mbps      1        1ms    20
+R66        S0102        100Mbps      1        1ms    20
+R66        S0202        100Mbps      1        1ms    20
+R66        S0302        100Mbps      1        1ms    20
+R67        S0003        100Mbps      1        1ms    20
+R67        S0103        100Mbps      1        1ms    20
+R67        S0203        100Mbps      1        1ms    20
+R67        S0303        100Mbps      1        1ms    20
+R68        S0010        100Mbps      1        1ms    20
+R68        S0110        100Mbps      1        1ms    20
+R68        S0210        100Mbps      1        1ms    20
+R68        S0310        100Mbps      1        1ms    20
+R69        S0011        100Mbps      1        1ms    20
+R69        S0111        100Mbps      1        1ms    20
+R69        S0211        100Mbps      1        1ms    20
+R69        S0311        100Mbps      1        1ms    20
+R70        S0012        100Mbps      1        1ms    20
+R70        S0112        100Mbps      1        1ms    20
+R70        S0212        100Mbps      1        1ms    20
+R70        S0312        100Mbps      1        1ms    20
+R71        S0013        100Mbps      1        1ms    20
+R71        S0113        100Mbps      1        1ms    20
+R71        S0213        100Mbps      1        1ms    20
+R71        S0313        100Mbps      1        1ms    20
+R72        S0020        100Mbps      1        1ms    20
+R72        S0120        100Mbps      1        1ms    20
+R72        S0220        100Mbps      1        1ms    20
+R72        S0320        100Mbps      1        1ms    20
+R73        S0021        100Mbps      1        1ms    20
+R73        S0121        100Mbps      1        1ms    20
+R73        S0221        100Mbps      1        1ms    20
+R73        S0321        100Mbps      1        1ms    20
+R74        S0022        100Mbps      1        1ms    20
+R74        S0122        100Mbps      1        1ms    20
+R74        S0222        100Mbps      1        1ms    20
+R74        S0322        100Mbps      1        1ms    20
+R75        S0023        100Mbps      1        1ms    20
+R75        S0123        100Mbps      1        1ms    20
+R75        S0223        100Mbps      1        1ms    20
+R75        S0323        100Mbps      1        1ms    20
+R76        S0030        100Mbps      1        1ms    20
+R76        S0130        100Mbps      1        1ms    20
+R76        S0230        100Mbps      1        1ms    20
+R76        S0330        100Mbps      1        1ms    20
+R77        S0031        100Mbps      1        1ms    20
+R77        S0131        100Mbps      1        1ms    20
+R77        S0231        100Mbps      1        1ms    20
+R77        S0331        100Mbps      1        1ms    20
+R78        S0032        100Mbps      1        1ms    20
+R78        S0132        100Mbps      1        1ms    20
+R78        S0232        100Mbps      1        1ms    20
+R78        S0332        100Mbps      1        1ms    20
+R79        S0033        100Mbps      1        1ms    20
+R79        S0133        100Mbps      1        1ms    20
+R79        S0233        100Mbps      1        1ms    20
+R79        S0333        100Mbps      1        1ms    20
+R80        S1000        100Mbps      1        1ms    20
+R80        S1100        100Mbps      1        1ms    20
+R80        S1200        100Mbps      1        1ms    20
+R80        S1300        100Mbps      1        1ms    20
+R81        S1001        100Mbps      1        1ms    20
+R81        S1101        100Mbps      1        1ms    20
+R81        S1201        100Mbps      1        1ms    20
+R81        S1301        100Mbps      1        1ms    20
+R82        S1002        100Mbps      1        1ms    20
+R82        S1102        100Mbps      1        1ms    20
+R82        S1202        100Mbps      1        1ms    20
+R82        S1302        100Mbps      1        1ms    20
+R83        S1003        100Mbps      1        1ms    20
+R83        S1103        100Mbps      1        1ms    20
+R83        S1203        100Mbps      1        1ms    20
+R83        S1303        100Mbps      1        1ms    20
+R84        S1010        100Mbps      1        1ms    20
+R84        S1110        100Mbps      1        1ms    20
+R84        S1210        100Mbps      1        1ms    20
+R84        S1310        100Mbps      1        1ms    20
+R85        S1011        100Mbps      1        1ms    20
+R85        S1111        100Mbps      1        1ms    20
+R85        S1211        100Mbps      1        1ms    20
+R85        S1311        100Mbps      1        1ms    20
+R86        S1012        100Mbps      1        1ms    20
+R86        S1112        100Mbps      1        1ms    20
+R86        S1212        100Mbps      1        1ms    20
+R86        S1312        100Mbps      1        1ms    20
+R87        S1013        100Mbps      1        1ms    20
+R87        S1113        100Mbps      1        1ms    20
+R87        S1213        100Mbps      1        1ms    20
+R87        S1313        100Mbps      1        1ms    20
+R88        S1020        100Mbps      1        1ms    20
+R88        S1120        100Mbps      1        1ms    20
+R88        S1220        100Mbps      1        1ms    20
+R88        S1320        100Mbps      1        1ms    20
+R89        S1021        100Mbps      1        1ms    20
+R89        S1121        100Mbps      1        1ms    20
+R89        S1221        100Mbps      1        1ms    20
+R89        S1321        100Mbps      1        1ms    20
+R90        S1022        100Mbps      1        1ms    20
+R90        S1122        100Mbps      1        1ms    20
+R90        S1222        100Mbps      1        1ms    20
+R90        S1322        100Mbps      1        1ms    20
+R91        S1023        100Mbps      1        1ms    20
+R91        S1123        100Mbps      1        1ms    20
+R91        S1223        100Mbps      1        1ms    20
+R91        S1323        100Mbps      1        1ms    20
+R92        S1030        100Mbps      1        1ms    20
+R92        S1130        100Mbps      1        1ms    20
+R92        S1230        100Mbps      1        1ms    20
+R92        S1330        100Mbps      1        1ms    20
+R93        S1031        100Mbps      1        1ms    20
+R93        S1131        100Mbps      1        1ms    20
+R93        S1231        100Mbps      1        1ms    20
+R93        S1331        100Mbps      1        1ms    20
+R94        S1032        100Mbps      1        1ms    20
+R94        S1132        100Mbps      1        1ms    20
+R94        S1232        100Mbps      1        1ms    20
+R94        S1332        100Mbps      1        1ms    20
+R95        S1033        100Mbps      1        1ms    20
+R95        S1133        100Mbps      1        1ms    20
+R95        S1233        100Mbps      1        1ms    20
+R95        S1333        100Mbps      1        1ms    20
+R96        S2000        100Mbps      1        1ms    20
+R96        S2100        100Mbps      1        1ms    20
+R96        S2200        100Mbps      1        1ms    20
+R96        S2300        100Mbps      1        1ms    20
+R97        S2001        100Mbps      1        1ms    20
+R97        S2101        100Mbps      1        1ms    20
+R97        S2201        100Mbps      1        1ms    20
+R97        S2301        100Mbps      1        1ms    20
+R98        S2002        100Mbps      1        1ms    20
+R98        S2102        100Mbps      1        1ms    20
+R98        S2202        100Mbps      1        1ms    20
+R98        S2302        100Mbps      1        1ms    20
+R99        S2003        100Mbps      1        1ms    20
+R99        S2103        100Mbps      1        1ms    20
+R99        S2203        100Mbps      1        1ms    20
+R99        S2303        100Mbps      1        1ms    20
+R100        S2010        100Mbps      1        1ms    20
+R100        S2110        100Mbps      1        1ms    20
+R100        S2210        100Mbps      1        1ms    20
+R100        S2310        100Mbps      1        1ms    20
+R101        S2011        100Mbps      1        1ms    20
+R101        S2111        100Mbps      1        1ms    20
+R101        S2211        100Mbps      1        1ms    20
+R101        S2311        100Mbps      1        1ms    20
+R102        S2012        100Mbps      1        1ms    20
+R102        S2112        100Mbps      1        1ms    20
+R102        S2212        100Mbps      1        1ms    20
+R102        S2312        100Mbps      1        1ms    20
+R103        S2013        100Mbps      1        1ms    20
+R103        S2113        100Mbps      1        1ms    20
+R103        S2213        100Mbps      1        1ms    20
+R103        S2313        100Mbps      1        1ms    20
+R104        S2020        100Mbps      1        1ms    20
+R104        S2120        100Mbps      1        1ms    20
+R104        S2220        100Mbps      1        1ms    20
+R104        S2320        100Mbps      1        1ms    20
+R105        S2021        100Mbps      1        1ms    20
+R105        S2121        100Mbps      1        1ms    20
+R105        S2221        100Mbps      1        1ms    20
+R105        S2321        100Mbps      1        1ms    20
+R106        S2022        100Mbps      1        1ms    20
+R106        S2122        100Mbps      1        1ms    20
+R106        S2222        100Mbps      1        1ms    20
+R106        S2322        100Mbps      1        1ms    20
+R107        S2023        100Mbps      1        1ms    20
+R107        S2123        100Mbps      1        1ms    20
+R107        S2223        100Mbps      1        1ms    20
+R107        S2323        100Mbps      1        1ms    20
+R108        S2030        100Mbps      1        1ms    20
+R108        S2130        100Mbps      1        1ms    20
+R108        S2230        100Mbps      1        1ms    20
+R108        S2330        100Mbps      1        1ms    20
+R109        S2031        100Mbps      1        1ms    20
+R109        S2131        100Mbps      1        1ms    20
+R109        S2231        100Mbps      1        1ms    20
+R109        S2331        100Mbps      1        1ms    20
+R110        S2032        100Mbps      1        1ms    20
+R110        S2132        100Mbps      1        1ms    20
+R110        S2232        100Mbps      1        1ms    20
+R110        S2332        100Mbps      1        1ms    20
+R111        S2033        100Mbps      1        1ms    20
+R111        S2133        100Mbps      1        1ms    20
+R111        S2233        100Mbps      1        1ms    20
+R111        S2333        100Mbps      1        1ms    20
+R112        S3000        100Mbps      1        1ms    20
+R112        S3100        100Mbps      1        1ms    20
+R112        S3200        100Mbps      1        1ms    20
+R112        S3300        100Mbps      1        1ms    20
+R113        S3001        100Mbps      1        1ms    20
+R113        S3101        100Mbps      1        1ms    20
+R113        S3201        100Mbps      1        1ms    20
+R113        S3301        100Mbps      1        1ms    20
+R114        S3002        100Mbps      1        1ms    20
+R114        S3102        100Mbps      1        1ms    20
+R114        S3202        100Mbps      1        1ms    20
+R114        S3302        100Mbps      1        1ms    20
+R115        S3003        100Mbps      1        1ms    20
+R115        S3103        100Mbps      1        1ms    20
+R115        S3203        100Mbps      1        1ms    20
+R115        S3303        100Mbps      1        1ms    20
+R116        S3010        100Mbps      1        1ms    20
+R116        S3110        100Mbps      1        1ms    20
+R116        S3210        100Mbps      1        1ms    20
+R116        S3310        100Mbps      1        1ms    20
+R117        S3011        100Mbps      1        1ms    20
+R117        S3111        100Mbps      1        1ms    20
+R117        S3211        100Mbps      1        1ms    20
+R117        S3311        100Mbps      1        1ms    20
+R118        S3012        100Mbps      1        1ms    20
+R118        S3112        100Mbps      1        1ms    20
+R118        S3212        100Mbps      1        1ms    20
+R118        S3312        100Mbps      1        1ms    20
+R119        S3013        100Mbps      1        1ms    20
+R119        S3113        100Mbps      1        1ms    20
+R119        S3213        100Mbps      1        1ms    20
+R119        S3313        100Mbps      1        1ms    20
+R120        S3020        100Mbps      1        1ms    20
+R120        S3120        100Mbps      1        1ms    20
+R120        S3220        100Mbps      1        1ms    20
+R120        S3320        100Mbps      1        1ms    20
+R121        S3021        100Mbps      1        1ms    20
+R121        S3121        100Mbps      1        1ms    20
+R121        S3221        100Mbps      1        1ms    20
+R121        S3321        100Mbps      1        1ms    20
+R122        S3022        100Mbps      1        1ms    20
+R122        S3122        100Mbps      1        1ms    20
+R122        S3222        100Mbps      1        1ms    20
+R122        S3322        100Mbps      1        1ms    20
+R123        S3023        100Mbps      1        1ms    20
+R123        S3123        100Mbps      1        1ms    20
+R123        S3223        100Mbps      1        1ms    20
+R123        S3323        100Mbps      1        1ms    20
+R124        S3030        100Mbps      1        1ms    20
+R124        S3130        100Mbps      1        1ms    20
+R124        S3230        100Mbps      1        1ms    20
+R124        S3330        100Mbps      1        1ms    20
+R125        S3031        100Mbps      1        1ms    20
+R125        S3131        100Mbps      1        1ms    20
+R125        S3231        100Mbps      1        1ms    20
+R125        S3331        100Mbps      1        1ms    20
+R126        S3032        100Mbps      1        1ms    20
+R126        S3132        100Mbps      1        1ms    20
+R126        S3232        100Mbps      1        1ms    20
+R126        S3332        100Mbps      1        1ms    20
+R127        S3033        100Mbps      1        1ms    20
+R127        S3133        100Mbps      1        1ms    20
+R127        S3233        100Mbps      1        1ms    20
+R127        S3333        100Mbps      1        1ms    20
+R128        S0000        100Mbps      1        1ms    20
+R128        S0010        100Mbps      1        1ms    20
+R128        S0020        100Mbps      1        1ms    20
+R128        S0030        100Mbps      1        1ms    20
+R129        S0001        100Mbps      1        1ms    20
+R129        S0011        100Mbps      1        1ms    20
+R129        S0021        100Mbps      1        1ms    20
+R129        S0031        100Mbps      1        1ms    20
+R130        S0002        100Mbps      1        1ms    20
+R130        S0012        100Mbps      1        1ms    20
+R130        S0022        100Mbps      1        1ms    20
+R130        S0032        100Mbps      1        1ms    20
+R131        S0003        100Mbps      1        1ms    20
+R131        S0013        100Mbps      1        1ms    20
+R131        S0023        100Mbps      1        1ms    20
+R131        S0033        100Mbps      1        1ms    20
+R132        S0100        100Mbps      1        1ms    20
+R132        S0110        100Mbps      1        1ms    20
+R132        S0120        100Mbps      1        1ms    20
+R132        S0130        100Mbps      1        1ms    20
+R133        S0101        100Mbps      1        1ms    20
+R133        S0111        100Mbps      1        1ms    20
+R133        S0121        100Mbps      1        1ms    20
+R133        S0131        100Mbps      1        1ms    20
+R134        S0102        100Mbps      1        1ms    20
+R134        S0112        100Mbps      1        1ms    20
+R134        S0122        100Mbps      1        1ms    20
+R134        S0132        100Mbps      1        1ms    20
+R135        S0103        100Mbps      1        1ms    20
+R135        S0113        100Mbps      1        1ms    20
+R135        S0123        100Mbps      1        1ms    20
+R135        S0133        100Mbps      1        1ms    20
+R136        S0200        100Mbps      1        1ms    20
+R136        S0210        100Mbps      1        1ms    20
+R136        S0220        100Mbps      1        1ms    20
+R136        S0230        100Mbps      1        1ms    20
+R137        S0201        100Mbps      1        1ms    20
+R137        S0211        100Mbps      1        1ms    20
+R137        S0221        100Mbps      1        1ms    20
+R137        S0231        100Mbps      1        1ms    20
+R138        S0202        100Mbps      1        1ms    20
+R138        S0212        100Mbps      1        1ms    20
+R138        S0222        100Mbps      1        1ms    20
+R138        S0232        100Mbps      1        1ms    20
+R139        S0203        100Mbps      1        1ms    20
+R139        S0213        100Mbps      1        1ms    20
+R139        S0223        100Mbps      1        1ms    20
+R139        S0233        100Mbps      1        1ms    20
+R140        S0300        100Mbps      1        1ms    20
+R140        S0310        100Mbps      1        1ms    20
+R140        S0320        100Mbps      1        1ms    20
+R140        S0330        100Mbps      1        1ms    20
+R141        S0301        100Mbps      1        1ms    20
+R141        S0311        100Mbps      1        1ms    20
+R141        S0321        100Mbps      1        1ms    20
+R141        S0331        100Mbps      1        1ms    20
+R142        S0302        100Mbps      1        1ms    20
+R142        S0312        100Mbps      1        1ms    20
+R142        S0322        100Mbps      1        1ms    20
+R142        S0332        100Mbps      1        1ms    20
+R143        S0303        100Mbps      1        1ms    20
+R143        S0313        100Mbps      1        1ms    20
+R143        S0323        100Mbps      1        1ms    20
+R143        S0333        100Mbps      1        1ms    20
+R144        S1000        100Mbps      1        1ms    20
+R144        S1010        100Mbps      1        1ms    20
+R144        S1020        100Mbps      1        1ms    20
+R144        S1030        100Mbps      1        1ms    20
+R145        S1001        100Mbps      1        1ms    20
+R145        S1011        100Mbps      1        1ms    20
+R145        S1021        100Mbps      1        1ms    20
+R145        S1031        100Mbps      1        1ms    20
+R146        S1002        100Mbps      1        1ms    20
+R146        S1012        100Mbps      1        1ms    20
+R146        S1022        100Mbps      1        1ms    20
+R146        S1032        100Mbps      1        1ms    20
+R147        S1003        100Mbps      1        1ms    20
+R147        S1013        100Mbps      1        1ms    20
+R147        S1023        100Mbps      1        1ms    20
+R147        S1033        100Mbps      1        1ms    20
+R148        S1100        100Mbps      1        1ms    20
+R148        S1110        100Mbps      1        1ms    20
+R148        S1120        100Mbps      1        1ms    20
+R148        S1130        100Mbps      1        1ms    20
+R149        S1101        100Mbps      1        1ms    20
+R149        S1111        100Mbps      1        1ms    20
+R149        S1121        100Mbps      1        1ms    20
+R149        S1131        100Mbps      1        1ms    20
+R150        S1102        100Mbps      1        1ms    20
+R150        S1112        100Mbps      1        1ms    20
+R150        S1122        100Mbps      1        1ms    20
+R150        S1132        100Mbps      1        1ms    20
+R151        S1103        100Mbps      1        1ms    20
+R151        S1113        100Mbps      1        1ms    20
+R151        S1123        100Mbps      1        1ms    20
+R151        S1133        100Mbps      1        1ms    20
+R152        S1200        100Mbps      1        1ms    20
+R152        S1210        100Mbps      1        1ms    20
+R152        S1220        100Mbps      1        1ms    20
+R152        S1230        100Mbps      1        1ms    20
+R153        S1201        100Mbps      1        1ms    20
+R153        S1211        100Mbps      1        1ms    20
+R153        S1221        100Mbps      1        1ms    20
+R153        S1231        100Mbps      1        1ms    20
+R154        S1202        100Mbps      1        1ms    20
+R154        S1212        100Mbps      1        1ms    20
+R154        S1222        100Mbps      1        1ms    20
+R154        S1232        100Mbps      1        1ms    20
+R155        S1203        100Mbps      1        1ms    20
+R155        S1213        100Mbps      1        1ms    20
+R155        S1223        100Mbps      1        1ms    20
+R155        S1233        100Mbps      1        1ms    20
+R156        S1300        100Mbps      1        1ms    20
+R156        S1310        100Mbps      1        1ms    20
+R156        S1320        100Mbps      1        1ms    20
+R156        S1330        100Mbps      1        1ms    20
+R157        S1301        100Mbps      1        1ms    20
+R157        S1311        100Mbps      1        1ms    20
+R157        S1321        100Mbps      1        1ms    20
+R157        S1331        100Mbps      1        1ms    20
+R158        S1302        100Mbps      1        1ms    20
+R158        S1312        100Mbps      1        1ms    20
+R158        S1322        100Mbps      1        1ms    20
+R158        S1332        100Mbps      1        1ms    20
+R159        S1303        100Mbps      1        1ms    20
+R159        S1313        100Mbps      1        1ms    20
+R159        S1323        100Mbps      1        1ms    20
+R159        S1333        100Mbps      1        1ms    20
+R160        S2000        100Mbps      1        1ms    20
+R160        S2010        100Mbps      1        1ms    20
+R160        S2020        100Mbps      1        1ms    20
+R160        S2030        100Mbps      1        1ms    20
+R161        S2001        100Mbps      1        1ms    20
+R161        S2011        100Mbps      1        1ms    20
+R161        S2021        100Mbps      1        1ms    20
+R161        S2031        100Mbps      1        1ms    20
+R162        S2002        100Mbps      1        1ms    20
+R162        S2012        100Mbps      1        1ms    20
+R162        S2022        100Mbps      1        1ms    20
+R162        S2032        100Mbps      1        1ms    20
+R163        S2003        100Mbps      1        1ms    20
+R163        S2013        100Mbps      1        1ms    20
+R163        S2023        100Mbps      1        1ms    20
+R163        S2033        100Mbps      1        1ms    20
+R164        S2100        100Mbps      1        1ms    20
+R164        S2110        100Mbps      1        1ms    20
+R164        S2120        100Mbps      1        1ms    20
+R164        S2130        100Mbps      1        1ms    20
+R165        S2101        100Mbps      1        1ms    20
+R165        S2111        100Mbps      1        1ms    20
+R165        S2121        100Mbps      1        1ms    20
+R165        S2131        100Mbps      1        1ms    20
+R166        S2102        100Mbps      1        1ms    20
+R166        S2112        100Mbps      1        1ms    20
+R166        S2122        100Mbps      1        1ms    20
+R166        S2132        100Mbps      1        1ms    20
+R167        S2103        100Mbps      1        1ms    20
+R167        S2113        100Mbps      1        1ms    20
+R167        S2123        100Mbps      1        1ms    20
+R167        S2133        100Mbps      1        1ms    20
+R168        S2200        100Mbps      1        1ms    20
+R168        S2210        100Mbps      1        1ms    20
+R168        S2220        100Mbps      1        1ms    20
+R168        S2230        100Mbps      1        1ms    20
+R169        S2201        100Mbps      1        1ms    20
+R169        S2211        100Mbps      1        1ms    20
+R169        S2221        100Mbps      1        1ms    20
+R169        S2231        100Mbps      1        1ms    20
+R170        S2202        100Mbps      1        1ms    20
+R170        S2212        100Mbps      1        1ms    20
+R170        S2222        100Mbps      1        1ms    20
+R170        S2232        100Mbps      1        1ms    20
+R171        S2203        100Mbps      1        1ms    20
+R171        S2213        100Mbps      1        1ms    20
+R171        S2223        100Mbps      1        1ms    20
+R171        S2233        100Mbps      1        1ms    20
+R172        S2300        100Mbps      1        1ms    20
+R172        S2310        100Mbps      1        1ms    20
+R172        S2320        100Mbps      1        1ms    20
+R172        S2330        100Mbps      1        1ms    20
+R173        S2301        100Mbps      1        1ms    20
+R173        S2311        100Mbps      1        1ms    20
+R173        S2321        100Mbps      1        1ms    20
+R173        S2331        100Mbps      1        1ms    20
+R174        S2302        100Mbps      1        1ms    20
+R174        S2312        100Mbps      1        1ms    20
+R174        S2322        100Mbps      1        1ms    20
+R174        S2332        100Mbps      1        1ms    20
+R175        S2303        100Mbps      1        1ms    20
+R175        S2313        100Mbps      1        1ms    20
+R175        S2323        100Mbps      1        1ms    20
+R175        S2333        100Mbps      1        1ms    20
+R176        S3000        100Mbps      1        1ms    20
+R176        S3010        100Mbps      1        1ms    20
+R176        S3020        100Mbps      1        1ms    20
+R176        S3030        100Mbps      1        1ms    20
+R177        S3001        100Mbps      1        1ms    20
+R177        S3011        100Mbps      1        1ms    20
+R177        S3021        100Mbps      1        1ms    20
+R177        S3031        100Mbps      1        1ms    20
+R178        S3002        100Mbps      1        1ms    20
+R178        S3012        100Mbps      1        1ms    20
+R178        S3022        100Mbps      1        1ms    20
+R178        S3032        100Mbps      1        1ms    20
+R179        S3003        100Mbps      1        1ms    20
+R179        S3013        100Mbps      1        1ms    20
+R179        S3023        100Mbps      1        1ms    20
+R179        S3033        100Mbps      1        1ms    20
+R180        S3100        100Mbps      1        1ms    20
+R180        S3110        100Mbps      1        1ms    20
+R180        S3120        100Mbps      1        1ms    20
+R180        S3130        100Mbps      1        1ms    20
+R181        S3101        100Mbps      1        1ms    20
+R181        S3111        100Mbps      1        1ms    20
+R181        S3121        100Mbps      1        1ms    20
+R181        S3131        100Mbps      1        1ms    20
+R182        S3102        100Mbps      1        1ms    20
+R182        S3112        100Mbps      1        1ms    20
+R182        S3122        100Mbps      1        1ms    20
+R182        S3132        100Mbps      1        1ms    20
+R183        S3103        100Mbps      1        1ms    20
+R183        S3113        100Mbps      1        1ms    20
+R183        S3123        100Mbps      1        1ms    20
+R183        S3133        100Mbps      1        1ms    20
+R184        S3200        100Mbps      1        1ms    20
+R184        S3210        100Mbps      1        1ms    20
+R184        S3220        100Mbps      1        1ms    20
+R184        S3230        100Mbps      1        1ms    20
+R185        S3201        100Mbps      1        1ms    20
+R185        S3211        100Mbps      1        1ms    20
+R185        S3221        100Mbps      1        1ms    20
+R185        S3231        100Mbps      1        1ms    20
+R186        S3202        100Mbps      1        1ms    20
+R186        S3212        100Mbps      1        1ms    20
+R186        S3222        100Mbps      1        1ms    20
+R186        S3232        100Mbps      1        1ms    20
+R187        S3203        100Mbps      1        1ms    20
+R187        S3213        100Mbps      1        1ms    20
+R187        S3223        100Mbps      1        1ms    20
+R187        S3233        100Mbps      1        1ms    20
+R188        S3300        100Mbps      1        1ms    20
+R188        S3310        100Mbps      1        1ms    20
+R188        S3320        100Mbps      1        1ms    20
+R188        S3330        100Mbps      1        1ms    20
+R189        S3301        100Mbps      1        1ms    20
+R189        S3311        100Mbps      1        1ms    20
+R189        S3321        100Mbps      1        1ms    20
+R189        S3331        100Mbps      1        1ms    20
+R190        S3302        100Mbps      1        1ms    20
+R190        S3312        100Mbps      1        1ms    20
+R190        S3322        100Mbps      1        1ms    20
+R190        S3332        100Mbps      1        1ms    20
+R191        S3303        100Mbps      1        1ms    20
+R191        S3313        100Mbps      1        1ms    20
+R191        S3323        100Mbps      1        1ms    20
+R191        S3333        100Mbps      1        1ms    20
+R192        S0000        100Mbps      1        1ms    20
+R192        S0001        100Mbps      1        1ms    20
+R192        S0002        100Mbps      1        1ms    20
+R192        S0003        100Mbps      1        1ms    20
+R193        S0010        100Mbps      1        1ms    20
+R193        S0011        100Mbps      1        1ms    20
+R193        S0012        100Mbps      1        1ms    20
+R193        S0013        100Mbps      1        1ms    20
+R194        S0020        100Mbps      1        1ms    20
+R194        S0021        100Mbps      1        1ms    20
+R194        S0022        100Mbps      1        1ms    20
+R194        S0023        100Mbps      1        1ms    20
+R195        S0030        100Mbps      1        1ms    20
+R195        S0031        100Mbps      1        1ms    20
+R195        S0032        100Mbps      1        1ms    20
+R195        S0033        100Mbps      1        1ms    20
+R196        S0100        100Mbps      1        1ms    20
+R196        S0101        100Mbps      1        1ms    20
+R196        S0102        100Mbps      1        1ms    20
+R196        S0103        100Mbps      1        1ms    20
+R197        S0110        100Mbps      1        1ms    20
+R197        S0111        100Mbps      1        1ms    20
+R197        S0112        100Mbps      1        1ms    20
+R197        S0113        100Mbps      1        1ms    20
+R198        S0120        100Mbps      1        1ms    20
+R198        S0121        100Mbps      1        1ms    20
+R198        S0122        100Mbps      1        1ms    20
+R198        S0123        100Mbps      1        1ms    20
+R199        S0130        100Mbps      1        1ms    20
+R199        S0131        100Mbps      1        1ms    20
+R199        S0132        100Mbps      1        1ms    20
+R199        S0133        100Mbps      1        1ms    20
+R200        S0200        100Mbps      1        1ms    20
+R200        S0201        100Mbps      1        1ms    20
+R200        S0202        100Mbps      1        1ms    20
+R200        S0203        100Mbps      1        1ms    20
+R201        S0210        100Mbps      1        1ms    20
+R201        S0211        100Mbps      1        1ms    20
+R201        S0212        100Mbps      1        1ms    20
+R201        S0213        100Mbps      1        1ms    20
+R202        S0220        100Mbps      1        1ms    20
+R202        S0221        100Mbps      1        1ms    20
+R202        S0222        100Mbps      1        1ms    20
+R202        S0223        100Mbps      1        1ms    20
+R203        S0230        100Mbps      1        1ms    20
+R203        S0231        100Mbps      1        1ms    20
+R203        S0232        100Mbps      1        1ms    20
+R203        S0233        100Mbps      1        1ms    20
+R204        S0300        100Mbps      1        1ms    20
+R204        S0301        100Mbps      1        1ms    20
+R204        S0302        100Mbps      1        1ms    20
+R204        S0303        100Mbps      1        1ms    20
+R205        S0310        100Mbps      1        1ms    20
+R205        S0311        100Mbps      1        1ms    20
+R205        S0312        100Mbps      1        1ms    20
+R205        S0313        100Mbps      1        1ms    20
+R206        S0320        100Mbps      1        1ms    20
+R206        S0321        100Mbps      1        1ms    20
+R206        S0322        100Mbps      1        1ms    20
+R206        S0323        100Mbps      1        1ms    20
+R207        S0330        100Mbps      1        1ms    20
+R207        S0331        100Mbps      1        1ms    20
+R207        S0332        100Mbps      1        1ms    20
+R207        S0333        100Mbps      1        1ms    20
+R208        S1000        100Mbps      1        1ms    20
+R208        S1001        100Mbps      1        1ms    20
+R208        S1002        100Mbps      1        1ms    20
+R208        S1003        100Mbps      1        1ms    20
+R209        S1010        100Mbps      1        1ms    20
+R209        S1011        100Mbps      1        1ms    20
+R209        S1012        100Mbps      1        1ms    20
+R209        S1013        100Mbps      1        1ms    20
+R210        S1020        100Mbps      1        1ms    20
+R210        S1021        100Mbps      1        1ms    20
+R210        S1022        100Mbps      1        1ms    20
+R210        S1023        100Mbps      1        1ms    20
+R211        S1030        100Mbps      1        1ms    20
+R211        S1031        100Mbps      1        1ms    20
+R211        S1032        100Mbps      1        1ms    20
+R211        S1033        100Mbps      1        1ms    20
+R212        S1100        100Mbps      1        1ms    20
+R212        S1101        100Mbps      1        1ms    20
+R212        S1102        100Mbps      1        1ms    20
+R212        S1103        100Mbps      1        1ms    20
+R213        S1110        100Mbps      1        1ms    20
+R213        S1111        100Mbps      1        1ms    20
+R213        S1112        100Mbps      1        1ms    20
+R213        S1113        100Mbps      1        1ms    20
+R214        S1120        100Mbps      1        1ms    20
+R214        S1121        100Mbps      1        1ms    20
+R214        S1122        100Mbps      1        1ms    20
+R214        S1123        100Mbps      1        1ms    20
+R215        S1130        100Mbps      1        1ms    20
+R215        S1131        100Mbps      1        1ms    20
+R215        S1132        100Mbps      1        1ms    20
+R215        S1133        100Mbps      1        1ms    20
+R216        S1200        100Mbps      1        1ms    20
+R216        S1201        100Mbps      1        1ms    20
+R216        S1202        100Mbps      1        1ms    20
+R216        S1203        100Mbps      1        1ms    20
+R217        S1210        100Mbps      1        1ms    20
+R217        S1211        100Mbps      1        1ms    20
+R217        S1212        100Mbps      1        1ms    20
+R217        S1213        100Mbps      1        1ms    20
+R218        S1220        100Mbps      1        1ms    20
+R218        S1221        100Mbps      1        1ms    20
+R218        S1222        100Mbps      1        1ms    20
+R218        S1223        100Mbps      1        1ms    20
+R219        S1230        100Mbps      1        1ms    20
+R219        S1231        100Mbps      1        1ms    20
+R219        S1232        100Mbps      1        1ms    20
+R219        S1233        100Mbps      1        1ms    20
+R220        S1300        100Mbps      1        1ms    20
+R220        S1301        100Mbps      1        1ms    20
+R220        S1302        100Mbps      1        1ms    20
+R220        S1303        100Mbps      1        1ms    20
+R221        S1310        100Mbps      1        1ms    20
+R221        S1311        100Mbps      1        1ms    20
+R221        S1312        100Mbps      1        1ms    20
+R221        S1313        100Mbps      1        1ms    20
+R222        S1320        100Mbps      1        1ms    20
+R222        S1321        100Mbps      1        1ms    20
+R222        S1322        100Mbps      1        1ms    20
+R222        S1323        100Mbps      1        1ms    20
+R223        S1330        100Mbps      1        1ms    20
+R223        S1331        100Mbps      1        1ms    20
+R223        S1332        100Mbps      1        1ms    20
+R223        S1333        100Mbps      1        1ms    20
+R224        S2000        100Mbps      1        1ms    20
+R224        S2001        100Mbps      1        1ms    20
+R224        S2002        100Mbps      1        1ms    20
+R224        S2003        100Mbps      1        1ms    20
+R225        S2010        100Mbps      1        1ms    20
+R225        S2011        100Mbps      1        1ms    20
+R225        S2012        100Mbps      1        1ms    20
+R225        S2013        100Mbps      1        1ms    20
+R226        S2020        100Mbps      1        1ms    20
+R226        S2021        100Mbps      1        1ms    20
+R226        S2022        100Mbps      1        1ms    20
+R226        S2023        100Mbps      1        1ms    20
+R227        S2030        100Mbps      1        1ms    20
+R227        S2031        100Mbps      1        1ms    20
+R227        S2032        100Mbps      1        1ms    20
+R227        S2033        100Mbps      1        1ms    20
+R228        S2100        100Mbps      1        1ms    20
+R228        S2101        100Mbps      1        1ms    20
+R228        S2102        100Mbps      1        1ms    20
+R228        S2103        100Mbps      1        1ms    20
+R229        S2110        100Mbps      1        1ms    20
+R229        S2111        100Mbps      1        1ms    20
+R229        S2112        100Mbps      1        1ms    20
+R229        S2113        100Mbps      1        1ms    20
+R230        S2120        100Mbps      1        1ms    20
+R230        S2121        100Mbps      1        1ms    20
+R230        S2122        100Mbps      1        1ms    20
+R230        S2123        100Mbps      1        1ms    20
+R231        S2130        100Mbps      1        1ms    20
+R231        S2131        100Mbps      1        1ms    20
+R231        S2132        100Mbps      1        1ms    20
+R231        S2133        100Mbps      1        1ms    20
+R232        S2200        100Mbps      1        1ms    20
+R232        S2201        100Mbps      1        1ms    20
+R232        S2202        100Mbps      1        1ms    20
+R232        S2203        100Mbps      1        1ms    20
+R233        S2210        100Mbps      1        1ms    20
+R233        S2211        100Mbps      1        1ms    20
+R233        S2212        100Mbps      1        1ms    20
+R233        S2213        100Mbps      1        1ms    20
+R234        S2220        100Mbps      1        1ms    20
+R234        S2221        100Mbps      1        1ms    20
+R234        S2222        100Mbps      1        1ms    20
+R234        S2223        100Mbps      1        1ms    20
+R235        S2230        100Mbps      1        1ms    20
+R235        S2231        100Mbps      1        1ms    20
+R235        S2232        100Mbps      1        1ms    20
+R235        S2233        100Mbps      1        1ms    20
+R236        S2300        100Mbps      1        1ms    20
+R236        S2301        100Mbps      1        1ms    20
+R236        S2302        100Mbps      1        1ms    20
+R236        S2303        100Mbps      1        1ms    20
+R237        S2310        100Mbps      1        1ms    20
+R237        S2311        100Mbps      1        1ms    20
+R237        S2312        100Mbps      1        1ms    20
+R237        S2313        100Mbps      1        1ms    20
+R238        S2320        100Mbps      1        1ms    20
+R238        S2321        100Mbps      1        1ms    20
+R238        S2322        100Mbps      1        1ms    20
+R238        S2323        100Mbps      1        1ms    20
+R239        S2330        100Mbps      1        1ms    20
+R239        S2331        100Mbps      1        1ms    20
+R239        S2332        100Mbps      1        1ms    20
+R239        S2333        100Mbps      1        1ms    20
+R240        S3000        100Mbps      1        1ms    20
+R240        S3001        100Mbps      1        1ms    20
+R240        S3002        100Mbps      1        1ms    20
+R240        S3003        100Mbps      1        1ms    20
+R241        S3010        100Mbps      1        1ms    20
+R241        S3011        100Mbps      1        1ms    20
+R241        S3012        100Mbps      1        1ms    20
+R241        S3013        100Mbps      1        1ms    20
+R242        S3020        100Mbps      1        1ms    20
+R242        S3021        100Mbps      1        1ms    20
+R242        S3022        100Mbps      1        1ms    20
+R242        S3023        100Mbps      1        1ms    20
+R243        S3030        100Mbps      1        1ms    20
+R243        S3031        100Mbps      1        1ms    20
+R243        S3032        100Mbps      1        1ms    20
+R243        S3033        100Mbps      1        1ms    20
+R244        S3100        100Mbps      1        1ms    20
+R244        S3101        100Mbps      1        1ms    20
+R244        S3102        100Mbps      1        1ms    20
+R244        S3103        100Mbps      1        1ms    20
+R245        S3110        100Mbps      1        1ms    20
+R245        S3111        100Mbps      1        1ms    20
+R245        S3112        100Mbps      1        1ms    20
+R245        S3113        100Mbps      1        1ms    20
+R246        S3120        100Mbps      1        1ms    20
+R246        S3121        100Mbps      1        1ms    20
+R246        S3122        100Mbps      1        1ms    20
+R246        S3123        100Mbps      1        1ms    20
+R247        S3130        100Mbps      1        1ms    20
+R247        S3131        100Mbps      1        1ms    20
+R247        S3132        100Mbps      1        1ms    20
+R247        S3133        100Mbps      1        1ms    20
+R248        S3200        100Mbps      1        1ms    20
+R248        S3201        100Mbps      1        1ms    20
+R248        S3202        100Mbps      1        1ms    20
+R248        S3203        100Mbps      1        1ms    20
+R249        S3210        100Mbps      1        1ms    20
+R249        S3211        100Mbps      1        1ms    20
+R249        S3212        100Mbps      1        1ms    20
+R249        S3213        100Mbps      1        1ms    20
+R250        S3220        100Mbps      1        1ms    20
+R250        S3221        100Mbps      1        1ms    20
+R250        S3222        100Mbps      1        1ms    20
+R250        S3223        100Mbps      1        1ms    20
+R251        S3230        100Mbps      1        1ms    20
+R251        S3231        100Mbps      1        1ms    20
+R251        S3232        100Mbps      1        1ms    20
+R251        S3233        100Mbps      1        1ms    20
+R252        S3300        100Mbps      1        1ms    20
+R252        S3301        100Mbps      1        1ms    20
+R252        S3302        100Mbps      1        1ms    20
+R252        S3303        100Mbps      1        1ms    20
+R253        S3310        100Mbps      1        1ms    20
+R253        S3311        100Mbps      1        1ms    20
+R253        S3312        100Mbps      1        1ms    20
+R253        S3313        100Mbps      1        1ms    20
+R254        S3320        100Mbps      1        1ms    20
+R254        S3321        100Mbps      1        1ms    20
+R254        S3322        100Mbps      1        1ms    20
+R254        S3323        100Mbps      1        1ms    20
+R255        S3330        100Mbps      1        1ms    20
+R255        S3331        100Mbps      1        1ms    20
+R255        S3332        100Mbps      1        1ms    20
+R255        S3333        100Mbps      1        1ms    20
+S0000        R0        100Mbps      1        1ms    20
+S0000        R64        100Mbps      1        1ms    20
+S0000        R128        100Mbps      1        1ms    20
+S0000        R192        100Mbps      1        1ms    20
+S0001        R1        100Mbps      1        1ms    20
+S0001        R65        100Mbps      1        1ms    20
+S0001        R129        100Mbps      1        1ms    20
+S0001        R192        100Mbps      1        1ms    20
+S0002        R2        100Mbps      1        1ms    20
+S0002        R66        100Mbps      1        1ms    20
+S0002        R130        100Mbps      1        1ms    20
+S0002        R192        100Mbps      1        1ms    20
+S0003        R3        100Mbps      1        1ms    20
+S0003        R67        100Mbps      1        1ms    20
+S0003        R131        100Mbps      1        1ms    20
+S0003        R192        100Mbps      1        1ms    20
+S0010        R4        100Mbps      1        1ms    20
+S0010        R68        100Mbps      1        1ms    20
+S0010        R128        100Mbps      1        1ms    20
+S0010        R193        100Mbps      1        1ms    20
+S0011        R5        100Mbps      1        1ms    20
+S0011        R69        100Mbps      1        1ms    20
+S0011        R129        100Mbps      1        1ms    20
+S0011        R193        100Mbps      1        1ms    20
+S0012        R6        100Mbps      1        1ms    20
+S0012        R70        100Mbps      1        1ms    20
+S0012        R130        100Mbps      1        1ms    20
+S0012        R193        100Mbps      1        1ms    20
+S0013        R7        100Mbps      1        1ms    20
+S0013        R71        100Mbps      1        1ms    20
+S0013        R131        100Mbps      1        1ms    20
+S0013        R193        100Mbps      1        1ms    20
+S0020        R8        100Mbps      1        1ms    20
+S0020        R72        100Mbps      1        1ms    20
+S0020        R128        100Mbps      1        1ms    20
+S0020        R194        100Mbps      1        1ms    20
+S0021        R9        100Mbps      1        1ms    20
+S0021        R73        100Mbps      1        1ms    20
+S0021        R129        100Mbps      1        1ms    20
+S0021        R194        100Mbps      1        1ms    20
+S0022        R10        100Mbps      1        1ms    20
+S0022        R74        100Mbps      1        1ms    20
+S0022        R130        100Mbps      1        1ms    20
+S0022        R194        100Mbps      1        1ms    20
+S0023        R11        100Mbps      1        1ms    20
+S0023        R75        100Mbps      1        1ms    20
+S0023        R131        100Mbps      1        1ms    20
+S0023        R194        100Mbps      1        1ms    20
+S0030        R12        100Mbps      1        1ms    20
+S0030        R76        100Mbps      1        1ms    20
+S0030        R128        100Mbps      1        1ms    20
+S0030        R195        100Mbps      1        1ms    20
+S0031        R13        100Mbps      1        1ms    20
+S0031        R77        100Mbps      1        1ms    20
+S0031        R129        100Mbps      1        1ms    20
+S0031        R195        100Mbps      1        1ms    20
+S0032        R14        100Mbps      1        1ms    20
+S0032        R78        100Mbps      1        1ms    20
+S0032        R130        100Mbps      1        1ms    20
+S0032        R195        100Mbps      1        1ms    20
+S0033        R15        100Mbps      1        1ms    20
+S0033        R79        100Mbps      1        1ms    20
+S0033        R131        100Mbps      1        1ms    20
+S0033        R195        100Mbps      1        1ms    20
+S0100        R16        100Mbps      1        1ms    20
+S0100        R64        100Mbps      1        1ms    20
+S0100        R132        100Mbps      1        1ms    20
+S0100        R196        100Mbps      1        1ms    20
+S0101        R17        100Mbps      1        1ms    20
+S0101        R65        100Mbps      1        1ms    20
+S0101        R133        100Mbps      1        1ms    20
+S0101        R196        100Mbps      1        1ms    20
+S0102        R18        100Mbps      1        1ms    20
+S0102        R66        100Mbps      1        1ms    20
+S0102        R134        100Mbps      1        1ms    20
+S0102        R196        100Mbps      1        1ms    20
+S0103        R19        100Mbps      1        1ms    20
+S0103        R67        100Mbps      1        1ms    20
+S0103        R135        100Mbps      1        1ms    20
+S0103        R196        100Mbps      1        1ms    20
+S0110        R20        100Mbps      1        1ms    20
+S0110        R68        100Mbps      1        1ms    20
+S0110        R132        100Mbps      1        1ms    20
+S0110        R197        100Mbps      1        1ms    20
+S0111        R21        100Mbps      1        1ms    20
+S0111        R69        100Mbps      1        1ms    20
+S0111        R133        100Mbps      1        1ms    20
+S0111        R197        100Mbps      1        1ms    20
+S0112        R22        100Mbps      1        1ms    20
+S0112        R70        100Mbps      1        1ms    20
+S0112        R134        100Mbps      1        1ms    20
+S0112        R197        100Mbps      1        1ms    20
+S0113        R23        100Mbps      1        1ms    20
+S0113        R71        100Mbps      1        1ms    20
+S0113        R135        100Mbps      1        1ms    20
+S0113        R197        100Mbps      1        1ms    20
+S0120        R24        100Mbps      1        1ms    20
+S0120        R72        100Mbps      1        1ms    20
+S0120        R132        100Mbps      1        1ms    20
+S0120        R198        100Mbps      1        1ms    20
+S0121        R25        100Mbps      1        1ms    20
+S0121        R73        100Mbps      1        1ms    20
+S0121        R133        100Mbps      1        1ms    20
+S0121        R198        100Mbps      1        1ms    20
+S0122        R26        100Mbps      1        1ms    20
+S0122        R74        100Mbps      1        1ms    20
+S0122        R134        100Mbps      1        1ms    20
+S0122        R198        100Mbps      1        1ms    20
+S0123        R27        100Mbps      1        1ms    20
+S0123        R75        100Mbps      1        1ms    20
+S0123        R135        100Mbps      1        1ms    20
+S0123        R198        100Mbps      1        1ms    20
+S0130        R28        100Mbps      1        1ms    20
+S0130        R76        100Mbps      1        1ms    20
+S0130        R132        100Mbps      1        1ms    20
+S0130        R199        100Mbps      1        1ms    20
+S0131        R29        100Mbps      1        1ms    20
+S0131        R77        100Mbps      1        1ms    20
+S0131        R133        100Mbps      1        1ms    20
+S0131        R199        100Mbps      1        1ms    20
+S0132        R30        100Mbps      1        1ms    20
+S0132        R78        100Mbps      1        1ms    20
+S0132        R134        100Mbps      1        1ms    20
+S0132        R199        100Mbps      1        1ms    20
+S0133        R31        100Mbps      1        1ms    20
+S0133        R79        100Mbps      1        1ms    20
+S0133        R135        100Mbps      1        1ms    20
+S0133        R199        100Mbps      1        1ms    20
+S0200        R32        100Mbps      1        1ms    20
+S0200        R64        100Mbps      1        1ms    20
+S0200        R136        100Mbps      1        1ms    20
+S0200        R200        100Mbps      1        1ms    20
+S0201        R33        100Mbps      1        1ms    20
+S0201        R65        100Mbps      1        1ms    20
+S0201        R137        100Mbps      1        1ms    20
+S0201        R200        100Mbps      1        1ms    20
+S0202        R34        100Mbps      1        1ms    20
+S0202        R66        100Mbps      1        1ms    20
+S0202        R138        100Mbps      1        1ms    20
+S0202        R200        100Mbps      1        1ms    20
+S0203        R35        100Mbps      1        1ms    20
+S0203        R67        100Mbps      1        1ms    20
+S0203        R139        100Mbps      1        1ms    20
+S0203        R200        100Mbps      1        1ms    20
+S0210        R36        100Mbps      1        1ms    20
+S0210        R68        100Mbps      1        1ms    20
+S0210        R136        100Mbps      1        1ms    20
+S0210        R201        100Mbps      1        1ms    20
+S0211        R37        100Mbps      1        1ms    20
+S0211        R69        100Mbps      1        1ms    20
+S0211        R137        100Mbps      1        1ms    20
+S0211        R201        100Mbps      1        1ms    20
+S0212        R38        100Mbps      1        1ms    20
+S0212        R70        100Mbps      1        1ms    20
+S0212        R138        100Mbps      1        1ms    20
+S0212        R201        100Mbps      1        1ms    20
+S0213        R39        100Mbps      1        1ms    20
+S0213        R71        100Mbps      1        1ms    20
+S0213        R139        100Mbps      1        1ms    20
+S0213        R201        100Mbps      1        1ms    20
+S0220        R40        100Mbps      1        1ms    20
+S0220        R72        100Mbps      1        1ms    20
+S0220        R136        100Mbps      1        1ms    20
+S0220        R202        100Mbps      1        1ms    20
+S0221        R41        100Mbps      1        1ms    20
+S0221        R73        100Mbps      1        1ms    20
+S0221        R137        100Mbps      1        1ms    20
+S0221        R202        100Mbps      1        1ms    20
+S0222        R42        100Mbps      1        1ms    20
+S0222        R74        100Mbps      1        1ms    20
+S0222        R138        100Mbps      1        1ms    20
+S0222        R202        100Mbps      1        1ms    20
+S0223        R43        100Mbps      1        1ms    20
+S0223        R75        100Mbps      1        1ms    20
+S0223        R139        100Mbps      1        1ms    20
+S0223        R202        100Mbps      1        1ms    20
+S0230        R44        100Mbps      1        1ms    20
+S0230        R76        100Mbps      1        1ms    20
+S0230        R136        100Mbps      1        1ms    20
+S0230        R203        100Mbps      1        1ms    20
+S0231        R45        100Mbps      1        1ms    20
+S0231        R77        100Mbps      1        1ms    20
+S0231        R137        100Mbps      1        1ms    20
+S0231        R203        100Mbps      1        1ms    20
+S0232        R46        100Mbps      1        1ms    20
+S0232        R78        100Mbps      1        1ms    20
+S0232        R138        100Mbps      1        1ms    20
+S0232        R203        100Mbps      1        1ms    20
+S0233        R47        100Mbps      1        1ms    20
+S0233        R79        100Mbps      1        1ms    20
+S0233        R139        100Mbps      1        1ms    20
+S0233        R203        100Mbps      1        1ms    20
+S0300        R48        100Mbps      1        1ms    20
+S0300        R64        100Mbps      1        1ms    20
+S0300        R140        100Mbps      1        1ms    20
+S0300        R204        100Mbps      1        1ms    20
+S0301        R49        100Mbps      1        1ms    20
+S0301        R65        100Mbps      1        1ms    20
+S0301        R141        100Mbps      1        1ms    20
+S0301        R204        100Mbps      1        1ms    20
+S0302        R50        100Mbps      1        1ms    20
+S0302        R66        100Mbps      1        1ms    20
+S0302        R142        100Mbps      1        1ms    20
+S0302        R204        100Mbps      1        1ms    20
+S0303        R51        100Mbps      1        1ms    20
+S0303        R67        100Mbps      1        1ms    20
+S0303        R143        100Mbps      1        1ms    20
+S0303        R204        100Mbps      1        1ms    20
+S0310        R52        100Mbps      1        1ms    20
+S0310        R68        100Mbps      1        1ms    20
+S0310        R140        100Mbps      1        1ms    20
+S0310        R205        100Mbps      1        1ms    20
+S0311        R53        100Mbps      1        1ms    20
+S0311        R69        100Mbps      1        1ms    20
+S0311        R141        100Mbps      1        1ms    20
+S0311        R205        100Mbps      1        1ms    20
+S0312        R54        100Mbps      1        1ms    20
+S0312        R70        100Mbps      1        1ms    20
+S0312        R142        100Mbps      1        1ms    20
+S0312        R205        100Mbps      1        1ms    20
+S0313        R55        100Mbps      1        1ms    20
+S0313        R71        100Mbps      1        1ms    20
+S0313        R143        100Mbps      1        1ms    20
+S0313        R205        100Mbps      1        1ms    20
+S0320        R56        100Mbps      1        1ms    20
+S0320        R72        100Mbps      1        1ms    20
+S0320        R140        100Mbps      1        1ms    20
+S0320        R206        100Mbps      1        1ms    20
+S0321        R57        100Mbps      1        1ms    20
+S0321        R73        100Mbps      1        1ms    20
+S0321        R141        100Mbps      1        1ms    20
+S0321        R206        100Mbps      1        1ms    20
+S0322        R58        100Mbps      1        1ms    20
+S0322        R74        100Mbps      1        1ms    20
+S0322        R142        100Mbps      1        1ms    20
+S0322        R206        100Mbps      1        1ms    20
+S0323        R59        100Mbps      1        1ms    20
+S0323        R75        100Mbps      1        1ms    20
+S0323        R143        100Mbps      1        1ms    20
+S0323        R206        100Mbps      1        1ms    20
+S0330        R60        100Mbps      1        1ms    20
+S0330        R76        100Mbps      1        1ms    20
+S0330        R140        100Mbps      1        1ms    20
+S0330        R207        100Mbps      1        1ms    20
+S0331        R61        100Mbps      1        1ms    20
+S0331        R77        100Mbps      1        1ms    20
+S0331        R141        100Mbps      1        1ms    20
+S0331        R207        100Mbps      1        1ms    20
+S0332        R62        100Mbps      1        1ms    20
+S0332        R78        100Mbps      1        1ms    20
+S0332        R142        100Mbps      1        1ms    20
+S0332        R207        100Mbps      1        1ms    20
+S0333        R63        100Mbps      1        1ms    20
+S0333        R79        100Mbps      1        1ms    20
+S0333        R143        100Mbps      1        1ms    20
+S0333        R207        100Mbps      1        1ms    20
+S1000        R0        100Mbps      1        1ms    20
+S1000        R80        100Mbps      1        1ms    20
+S1000        R144        100Mbps      1        1ms    20
+S1000        R208        100Mbps      1        1ms    20
+S1001        R1        100Mbps      1        1ms    20
+S1001        R81        100Mbps      1        1ms    20
+S1001        R145        100Mbps      1        1ms    20
+S1001        R208        100Mbps      1        1ms    20
+S1002        R2        100Mbps      1        1ms    20
+S1002        R82        100Mbps      1        1ms    20
+S1002        R146        100Mbps      1        1ms    20
+S1002        R208        100Mbps      1        1ms    20
+S1003        R3        100Mbps      1        1ms    20
+S1003        R83        100Mbps      1        1ms    20
+S1003        R147        100Mbps      1        1ms    20
+S1003        R208        100Mbps      1        1ms    20
+S1010        R4        100Mbps      1        1ms    20
+S1010        R84        100Mbps      1        1ms    20
+S1010        R144        100Mbps      1        1ms    20
+S1010        R209        100Mbps      1        1ms    20
+S1011        R5        100Mbps      1        1ms    20
+S1011        R85        100Mbps      1        1ms    20
+S1011        R145        100Mbps      1        1ms    20
+S1011        R209        100Mbps      1        1ms    20
+S1012        R6        100Mbps      1        1ms    20
+S1012        R86        100Mbps      1        1ms    20
+S1012        R146        100Mbps      1        1ms    20
+S1012        R209        100Mbps      1        1ms    20
+S1013        R7        100Mbps      1        1ms    20
+S1013        R87        100Mbps      1        1ms    20
+S1013        R147        100Mbps      1        1ms    20
+S1013        R209        100Mbps      1        1ms    20
+S1020        R8        100Mbps      1        1ms    20
+S1020        R88        100Mbps      1        1ms    20
+S1020        R144        100Mbps      1        1ms    20
+S1020        R210        100Mbps      1        1ms    20
+S1021        R9        100Mbps      1        1ms    20
+S1021        R89        100Mbps      1        1ms    20
+S1021        R145        100Mbps      1        1ms    20
+S1021        R210        100Mbps      1        1ms    20
+S1022        R10        100Mbps      1        1ms    20
+S1022        R90        100Mbps      1        1ms    20
+S1022        R146        100Mbps      1        1ms    20
+S1022        R210        100Mbps      1        1ms    20
+S1023        R11        100Mbps      1        1ms    20
+S1023        R91        100Mbps      1        1ms    20
+S1023        R147        100Mbps      1        1ms    20
+S1023        R210        100Mbps      1        1ms    20
+S1030        R12        100Mbps      1        1ms    20
+S1030        R92        100Mbps      1        1ms    20
+S1030        R144        100Mbps      1        1ms    20
+S1030        R211        100Mbps      1        1ms    20
+S1031        R13        100Mbps      1        1ms    20
+S1031        R93        100Mbps      1        1ms    20
+S1031        R145        100Mbps      1        1ms    20
+S1031        R211        100Mbps      1        1ms    20
+S1032        R14        100Mbps      1        1ms    20
+S1032        R94        100Mbps      1        1ms    20
+S1032        R146        100Mbps      1        1ms    20
+S1032        R211        100Mbps      1        1ms    20
+S1033        R15        100Mbps      1        1ms    20
+S1033        R95        100Mbps      1        1ms    20
+S1033        R147        100Mbps      1        1ms    20
+S1033        R211        100Mbps      1        1ms    20
+S1100        R16        100Mbps      1        1ms    20
+S1100        R80        100Mbps      1        1ms    20
+S1100        R148        100Mbps      1        1ms    20
+S1100        R212        100Mbps      1        1ms    20
+S1101        R17        100Mbps      1        1ms    20
+S1101        R81        100Mbps      1        1ms    20
+S1101        R149        100Mbps      1        1ms    20
+S1101        R212        100Mbps      1        1ms    20
+S1102        R18        100Mbps      1        1ms    20
+S1102        R82        100Mbps      1        1ms    20
+S1102        R150        100Mbps      1        1ms    20
+S1102        R212        100Mbps      1        1ms    20
+S1103        R19        100Mbps      1        1ms    20
+S1103        R83        100Mbps      1        1ms    20
+S1103        R151        100Mbps      1        1ms    20
+S1103        R212        100Mbps      1        1ms    20
+S1110        R20        100Mbps      1        1ms    20
+S1110        R84        100Mbps      1        1ms    20
+S1110        R148        100Mbps      1        1ms    20
+S1110        R213        100Mbps      1        1ms    20
+S1111        R21        100Mbps      1        1ms    20
+S1111        R85        100Mbps      1        1ms    20
+S1111        R149        100Mbps      1        1ms    20
+S1111        R213        100Mbps      1        1ms    20
+S1112        R22        100Mbps      1        1ms    20
+S1112        R86        100Mbps      1        1ms    20
+S1112        R150        100Mbps      1        1ms    20
+S1112        R213        100Mbps      1        1ms    20
+S1113        R23        100Mbps      1        1ms    20
+S1113        R87        100Mbps      1        1ms    20
+S1113        R151        100Mbps      1        1ms    20
+S1113        R213        100Mbps      1        1ms    20
+S1120        R24        100Mbps      1        1ms    20
+S1120        R88        100Mbps      1        1ms    20
+S1120        R148        100Mbps      1        1ms    20
+S1120        R214        100Mbps      1        1ms    20
+S1121        R25        100Mbps      1        1ms    20
+S1121        R89        100Mbps      1        1ms    20
+S1121        R149        100Mbps      1        1ms    20
+S1121        R214        100Mbps      1        1ms    20
+S1122        R26        100Mbps      1        1ms    20
+S1122        R90        100Mbps      1        1ms    20
+S1122        R150        100Mbps      1        1ms    20
+S1122        R214        100Mbps      1        1ms    20
+S1123        R27        100Mbps      1        1ms    20
+S1123        R91        100Mbps      1        1ms    20
+S1123        R151        100Mbps      1        1ms    20
+S1123        R214        100Mbps      1        1ms    20
+S1130        R28        100Mbps      1        1ms    20
+S1130        R92        100Mbps      1        1ms    20
+S1130        R148        100Mbps      1        1ms    20
+S1130        R215        100Mbps      1        1ms    20
+S1131        R29        100Mbps      1        1ms    20
+S1131        R93        100Mbps      1        1ms    20
+S1131        R149        100Mbps      1        1ms    20
+S1131        R215        100Mbps      1        1ms    20
+S1132        R30        100Mbps      1        1ms    20
+S1132        R94        100Mbps      1        1ms    20
+S1132        R150        100Mbps      1        1ms    20
+S1132        R215        100Mbps      1        1ms    20
+S1133        R31        100Mbps      1        1ms    20
+S1133        R95        100Mbps      1        1ms    20
+S1133        R151        100Mbps      1        1ms    20
+S1133        R215        100Mbps      1        1ms    20
+S1200        R32        100Mbps      1        1ms    20
+S1200        R80        100Mbps      1        1ms    20
+S1200        R152        100Mbps      1        1ms    20
+S1200        R216        100Mbps      1        1ms    20
+S1201        R33        100Mbps      1        1ms    20
+S1201        R81        100Mbps      1        1ms    20
+S1201        R153        100Mbps      1        1ms    20
+S1201        R216        100Mbps      1        1ms    20
+S1202        R34        100Mbps      1        1ms    20
+S1202        R82        100Mbps      1        1ms    20
+S1202        R154        100Mbps      1        1ms    20
+S1202        R216        100Mbps      1        1ms    20
+S1203        R35        100Mbps      1        1ms    20
+S1203        R83        100Mbps      1        1ms    20
+S1203        R155        100Mbps      1        1ms    20
+S1203        R216        100Mbps      1        1ms    20
+S1210        R36        100Mbps      1        1ms    20
+S1210        R84        100Mbps      1        1ms    20
+S1210        R152        100Mbps      1        1ms    20
+S1210        R217        100Mbps      1        1ms    20
+S1211        R37        100Mbps      1        1ms    20
+S1211        R85        100Mbps      1        1ms    20
+S1211        R153        100Mbps      1        1ms    20
+S1211        R217        100Mbps      1        1ms    20
+S1212        R38        100Mbps      1        1ms    20
+S1212        R86        100Mbps      1        1ms    20
+S1212        R154        100Mbps      1        1ms    20
+S1212        R217        100Mbps      1        1ms    20
+S1213        R39        100Mbps      1        1ms    20
+S1213        R87        100Mbps      1        1ms    20
+S1213        R155        100Mbps      1        1ms    20
+S1213        R217        100Mbps      1        1ms    20
+S1220        R40        100Mbps      1        1ms    20
+S1220        R88        100Mbps      1        1ms    20
+S1220        R152        100Mbps      1        1ms    20
+S1220        R218        100Mbps      1        1ms    20
+S1221        R41        100Mbps      1        1ms    20
+S1221        R89        100Mbps      1        1ms    20
+S1221        R153        100Mbps      1        1ms    20
+S1221        R218        100Mbps      1        1ms    20
+S1222        R42        100Mbps      1        1ms    20
+S1222        R90        100Mbps      1        1ms    20
+S1222        R154        100Mbps      1        1ms    20
+S1222        R218        100Mbps      1        1ms    20
+S1223        R43        100Mbps      1        1ms    20
+S1223        R91        100Mbps      1        1ms    20
+S1223        R155        100Mbps      1        1ms    20
+S1223        R218        100Mbps      1        1ms    20
+S1230        R44        100Mbps      1        1ms    20
+S1230        R92        100Mbps      1        1ms    20
+S1230        R152        100Mbps      1        1ms    20
+S1230        R219        100Mbps      1        1ms    20
+S1231        R45        100Mbps      1        1ms    20
+S1231        R93        100Mbps      1        1ms    20
+S1231        R153        100Mbps      1        1ms    20
+S1231        R219        100Mbps      1        1ms    20
+S1232        R46        100Mbps      1        1ms    20
+S1232        R94        100Mbps      1        1ms    20
+S1232        R154        100Mbps      1        1ms    20
+S1232        R219        100Mbps      1        1ms    20
+S1233        R47        100Mbps      1        1ms    20
+S1233        R95        100Mbps      1        1ms    20
+S1233        R155        100Mbps      1        1ms    20
+S1233        R219        100Mbps      1        1ms    20
+S1300        R48        100Mbps      1        1ms    20
+S1300        R80        100Mbps      1        1ms    20
+S1300        R156        100Mbps      1        1ms    20
+S1300        R220        100Mbps      1        1ms    20
+S1301        R49        100Mbps      1        1ms    20
+S1301        R81        100Mbps      1        1ms    20
+S1301        R157        100Mbps      1        1ms    20
+S1301        R220        100Mbps      1        1ms    20
+S1302        R50        100Mbps      1        1ms    20
+S1302        R82        100Mbps      1        1ms    20
+S1302        R158        100Mbps      1        1ms    20
+S1302        R220        100Mbps      1        1ms    20
+S1303        R51        100Mbps      1        1ms    20
+S1303        R83        100Mbps      1        1ms    20
+S1303        R159        100Mbps      1        1ms    20
+S1303        R220        100Mbps      1        1ms    20
+S1310        R52        100Mbps      1        1ms    20
+S1310        R84        100Mbps      1        1ms    20
+S1310        R156        100Mbps      1        1ms    20
+S1310        R221        100Mbps      1        1ms    20
+S1311        R53        100Mbps      1        1ms    20
+S1311        R85        100Mbps      1        1ms    20
+S1311        R157        100Mbps      1        1ms    20
+S1311        R221        100Mbps      1        1ms    20
+S1312        R54        100Mbps      1        1ms    20
+S1312        R86        100Mbps      1        1ms    20
+S1312        R158        100Mbps      1        1ms    20
+S1312        R221        100Mbps      1        1ms    20
+S1313        R55        100Mbps      1        1ms    20
+S1313        R87        100Mbps      1        1ms    20
+S1313        R159        100Mbps      1        1ms    20
+S1313        R221        100Mbps      1        1ms    20
+S1320        R56        100Mbps      1        1ms    20
+S1320        R88        100Mbps      1        1ms    20
+S1320        R156        100Mbps      1        1ms    20
+S1320        R222        100Mbps      1        1ms    20
+S1321        R57        100Mbps      1        1ms    20
+S1321        R89        100Mbps      1        1ms    20
+S1321        R157        100Mbps      1        1ms    20
+S1321        R222        100Mbps      1        1ms    20
+S1322        R58        100Mbps      1        1ms    20
+S1322        R90        100Mbps      1        1ms    20
+S1322        R158        100Mbps      1        1ms    20
+S1322        R222        100Mbps      1        1ms    20
+S1323        R59        100Mbps      1        1ms    20
+S1323        R91        100Mbps      1        1ms    20
+S1323        R159        100Mbps      1        1ms    20
+S1323        R222        100Mbps      1        1ms    20
+S1330        R60        100Mbps      1        1ms    20
+S1330        R92        100Mbps      1        1ms    20
+S1330        R156        100Mbps      1        1ms    20
+S1330        R223        100Mbps      1        1ms    20
+S1331        R61        100Mbps      1        1ms    20
+S1331        R93        100Mbps      1        1ms    20
+S1331        R157        100Mbps      1        1ms    20
+S1331        R223        100Mbps      1        1ms    20
+S1332        R62        100Mbps      1        1ms    20
+S1332        R94        100Mbps      1        1ms    20
+S1332        R158        100Mbps      1        1ms    20
+S1332        R223        100Mbps      1        1ms    20
+S1333        R63        100Mbps      1        1ms    20
+S1333        R95        100Mbps      1        1ms    20
+S1333        R159        100Mbps      1        1ms    20
+S1333        R223        100Mbps      1        1ms    20
+S2000        R0        100Mbps      1        1ms    20
+S2000        R96        100Mbps      1        1ms    20
+S2000        R160        100Mbps      1        1ms    20
+S2000        R224        100Mbps      1        1ms    20
+S2001        R1        100Mbps      1        1ms    20
+S2001        R97        100Mbps      1        1ms    20
+S2001        R161        100Mbps      1        1ms    20
+S2001        R224        100Mbps      1        1ms    20
+S2002        R2        100Mbps      1        1ms    20
+S2002        R98        100Mbps      1        1ms    20
+S2002        R162        100Mbps      1        1ms    20
+S2002        R224        100Mbps      1        1ms    20
+S2003        R3        100Mbps      1        1ms    20
+S2003        R99        100Mbps      1        1ms    20
+S2003        R163        100Mbps      1        1ms    20
+S2003        R224        100Mbps      1        1ms    20
+S2010        R4        100Mbps      1        1ms    20
+S2010        R100        100Mbps      1        1ms    20
+S2010        R160        100Mbps      1        1ms    20
+S2010        R225        100Mbps      1        1ms    20
+S2011        R5        100Mbps      1        1ms    20
+S2011        R101        100Mbps      1        1ms    20
+S2011        R161        100Mbps      1        1ms    20
+S2011        R225        100Mbps      1        1ms    20
+S2012        R6        100Mbps      1        1ms    20
+S2012        R102        100Mbps      1        1ms    20
+S2012        R162        100Mbps      1        1ms    20
+S2012        R225        100Mbps      1        1ms    20
+S2013        R7        100Mbps      1        1ms    20
+S2013        R103        100Mbps      1        1ms    20
+S2013        R163        100Mbps      1        1ms    20
+S2013        R225        100Mbps      1        1ms    20
+S2020        R8        100Mbps      1        1ms    20
+S2020        R104        100Mbps      1        1ms    20
+S2020        R160        100Mbps      1        1ms    20
+S2020        R226        100Mbps      1        1ms    20
+S2021        R9        100Mbps      1        1ms    20
+S2021        R105        100Mbps      1        1ms    20
+S2021        R161        100Mbps      1        1ms    20
+S2021        R226        100Mbps      1        1ms    20
+S2022        R10        100Mbps      1        1ms    20
+S2022        R106        100Mbps      1        1ms    20
+S2022        R162        100Mbps      1        1ms    20
+S2022        R226        100Mbps      1        1ms    20
+S2023        R11        100Mbps      1        1ms    20
+S2023        R107        100Mbps      1        1ms    20
+S2023        R163        100Mbps      1        1ms    20
+S2023        R226        100Mbps      1        1ms    20
+S2030        R12        100Mbps      1        1ms    20
+S2030        R108        100Mbps      1        1ms    20
+S2030        R160        100Mbps      1        1ms    20
+S2030        R227        100Mbps      1        1ms    20
+S2031        R13        100Mbps      1        1ms    20
+S2031        R109        100Mbps      1        1ms    20
+S2031        R161        100Mbps      1        1ms    20
+S2031        R227        100Mbps      1        1ms    20
+S2032        R14        100Mbps      1        1ms    20
+S2032        R110        100Mbps      1        1ms    20
+S2032        R162        100Mbps      1        1ms    20
+S2032        R227        100Mbps      1        1ms    20
+S2033        R15        100Mbps      1        1ms    20
+S2033        R111        100Mbps      1        1ms    20
+S2033        R163        100Mbps      1        1ms    20
+S2033        R227        100Mbps      1        1ms    20
+S2100        R16        100Mbps      1        1ms    20
+S2100        R96        100Mbps      1        1ms    20
+S2100        R164        100Mbps      1        1ms    20
+S2100        R228        100Mbps      1        1ms    20
+S2101        R17        100Mbps      1        1ms    20
+S2101        R97        100Mbps      1        1ms    20
+S2101        R165        100Mbps      1        1ms    20
+S2101        R228        100Mbps      1        1ms    20
+S2102        R18        100Mbps      1        1ms    20
+S2102        R98        100Mbps      1        1ms    20
+S2102        R166        100Mbps      1        1ms    20
+S2102        R228        100Mbps      1        1ms    20
+S2103        R19        100Mbps      1        1ms    20
+S2103        R99        100Mbps      1        1ms    20
+S2103        R167        100Mbps      1        1ms    20
+S2103        R228        100Mbps      1        1ms    20
+S2110        R20        100Mbps      1        1ms    20
+S2110        R100        100Mbps      1        1ms    20
+S2110        R164        100Mbps      1        1ms    20
+S2110        R229        100Mbps      1        1ms    20
+S2111        R21        100Mbps      1        1ms    20
+S2111        R101        100Mbps      1        1ms    20
+S2111        R165        100Mbps      1        1ms    20
+S2111        R229        100Mbps      1        1ms    20
+S2112        R22        100Mbps      1        1ms    20
+S2112        R102        100Mbps      1        1ms    20
+S2112        R166        100Mbps      1        1ms    20
+S2112        R229        100Mbps      1        1ms    20
+S2113        R23        100Mbps      1        1ms    20
+S2113        R103        100Mbps      1        1ms    20
+S2113        R167        100Mbps      1        1ms    20
+S2113        R229        100Mbps      1        1ms    20
+S2120        R24        100Mbps      1        1ms    20
+S2120        R104        100Mbps      1        1ms    20
+S2120        R164        100Mbps      1        1ms    20
+S2120        R230        100Mbps      1        1ms    20
+S2121        R25        100Mbps      1        1ms    20
+S2121        R105        100Mbps      1        1ms    20
+S2121        R165        100Mbps      1        1ms    20
+S2121        R230        100Mbps      1        1ms    20
+S2122        R26        100Mbps      1        1ms    20
+S2122        R106        100Mbps      1        1ms    20
+S2122        R166        100Mbps      1        1ms    20
+S2122        R230        100Mbps      1        1ms    20
+S2123        R27        100Mbps      1        1ms    20
+S2123        R107        100Mbps      1        1ms    20
+S2123        R167        100Mbps      1        1ms    20
+S2123        R230        100Mbps      1        1ms    20
+S2130        R28        100Mbps      1        1ms    20
+S2130        R108        100Mbps      1        1ms    20
+S2130        R164        100Mbps      1        1ms    20
+S2130        R231        100Mbps      1        1ms    20
+S2131        R29        100Mbps      1        1ms    20
+S2131        R109        100Mbps      1        1ms    20
+S2131        R165        100Mbps      1        1ms    20
+S2131        R231        100Mbps      1        1ms    20
+S2132        R30        100Mbps      1        1ms    20
+S2132        R110        100Mbps      1        1ms    20
+S2132        R166        100Mbps      1        1ms    20
+S2132        R231        100Mbps      1        1ms    20
+S2133        R31        100Mbps      1        1ms    20
+S2133        R111        100Mbps      1        1ms    20
+S2133        R167        100Mbps      1        1ms    20
+S2133        R231        100Mbps      1        1ms    20
+S2200        R32        100Mbps      1        1ms    20
+S2200        R96        100Mbps      1        1ms    20
+S2200        R168        100Mbps      1        1ms    20
+S2200        R232        100Mbps      1        1ms    20
+S2201        R33        100Mbps      1        1ms    20
+S2201        R97        100Mbps      1        1ms    20
+S2201        R169        100Mbps      1        1ms    20
+S2201        R232        100Mbps      1        1ms    20
+S2202        R34        100Mbps      1        1ms    20
+S2202        R98        100Mbps      1        1ms    20
+S2202        R170        100Mbps      1        1ms    20
+S2202        R232        100Mbps      1        1ms    20
+S2203        R35        100Mbps      1        1ms    20
+S2203        R99        100Mbps      1        1ms    20
+S2203        R171        100Mbps      1        1ms    20
+S2203        R232        100Mbps      1        1ms    20
+S2210        R36        100Mbps      1        1ms    20
+S2210        R100        100Mbps      1        1ms    20
+S2210        R168        100Mbps      1        1ms    20
+S2210        R233        100Mbps      1        1ms    20
+S2211        R37        100Mbps      1        1ms    20
+S2211        R101        100Mbps      1        1ms    20
+S2211        R169        100Mbps      1        1ms    20
+S2211        R233        100Mbps      1        1ms    20
+S2212        R38        100Mbps      1        1ms    20
+S2212        R102        100Mbps      1        1ms    20
+S2212        R170        100Mbps      1        1ms    20
+S2212        R233        100Mbps      1        1ms    20
+S2213        R39        100Mbps      1        1ms    20
+S2213        R103        100Mbps      1        1ms    20
+S2213        R171        100Mbps      1        1ms    20
+S2213        R233        100Mbps      1        1ms    20
+S2220        R40        100Mbps      1        1ms    20
+S2220        R104        100Mbps      1        1ms    20
+S2220        R168        100Mbps      1        1ms    20
+S2220        R234        100Mbps      1        1ms    20
+S2221        R41        100Mbps      1        1ms    20
+S2221        R105        100Mbps      1        1ms    20
+S2221        R169        100Mbps      1        1ms    20
+S2221        R234        100Mbps      1        1ms    20
+S2222        R42        100Mbps      1        1ms    20
+S2222        R106        100Mbps      1        1ms    20
+S2222        R170        100Mbps      1        1ms    20
+S2222        R234        100Mbps      1        1ms    20
+S2223        R43        100Mbps      1        1ms    20
+S2223        R107        100Mbps      1        1ms    20
+S2223        R171        100Mbps      1        1ms    20
+S2223        R234        100Mbps      1        1ms    20
+S2230        R44        100Mbps      1        1ms    20
+S2230        R108        100Mbps      1        1ms    20
+S2230        R168        100Mbps      1        1ms    20
+S2230        R235        100Mbps      1        1ms    20
+S2231        R45        100Mbps      1        1ms    20
+S2231        R109        100Mbps      1        1ms    20
+S2231        R169        100Mbps      1        1ms    20
+S2231        R235        100Mbps      1        1ms    20
+S2232        R46        100Mbps      1        1ms    20
+S2232        R110        100Mbps      1        1ms    20
+S2232        R170        100Mbps      1        1ms    20
+S2232        R235        100Mbps      1        1ms    20
+S2233        R47        100Mbps      1        1ms    20
+S2233        R111        100Mbps      1        1ms    20
+S2233        R171        100Mbps      1        1ms    20
+S2233        R235        100Mbps      1        1ms    20
+S2300        R48        100Mbps      1        1ms    20
+S2300        R96        100Mbps      1        1ms    20
+S2300        R172        100Mbps      1        1ms    20
+S2300        R236        100Mbps      1        1ms    20
+S2301        R49        100Mbps      1        1ms    20
+S2301        R97        100Mbps      1        1ms    20
+S2301        R173        100Mbps      1        1ms    20
+S2301        R236        100Mbps      1        1ms    20
+S2302        R50        100Mbps      1        1ms    20
+S2302        R98        100Mbps      1        1ms    20
+S2302        R174        100Mbps      1        1ms    20
+S2302        R236        100Mbps      1        1ms    20
+S2303        R51        100Mbps      1        1ms    20
+S2303        R99        100Mbps      1        1ms    20
+S2303        R175        100Mbps      1        1ms    20
+S2303        R236        100Mbps      1        1ms    20
+S2310        R52        100Mbps      1        1ms    20
+S2310        R100        100Mbps      1        1ms    20
+S2310        R172        100Mbps      1        1ms    20
+S2310        R237        100Mbps      1        1ms    20
+S2311        R53        100Mbps      1        1ms    20
+S2311        R101        100Mbps      1        1ms    20
+S2311        R173        100Mbps      1        1ms    20
+S2311        R237        100Mbps      1        1ms    20
+S2312        R54        100Mbps      1        1ms    20
+S2312        R102        100Mbps      1        1ms    20
+S2312        R174        100Mbps      1        1ms    20
+S2312        R237        100Mbps      1        1ms    20
+S2313        R55        100Mbps      1        1ms    20
+S2313        R103        100Mbps      1        1ms    20
+S2313        R175        100Mbps      1        1ms    20
+S2313        R237        100Mbps      1        1ms    20
+S2320        R56        100Mbps      1        1ms    20
+S2320        R104        100Mbps      1        1ms    20
+S2320        R172        100Mbps      1        1ms    20
+S2320        R238        100Mbps      1        1ms    20
+S2321        R57        100Mbps      1        1ms    20
+S2321        R105        100Mbps      1        1ms    20
+S2321        R173        100Mbps      1        1ms    20
+S2321        R238        100Mbps      1        1ms    20
+S2322        R58        100Mbps      1        1ms    20
+S2322        R106        100Mbps      1        1ms    20
+S2322        R174        100Mbps      1        1ms    20
+S2322        R238        100Mbps      1        1ms    20
+S2323        R59        100Mbps      1        1ms    20
+S2323        R107        100Mbps      1        1ms    20
+S2323        R175        100Mbps      1        1ms    20
+S2323        R238        100Mbps      1        1ms    20
+S2330        R60        100Mbps      1        1ms    20
+S2330        R108        100Mbps      1        1ms    20
+S2330        R172        100Mbps      1        1ms    20
+S2330        R239        100Mbps      1        1ms    20
+S2331        R61        100Mbps      1        1ms    20
+S2331        R109        100Mbps      1        1ms    20
+S2331        R173        100Mbps      1        1ms    20
+S2331        R239        100Mbps      1        1ms    20
+S2332        R62        100Mbps      1        1ms    20
+S2332        R110        100Mbps      1        1ms    20
+S2332        R174        100Mbps      1        1ms    20
+S2332        R239        100Mbps      1        1ms    20
+S2333        R63        100Mbps      1        1ms    20
+S2333        R111        100Mbps      1        1ms    20
+S2333        R175        100Mbps      1        1ms    20
+S2333        R239        100Mbps      1        1ms    20
+S3000        R0        100Mbps      1        1ms    20
+S3000        R112        100Mbps      1        1ms    20
+S3000        R176        100Mbps      1        1ms    20
+S3000        R240        100Mbps      1        1ms    20
+S3001        R1        100Mbps      1        1ms    20
+S3001        R113        100Mbps      1        1ms    20
+S3001        R177        100Mbps      1        1ms    20
+S3001        R240        100Mbps      1        1ms    20
+S3002        R2        100Mbps      1        1ms    20
+S3002        R114        100Mbps      1        1ms    20
+S3002        R178        100Mbps      1        1ms    20
+S3002        R240        100Mbps      1        1ms    20
+S3003        R3        100Mbps      1        1ms    20
+S3003        R115        100Mbps      1        1ms    20
+S3003        R179        100Mbps      1        1ms    20
+S3003        R240        100Mbps      1        1ms    20
+S3010        R4        100Mbps      1        1ms    20
+S3010        R116        100Mbps      1        1ms    20
+S3010        R176        100Mbps      1        1ms    20
+S3010        R241        100Mbps      1        1ms    20
+S3011        R5        100Mbps      1        1ms    20
+S3011        R117        100Mbps      1        1ms    20
+S3011        R177        100Mbps      1        1ms    20
+S3011        R241        100Mbps      1        1ms    20
+S3012        R6        100Mbps      1        1ms    20
+S3012        R118        100Mbps      1        1ms    20
+S3012        R178        100Mbps      1        1ms    20
+S3012        R241        100Mbps      1        1ms    20
+S3013        R7        100Mbps      1        1ms    20
+S3013        R119        100Mbps      1        1ms    20
+S3013        R179        100Mbps      1        1ms    20
+S3013        R241        100Mbps      1        1ms    20
+S3020        R8        100Mbps      1        1ms    20
+S3020        R120        100Mbps      1        1ms    20
+S3020        R176        100Mbps      1        1ms    20
+S3020        R242        100Mbps      1        1ms    20
+S3021        R9        100Mbps      1        1ms    20
+S3021        R121        100Mbps      1        1ms    20
+S3021        R177        100Mbps      1        1ms    20
+S3021        R242        100Mbps      1        1ms    20
+S3022        R10        100Mbps      1        1ms    20
+S3022        R122        100Mbps      1        1ms    20
+S3022        R178        100Mbps      1        1ms    20
+S3022        R242        100Mbps      1        1ms    20
+S3023        R11        100Mbps      1        1ms    20
+S3023        R123        100Mbps      1        1ms    20
+S3023        R179        100Mbps      1        1ms    20
+S3023        R242        100Mbps      1        1ms    20
+S3030        R12        100Mbps      1        1ms    20
+S3030        R124        100Mbps      1        1ms    20
+S3030        R176        100Mbps      1        1ms    20
+S3030        R243        100Mbps      1        1ms    20
+S3031        R13        100Mbps      1        1ms    20
+S3031        R125        100Mbps      1        1ms    20
+S3031        R177        100Mbps      1        1ms    20
+S3031        R243        100Mbps      1        1ms    20
+S3032        R14        100Mbps      1        1ms    20
+S3032        R126        100Mbps      1        1ms    20
+S3032        R178        100Mbps      1        1ms    20
+S3032        R243        100Mbps      1        1ms    20
+S3033        R15        100Mbps      1        1ms    20
+S3033        R127        100Mbps      1        1ms    20
+S3033        R179        100Mbps      1        1ms    20
+S3033        R243        100Mbps      1        1ms    20
+S3100        R16        100Mbps      1        1ms    20
+S3100        R112        100Mbps      1        1ms    20
+S3100        R180        100Mbps      1        1ms    20
+S3100        R244        100Mbps      1        1ms    20
+S3101        R17        100Mbps      1        1ms    20
+S3101        R113        100Mbps      1        1ms    20
+S3101        R181        100Mbps      1        1ms    20
+S3101        R244        100Mbps      1        1ms    20
+S3102        R18        100Mbps      1        1ms    20
+S3102        R114        100Mbps      1        1ms    20
+S3102        R182        100Mbps      1        1ms    20
+S3102        R244        100Mbps      1        1ms    20
+S3103        R19        100Mbps      1        1ms    20
+S3103        R115        100Mbps      1        1ms    20
+S3103        R183        100Mbps      1        1ms    20
+S3103        R244        100Mbps      1        1ms    20
+S3110        R20        100Mbps      1        1ms    20
+S3110        R116        100Mbps      1        1ms    20
+S3110        R180        100Mbps      1        1ms    20
+S3110        R245        100Mbps      1        1ms    20
+S3111        R21        100Mbps      1        1ms    20
+S3111        R117        100Mbps      1        1ms    20
+S3111        R181        100Mbps      1        1ms    20
+S3111        R245        100Mbps      1        1ms    20
+S3112        R22        100Mbps      1        1ms    20
+S3112        R118        100Mbps      1        1ms    20
+S3112        R182        100Mbps      1        1ms    20
+S3112        R245        100Mbps      1        1ms    20
+S3113        R23        100Mbps      1        1ms    20
+S3113        R119        100Mbps      1        1ms    20
+S3113        R183        100Mbps      1        1ms    20
+S3113        R245        100Mbps      1        1ms    20
+S3120        R24        100Mbps      1        1ms    20
+S3120        R120        100Mbps      1        1ms    20
+S3120        R180        100Mbps      1        1ms    20
+S3120        R246        100Mbps      1        1ms    20
+S3121        R25        100Mbps      1        1ms    20
+S3121        R121        100Mbps      1        1ms    20
+S3121        R181        100Mbps      1        1ms    20
+S3121        R246        100Mbps      1        1ms    20
+S3122        R26        100Mbps      1        1ms    20
+S3122        R122        100Mbps      1        1ms    20
+S3122        R182        100Mbps      1        1ms    20
+S3122        R246        100Mbps      1        1ms    20
+S3123        R27        100Mbps      1        1ms    20
+S3123        R123        100Mbps      1        1ms    20
+S3123        R183        100Mbps      1        1ms    20
+S3123        R246        100Mbps      1        1ms    20
+S3130        R28        100Mbps      1        1ms    20
+S3130        R124        100Mbps      1        1ms    20
+S3130        R180        100Mbps      1        1ms    20
+S3130        R247        100Mbps      1        1ms    20
+S3131        R29        100Mbps      1        1ms    20
+S3131        R125        100Mbps      1        1ms    20
+S3131        R181        100Mbps      1        1ms    20
+S3131        R247        100Mbps      1        1ms    20
+S3132        R30        100Mbps      1        1ms    20
+S3132        R126        100Mbps      1        1ms    20
+S3132        R182        100Mbps      1        1ms    20
+S3132        R247        100Mbps      1        1ms    20
+S3133        R31        100Mbps      1        1ms    20
+S3133        R127        100Mbps      1        1ms    20
+S3133        R183        100Mbps      1        1ms    20
+S3133        R247        100Mbps      1        1ms    20
+S3200        R32        100Mbps      1        1ms    20
+S3200        R112        100Mbps      1        1ms    20
+S3200        R184        100Mbps      1        1ms    20
+S3200        R248        100Mbps      1        1ms    20
+S3201        R33        100Mbps      1        1ms    20
+S3201        R113        100Mbps      1        1ms    20
+S3201        R185        100Mbps      1        1ms    20
+S3201        R248        100Mbps      1        1ms    20
+S3202        R34        100Mbps      1        1ms    20
+S3202        R114        100Mbps      1        1ms    20
+S3202        R186        100Mbps      1        1ms    20
+S3202        R248        100Mbps      1        1ms    20
+S3203        R35        100Mbps      1        1ms    20
+S3203        R115        100Mbps      1        1ms    20
+S3203        R187        100Mbps      1        1ms    20
+S3203        R248        100Mbps      1        1ms    20
+S3210        R36        100Mbps      1        1ms    20
+S3210        R116        100Mbps      1        1ms    20
+S3210        R184        100Mbps      1        1ms    20
+S3210        R249        100Mbps      1        1ms    20
+S3211        R37        100Mbps      1        1ms    20
+S3211        R117        100Mbps      1        1ms    20
+S3211        R185        100Mbps      1        1ms    20
+S3211        R249        100Mbps      1        1ms    20
+S3212        R38        100Mbps      1        1ms    20
+S3212        R118        100Mbps      1        1ms    20
+S3212        R186        100Mbps      1        1ms    20
+S3212        R249        100Mbps      1        1ms    20
+S3213        R39        100Mbps      1        1ms    20
+S3213        R119        100Mbps      1        1ms    20
+S3213        R187        100Mbps      1        1ms    20
+S3213        R249        100Mbps      1        1ms    20
+S3220        R40        100Mbps      1        1ms    20
+S3220        R120        100Mbps      1        1ms    20
+S3220        R184        100Mbps      1        1ms    20
+S3220        R250        100Mbps      1        1ms    20
+S3221        R41        100Mbps      1        1ms    20
+S3221        R121        100Mbps      1        1ms    20
+S3221        R185        100Mbps      1        1ms    20
+S3221        R250        100Mbps      1        1ms    20
+S3222        R42        100Mbps      1        1ms    20
+S3222        R122        100Mbps      1        1ms    20
+S3222        R186        100Mbps      1        1ms    20
+S3222        R250        100Mbps      1        1ms    20
+S3223        R43        100Mbps      1        1ms    20
+S3223        R123        100Mbps      1        1ms    20
+S3223        R187        100Mbps      1        1ms    20
+S3223        R250        100Mbps      1        1ms    20
+S3230        R44        100Mbps      1        1ms    20
+S3230        R124        100Mbps      1        1ms    20
+S3230        R184        100Mbps      1        1ms    20
+S3230        R251        100Mbps      1        1ms    20
+S3231        R45        100Mbps      1        1ms    20
+S3231        R125        100Mbps      1        1ms    20
+S3231        R185        100Mbps      1        1ms    20
+S3231        R251        100Mbps      1        1ms    20
+S3232        R46        100Mbps      1        1ms    20
+S3232        R126        100Mbps      1        1ms    20
+S3232        R186        100Mbps      1        1ms    20
+S3232        R251        100Mbps      1        1ms    20
+S3233        R47        100Mbps      1        1ms    20
+S3233        R127        100Mbps      1        1ms    20
+S3233        R187        100Mbps      1        1ms    20
+S3233        R251        100Mbps      1        1ms    20
+S3300        R48        100Mbps      1        1ms    20
+S3300        R112        100Mbps      1        1ms    20
+S3300        R188        100Mbps      1        1ms    20
+S3300        R252        100Mbps      1        1ms    20
+S3301        R49        100Mbps      1        1ms    20
+S3301        R113        100Mbps      1        1ms    20
+S3301        R189        100Mbps      1        1ms    20
+S3301        R252        100Mbps      1        1ms    20
+S3302        R50        100Mbps      1        1ms    20
+S3302        R114        100Mbps      1        1ms    20
+S3302        R190        100Mbps      1        1ms    20
+S3302        R252        100Mbps      1        1ms    20
+S3303        R51        100Mbps      1        1ms    20
+S3303        R115        100Mbps      1        1ms    20
+S3303        R191        100Mbps      1        1ms    20
+S3303        R252        100Mbps      1        1ms    20
+S3310        R52        100Mbps      1        1ms    20
+S3310        R116        100Mbps      1        1ms    20
+S3310        R188        100Mbps      1        1ms    20
+S3310        R253        100Mbps      1        1ms    20
+S3311        R53        100Mbps      1        1ms    20
+S3311        R117        100Mbps      1        1ms    20
+S3311        R189        100Mbps      1        1ms    20
+S3311        R253        100Mbps      1        1ms    20
+S3312        R54        100Mbps      1        1ms    20
+S3312        R118        100Mbps      1        1ms    20
+S3312        R190        100Mbps      1        1ms    20
+S3312        R253        100Mbps      1        1ms    20
+S3313        R55        100Mbps      1        1ms    20
+S3313        R119        100Mbps      1        1ms    20
+S3313        R191        100Mbps      1        1ms    20
+S3313        R253        100Mbps      1        1ms    20
+S3320        R56        100Mbps      1        1ms    20
+S3320        R120        100Mbps      1        1ms    20
+S3320        R188        100Mbps      1        1ms    20
+S3320        R254        100Mbps      1        1ms    20
+S3321        R57        100Mbps      1        1ms    20
+S3321        R121        100Mbps      1        1ms    20
+S3321        R189        100Mbps      1        1ms    20
+S3321        R254        100Mbps      1        1ms    20
+S3322        R58        100Mbps      1        1ms    20
+S3322        R122        100Mbps      1        1ms    20
+S3322        R190        100Mbps      1        1ms    20
+S3322        R254        100Mbps      1        1ms    20
+S3323        R59        100Mbps      1        1ms    20
+S3323        R123        100Mbps      1        1ms    20
+S3323        R191        100Mbps      1        1ms    20
+S3323        R254        100Mbps      1        1ms    20
+S3330        R60        100Mbps      1        1ms    20
+S3330        R124        100Mbps      1        1ms    20
+S3330        R188        100Mbps      1        1ms    20
+S3330        R255        100Mbps      1        1ms    20
+S3331        R61        100Mbps      1        1ms    20
+S3331        R125        100Mbps      1        1ms    20
+S3331        R189        100Mbps      1        1ms    20
+S3331        R255        100Mbps      1        1ms    20
+S3332        R62        100Mbps      1        1ms    20
+S3332        R126        100Mbps      1        1ms    20
+S3332        R190        100Mbps      1        1ms    20
+S3332        R255        100Mbps      1        1ms    20
+S3333        R63        100Mbps      1        1ms    20
+S3333        R127        100Mbps      1        1ms    20
+S3333        R191        100Mbps      1        1ms    20
+S3333        R255        100Mbps      1        1ms    20

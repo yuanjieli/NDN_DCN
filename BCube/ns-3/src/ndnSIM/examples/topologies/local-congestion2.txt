@@ -1,0 +1,20 @@
+#BCube: toy example
+
+router
+
+# node  comment     yPos    xPos
+C1      NA          0       0
+C2      NA          1       1
+R       NA          0       1
+P       NA          0       3
+
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+   C1        R          1Mbps      1        1ms     20
+   R         C1         1Mbps      1        1ms     20
+   C2        R          1Mbps      1        1ms     20 
+   R         C2         1Mbps      1        1ms     20
+   R         P          1Mbps      1        1ms     20
+   P         R          1Mbps      1        1ms     20
