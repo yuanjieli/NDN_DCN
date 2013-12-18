@@ -49,7 +49,7 @@ class L3Protocol;
  * 
  */
  
-typedef pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace> > PairFace;
+typedef std::pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace> > PairFace;
 class BCubeStackHelper
 {
 public:
