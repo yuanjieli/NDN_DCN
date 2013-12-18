@@ -69,8 +69,7 @@ SwitchStackHelper::SwitchStackHelper ()
 {
   
 	m_L2Factory. SetTypeId ("ns3::ndn::L2Protocol");
-  m_netDeviceCallbacks.push_back (std::make_pair (PointToPointNetDevice::GetTypeId (), MakeCallback (&SwitchStackHelper::PointToPointNetDeviceCallback, this)));
-  // default callback will be fired if non of others callbacks fit or did the job
+  
 }
 
 SwitchStackHelper::~SwitchStackHelper ()
