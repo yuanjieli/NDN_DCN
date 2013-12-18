@@ -61,7 +61,7 @@ public:
    */
   virtual ~SwitchStackHelper ();
 
- // typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
+  typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
 
   /**
    * \brief Install Ndn stack on the node
@@ -188,12 +188,13 @@ private:
   SwitchStackHelper &operator = (const SwitchStackHelper &o);
 
 private:
-  /*ObjectFactory m_ndnFactory;
+  ObjectFactory m_ndnFactory;
   ObjectFactory m_strategyFactory;
   ObjectFactory m_contentStoreFactory;
   ObjectFactory m_pitFactory;
   ObjectFactory m_fibFactory;
-  ObjectFactory m_fib2Factory;*/
+  ObjectFactory m_fib2Factory;
+  
   ObjectFactory m_L2Factory;	//L2Protocol module
 
   bool     m_limitsEnabled;
