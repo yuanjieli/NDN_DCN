@@ -145,7 +145,7 @@ private:
 private:
   uint32_t m_faceCounter; ///< \brief counter of faces. Increased every time a new face is added to the stack
   FaceList m_uploadfaces; ///< \brief list of upload faces that belongs to switch
-	FaceList m_downloadfaces ///< \brief list of download faces that belongs to switch 
+	FaceList m_downloadfaces; ///< \brief list of download faces that belongs to switch 
   
   // These objects are aggregated, but for optimization, get them here
   Ptr<Node> m_node; ///< \brief node on which ndn stack is installed

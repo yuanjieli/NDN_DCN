@@ -51,7 +51,7 @@ public:
   	m_nexthop = rhs;
   }
   
-  void
+  uint32_t
   GetNextHop() const
   {
   	return m_nexthop;

@@ -50,7 +50,7 @@ NS_LOG_COMPONENT_DEFINE ("ndn.L2Protocol");
 namespace ns3 {
 namespace ndn {
 
-const uint16_t L3Protocol::ETHERNET_FRAME_TYPE = 0x7777;
+const uint16_t L2Protocol::ETHERNET_FRAME_TYPE = 0x7777;
 
 NS_OBJECT_ENSURE_REGISTERED (L2Protocol);
 
