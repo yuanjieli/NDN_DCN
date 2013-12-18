@@ -61,7 +61,7 @@ public:
    */
   virtual ~SwitchStackHelper ();
 
-  typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
+ // typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
 
   /**
    * \brief Install Ndn stack on the node
