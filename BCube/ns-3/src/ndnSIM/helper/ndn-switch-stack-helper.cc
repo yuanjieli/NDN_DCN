@@ -123,23 +123,12 @@ SwitchStackHelper::Install (Ptr<Node> node) const
       // if (DynamicCast<LoopbackNetDevice> (device) != 0)
       //   continue; // don't create face for a LoopbackNetDevice
 
-      Ptr<NetDeviceFace> face;
+      Ptr<NetDeviceFace> face = PointToPointNetDevice(node, L2, device);
 
-      for (std::list< std::pair<TypeId, NetDeviceFaceCreateCallback> >::const_iterator item = m_netDeviceCallbacks.begin ();
-           item != m_netDeviceCallbacks.end ();
-           item++)
-        {
-          if (device->GetInstanceTypeId () == item->first ||
-              device->GetInstanceTypeId ().IsChildOf (item->first))
-            {
-              face = item->second (node, ndn, device);
-              if (face != 0)
-                break;
-            }
-        }
       if (face == 0)
         {
-          face = DefaultNetDeviceCallback (node, ndn, device);
+        	NS_LOG_DEBUG("Empty Faces in SwitchStackHelper!");
+          return 0;
         }
 
       if (m_needSetDefaultRoutes)
