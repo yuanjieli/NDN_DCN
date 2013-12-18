@@ -51,6 +51,8 @@ class NetDeviceFace;
 class SwitchStackHelper
 {
 public:
+	
+	typedef std::pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace>> FacePair;
   /**
    * \brief Create a new NdnStackHelper with a default NDN_FLOODING forwarding stategy
    */
@@ -60,8 +62,6 @@ public:
    * \brief Destroy the NdnStackHelper
    */
   virtual ~SwitchStackHelper ();
-
-  typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
 
   /**
    * \brief Install Ndn stack on the node
@@ -118,7 +118,7 @@ public:
 
 private:
 
-  Ptr<NetDeviceFace>
+  FacePair
   PointToPointNetDevice (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> netDevice) const;
   
 
@@ -142,7 +142,6 @@ private:
   uint32_t m_avgInterestSize;
   bool     m_needSetDefaultRoutes;
 
-  std::list< std::pair<TypeId, NetDeviceFaceCreateCallback> > m_netDeviceCallbacks;
 };
 
 } // namespace ndn
