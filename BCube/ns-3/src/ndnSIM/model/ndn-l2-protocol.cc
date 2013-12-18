@@ -140,15 +140,15 @@ L2Protocol::AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_fac
 Ptr<Face>
 L2Protocol::GetUploadFace (uint32_t index) const
 {
-  NS_ASSERT (0 <= index && index < m_uploadfaces.size ());
-  return m_uploadfaces[index];
+  NS_ASSERT (0 <= index && index < m_uploadfaces.size () && index%2==0);
+  return m_uploadfaces[index/2];
 }
 
 Ptr<Face>
 L2Protocol::GetDownloadFace (uint32_t index) const
 {
-  NS_ASSERT (0 <= index && index < m_downloadfaces.size ());
-  return m_downloadfaces[index];
+  NS_ASSERT (0 <= index && index < m_downloadfaces.size () && index%2==1);
+  return m_downloadfaces[index/2];
 }
 
 Ptr<Face>

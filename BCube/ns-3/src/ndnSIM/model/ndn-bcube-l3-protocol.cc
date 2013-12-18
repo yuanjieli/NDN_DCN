@@ -214,17 +214,24 @@ BCubeL3Protocol::RemoveFace (Ptr<Face> face)
   	m_downloadfaces.erase (face_it);
   }
   else
-  	m_faces.erase (face_it);
+  	m_uploadfaces.erase (face_it);
 
   GetObject<Fib> ()->RemoveFromAll (face);
   m_forwardingStrategy->RemoveFace (face); // notify that face is removed
 }
 
 Ptr<Face>
-BCubeL3Protocol::GetFace (uint32_t index) const
+BCubeL3Protocol::GetUploadFace (uint32_t index) const
 {
-  NS_ASSERT (0 <= index && index < m_faces.size ());
-  return m_faces[index];
+  NS_ASSERT (0 <= index && index < m_uploadfaces.size () && index%2==0);
+  return m_uploadfaces[index/2];
+}
+
+Ptr<Face>
+BCubeL3Protocol::GetDownloadFace (uint32_t index) const
+{
+  NS_ASSERT (0 <= index && index < m_downloadfaces.size () && index%2==1);
+  return m_downloadfaces[index/2];
 }
 
 Ptr<Face>
