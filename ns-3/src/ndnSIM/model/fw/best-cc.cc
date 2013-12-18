@@ -176,9 +176,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 		  {
 		  	
-		  	if(metricFace.GetRoutingCost()==minCost
+		  	/*if(metricFace.GetRoutingCost()==minCost
 		  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-		  	)
+		  	)*/
+		  	if(metricFace.GetFace()!=inFace)
 		  		totalweight += metricFace.GetFraction();
 		  }
 		  
@@ -194,9 +195,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	{
 		  		
 		  		
-		  		if(metricFace.GetRoutingCost()==minCost
+		  		/*if(metricFace.GetRoutingCost()==minCost
 			  	&& metricFace.GetFace()!=inFace	//it happens when using non-shortest path
-			  	)
+			  	)*/
+			  	if(metricFace.GetFace()!=inFace)
 		  		{
 		  			coin += metricFace.GetFraction();
 		  			//if this link is already a bottleneck link, increase NACK by 1
