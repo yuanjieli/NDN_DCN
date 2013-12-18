@@ -206,9 +206,15 @@ BCubeL3Protocol::RemoveFace (Ptr<Face> face)
       pit->MarkErased (removedEntry);
     }
 
-  FaceList::iterator face_it = find (m_faces.begin(), m_faces.end(), face);
-  NS_ASSERT_MSG (face_it != m_faces.end (), "Attempt to remove face that doesn't exist");
-  m_faces.erase (face_it);
+  FaceList::iterator face_it = find (m_uploadfaces.begin(), m_uploadfaces.end(), face);
+  if(face_it == m_uploadfaces.end())
+  {
+  	face_it = find (m_downloadfaces.begin(), m_downloadfaces.end(), face);
+  	NS_ASSERT_MSG (face_it != m_downloadfaces.end (), "Attempt to remove face that doesn't exist");
+  	m_downloadfaces.erase (face_it);
+  }
+  else
+  	m_faces.erase (face_it);
 
   GetObject<Fib> ()->RemoveFromAll (face);
   m_forwardingStrategy->RemoveFace (face); // notify that face is removed
