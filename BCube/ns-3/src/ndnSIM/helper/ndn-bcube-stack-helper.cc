@@ -300,7 +300,7 @@ BCubeStackHelper::PointToPointNetDevice (Ptr<Node> node, Ptr<L3Protocol> ndn, Pt
   Ptr<NetDeviceFace> uploadface = CreateObject<NetDeviceFace> (node, device);
   Ptr<NetDeviceFace> downloadface = CreateObject<NetDeviceFace> (node, device);
 
-  ndn->AddFace (uploadface, downloadface);
+  //ndn->AddFace (uploadface, downloadface);
   
   PairFace pair;
   pair.first = uploadface;
