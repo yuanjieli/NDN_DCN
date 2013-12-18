@@ -78,12 +78,6 @@ SwitchStackHelper::~SwitchStackHelper ()
 }
 
 
-void
-SwitchStackHelper::SetDefaultRoutes (bool needSet)
-{
-  NS_LOG_FUNCTION (this << needSet);
-  m_needSetDefaultRoutes = needSet;
-}
 
 Ptr<FaceContainer>
 SwitchStackHelper::Install (const NodeContainer &c) const

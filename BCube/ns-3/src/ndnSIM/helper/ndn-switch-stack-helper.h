@@ -170,12 +170,6 @@ public:
   static void
   AddRoute (const std::string &nodeName, const std::string &prefix, const std::string &otherNodeName, int32_t metric);
 
-  /**
-   * \brief Set flag indicating necessity to install default routes in FIB
-   */
-  void
-  SetDefaultRoutes (bool needSet);
-
 private:
   Ptr<NetDeviceFace>
   DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
