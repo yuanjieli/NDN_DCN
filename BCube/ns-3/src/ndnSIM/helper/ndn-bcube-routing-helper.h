@@ -122,7 +122,7 @@ public:
 
 private:
   void
-  Install (Ptr<Channel> channel)
+  Install (Ptr<Channel> channel);
 };
 
 } // namespace ndn
