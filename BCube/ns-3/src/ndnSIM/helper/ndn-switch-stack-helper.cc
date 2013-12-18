@@ -52,19 +52,19 @@
 #include "ns3/data-rate.h"
 
 #include "ndn-face-container.h"
-#include "ndn-stack-helper.h"
+#include "ndn-switch-stack-helper.h"
 
 #include <limits>
 #include <map>
 #include <boost/foreach.hpp>
 #include <boost/lexical_cast.hpp>
 
-NS_LOG_COMPONENT_DEFINE ("ndn.StackHelper");
+NS_LOG_COMPONENT_DEFINE ("ndn.SwitchStackHelper");
 
 namespace ns3 {
 namespace ndn {
 
-StackHelper::StackHelper ()
+SwitchStackHelper::SwitchStackHelper ()
   : m_limitsEnabled (false)
   , m_needSetDefaultRoutes (false)
 {
@@ -75,16 +75,16 @@ StackHelper::StackHelper ()
   m_fib2Factory.				SetTypeId ("ns3::ndn::fib2::Default");
   m_pitFactory.         SetTypeId ("ns3::ndn::pit::Persistent");
 
-  m_netDeviceCallbacks.push_back (std::make_pair (PointToPointNetDevice::GetTypeId (), MakeCallback (&StackHelper::PointToPointNetDeviceCallback, this)));
+  m_netDeviceCallbacks.push_back (std::make_pair (PointToPointNetDevice::GetTypeId (), MakeCallback (&SwitchStackHelper::PointToPointNetDeviceCallback, this)));
   // default callback will be fired if non of others callbacks fit or did the job
 }
 
-StackHelper::~StackHelper ()
+SwitchStackHelper::~SwitchStackHelper ()
 {
 }
 
 void
-StackHelper::SetStackAttributes (const std::string &attr1, const std::string &value1,
+SwitchStackHelper::SetStackAttributes (const std::string &attr1, const std::string &value1,
                                  const std::string &attr2, const std::string &value2,
                                  const std::string &attr3, const std::string &value3,
                                  const std::string &attr4, const std::string &value4)
@@ -100,7 +100,7 @@ StackHelper::SetStackAttributes (const std::string &attr1, const std::string &va
 }
 
 void
-StackHelper::SetForwardingStrategy (const std::string &strategy,
+SwitchStackHelper::SetForwardingStrategy (const std::string &strategy,
                                     const std::string &attr1, const std::string &value1,
                                     const std::string &attr2, const std::string &value2,
                                     const std::string &attr3, const std::string &value3,
@@ -118,7 +118,7 @@ StackHelper::SetForwardingStrategy (const std::string &strategy,
 }
 
 void
-StackHelper::SetContentStore (const std::string &contentStore,
+SwitchStackHelper::SetContentStore (const std::string &contentStore,
                               const std::string &attr1, const std::string &value1,
                               const std::string &attr2, const std::string &value2,
                               const std::string &attr3, const std::string &value3,
@@ -136,7 +136,7 @@ StackHelper::SetContentStore (const std::string &contentStore,
 }
 
 void
-StackHelper::SetPit (const std::string &pitClass,
+SwitchStackHelper::SetPit (const std::string &pitClass,
                      const std::string &attr1, const std::string &value1,
                      const std::string &attr2, const std::string &value2,
                      const std::string &attr3, const std::string &value3,
@@ -154,7 +154,7 @@ StackHelper::SetPit (const std::string &pitClass,
 }
 
 void
-StackHelper::SetFib (const std::string &fibClass,
+SwitchStackHelper::SetFib (const std::string &fibClass,
                      const std::string &attr1, const std::string &value1,
                      const std::string &attr2, const std::string &value2,
                      const std::string &attr3, const std::string &value3,
@@ -172,7 +172,7 @@ StackHelper::SetFib (const std::string &fibClass,
 }
 
 void
-StackHelper::SetFib2 (const std::string &fib2Class,
+SwitchStackHelper::SetFib2 (const std::string &fib2Class,
                      const std::string &attr1, const std::string &value1,
                      const std::string &attr2, const std::string &value2,
                      const std::string &attr3, const std::string &value3,
@@ -190,14 +190,14 @@ StackHelper::SetFib2 (const std::string &fib2Class,
 }
 
 void
-StackHelper::SetDefaultRoutes (bool needSet)
+SwitchStackHelper::SetDefaultRoutes (bool needSet)
 {
   NS_LOG_FUNCTION (this << needSet);
   m_needSetDefaultRoutes = needSet;
 }
 
 void
-StackHelper::EnableLimits (bool enable/* = true*/,
+SwitchStackHelper::EnableLimits (bool enable/* = true*/,
                            Time avgRtt/*=Seconds(0.1)*/,
                            uint32_t avgContentObject/*=1100*/,
                            uint32_t avgInterest/*=40*/)
@@ -210,7 +210,7 @@ StackHelper::EnableLimits (bool enable/* = true*/,
 }
 
 Ptr<FaceContainer>
-StackHelper::Install (const NodeContainer &c) const
+SwitchStackHelper::Install (const NodeContainer &c) const
 {
   Ptr<FaceContainer> faces = Create<FaceContainer> ();
   for (NodeContainer::Iterator i = c.Begin (); i != c.End (); ++i)
@@ -221,20 +221,20 @@ StackHelper::Install (const NodeContainer &c) const
 }
 
 Ptr<FaceContainer>
-StackHelper::InstallAll () const
+SwitchStackHelper::InstallAll () const
 {
   return Install (NodeContainer::GetGlobal ());
 }
 
 Ptr<FaceContainer>
-StackHelper::Install (Ptr<Node> node) const
+SwitchStackHelper::Install (Ptr<Node> node) const
 {
   // NS_ASSERT_MSG (m_forwarding, "SetForwardingHelper() should be set prior calling Install() method");
   Ptr<FaceContainer> faces = Create<FaceContainer> ();
 
   if (node->GetObject<L3Protocol> () != 0)
     {
-      NS_FATAL_ERROR ("StackHelper::Install (): Installing "
+      NS_FATAL_ERROR ("SwitchStackHelper::Install (): Installing "
                       "a NdnStack to a node with an existing Ndn object");
       return 0;
     }
@@ -303,14 +303,14 @@ StackHelper::Install (Ptr<Node> node) const
 }
 
 void
-StackHelper::AddNetDeviceFaceCreateCallback (TypeId netDeviceType, StackHelper::NetDeviceFaceCreateCallback callback)
+SwitchStackHelper::AddNetDeviceFaceCreateCallback (TypeId netDeviceType, SwitchStackHelper::NetDeviceFaceCreateCallback callback)
 {
   m_netDeviceCallbacks.push_back (std::make_pair (netDeviceType, callback));
 }
 
 
 Ptr<NetDeviceFace>
-StackHelper::DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const
+SwitchStackHelper::DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const
 {
   NS_LOG_DEBUG ("Creating default NetDeviceFace on node " << node->GetId ());
 
@@ -323,7 +323,7 @@ StackHelper::DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<
 }
 
 Ptr<NetDeviceFace>
-StackHelper::PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
+SwitchStackHelper::PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
 {
   NS_LOG_DEBUG ("Creating point-to-point NetDeviceFace on node " << node->GetId ());
 
@@ -370,7 +370,7 @@ StackHelper::PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn,
 
 
 Ptr<FaceContainer>
-StackHelper::Install (const std::string &nodeName) const
+SwitchStackHelper::Install (const std::string &nodeName) const
 {
   Ptr<Node> node = Names::Find<Node> (nodeName);
   return Install (node);
@@ -378,7 +378,7 @@ StackHelper::Install (const std::string &nodeName) const
 
 
 void
-StackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face, int32_t metric)
+SwitchStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face, int32_t metric)
 {
   NS_LOG_LOGIC ("[" << node->GetId () << "]$ route add " << prefix << " via " << *face << " metric " << metric);
 
@@ -390,7 +390,7 @@ StackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face
 }
 
 void
-StackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceId, int32_t metric)
+SwitchStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceId, int32_t metric)
 {
   Ptr<L3Protocol>     ndn = node->GetObject<L3Protocol> ();
   NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
@@ -402,7 +402,7 @@ StackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceI
 }
 
 void
-StackHelper::AddRoute (const std::string &nodeName, const std::string &prefix, uint32_t faceId, int32_t metric)
+SwitchStackHelper::AddRoute (const std::string &nodeName, const std::string &prefix, uint32_t faceId, int32_t metric)
 {
   Ptr<Node> node = Names::Find<Node> (nodeName);
   NS_ASSERT_MSG (node != 0, "Node [" << nodeName << "] does not exist");
@@ -417,7 +417,7 @@ StackHelper::AddRoute (const std::string &nodeName, const std::string &prefix, u
 }
 
 void
-StackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> otherNode, int32_t metric)
+SwitchStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> otherNode, int32_t metric)
 {
   for (uint32_t deviceId = 0; deviceId < node->GetNDevices (); deviceId ++)
     {
@@ -448,7 +448,7 @@ StackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> othe
 }
 
 void
-StackHelper::AddRoute (const std::string &nodeName, const std::string &prefix, const std::string &otherNodeName, int32_t metric)
+SwitchStackHelper::AddRoute (const std::string &nodeName, const std::string &prefix, const std::string &otherNodeName, int32_t metric)
 {
   Ptr<Node> node = Names::Find<Node> (nodeName);
   NS_ASSERT_MSG (node != 0, "Node [" << nodeName << "] does not exist");

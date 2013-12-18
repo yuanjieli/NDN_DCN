@@ -184,8 +184,8 @@ private:
   PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
 private:
-  StackHelper (const StackHelper &);
-  StackHelper &operator = (const StackHelper &o);
+  SwitchStackHelper (const SwitchStackHelper &);
+  SwitchStackHelper &operator = (const SwitchStackHelper &o);
 
 private:
   ObjectFactory m_ndnFactory;

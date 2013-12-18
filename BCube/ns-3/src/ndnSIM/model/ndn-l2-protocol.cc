@@ -208,14 +208,13 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 
   Ptr<Packet> packet = p->Copy (); // give upper layers a rw copy of the packet
   BCubeTag tag;
-  p->PeekPacketTag(tag);
+  p->PeekPacketTag(tag);	//FIXME: correct or not?
   
   //tag identifies the next hop!
   NS_ASSERT(0 <= tag.GetNextHop() && tag.GetNextHop() < m_downloadfaces.size ());
   
   m_downloadfaces[tag.GetNextHop()]->Send(packet);
-  
-  
+   
 }
 
 
