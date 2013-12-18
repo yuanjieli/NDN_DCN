@@ -144,21 +144,6 @@ SwitchStackHelper::Install (Ptr<Node> node) const
 }
 
 
-
-
-Ptr<NetDeviceFace>
-SwitchStackHelper::DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const
-{
-  NS_LOG_DEBUG ("Creating default NetDeviceFace on node " << node->GetId ());
-
-  Ptr<NetDeviceFace> face = CreateObject<NetDeviceFace> (node, netDevice);
-
-  ndn->AddFace (face);
-  NS_LOG_LOGIC ("Node " << node->GetId () << ": added NetDeviceFace as face #" << *face);
-
-  return face;
-}
-
 Ptr<NetDeviceFace>
 SwitchStackHelper::PointToPointNetDevice (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> device) const
 {
