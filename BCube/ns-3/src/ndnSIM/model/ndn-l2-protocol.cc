@@ -125,7 +125,7 @@ L2Protocol::AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_fac
   // ask face to register in lower-layer stack
   // L2Protocol would only receive packets from upload_face (server->switch)
   // For download_face, no need for Receive callback
-  upload_face->RegisterProtocolHandler (MakeCallback (&L3Protocol::Receive, this));
+  upload_face->RegisterProtocolHandler (MakeCallback (&L2Protocol::Receive, this));
 
   m_uploadfaces.push_back (upload_face);
   m_downloadfaces.push_back (download_face);
