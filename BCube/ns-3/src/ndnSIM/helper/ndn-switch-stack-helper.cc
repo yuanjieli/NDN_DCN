@@ -113,7 +113,7 @@ SwitchStackHelper::Install (Ptr<Node> node) const
       // if (DynamicCast<LoopbackNetDevice> (device) != 0)
       //   continue; // don't create face for a LoopbackNetDevice
 
-      FacePair pair = PointToPointNetDevice(node, L2, device);
+      FacePair pair = PointToPointNetDeviceCallBack(node, L2, device);
 
       if (pair.first == 0 || pair.second == 0)
         {
@@ -132,7 +132,7 @@ SwitchStackHelper::Install (Ptr<Node> node) const
 
 
 FacePair
-SwitchStackHelper::PointToPointNetDevice (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> device) const
+SwitchStackHelper::PointToPointNetDeviceCallBack (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> device) const
 {
   NS_LOG_DEBUG ("Creating point-to-point NetDeviceFace on node " << node->GetId ());
 

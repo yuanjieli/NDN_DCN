@@ -118,7 +118,7 @@ public:
 private:
 
   FacePair
-  PointToPointNetDevice (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> netDevice) const;
+  PointToPointNetDeviceCallBack (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> netDevice) const;
   
 
 private:
