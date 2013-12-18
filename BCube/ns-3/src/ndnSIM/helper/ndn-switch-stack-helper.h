@@ -38,7 +38,7 @@ class NetDeviceFace;
 
 /* WARNING: FOR EACH NETDEVICE, WE SHOULD CREATE TWO FACES ASSOCIATED WITH IT: DOWNLOAD/UPLOAD LINK
  */
-
+typedef std::pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace> > FacePair;
 /**
  * \ingroup ndn
  * \defgroup ndn-helpers Helpers for BCube switch
@@ -52,7 +52,6 @@ class SwitchStackHelper
 {
 public:
 	
-	typedef std::pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace> > FacePair;
   /**
    * \brief Create a new NdnStackHelper with a default NDN_FLOODING forwarding stategy
    */
