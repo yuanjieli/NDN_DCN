@@ -275,7 +275,7 @@ BCubeL3Protocol::GetFaceByNetDevice (Ptr<NetDevice> netDevice) const
 uint32_t
 BCubeL3Protocol::GetNFaces (void) const
 {
-  return m_uploadfaces.size ();
+  return m_uploadfaces.size () + m_downloadfaces.size();
 }
 
 // Callback from lower layer

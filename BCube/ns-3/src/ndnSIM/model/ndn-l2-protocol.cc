@@ -192,7 +192,7 @@ L2Protocol::GetFaceByNetDevice (Ptr<NetDevice> netDevice) const
 uint32_t
 L2Protocol::GetNFaces (void) const
 {
-  return m_uploadfaces.size ();
+  return m_uploadfaces.size () + m_downloadfaces.size();
 }
 
 // Callback from lower layer
