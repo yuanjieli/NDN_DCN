@@ -213,7 +213,7 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
   //tag identifies the next hop!
   NS_ASSERT(0 <= tag.GetNextHop() && tag.GetNextHop() < m_downloadfaces.size ());
   
-  m_downloadfaces[tag.GetNextHop()]->Send(p);
+  m_downloadfaces[tag.GetNextHop()]->Send(DynamicCast<Ptr<Packet>>(p));
   
   
 }
