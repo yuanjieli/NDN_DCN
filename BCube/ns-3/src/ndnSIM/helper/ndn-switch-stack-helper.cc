@@ -38,14 +38,6 @@
 
 #include "../model/ndn-net-device-face.h"
 #include "../model/ndn-l2-protocol.h"
-#include "../model/ndn-l3-protocol.h"
-
-#include "ns3/ndn-forwarding-strategy.h"
-#include "ns3/ndn-fib.h"
-#include "ns3/ndn-fib2.h"
-#include "ns3/ndn-pit.h"
-#include "ns3/ndn-name.h"
-#include "ns3/ndn-content-store.h"
 
 #include "ns3/node-list.h"
 // #include "ns3/loopback-net-device.h"

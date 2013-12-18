@@ -126,20 +126,8 @@ private:
   SwitchStackHelper &operator = (const SwitchStackHelper &o);
 
 private:
-  ObjectFactory m_ndnFactory;
-  ObjectFactory m_strategyFactory;
-  ObjectFactory m_contentStoreFactory;
-  ObjectFactory m_pitFactory;
-  ObjectFactory m_fibFactory;
-  ObjectFactory m_fib2Factory;
   
   ObjectFactory m_L2Factory;	//L2Protocol module
-
-  bool     m_limitsEnabled;
-  Time     m_avgRtt;
-  uint32_t m_avgContentObjectSize;
-  uint32_t m_avgInterestSize;
-  bool     m_needSetDefaultRoutes;
 
 };
 
