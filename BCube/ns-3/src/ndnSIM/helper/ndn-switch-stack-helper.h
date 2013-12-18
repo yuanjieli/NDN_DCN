@@ -171,11 +171,10 @@ public:
   AddRoute (const std::string &nodeName, const std::string &prefix, const std::string &otherNodeName, int32_t metric);
 
 private:
-  Ptr<NetDeviceFace>
-  DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
   Ptr<NetDeviceFace>
-  PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
+  PointToPointNetDevice (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> netDevice) const;
+  
 
 private:
   SwitchStackHelper (const SwitchStackHelper &);

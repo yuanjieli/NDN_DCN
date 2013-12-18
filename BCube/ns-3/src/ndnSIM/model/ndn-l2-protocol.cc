@@ -211,7 +211,9 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
   p->PeekPacketTag(tag);	//FIXME: correct or not?
   
   //tag identifies the next hop!
-  NS_ASSERT(0 <= tag.GetNextHop() && tag.GetNextHop() < m_downloadfaces.size ());
+  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
+  				&& 0 <= tag.GetNextHop() 
+  				&& tag.GetNextHop() < m_downloadfaces.size ());
   
   m_downloadfaces[tag.GetNextHop()]->Send(packet);
    

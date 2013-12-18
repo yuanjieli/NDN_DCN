@@ -102,35 +102,18 @@ SwitchStackHelper::Install (Ptr<Node> node) const
   // NS_ASSERT_MSG (m_forwarding, "SetForwardingHelper() should be set prior calling Install() method");
   Ptr<FaceContainer> faces = Create<FaceContainer> ();
 
-  if (node->GetObject<L3Protocol> () != 0)
+  if (node->GetObject<L2Protocol> () != 0)
     {
       NS_FATAL_ERROR ("SwitchStackHelper::Install (): Installing "
-                      "a NdnStack to a node with an existing Ndn object");
+                      "a SwitchStack to a node with an existing Ndn object");
       return 0;
     }
 
-  // Create L3Protocol
-  Ptr<L3Protocol> ndn = m_ndnFactory.Create<L3Protocol> ();
-
-  // Create and aggregate FIB
-  Ptr<Fib> fib = m_fibFactory.Create<Fib> ();
-  ndn->AggregateObject (fib);
-  
-  // Create and aggregate FIB2
-  Ptr<Fib2> fib2 = m_fib2Factory.Create<Fib2> ();
-  ndn->AggregateObject (fib2);
-
-  // Create and aggregate PIT
-  ndn->AggregateObject (m_pitFactory.Create<Pit> ());
-
-  // Create and aggregate forwarding strategy
-  ndn->AggregateObject (m_strategyFactory.Create<ForwardingStrategy> ());
-
-  // Create and aggregate content store
-  ndn->AggregateObject (m_contentStoreFactory.Create<ContentStore> ());
-
-  // Aggregate L3Protocol on node
-  node->AggregateObject (ndn);
+	// Create L2Protocol
+	Ptr<L2Protocol> L2 = m_L2Factory.Create<L2Protocol> ();
+	
+  // Aggregate L2Protocol on node
+  node->AggregateObject (L2);
 
   for (uint32_t index=0; index < node->GetNDevices (); index++)
     {
@@ -189,49 +172,18 @@ SwitchStackHelper::DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn
 }
 
 Ptr<NetDeviceFace>
-SwitchStackHelper::PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
+SwitchStackHelper::PointToPointNetDevice (Ptr<Node> node, Ptr<L2Protocol> L2, Ptr<NetDevice> device) const
 {
   NS_LOG_DEBUG ("Creating point-to-point NetDeviceFace on node " << node->GetId ());
 
-  Ptr<NetDeviceFace> face = CreateObject<NetDeviceFace> (node, device);
+	//NOTE: we need two separate links here
+  Ptr<NetDeviceFace> uploadface = CreateObject<NetDeviceFace> (node, device);
+  Ptr<NetDeviceFace> downloadface = CreateObject<NetDeviceFace> (node, device);
 
-  ndn->AddFace (face);
-  NS_LOG_LOGIC ("Node " << node->GetId () << ": added NetDeviceFace as face #" << *face);
-
-  if (m_limitsEnabled)
-    {
-      Ptr<Limits> limits = face->GetObject<Limits> ();
-      if (limits == 0)
-        {
-          NS_FATAL_ERROR ("Limits are enabled, but the selected forwarding strategy does not support limits. Please revise your scenario");
-          exit (1);
-        }
-
-      NS_LOG_INFO ("Limits are enabled");
-      Ptr<PointToPointNetDevice> p2p = DynamicCast<PointToPointNetDevice> (device);
-      if (p2p != 0)
-        {
-          // Setup bucket filtering
-          // Assume that we know average data packet size, and this size is equal default size
-          // Set maximum buckets (averaging over 1 second)
-
-          DataRateValue dataRate; device->GetAttribute ("DataRate", dataRate);
-          TimeValue linkDelay;   device->GetChannel ()->GetAttribute ("Delay", linkDelay);
-
-          NS_LOG_INFO("DataRate for this link is " << dataRate.Get());
-
-          double maxInterestPackets = 1.0  * dataRate.Get ().GetBitRate () / 8.0 / (m_avgContentObjectSize + m_avgInterestSize);
-          // NS_LOG_INFO ("Max packets per second: " << maxInterestPackets);
-          // NS_LOG_INFO ("Max burst: " << m_avgRtt.ToDouble (Time::S) * maxInterestPackets);
-          NS_LOG_INFO ("MaxLimit: " << (int)(m_avgRtt.ToDouble (Time::S) * maxInterestPackets));
-
-          // Set max to BDP
-          limits->SetLimits (maxInterestPackets, m_avgRtt.ToDouble (Time::S));
-          limits->SetLinkDelay (linkDelay.Get ().ToDouble (Time::S));
-        }
-    }
-
-  return face;
+ 
+  L2->AddFace (uploadface, downloadface);
+  
+  return uploadface;
 }
 
 

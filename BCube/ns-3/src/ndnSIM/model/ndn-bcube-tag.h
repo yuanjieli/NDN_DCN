@@ -38,7 +38,7 @@ public:
   /**
    * @brief Default constructor
    */
-  BCubeTag () : m_nexthop (0) { };	//WARNING: if m_nexhop==0, maybe we have bugs
+  BCubeTag () : m_nexthop (std::numeric_limits<uint32_t>::max ()) { };	
 
   /**
    * @brief Destructor
