@@ -130,12 +130,6 @@ SwitchStackHelper::Install (Ptr<Node> node) const
           return 0;
         }
 
-      if (m_needSetDefaultRoutes)
-        {
-          // default route with lowest priority possible
-          AddRoute (node, "/", StaticCast<Face> (face), std::numeric_limits<int32_t>::max ());
-        }
-
       face->SetUp ();
       faces->Add (face);
     }
