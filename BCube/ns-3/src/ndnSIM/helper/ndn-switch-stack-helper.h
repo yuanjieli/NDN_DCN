@@ -52,7 +52,7 @@ class SwitchStackHelper
 {
 public:
 	
-	typedef std::pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace>> FacePair;
+	typedef std::pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace> > FacePair;
   /**
    * \brief Create a new NdnStackHelper with a default NDN_FLOODING forwarding stategy
    */
