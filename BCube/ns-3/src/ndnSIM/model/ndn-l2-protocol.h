@@ -84,7 +84,7 @@ public:
    * Each NetDevice would only be counted once
    */
   virtual uint32_t
-  AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_face);
+  AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_face); 
   
   /**
    * \brief Get current number of faces added to Ndn stack
