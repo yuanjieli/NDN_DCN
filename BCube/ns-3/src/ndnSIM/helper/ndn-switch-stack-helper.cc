@@ -66,16 +66,10 @@ namespace ns3 {
 namespace ndn {
 
 SwitchStackHelper::SwitchStackHelper ()
-  : m_limitsEnabled (false)
-  , m_needSetDefaultRoutes (false)
+  : 
 {
-  m_ndnFactory.         SetTypeId ("ns3::ndn::L3Protocol");
-  m_strategyFactory.    SetTypeId ("ns3::ndn::fw::Flooding");
-  m_contentStoreFactory.SetTypeId ("ns3::ndn::cs::Lru");
-  m_fibFactory.         SetTypeId ("ns3::ndn::fib::Default");
-  m_fib2Factory.				SetTypeId ("ns3::ndn::fib2::Default");
-  m_pitFactory.         SetTypeId ("ns3::ndn::pit::Persistent");
-
+  
+	m_L2Factory. SetTypeId ("ns3::ndn::L2Protocol");
   m_netDeviceCallbacks.push_back (std::make_pair (PointToPointNetDevice::GetTypeId (), MakeCallback (&SwitchStackHelper::PointToPointNetDeviceCallback, this)));
   // default callback will be fired if non of others callbacks fit or did the job
 }
