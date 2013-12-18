@@ -268,7 +268,7 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       // if (DynamicCast<LoopbackNetDevice> (device) != 0)
       //   continue; // don't create face for a LoopbackNetDevice
 
-      PairFace pair = PointToPointNetDevice (node, ndn, device);
+      PairFace pair = PointToPointNetDeviceCallBack (node, ndn, device);
 
       
       if (pair.first == 0 || pair.second == 0)
@@ -293,7 +293,7 @@ BCubeStackHelper::Install (Ptr<Node> node) const
 }
 
 PairFace
-BCubeStackHelper::PointToPointNetDevice (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
+BCubeStackHelper::PointToPointNetDeviceCallBack (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
 {
   NS_LOG_DEBUG ("Creating point-to-point NetDeviceFace on node " << node->GetId ());
 

@@ -260,7 +260,7 @@ public:
 private:
 
   PairFace
-  PointToPointNetDevice(Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
+  PointToPointNetDeviceCallBack(Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
 private:
   BCubeStackHelper (const BCubeStackHelper &);
