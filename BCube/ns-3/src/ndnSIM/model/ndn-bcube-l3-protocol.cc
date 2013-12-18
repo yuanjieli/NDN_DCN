@@ -75,10 +75,6 @@ BCubeL3Protocol::GetTypeId (void)
     .SetGroupName ("ndn")
     .SetParent<Object> ()
     .AddConstructor<BCubeL3Protocol> ()
-    .AddAttribute ("FaceList", "List of faces associated with ndn stack",
-                   ObjectVectorValue (),
-                   MakeObjectVectorAccessor (&BCubeL3Protocol::m_faces),
-                   MakeObjectVectorChecker<Face> ())
   ;
   return tid;
 }
@@ -138,11 +134,16 @@ BCubeL3Protocol::DoDispose (void)
 {
   NS_LOG_FUNCTION (this);
 
-  for (FaceList::iterator i = m_faces.begin (); i != m_faces.end (); ++i)
+  for (FaceList::iterator i = m_uploadfaces.begin (); i != m_uploadfaces.end (); ++i)
     {
       *i = 0;
     }
-  m_faces.clear ();
+  for (FaceList::iterator i = m_downloadfaces.begin (); i != m_downloadfaces.end (); ++i)
+    {
+      *i = 0;
+    }
+  m_uploadfaces.clear ();
+  m_downloadfaces.clear ();
   m_node = 0;
 
   // Force delete on objects
@@ -152,20 +153,31 @@ BCubeL3Protocol::DoDispose (void)
 }
 
 uint32_t
-BCubeL3Protocol::AddFace (const Ptr<Face> &face)
+BCubeL3Protocol::AddFace (const Ptr<Face> &uploadface, const Ptr<Face> &downloadface)
 {
-  NS_LOG_FUNCTION (this << &face);
-
-  face->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
+	//Add upload face
+  uploadface->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
 
   // ask face to register in lower-layer stack
-  face->RegisterProtocolHandler (MakeCallback (&BCubeL3Protocol::Receive, this));
+  uploadface->RegisterProtocolHandler (MakeCallback (&BCubeL3Protocol::Receive, this));
 
-  m_faces.push_back (face);
+  m_uploadfaces.push_back (uploadface);
   m_faceCounter++;
 
-  m_forwardingStrategy->AddFace (face); // notify that face is added
-  return face->GetId ();
+  m_forwardingStrategy->AddFace (uploadface); // notify that face is added
+  
+  //Add download face
+  downloadface->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
+
+  // ask face to register in lower-layer stack
+  downloadface->RegisterProtocolHandler (MakeCallback (&BCubeL3Protocol::Receive, this));
+
+  m_downloadfaces.push_back (downloadface);
+  m_faceCounter++;
+
+  m_forwardingStrategy->AddFace (downloadface); // notify that face is added
+  
+  return downloadface->GetId ();
 }
 
 void

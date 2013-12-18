@@ -99,7 +99,7 @@ public:
    * \see NdnLocalFace, NdnNetDeviceFace, NdnUdpFace
    */
   virtual uint32_t
-  AddFace (const Ptr<Face> &face);
+  AddFace (const Ptr<Face> &uploadface, const Ptr<Face> &downloadface);
   
   /**
    * \brief Get current number of faces added to Ndn stack
@@ -115,7 +115,10 @@ public:
    * \returns The NdnFace associated with the Ndn face number.
    */
   virtual Ptr<Face>
-  GetFace (uint32_t face) const;
+  GetUploadFace (uint32_t face) const;
+  
+  virtual Ptr<Face>
+  GetDownloadFace (uint32_t face) const;
   
   /**
    * \brief Get face by face ID
@@ -162,7 +165,8 @@ private:
   
 private:
   uint32_t m_faceCounter; ///< \brief counter of faces. Increased every time a new face is added to the stack
-  FaceList m_faces; ///< \brief list of faces that belongs to ndn stack on this node
+  FaceList m_uploadfaces; ///< \brief list of faces that belongs to ndn stack on this node
+  FaceList m_downloadfaces;
 
   static uint64_t s_interestCounter;
   static uint64_t s_dataCounter;

@@ -120,19 +120,20 @@ L2Protocol::AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_fac
 	NS_ASSERT(upload_face != 0 && download_face !=0 && upload_face != download_face);
   //upload_face and download_face share the same ID, but they can be got via different functions
   upload_face->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
-	download_face->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
-
   // ask face to register in lower-layer stack
   // L2Protocol would only receive packets from upload_face (server->switch)
   // For download_face, no need for Receive callback
   upload_face->RegisterProtocolHandler (MakeCallback (&L2Protocol::Receive, this));
-
-  m_uploadfaces.push_back (upload_face);
-  m_downloadfaces.push_back (download_face);
+  m_uploadfaces.push_back (upload_face);  
   m_faceCounter++;
-
-  //m_forwardingStrategy->AddFace (face); // notify that face is added
-  return (m_faceCounter-1);
+  
+  //Add download face
+  download_face->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
+	m_downloadfaces.push_back (download_face);
+	m_faceCounter++;
+	
+  //return download face's ID
+  return download_face->GetId();
 }
 
 
