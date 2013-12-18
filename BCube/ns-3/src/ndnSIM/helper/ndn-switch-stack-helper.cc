@@ -197,11 +197,7 @@ SwitchStackHelper::Install (Ptr<Node> node) const
   return faces;
 }
 
-void
-SwitchStackHelper::AddNetDeviceFaceCreateCallback (TypeId netDeviceType, SwitchStackHelper::NetDeviceFaceCreateCallback callback)
-{
-  m_netDeviceCallbacks.push_back (std::make_pair (netDeviceType, callback));
-}
+
 
 
 Ptr<NetDeviceFace>
