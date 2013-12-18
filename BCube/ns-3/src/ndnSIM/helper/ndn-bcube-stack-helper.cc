@@ -15,8 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Author:  Alexander Afanasyev <alexander.afanasyev@ucla.edu>
- *          Ilya Moiseenko <iliamo@cs.ucla.edu>
+ * Author:  Yuanjie Li <yuanjie.li@cs.ucla.edu>
  */
 
 #include "ns3/assert.h"
@@ -75,8 +74,7 @@ BCubeStackHelper::BCubeStackHelper ()
   m_fib2Factory.				SetTypeId ("ns3::ndn::fib2::Default");
   m_pitFactory.         SetTypeId ("ns3::ndn::pit::Persistent");
 
-  m_netDeviceCallbacks.push_back (std::make_pair (PointToPointNetDevice::GetTypeId (), MakeCallback (&BCubeStackHelper::PointToPointNetDeviceCallback, this)));
-  // default callback will be fired if non of others callbacks fit or did the job
+  
 }
 
 BCubeStackHelper::~BCubeStackHelper ()
@@ -270,72 +268,48 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       // if (DynamicCast<LoopbackNetDevice> (device) != 0)
       //   continue; // don't create face for a LoopbackNetDevice
 
-      Ptr<NetDeviceFace> face;
+      FacePair pair = PointToPointNetDevice (node, ndn, device);
 
-      for (std::list< std::pair<TypeId, NetDeviceFaceCreateCallback> >::const_iterator item = m_netDeviceCallbacks.begin ();
-           item != m_netDeviceCallbacks.end ();
-           item++)
+      
+      if (pair.first == 0 || pair.second == 0)
         {
-          if (device->GetInstanceTypeId () == item->first ||
-              device->GetInstanceTypeId ().IsChildOf (item->first))
-            {
-              face = item->second (node, ndn, device);
-              if (face != 0)
-                break;
-            }
-        }
-      if (face == 0)
-        {
-          face = DefaultNetDeviceCallback (node, ndn, device);
+          return 0;
         }
 
       if (m_needSetDefaultRoutes)
         {
           // default route with lowest priority possible
-          AddRoute (node, "/", StaticCast<Face> (face), std::numeric_limits<int32_t>::max ());
+          AddRoute (node, "/", StaticCast<Face> (pair.first), std::numeric_limits<int32_t>::max ());
+          AddRoute (node, "/", StaticCast<Face> (pair.second), std::numeric_limits<int32_t>::max ());
         }
 
-      face->SetUp ();
-      faces->Add (face);
+      pair.first->SetUp ();
+      pair.second->SetUp ();
+      faces->Add (pair.first);	//upload face
+      faces->Add (pair.second); //download face
     }
 
   return faces;
 }
 
-void
-BCubeStackHelper::AddNetDeviceFaceCreateCallback (TypeId netDeviceType, BCubeStackHelper::NetDeviceFaceCreateCallback callback)
-{
-  m_netDeviceCallbacks.push_back (std::make_pair (netDeviceType, callback));
-}
-
-
-Ptr<NetDeviceFace>
-BCubeStackHelper::DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const
-{
-  NS_LOG_DEBUG ("Creating default NetDeviceFace on node " << node->GetId ());
-
-  Ptr<NetDeviceFace> face = CreateObject<NetDeviceFace> (node, netDevice);
-
-  ndn->AddFace (face);
-  NS_LOG_LOGIC ("Node " << node->GetId () << ": added NetDeviceFace as face #" << *face);
-
-  return face;
-}
-
-Ptr<NetDeviceFace>
-BCubeStackHelper::PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
+PairFace
+BCubeStackHelper::PointToPointNetDevice (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
 {
   NS_LOG_DEBUG ("Creating point-to-point NetDeviceFace on node " << node->GetId ());
 
-  Ptr<NetDeviceFace> face = CreateObject<NetDeviceFace> (node, device);
+  Ptr<NetDeviceFace> uploadface = CreateObject<NetDeviceFace> (node, device);
+  Ptr<NetDeviceFace> downloadface = CreateObject<NetDeviceFace> (node, device);
 
-  ndn->AddFace (face);
-  NS_LOG_LOGIC ("Node " << node->GetId () << ": added NetDeviceFace as face #" << *face);
-
+  ndn->AddFace (uploadface, downloadface);
+  
+  PairFace pair;
+  pair.first = uploadface;
+  pair.second = downloadface;
   if (m_limitsEnabled)
     {
-      Ptr<Limits> limits = face->GetObject<Limits> ();
-      if (limits == 0)
+      Ptr<Limits> uploadlimits = uploadface->GetObject<Limits> ();
+      Ptr<Limits> downloadlimits = downloadface->GetObject<Limits> ();
+      if (uploadlimits == 0 || downloadlimits == 0)
         {
           NS_FATAL_ERROR ("Limits are enabled, but the selected forwarding strategy does not support limits. Please revise your scenario");
           exit (1);
@@ -360,12 +334,14 @@ BCubeStackHelper::PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol>
           NS_LOG_INFO ("MaxLimit: " << (int)(m_avgRtt.ToDouble (Time::S) * maxInterestPackets));
 
           // Set max to BDP
-          limits->SetLimits (maxInterestPackets, m_avgRtt.ToDouble (Time::S));
-          limits->SetLinkDelay (linkDelay.Get ().ToDouble (Time::S));
+          uploadlimits->SetLimits (maxInterestPackets, m_avgRtt.ToDouble (Time::S));
+          uploadlimits->SetLinkDelay (linkDelay.Get ().ToDouble (Time::S));
+          downloadlimits->SetLimits (maxInterestPackets, m_avgRtt.ToDouble (Time::S));
+          downloadlimits->SetLinkDelay (linkDelay.Get ().ToDouble (Time::S));
         }
     }
 
-  return face;
+  return pair;
 }
 
 

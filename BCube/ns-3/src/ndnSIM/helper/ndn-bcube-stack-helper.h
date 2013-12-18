@@ -15,8 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Author:  Alexander Afanasyev <alexander.afanasyev@ucla.edu>
- *          Ilya Moiseenko <iliamo@cs.ucla.edu>
+ * Author:  Yuanjie Li <yuanjie.li@cs.ucla.edu>
  */
 
 #ifndef NDN_BCUBE_STACK_HELPER_H
@@ -49,6 +48,8 @@ class L3Protocol;
  * Same as NDN StackHelper, except that for each NetDevice, we create two NetDeviceFace rather than one
  * 
  */
+ 
+typedef pair<Ptr<NetDeviceFace>, Ptr<NetDeviceFace> > PairFace;
 class BCubeStackHelper
 {
 public:
@@ -131,8 +132,6 @@ public:
           const std::string &attr2 = "", const std::string &value2 = "",
           const std::string &attr3 = "", const std::string &value3 = "",
           const std::string &attr4 = "", const std::string &value4 = "");
-
-  typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
 
   /**
    * @brief Add callback to create and configure instance of the face, based on supplied Ptr<Node> and Ptr<NetDevice>
@@ -272,11 +271,9 @@ public:
   SetDefaultRoutes (bool needSet);
 
 private:
-  Ptr<NetDeviceFace>
-  DefaultNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
-  Ptr<NetDeviceFace>
-  PointToPointNetDeviceCallback (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
+  PairFace
+  PointToPointNetDevice(Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
 private:
   BCubeStackHelper (const BCubeStackHelper &);
@@ -296,7 +293,6 @@ private:
   uint32_t m_avgInterestSize;
   bool     m_needSetDefaultRoutes;
 
-  std::list< std::pair<TypeId, NetDeviceFaceCreateCallback> > m_netDeviceCallbacks;
 };
 
 } // namespace ndn
