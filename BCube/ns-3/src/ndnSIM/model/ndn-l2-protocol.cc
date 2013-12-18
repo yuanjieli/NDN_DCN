@@ -62,7 +62,7 @@ L2Protocol::GetTypeId (void)
   static TypeId tid = TypeId ("ns3::ndn::L2Protocol")
     .SetGroupName ("ndn")
     .SetParent<Object> ()
-    .AddConstructor<L3Protocol> ()   
+    .AddConstructor<L2Protocol> ()   
   ;
   return tid;
 }
