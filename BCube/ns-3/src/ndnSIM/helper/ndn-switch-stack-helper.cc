@@ -91,19 +91,6 @@ SwitchStackHelper::SetDefaultRoutes (bool needSet)
   m_needSetDefaultRoutes = needSet;
 }
 
-void
-SwitchStackHelper::EnableLimits (bool enable/* = true*/,
-                           Time avgRtt/*=Seconds(0.1)*/,
-                           uint32_t avgContentObject/*=1100*/,
-                           uint32_t avgInterest/*=40*/)
-{
-  NS_LOG_INFO ("EnableLimits: " << enable);
-  m_limitsEnabled = enable;
-  m_avgRtt = avgRtt;
-  m_avgContentObjectSize = avgContentObject;
-  m_avgInterestSize = avgInterest;
-}
-
 Ptr<FaceContainer>
 SwitchStackHelper::Install (const NodeContainer &c) const
 {
