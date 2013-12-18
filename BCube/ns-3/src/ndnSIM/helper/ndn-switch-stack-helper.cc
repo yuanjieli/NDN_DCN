@@ -66,7 +66,6 @@ namespace ns3 {
 namespace ndn {
 
 SwitchStackHelper::SwitchStackHelper ()
-  : 
 {
   
 	m_L2Factory. SetTypeId ("ns3::ndn::L2Protocol");
