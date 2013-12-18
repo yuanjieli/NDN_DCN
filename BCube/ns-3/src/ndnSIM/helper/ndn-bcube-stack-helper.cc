@@ -268,7 +268,7 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       // if (DynamicCast<LoopbackNetDevice> (device) != 0)
       //   continue; // don't create face for a LoopbackNetDevice
 
-      FacePair pair = PointToPointNetDevice (node, ndn, device);
+      PairFace pair = PointToPointNetDevice (node, ndn, device);
 
       
       if (pair.first == 0 || pair.second == 0)
