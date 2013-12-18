@@ -132,20 +132,7 @@ public:
           const std::string &attr2 = "", const std::string &value2 = "",
           const std::string &attr3 = "", const std::string &value3 = "",
           const std::string &attr4 = "", const std::string &value4 = "");
-
-  /**
-   * @brief Add callback to create and configure instance of the face, based on supplied Ptr<Node> and Ptr<NetDevice>
-   *
-   * It is possible to set up several callbacks for different NetDevice types.
-   *
-   * Currently, there is only one specialized callback for PointToPointNetDevice, which creates face and sets limits (if enabled)
-   * based on PointToPoint link parameters
-   *
-   * If none of the callbacks fit the TypeId of NetDevice, a default callback is used (DefaultNetDeviceCallback)
-   */
-  void
-  AddNetDeviceFaceCreateCallback (TypeId netDeviceType, NetDeviceFaceCreateCallback callback);
-
+  
   /**
    * @brief Enable Interest limits (disabled by default)
    *
