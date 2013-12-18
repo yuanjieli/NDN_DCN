@@ -237,7 +237,12 @@ BCubeL3Protocol::GetDownloadFace (uint32_t index) const
 Ptr<Face>
 BCubeL3Protocol::GetFaceById (uint32_t index) const
 {
-  BOOST_FOREACH (const Ptr<Face> &face, m_faces) // this function is not supposed to be called often, so linear search is fine
+  BOOST_FOREACH (const Ptr<Face> &face, m_uploadfaces) // this function is not supposed to be called often, so linear search is fine
+    {
+      if (face->GetId () == index)
+        return face;
+    }
+  BOOST_FOREACH (const Ptr<Face> &face, m_downloadfaces) // this function is not supposed to be called often, so linear search is fine
     {
       if (face->GetId () == index)
         return face;
@@ -248,7 +253,15 @@ BCubeL3Protocol::GetFaceById (uint32_t index) const
 Ptr<Face>
 BCubeL3Protocol::GetFaceByNetDevice (Ptr<NetDevice> netDevice) const
 {
-  BOOST_FOREACH (const Ptr<Face> &face, m_faces) // this function is not supposed to be called often, so linear search is fine
+  BOOST_FOREACH (const Ptr<Face> &face, m_uploadfaces) // this function is not supposed to be called often, so linear search is fine
+    {
+      Ptr<NetDeviceFace> netDeviceFace = DynamicCast<NetDeviceFace> (face);
+      if (netDeviceFace == 0) continue;
+
+      if (netDeviceFace->GetNetDevice () == netDevice)
+        return face;
+    }
+  BOOST_FOREACH (const Ptr<Face> &face, m_downloadfaces) // this function is not supposed to be called often, so linear search is fine
     {
       Ptr<NetDeviceFace> netDeviceFace = DynamicCast<NetDeviceFace> (face);
       if (netDeviceFace == 0) continue;
