@@ -313,6 +313,16 @@ BCubeRoutingHelper::CalculateRoutes ()
 }
 
 void
+BCubeRoutingHelper::ExtractBCubeID(std::string &str, uint32_t *array)
+{
+	NS_ASSERT(str.size()>1 && str.size()-1<=MAX_N);
+	
+	for(size_t k=1; k != str.size(); k++)
+	{
+		array[k-1] = str.at(k).c_str()-'0';
+	}
+}
+void
 BCubeRoutingHelper::CalculateBCubeRoutes()
 {
 	
@@ -334,10 +344,12 @@ BCubeRoutingHelper::CalculateBCubeRoutes()
 		//Should ALWAYS be true because only switches don't install GlobalRouter
 		std::string src_name = Names::FindName(*node);
 		NS_ASSERT(src_name[0]=='S');
+		//Extract source's BCubeID
+		uint32_t src_addr[MAX_N];
+		ExtractBCubeID(src_name, src_addr);
 		
 		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
-		
-		
+				
 	}
 }
 

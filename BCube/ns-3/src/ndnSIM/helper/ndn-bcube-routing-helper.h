@@ -22,6 +22,10 @@
 #define NDN_BCUBE_ROUTING_HELPER_H
 
 #include "ns3/ptr.h"
+#include <string>
+
+#define MAX_N 10
+#define MAX_K 10
 
 namespace ns3 {
 
@@ -41,7 +45,9 @@ public:
   BCubeRoutingHelper(uint32_t nn, uint32_t kk):
   n (nn), k (kk) 
   {
-  	NS_ASSERT(nn>=1 && nn<10);	//For simplification of simulation
+  	//For simplification of simulation, we have some limits for n and k
+  	NS_ASSERT(nn>=1 && nn<MAX_N);	
+  	NS_ASSERT(kk>=0 && kk<MAX_K);
   }
   /**
    * @brief Install GlobalRouter interface on a node
@@ -115,6 +121,9 @@ private:
   BCubeRoutingHelper();	//parameters for BCube are mandatory
   void
   Install (Ptr<Channel> channel);
+  //read each digit of BCubeID from the node's name
+  void ExtractBCubeID(std::string &str, uint32_t *array);
+  
   //BCube parameters. These parameters SHOULD be consistent with the SIGCOMM paper
   uint32_t n;	//#ports for each switch
   uint32_t k;	//#levels. 
