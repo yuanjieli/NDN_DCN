@@ -111,11 +111,6 @@ public:
   static void
   CalculateAllPossibleRoutes ();
   
-  /**
-   * @brief Initialize FIB2
-   */
-  static void
-  CalculateFIB2 ();
   
   
 

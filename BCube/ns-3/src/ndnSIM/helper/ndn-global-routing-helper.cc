@@ -25,7 +25,6 @@
 #include "../model/ndn-global-router.h"
 #include "ns3/ndn-name.h"
 #include "ns3/ndn-fib.h"
-#include "ns3/ndn-fib2.h"
 
 #include "ns3/node.h"
 #include "ns3/node-container.h"
@@ -446,65 +445,6 @@ GlobalRoutingHelper::CalculateAllPossibleRoutes ()
     }
 }
 
-void
-GlobalRoutingHelper::CalculateFIB2 ()
-{
-	//clear old entries
-	for (NodeList::Iterator node = NodeList::Begin (); node != NodeList::End (); node++)
-	{
-		Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
-	  if (source == 0)
-		{
-			NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
-			continue;
-		}
-		Ptr<Fib2>  fib2  = source->GetObject<Fib2> ();
-		fib2->InvalidateAll ();
-	}
-	//FIXME: for each entry, put ALL faces into it
-	//for each node(producer)'s all available prefixes 
-	for (NodeList::Iterator node = NodeList::Begin (); node != NodeList::End (); node++)
-    {
-	      Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
-	      if (source == 0)
-				{
-				  NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
-				  continue;
-				}
-				std::list< Ptr<Name> > LocalPrefixList = source->GetLocalPrefixes();
-	
-				//for all nodes
-				for (NodeList::Iterator node2 = NodeList::Begin (); node2 != NodeList::End (); node2++)
-				{
-					Ptr<GlobalRouter> source2 = (*node2)->GetObject<GlobalRouter> ();
-		      if (source2 == 0)
-					{
-					  NS_LOG_DEBUG ("Node " << (*node2)->GetId () << " does not export GlobalRouter interface");
-					  continue;
-					}
-					Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
-		      NS_ASSERT (fib2 != 0);
-		      
-		      Ptr<L3Protocol> ndn = (*node2)->GetObject<L3Protocol> ();
-  				NS_ASSERT_MSG (ndn != 0, "Cannot install GlobalRoutingHelper before Ndn is installed on a node");
-		      
-		      for(std::list< Ptr<Name> >::iterator it = LocalPrefixList.begin(); it != LocalPrefixList.end(); it++)
-		      { 
-		      	//for each prefix
-		      	for(uint32_t i=0; i != ndn->GetNFaces(); i++)
-			      {
-			      	//put every face into it
-			      	/*NS_LOG_UNCOND("Fib2 is adding "<<*(*it)
-			      								<<" to node "<<(*node2)->GetId()
-			      								<<" at face "<<i);*/
-			      	fib2->Add (*it, ndn->GetFace(i), 0);
-			      }  
-		      }
-					
-				}
-	             
-    }
-}
 
 } // namespace ndn
 } // namespace ns3

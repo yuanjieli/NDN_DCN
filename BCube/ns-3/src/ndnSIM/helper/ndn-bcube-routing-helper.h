@@ -34,7 +34,6 @@ namespace ndn {
 /**
  * @ingroup ndn
  * @brief The routing is based on one-to-many disjoint Steiner Tree algorithm (ref. BCube paper)
- * NOTE: we may also need to change FIB2 module
  */
 class BCubeRoutingHelper
 {
@@ -101,12 +100,6 @@ public:
    */
   static void
   CalculateRoutes (); 
-  
-  /**
-   * @brief Initialize FIB2
-   */
-  static void
-  CalculateFIB2 ();
   
   
 
