@@ -51,7 +51,7 @@ public:
   	m_nexthop = rhs;
   }
   
-  uint8_t
+  uint32_t
   GetNextHop() const
   {
   	return m_nexthop;
@@ -63,7 +63,7 @@ public:
   	m_prevhop = rhs;
   }
   
-  uint8_t
+  uint32_t
   GetPrevHop() const
   {
   	return m_prevhop;
