@@ -178,7 +178,11 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
     {
       NS_ASSERT (contentObjectHeader != 0);
 
-      pitEntry->AddIncoming (inFace/*, Seconds (1.0)*/);
+      //pitEntry->AddIncoming (inFace/*, Seconds (1.0)*/);
+      //For BCube: we also need extra port number
+      BCubeTag tag;
+      packet->PeekPacketTag(tag);
+      pitEntry->AddIncoming (inFace, tag.GetPrevHop());
 
       // Do data plane performance measurements
       WillSatisfyPendingInterest (0, pitEntry);
