@@ -230,8 +230,8 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         //Switch should receive Interest from uploadlink
         if(header->GetNack()==Interest::NORMAL_INTEREST)
         {
-        	/*if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) == m_uploadfaces.end())
-        		return;*/
+        	if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) == m_uploadfaces.end())
+        		return;
         	//tag identifies the next hop!
         	
         	NS_LOG_UNCOND("L2Protocol: interest inFace="<<face->GetId()<<" NextHop="<<tag.GetNextHop());
