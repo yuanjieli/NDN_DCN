@@ -102,7 +102,7 @@ public:
   AddFace (const Ptr<Face> &uploadface, const Ptr<Face> &downloadface);
   
   virtual uint32_t
-  AddAppFace (const Ptr<Face> face);
+  AddAppFace (const Ptr<Face> &face);
   
   /**
    * \brief Get current number of faces added to Ndn stack
