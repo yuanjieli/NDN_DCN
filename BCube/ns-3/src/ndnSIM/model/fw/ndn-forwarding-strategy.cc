@@ -470,6 +470,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	BCubeTag tag;
     	target->PeekPacketTag(tag);
     	tag.SetNextHop(incoming.m_localport);
+    	NS_LOG_UNCOND("SatisfyPendingInterest: m_localport="<<incoming.m_localport);
     	target->AddPacketTag(tag);	
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
@@ -578,7 +579,7 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
   BCubeTag tag;
   origPacket->PeekPacketTag(tag);
   pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-  NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+  NS_LOG_UNCOND("PropagateInterest: node="<<inFace->GetNode()->GetId()
       		  <<" face="<<inFace->GetId()
       		  <<" prevhop="<<tag.GetPrevHop());
   
@@ -674,9 +675,9 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	 */
 	tag.SetNextHop(record->GetRoutingCost()%10);
 	tag.SetPrevHop(record->GetRoutingCost()/10);
-	NS_LOG_UNCOND("RoutingCost="<<record->GetRoutingCost()
+	/*NS_LOG_UNCOND("RoutingCost="<<record->GetRoutingCost()
 				<<" nexthop="<<record->GetRoutingCost()%10
-				<<" prevhop="<<record->GetRoutingCost()/10);
+				<<" prevhop="<<record->GetRoutingCost()/10);*/
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
   if (!successSend)
