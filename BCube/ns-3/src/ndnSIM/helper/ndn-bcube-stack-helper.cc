@@ -269,10 +269,10 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       // if (DynamicCast<LoopbackNetDevice> (device) != 0)
       //   continue; // don't create face for a LoopbackNetDevice
 
-      PairFace pair = PointToPointNetDeviceCallBack (node, ndn, device);
+      PairFace res = PointToPointNetDeviceCallBack (node, ndn, device);
 
       
-      if (pair.first == 0 || pair.second == 0)
+      if (res.first == 0 || res.second == 0)
         {
           return 0;
         }
@@ -280,14 +280,14 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       if (m_needSetDefaultRoutes)
         {
           // default route with lowest priority possible
-          AddRoute (node, "/", StaticCast<Face> (pair.first), std::numeric_limits<int32_t>::max ());
-          AddRoute (node, "/", StaticCast<Face> (pair.second), std::numeric_limits<int32_t>::max ());
+          AddRoute (node, "/", StaticCast<Face> (res.first), std::numeric_limits<int32_t>::max ());
+          AddRoute (node, "/", StaticCast<Face> (res.second), std::numeric_limits<int32_t>::max ());
         }
 
-      pair.first->SetUp ();
-      pair.second->SetUp ();
-      faces->Add (pair.first);	//upload face
-      faces->Add (pair.second); //download face
+      res.first->SetUp ();
+      res.second->SetUp ();
+      faces->Add (res.first);	//upload face
+      faces->Add (res.second); //download face
     }
 
   return faces;
