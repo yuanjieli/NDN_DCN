@@ -135,6 +135,10 @@ L2Protocol::AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_fac
 	m_downloadfaces.push_back (download_face);
 	m_faceCounter++;
 	
+	NS_LOG_UNCOND("L2Protocol: node="<<upload_face->GetNode()->GetId()
+							<<" uploadID="<<upload_face->GetId()
+							<<" downloadID="<<download_face->GetId());
+	
   //return download face's ID
   return download_face->GetId();
 }
