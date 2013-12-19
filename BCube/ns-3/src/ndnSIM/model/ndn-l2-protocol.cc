@@ -241,7 +241,6 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 				  				&& tag.GetNextHop() < m_downloadfaces.size ());
 				  packet->AddHeader (*header);
 				  
-				  NS_LOG_UNCOND("NextHop="<<m_downloadfaces[tag.GetNextHop()]->GetId());
 				  m_downloadfaces[tag.GetNextHop()]->Send(packet);
         }
         //Switch should receive NACK from downloadlink

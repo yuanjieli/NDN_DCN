@@ -317,6 +317,8 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 
   NS_LOG_LOGIC ("Packet from face " << *face << " received on node " <<  m_node->GetId ());
   
+  NS_LOG_UNCOND("BCubeL3Protocol: receive packet from face="<<face->GetId()<<" node="<<face->GetNode()->GetId());
+  
   Ptr<Packet> packet = p->Copy (); // give upper layers a rw copy of the packet
   try
     {
