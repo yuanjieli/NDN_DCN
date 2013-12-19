@@ -63,7 +63,6 @@ main (int argc, char *argv[])
   
 
   ndn::BCubeStackHelper ndnHelper;  
-  ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.Install (nodes.Get (1));
   ndnHelper.Install (nodes.Get (2));
   ndnHelper.Install (nodes.Get (3));
