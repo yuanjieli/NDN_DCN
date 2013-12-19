@@ -339,7 +339,7 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 							//servers receive interest from download link
 							if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
 							{
-								//NS_LOG_UNCOND("Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
+								NS_LOG_UNCOND("Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
 								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
 							}
 							else
@@ -349,7 +349,10 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 						else
 						//servers receive nack from upload link
 							if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) != m_uploadfaces.end())
+							{
+								NS_LOG_UNCOND("Receive nack from face="<<face->GetId()<<" node="<<m_node->GetId());
 								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
+							}
 							else
 								return;
 								//m_forwardingStrategy->OnInterest (m_uploadfaces[face->GetId()/2], header, p/*original packet*/);
@@ -372,7 +375,10 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
             
             //servers receive Data from upload link
 						if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) != m_uploadfaces.end())
+						{
+							NS_LOG_UNCOND("Receive data from face="<<face->GetId()<<" node="<<m_node->GetId());
 							m_forwardingStrategy->OnData (face, header, packet/*payload*/, p/*original packet*/);
+						}
 						else
 							return;
 							//m_forwardingStrategy->OnData (m_uploadfaces[face->GetId()/2], header, packet/*payload*/, p/*original packet*/);
