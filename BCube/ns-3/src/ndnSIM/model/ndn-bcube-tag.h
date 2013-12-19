@@ -46,15 +46,27 @@ public:
   ~BCubeTag () { }
 
   void
-  SetNextHop(uint32_t rhs)
+  SetNextHop(uint8_t rhs)
   {
   	m_nexthop = rhs;
   }
   
-  uint32_t
+  uint8_t
   GetNextHop() const
   {
   	return m_nexthop;
+  }
+  
+  void
+  SetPrevHop(uint8_t rhs)
+  {
+  	m_prevhop = rhs;
+  }
+  
+  uint8_t
+  GetPrevHop() const
+  {
+  	return m_prevhop;
   }
 
   ////////////////////////////////////////////////////////
@@ -80,7 +92,8 @@ public:
   Print (std::ostream &os) const;
   
 private:
-  uint32_t m_nexthop;
+  uint8_t m_nexthop;
+  uint8_t m_prevhop;
 };
 
 } // namespace ndn

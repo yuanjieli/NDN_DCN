@@ -42,19 +42,21 @@ BCubeTag::GetInstanceTypeId () const
 uint32_t
 BCubeTag::GetSerializedSize () const
 {
-  return sizeof(uint32_t);
+  return sizeof(uint8_t)*2;
 }
 
 void
 BCubeTag::Serialize (TagBuffer i) const
 {
-  i.WriteU32 (m_nexthop);
+  i.WriteU8 (m_nexthop);
+  i.WriteU8 (m_prevhop);
 }
   
 void
 BCubeTag::Deserialize (TagBuffer i)
 {
-  m_nexthop = i.ReadU32 ();
+  m_nexthop = i.ReadU8 ();
+  m_prevhop = i.ReadU8 ();
 }
 
 void
