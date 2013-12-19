@@ -177,12 +177,16 @@ public:
    */
   virtual in_iterator
   AddIncoming (Ptr<Face> face);
+  //For BCube only
+  virtual in_iterator
+  AddIncoming (Ptr<Face> face, uint32_t localport);
     
   /**
    * @brief Remove incoming entry for face `face`
    */
   virtual void
   RemoveIncoming (Ptr<Face> face);
+  
 
   /**
    * @brief Clear all incoming faces either after all of them were satisfied or NACKed

@@ -119,6 +119,16 @@ Entry::AddIncoming (Ptr<Face> face)
   return ret.first;
 }
 
+AddIncoming (Ptr<Face> face, uint32_t localport)
+{
+  std::pair<in_iterator,bool> ret =
+  m_incoming.insert (IncomingFace (face, localport));
+
+  // NS_ASSERT_MSG (ret.second, "Something is wrong");
+
+  return ret.first;
+}
+
 void
 Entry::RemoveIncoming (Ptr<Face> face)
 {
