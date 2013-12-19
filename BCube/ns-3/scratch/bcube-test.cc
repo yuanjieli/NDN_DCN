@@ -81,7 +81,7 @@ main (int argc, char *argv[])
   
   //Add routes here
   ndn::BCubeStackHelper::AddRoute (nodes.Get(1),"/prefix",0,1);
-  ndn::BCubeStackHelper::AddRoute (nodes.Get(2),"/prefix",0,1);
+  ndn::BCubeStackHelper::AddRoute (nodes.Get(2),"/prefix",0,2);
   
   
   // Consumer
