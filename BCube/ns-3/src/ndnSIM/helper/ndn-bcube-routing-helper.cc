@@ -346,7 +346,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes()
 		NS_ASSERT(src_name[0]=='S');
 		//Extract source's BCubeID
 		uint32_t src_addr[MAX_N];
-		ExtractBCubeID(src_name, src_addr);
+		this->ExtractBCubeID(src_name, src_addr);
 		
 		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
 				
