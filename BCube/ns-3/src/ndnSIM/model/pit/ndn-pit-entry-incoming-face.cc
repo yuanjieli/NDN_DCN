@@ -37,7 +37,7 @@ IncomingFace::IncomingFace (Ptr<Face> face)
 IncomingFace::IncomingFace (Ptr<Face> face, uint32_t localport)
   : m_face (face)
   , m_arrivalTime (Simulator::Now ())
-  , m_localport (uint32_t localport)
+  , m_localport (localport)
   // , m_nonce (nonce)
 {
 }
