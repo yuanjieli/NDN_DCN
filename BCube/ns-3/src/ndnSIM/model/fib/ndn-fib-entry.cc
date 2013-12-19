@@ -193,7 +193,7 @@ Entry::ResetCount()
        face++)
     {
     	
-    	if(face->GetFace()->GetNode()->GetId()<=1)
+    	/*if(face->GetFace()->GetNode()->GetId()<=1)
 	    	NS_LOG_UNCOND(
 	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
 	    								<<" prefix="<<*m_prefix
@@ -203,7 +203,7 @@ Entry::ResetCount()
 	    								<<" NACK="<<face->GetNack()
 	    								<<" Data_in="<<face->GetDataIn()
 	    								//<<" Data_CE="<<face->GetDataCE()
-	    								);
+	    								);*/
 	    								
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
