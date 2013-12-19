@@ -184,7 +184,7 @@ BCubeL3Protocol::AddFace (const Ptr<Face> &uploadface, const Ptr<Face> &download
 }
 
 uint32_t
-BCubeL3Protocol::AddAppFace (const Prt<Face> &face)
+BCubeL3Protocol::AddAppFace (const Ptr<Face> &face)
 {
 	NS_ASSERT(m_faceCounter%2==0);
 	//To be consistent with AddFace(), AppFace would "consume" ids, 
