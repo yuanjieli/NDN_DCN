@@ -78,8 +78,8 @@ main (int argc, char *argv[])
   producerHelper.Install (nodes.Get (3));   
   
   //Add routes here
-  ndn::BCubeStackHelper::AddRoute (nodes.Get(1),"/prefix",0,1);
-  ndn::BCubeStackHelper::AddRoute (nodes.Get(2),"/prefix",0,2);
+  ndn::BCubeStackHelper::AddRoute (nodes.Get(1),"/prefix",0,01);
+  ndn::BCubeStackHelper::AddRoute (nodes.Get(2),"/prefix",0,12);
   
   
   // Consumer

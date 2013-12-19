@@ -459,54 +459,9 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	Ptr<ContentObject> NewHeader = Create<ContentObject> ();
     	target->RemoveHeader(*NewHeader);
     	
-    	/*if(DynamicCast<AppFace>(incoming.m_face)==0)
-    	{
-    		
-    		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
-	    	fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
-	      = fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
-	      
-	      //NS_LOG_UNCOND("node "<<inFace->GetNode()->GetId()<<" face "<<incoming.m_face->GetId());
-	      NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
-	      
-	      //update dataout counter
-	      fib2Entry->m_faces.modify (record2,
-	                      ll::bind (&fib2::FaceMetric::IncreaseDataOut, ll::_1));
-				//mark the data with probability
-	      //we need to consider real BW consumption too	
-	      uint32_t max_data_out = max_data_in;
-	      //uint32_t max_data_out = inFace==0 ? 0 : record->GetDataIn();
-	      
-	      for (fib2::FaceMetricContainer::type::iterator face = fib2Entry->m_faces.begin ();
-	       face != fib2Entry->m_faces.end ();
-	       face++)
-	    	{
-	      	if(max_data_out<face->GetDataOut())
-	      		//max_data_out = face->GetDataOut();
-	      		max_data_out += face->GetDataOut();
-	    	}
-	    	
-	    		if(max_data_out)
-		    	{
-		    		uint32_t N = rand()%max_data_out;
-			    	if(N<=record2->GetDataOut())
-			    		NewHeader->SetCE(1);
-			    	else
-			    		NewHeader->SetCE(0);
-		    	}
-		    	else	//no data forwarded yet
-		    		NewHeader->SetCE(1);
-	    		
-	    	
-    	}
-    	else	//local application
-    	{
-    		if(inFace==0)	//local cache hit should not increase rate
-    			NewHeader->SetCE(2);
-    	}*/
-    	
-    	
-    		
+    	BCubeTag tag;
+    	target->PeekPacketTag(tag);
+    	tag.SetNextHop(incoming->m_localport);	
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
       
