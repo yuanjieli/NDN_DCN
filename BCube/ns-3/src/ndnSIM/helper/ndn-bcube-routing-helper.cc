@@ -320,7 +320,7 @@ ExtractBCubeID(std::string &str, uint32_t *array)
 	
 	for(size_t k=1; k != str.size(); k++)
 	{
-		array[k-1] = str.at(k).c_str()-'0';
+		array[k-1] = str[k]-'0';
 	}
 }
 void
