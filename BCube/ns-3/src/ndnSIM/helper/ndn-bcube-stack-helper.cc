@@ -338,6 +338,18 @@ BCubeStackHelper::Install (const std::string &nodeName) const
   return Install (node);
 }
 
+void
+BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face, int32_t metric)
+{
+  NS_LOG_LOGIC ("[" << node->GetId () << "]$ route add " << prefix << " via " << *face << " metric " << metric);
+
+  Ptr<Fib>  fib  = node->GetObject<Fib> ();
+
+  NameValue prefixValue;
+  prefixValue.DeserializeFromString (prefix, MakeNameChecker ());
+  fib->Add (prefixValue.Get (), face, metric);
+}
+
 
 void
 BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> otherNode, int32_t metric)
@@ -358,7 +370,7 @@ BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node>
           Ptr<BCubeL3Protocol> ndn = node->GetObject<BCubeL3Protocol> ();
           NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
 
-          Ptr<Face> face = ndn->GetFaceByNetDevice (netDevice);
+          Ptr<Face> face = ndn->GetUploadFaceByNetDevice (netDevice);
           NS_ASSERT_MSG (face != 0, "There is no face associated with the p2p link");
 
           AddRoute (node, prefix, face, metric);

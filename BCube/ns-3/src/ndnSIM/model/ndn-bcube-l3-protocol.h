@@ -138,7 +138,10 @@ public:
    * \brief Get face for NetDevice
    */
   virtual Ptr<Face>
-  GetFaceByNetDevice (Ptr<NetDevice> netDevice) const;
+  GetUploadFaceByNetDevice (Ptr<NetDevice> netDevice) const;
+  
+  virtual Ptr<Face>
+  GetDownloadFaceByNetDevice (Ptr<NetDevice> netDevice) const;
 
   static uint64_t
   GetInterestCounter ();

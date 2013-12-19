@@ -213,7 +213,9 @@ public:
   AddRoute (const std::string &nodeName, const std::string &prefix, const std::string &otherNodeName, int32_t metric);
  
 private:
-
+	static void
+	AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face, int32_t metric);
+		
   PairFace
   PointToPointNetDeviceCallBack(Ptr<Node> node, Ptr<BCubeL3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
