@@ -56,13 +56,13 @@ NS_LOG_COMPONENT_DEFINE ("ndn.BCubeRoutingHelper");
 using namespace std;
 using namespace boost;
 
+namespace ns3 {
+namespace ndn {
+
 typedef std::list<Ptr<Node> > TreeNode_t;
 typedef TreeNode_t::iterator	TreeNodeIterator;
 typedef std::list<std::pair<Ptr<Node>, Ptr<Node> > > TreeLink_t;
 typedef TreeLink_t::iterator TreeLinkIterator;
-
-namespace ns3 {
-namespace ndn {
 
 void
 BCubeRoutingHelper::Install (Ptr<Node> node)
@@ -359,12 +359,14 @@ BCubeRoutingHelper::CalculateBCubeRoutes()
 		size_t level = 0;	//As first step, let's create one spanning tree only
 		{
 			//create root for this spanning tree
-			std::string root = src_name;
-			root[level] = '0' + (src_addr[level]+1)%m_n;
+			std::string root_name = src_name;
+			root_name[level] = '0' + (src_addr[level]+1)%m_n;
+			Ptr<Node> root = Names::Find(root_name);
+			NS_ASSERT(root != 0);
 			TreeNode_t TreeNode;
-			TreeNode.insert(Names::Find(root)); 
+			TreeNode.insert(root); 
 			//BuildSingSPT: Part I
-			for(size_t i = 0; i <= k; i++)
+			for(size_t i = 0; i <= m_k; i++)
 			{
 				size_t dim = (level+i)%(m_k+1);
 				
