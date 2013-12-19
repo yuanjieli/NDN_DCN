@@ -365,7 +365,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			//create root for this spanning tree
 			std::string root_name = src_name;
 			root_name[level] = '0' + (src_addr[level]+1)%m_n;
-			Ptr<Node> root = Names::Find(root_name);
+			Ptr<Node> root = Names::Find<Node>(root_name);
 			NS_ASSERT(root != 0);
 			TreeNode_t TreeNode;
 			TreeNode.push_back(root); 
