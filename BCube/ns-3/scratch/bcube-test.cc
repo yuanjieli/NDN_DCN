@@ -49,7 +49,7 @@ main (int argc, char *argv[])
 
   // Creating nodes
   NodeContainer nodes;
-  nodes.Create (4);
+  nodes.Create (5);
 
   // Connecting nodes using two links
   PointToPointHelper p2p;
@@ -57,6 +57,7 @@ main (int argc, char *argv[])
   p2p.Install (nodes.Get (0), nodes.Get (1));
   p2p.Install (nodes.Get (0), nodes.Get (2));
   p2p.Install (nodes.Get (0), nodes.Get (3));
+  p2p.Install (nodes.Get (0), nodes.Get (4));
   
   
   ndn::SwitchStackHelper switchHelper;
@@ -66,6 +67,7 @@ main (int argc, char *argv[])
   ndnHelper.Install (nodes.Get (1));
   ndnHelper.Install (nodes.Get (2));
   ndnHelper.Install (nodes.Get (3));
+  ndnHelper.Install (nodes.Get (4));
    	
   
   // Installing applications
@@ -75,11 +77,12 @@ main (int argc, char *argv[])
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (3));   
+  producerHelper.Install (nodes.Get (4));   
   
   //Add routes here
   ndn::BCubeStackHelper::AddRoute (nodes.Get(1),"/prefix",0,01);
   ndn::BCubeStackHelper::AddRoute (nodes.Get(2),"/prefix",0,12);
+  ndn::BCubeStackHelper::AddRoute (nodes.Get(3),"/prefix",0,23);
   
   
   // Consumer
