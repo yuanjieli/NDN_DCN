@@ -153,7 +153,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
         }
       else
         {
-        	NS_LOG_UNCOND("test 1");
           return;
         }
     }
@@ -167,7 +166,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
   if (isDuplicated)
     {
-    	NS_LOG_UNCOND("here?");
       DidReceiveDuplicateInterest (inFace, header, origPacket, pitEntry);
       return;
     }
