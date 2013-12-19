@@ -461,7 +461,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	BCubeTag tag;
     	target->PeekPacketTag(tag);
-    	tag.SetNextHop(incoming.m_localport);	
+    	tag.SetNextHop(incoming.m_localport);
+    	target->AddPacketTag(tag);	
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
       
@@ -662,7 +663,9 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	 */
 	tag.SetNextHop(record->GetRoutingCost()%10);
 	tag.SetPrevHop(record->GetRoutingCost()/10);
-	NS_LOG_UNCOND("RoutingCost="<<record->GetRoutingCost());
+	NS_LOG_UNCOND("RoutingCost="<<record->GetRoutingCost()
+				<<" nexthop="<<record->GetRoutingCost()%10
+				<<" prevhop="<<record->GetRoutingCost()/10);
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
   if (!successSend)
