@@ -159,6 +159,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
         }
       else
         {
+        	NS_LOG_UNCOND("test 1");
           return;
         }
     }
@@ -172,8 +173,8 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
   if (isDuplicated)
     {
-    	NS_LOG_UNCOND("ForwardingStrategy::OnInterest: Duplicated Interest?");
       DidReceiveDuplicateInterest (inFace, header, origPacket, pitEntry);
+      NS_LOG_UNCOND("test 2");
       return;
     }
 
@@ -198,6 +199,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
       // Actually satisfy pending interest
       SatisfyPendingInterest (0, contentObjectHeader, payload, contentObject, pitEntry);
+      NS_LOG_UNCOND("test 3");
       return;
     }
 
@@ -212,6 +214,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       m_dropInterests (header, inFace);	
       NS_LOG_UNCOND ("Suppress interests");
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
+      NS_LOG_UNCOND("test 4");
       return;
     }
 
@@ -219,8 +222,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
     {
       DidForwardSimilarInterest (inFace, header, origPacket, pitEntry);
     }
-
-	NS_LOG_UNCOND("Aha!");
+	
   PropagateInterest (inFace, header, origPacket, pitEntry);
 }
 
