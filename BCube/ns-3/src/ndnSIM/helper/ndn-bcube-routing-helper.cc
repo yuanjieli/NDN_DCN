@@ -103,37 +103,27 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
 			  continue;
 			}
 
-      if (ch->GetNDevices () == 2) // e.g., point-to-point channel
-			{
-			  for (uint32_t deviceId = 0; deviceId < ch->GetNDevices (); deviceId ++)
-			    {
-			      Ptr<NetDevice> otherSide = ch->GetDevice (deviceId);
-			      if (nd == otherSide) continue;
+      //if (ch->GetNDevices () == 2) // e.g., point-to-point channel
+      NS_ASSERT(ch->GetNDevices () == 2);	//BCube only uses point-to-point channel
+			
+	  for (uint32_t deviceId = 0; deviceId < ch->GetNDevices (); deviceId ++)
+	  {
+		 Ptr<NetDevice> otherSide = ch->GetDevice (deviceId);
+		 if (nd == otherSide) continue;
 		
-			      Ptr<Node> otherNode = otherSide->GetNode ();
-			      NS_ASSERT (otherNode != 0);
+		 Ptr<Node> otherNode = otherSide->GetNode ();
+		 NS_ASSERT (otherNode != 0);
 		
-			      Ptr<GlobalRouter> otherGr = otherNode->GetObject<GlobalRouter> ();
-			      if (otherGr == 0)
-						{
-						  Install (otherNode);
-						}
-			      otherGr = otherNode->GetObject<GlobalRouter> ();
-			      NS_ASSERT (otherGr != 0);
-			      gr->AddIncidency (face, otherGr);
-			    }
-			}
-      else
-			{
-			  Ptr<GlobalRouter> grChannel = ch->GetObject<GlobalRouter> ();
-			  if (grChannel == 0)
-			    {
-			      Install (ch);
-			    }
-			  grChannel = ch->GetObject<GlobalRouter> ();
-		
-			  gr->AddIncidency (0, grChannel);
-			}
+		 Ptr<GlobalRouter> otherGr = otherNode->GetObject<GlobalRouter> ();
+		 if (otherGr == 0)
+		 {
+			Install (otherNode);
+		 }
+		 otherGr = otherNode->GetObject<GlobalRouter> ();
+		 NS_ASSERT (otherGr != 0);
+		 gr->AddIncidency (face, otherGr);
+	   }
+			     
     }
 }
 
