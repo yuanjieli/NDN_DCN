@@ -306,24 +306,27 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
             NS_ASSERT_MSG (packet->GetSize () == 0, "Payload of Interests should be zero");
 						
 						if(header->GetNack()==Interest::NORMAL_INTEREST)
-						//servers receive interest from download link
-							NS_ASSERT(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face)
-      					!= m_downloadfaces.end());
+						{
+							//servers receive interest from download link
+							if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
+								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
+							else
+								m_forwardingStrategy->OnInterest (m_uploadfaces[face->GetId()/2], header, p/*original packet*/);
+						}
 						else
-						//servers receive nack from download link
-							NS_ASSERT(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face)
-      					!= m_uploadfaces.end());
+						//servers receive nack from upload link
+							if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) != m_uploadfaces.end())
+								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
+							else
+								m_forwardingStrategy->OnInterest (m_uploadfaces[face->GetId()/2], header, p/*original packet*/);
 							
-            m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
+            //m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
             
             break;
           }
         case HeaderHelper::CONTENT_OBJECT_NDNSIM:
           {
-          	//servers receive Data from upload link
-						NS_ASSERT(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face)
-      					!= m_uploadfaces.end());
-						
+          	
             s_dataCounter ++;
             Ptr<ContentObject> header = Create<ContentObject> ();
 
@@ -332,8 +335,14 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
             // Deserialization. Exception may be thrown
             packet->RemoveHeader (*header);
             packet->RemoveTrailer (contentObjectTrailer);
+            
+            //servers receive Data from upload link
+						if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) != m_uploadfaces.end())
+							m_forwardingStrategy->OnData (face, header, packet/*payload*/, p/*original packet*/);
+						else
+							m_forwardingStrategy->OnData (m_uploadfaces[face->GetId()/2], header, packet/*payload*/, p/*original packet*/);
 
-            m_forwardingStrategy->OnData (face, header, packet/*payload*/, p/*original packet*/);
+            //m_forwardingStrategy->OnData (face, header, packet/*payload*/, p/*original packet*/);
             break;
           }
         case HeaderHelper::INTEREST_CCNB:
