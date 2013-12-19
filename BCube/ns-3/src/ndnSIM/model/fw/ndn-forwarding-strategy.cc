@@ -468,7 +468,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	target->RemoveHeader(*NewHeader);
     	
     	BCubeTag tag;
-    	target->PeekPacketTag(tag);
+    	target->RemovePacketTag(tag);
     	tag.SetNextHop(incoming.m_localport);
     	NS_LOG_UNCOND("SatisfyPendingInterest: m_localport="<<incoming.m_localport);
     	target->AddPacketTag(tag);	
