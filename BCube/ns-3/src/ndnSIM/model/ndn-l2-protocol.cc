@@ -261,8 +261,8 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
     case HeaderHelper::CONTENT_OBJECT_NDNSIM:
       {
       	//Switch should receive Data from downloadlink, and forwarded to uploadlink
-      	/*if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
-      		return;*/
+      	if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
+      		return;
       	//tag identifies the next hop!
 			  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
 			  				&& 0 <= tag.GetNextHop() 
