@@ -191,6 +191,8 @@ BCubeL3Protocol::AddAppFace (const Ptr<Face> &face)
 	//and the real id is the even number (same as upload face)
 	face->SetId (m_faceCounter);
 	
+	face->RegisterProtocolHandler (MakeCallback (&BCubeL3Protocol::Receive, this));
+	
 	m_uploadfaces.push_back (face);
 	m_downloadfaces.push_back (face);
 		
