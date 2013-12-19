@@ -82,7 +82,7 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
 	//Here we only need to consider upload lnk, so faceId += 2
   for (uint32_t faceId = 0; faceId < ndn->GetNFaces (); faceId += 2)	
     {
-      Ptr<NetDeviceFace> face = DynamicCast<NetDeviceFace> (ndn->GetFace (faceId));
+      Ptr<NetDeviceFace> face = DynamicCast<NetDeviceFace> (ndn->GetUploadFace (faceId));
       if (face == 0)
 			{
 			  NS_LOG_DEBUG ("Skipping non-netdevice face");
@@ -362,7 +362,7 @@ BCubeRoutingHelper::CalculateFIB2 ()
 					Ptr<Fib2>  fib2  = source2->GetObject<Fib2> ();
 		      NS_ASSERT (fib2 != 0);
 		      
-		      Ptr<L3Protocol> ndn = (*node2)->GetObject<L3Protocol> ();
+		      Ptr<BCubeL3Protocol> ndn = (*node2)->GetObject<BCubeL3Protocol> ();
   				NS_ASSERT_MSG (ndn != 0, "Cannot install BCubeRoutingHelper before Ndn is installed on a node");
 		      
 		      for(std::list< Ptr<Name> >::iterator it = LocalPrefixList.begin(); it != LocalPrefixList.end(); it++)
