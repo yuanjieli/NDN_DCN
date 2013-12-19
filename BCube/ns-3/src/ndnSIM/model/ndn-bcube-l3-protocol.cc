@@ -303,16 +303,23 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
             // Deserialization. Exception may be thrown
             packet->RemoveHeader (*header);
             NS_ASSERT_MSG (packet->GetSize () == 0, "Payload of Interests should be zero");
-
+						
+						if(header->GetNack()==Interest::NORMAL_INTEREST)
+						//servers receive interest from download link
+							NS_ASSERT(m_downloadfaces.find(face) != m_downloadfaces.end());
+						else
+						//servers receive nack from download link
+							NS_ASSERT(m_uploadfaces.find(face) != m_uploadfaces.end());	
+							
             m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
-            // if (header->GetNack () > 0)
-            //   OnNack (face, header, p/*original packet*/);
-            // else
-            //   OnInterest (face, header, p/*original packet*/);
+            
             break;
           }
         case HeaderHelper::CONTENT_OBJECT_NDNSIM:
           {
+          	//servers receive Data from upload link
+						NS_ASSERT(m_uploadfaces.find(face) != m_uploadfaces.end());
+						
             s_dataCounter ++;
             Ptr<ContentObject> header = Create<ContentObject> ();
 

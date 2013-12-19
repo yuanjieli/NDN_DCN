@@ -129,6 +129,7 @@ L2Protocol::AddFace (const Ptr<Face> &upload_face, const Ptr<Face> &download_fac
   
   //Add download face
   download_face->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
+	download_face->RegisterProtocolHandler (MakeCallback (&L2Protocol::Receive, this));
 	m_downloadfaces.push_back (download_face);
 	m_faceCounter++;
 	
@@ -211,12 +212,63 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
   BCubeTag tag;
   p->PeekPacketTag(tag);	//FIXME: correct or not?
   
-  //tag identifies the next hop!
-  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
-  				&& 0 <= tag.GetNextHop() 
-  				&& tag.GetNextHop() < m_downloadfaces.size ());
+ 
+  HeaderHelper::Type type = HeaderHelper::GetNdnHeaderType (p);
+  switch (type)
+    {
+    case HeaderHelper::INTEREST_NDNSIM:	
+      {
+      	 	
+        Ptr<Interest> header = Create<Interest> ();
+
+        // Deserialization. Exception may be thrown
+        packet->RemoveHeader (*header);
+        NS_ASSERT_MSG (packet->GetSize () == 0, "Payload of Interests should be zero");
+        
+        //Switch should receive Interest from uploadlink
+        if(header->GetNack()==Interest::NORMAL_INTEREST)
+        {
+        	NS_ASSERT(m_uploadfaces.find(face) != m_uploadfaces.end());
+        	//tag identifies the next hop!
+				  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
+				  				&& 0 <= tag.GetNextHop() 
+				  				&& tag.GetNextHop() < m_downloadfaces.size ());
+				  packet->AddHeader (*header);
+				  m_downloadfaces[tag.GetNextHop()]->Send(packet);
+        }
+        //Switch should receive NACK from downloadlink
+        else
+        {
+        	NS_ASSERT(m_downloadfaces.find(face) != m_downloadfaces.end());
+        	//tag identifies the next hop!
+				  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
+				  				&& 0 <= tag.GetNextHop() 
+				  				&& tag.GetNextHop() < m_uploadfaces.size ());
+				  packet->AddHeader (*header);
+				  m_uploadfaces[tag.GetNextHop()]->Send(packet);
+        }
+                    
+        break;
+      }
+    case HeaderHelper::CONTENT_OBJECT_NDNSIM:
+      {
+      	//Switch should receive Data from downloadlink
+      	NS_ASSERT(m_downloadfaces.find(face) != m_downloadfaces.end());
+      	//tag identifies the next hop!
+			  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
+			  				&& 0 <= tag.GetNextHop() 
+			  				&& tag.GetNextHop() < m_uploadfaces.size ());
+			
+			  m_uploadfaces[tag.GetNextHop()]->Send(packet);
+        break;
+      }
+    case HeaderHelper::INTEREST_CCNB:
+    case HeaderHelper::CONTENT_OBJECT_CCNB:
+      NS_FATAL_ERROR ("ccnb support is broken in this implementation");
+      break;
+    }
+
   
-  m_downloadfaces[tag.GetNextHop()]->Send(packet);
    
 }
 
