@@ -41,8 +41,8 @@ public:
   EntryImpl (Pit &pit,
                 Ptr<const Interest> header,
                 Ptr<fib::Entry> fibEntry,
-                Ptr<fib2::Entry> fib2Entry)
-  : Entry (pit, header, fibEntry, fib2Entry)
+                )
+  : Entry (pit, header, fibEntry)
   , item_ (0)
   {
     CONTAINER.i_time.insert (*this);
