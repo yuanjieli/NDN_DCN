@@ -121,8 +121,6 @@ private:
   BCubeRoutingHelper();	//parameters for BCube are mandatory
   void
   Install (Ptr<Channel> channel);
-  //read each digit of BCubeID from the node's name
-  void ExtractBCubeID(std::string &str, uint32_t *array);
   
   //BCube parameters. These parameters SHOULD be consistent with the SIGCOMM paper
   uint32_t n;	//#ports for each switch

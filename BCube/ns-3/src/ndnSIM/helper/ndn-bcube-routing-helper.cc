@@ -312,8 +312,9 @@ BCubeRoutingHelper::CalculateRoutes ()
     }
 }
 
+//Auxiliary function for extracting BCubeID from node's name
 void
-BCubeRoutingHelper::ExtractBCubeID(std::string &str, uint32_t *array)
+ExtractBCubeID(std::string &str, uint32_t *array)
 {
 	NS_ASSERT(str.size()>1 && str.size()-1<=MAX_N);
 	
@@ -346,7 +347,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes()
 		NS_ASSERT(src_name[0]=='S');
 		//Extract source's BCubeID
 		uint32_t src_addr[MAX_N];
-		this->ExtractBCubeID(src_name, src_addr);
+		ExtractBCubeID(src_name, src_addr);
 		
 		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
 				
