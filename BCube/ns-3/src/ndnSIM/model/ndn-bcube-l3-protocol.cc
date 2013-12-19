@@ -156,6 +156,8 @@ BCubeL3Protocol::DoDispose (void)
 uint32_t
 BCubeL3Protocol::AddFace (const Ptr<Face> &uploadface, const Ptr<Face> &downloadface)
 {
+	NS_ASSERT(m_faceCounter%2==0);
+	
 	//Add upload face
   uploadface->SetId (m_faceCounter); // sets a unique ID of the face. This ID serves only informational purposes
 
@@ -179,6 +181,24 @@ BCubeL3Protocol::AddFace (const Ptr<Face> &uploadface, const Ptr<Face> &download
   m_forwardingStrategy->AddFace (downloadface); // notify that face is added
   
   return downloadface->GetId ();
+}
+
+uint32_t
+BCubeL3Protocol::AddAppFace (const Prt<Face> &face)
+{
+	NS_ASSERT(m_faceCounter%2==0);
+	//To be consistent with AddFace(), AppFace would "consume" ids, 
+	//and the real id is the even number (same as upload face)
+	face->SetId (m_faceCounter);
+	
+	m_uploadfaces.push_back (uploadface);
+	m_downloadfaces.push_back (downloadface);
+		
+	m_forwardingStrategy->AddFace (face); // notify that face is added
+	
+	m_faceCounter +=2;
+	
+	return face->GetId();
 }
 
 void
@@ -208,14 +228,13 @@ BCubeL3Protocol::RemoveFace (Ptr<Face> face)
     }
 
   FaceList::iterator face_it = find (m_uploadfaces.begin(), m_uploadfaces.end(), face);
-  if(face_it == m_uploadfaces.end())
-  {
-  	face_it = find (m_downloadfaces.begin(), m_downloadfaces.end(), face);
-  	NS_ASSERT_MSG (face_it != m_downloadfaces.end (), "Attempt to remove face that doesn't exist");
-  	m_downloadfaces.erase (face_it);
-  }
-  else
+  if(face_it != m_uploadfaces.end())
   	m_uploadfaces.erase (face_it);
+  	
+  face_it = find (m_downloadfaces.begin(), m_downloadfaces.end(), face);
+  if (face_it != m_downloadfaces.end ())
+  	m_downloadfaces.erase (face_it);
+  
 
   GetObject<Fib> ()->RemoveFromAll (face);
   m_forwardingStrategy->RemoveFace (face); // notify that face is removed

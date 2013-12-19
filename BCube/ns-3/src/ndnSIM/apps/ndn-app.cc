@@ -26,6 +26,7 @@
 #include "ns3/ndn-interest.h"
 #include "ns3/ndn-content-object.h"
 #include "ns3/ndn-l3-protocol.h"
+#include "ns3/ndn-bcube-l3-protocol.h"
 #include "ns3/ndn-fib.h"
 #include "ns3/ndn-app-face.h"
 #include "ns3/ndn-forwarding-strategy.h"
@@ -137,14 +138,17 @@ App::StartApplication () // Called at time specified by Start
   NS_ASSERT (m_active != true);
   m_active = true;
 
-  NS_ASSERT_MSG (GetNode ()->GetObject<L3Protocol> () != 0,
+  NS_ASSERT_MSG (GetNode ()->GetObject<L3Protocol> () != 0 || GetNode ()->GetObject<BCubeL3Protocol> () != 0,
                  "Ndn stack should be installed on the node " << GetNode ());
 
   // step 1. Create a face
   m_face = CreateObject<AppFace> (/*Ptr<App> (this)*/this);
     
   // step 2. Add face to the Ndn stack
-  GetNode ()->GetObject<L3Protocol> ()->AddFace (m_face);
+  if(GetNode ()->GetObject<L3Protocol> () != 0)
+  	GetNode ()->GetObject<L3Protocol> ()->AddFace (m_face);
+  else if(GetNode ()->GetObject<BCubeL3Protocol> () != 0)	//BCube stack
+  	GetNode ()->GetObject<BCubeL3Protocol> ()->AddAppFace (m_face);
 
   // step 3. Enable face
   m_face->SetUp (true);
@@ -157,7 +161,7 @@ App::StopApplication () // Called at time specified by Stop
 
   if (!m_active) return; //don't assert here, just return
  
-  NS_ASSERT (GetNode ()->GetObject<L3Protocol> () != 0);
+  NS_ASSERT (GetNode ()->GetObject<L3Protocol> () != 0 || GetNode ()->GetObject<BCubeL3Protocol> () != 0);
 
   m_active = false;
 
@@ -165,7 +169,10 @@ App::StopApplication () // Called at time specified by Stop
   m_face->SetUp (false);
 
   // step 2. Remove face from Ndn stack
-  GetNode ()->GetObject<L3Protocol> ()->RemoveFace (m_face);
+  if(GetNode ()->GetObject<L3Protocol> () != 0)
+  	GetNode ()->GetObject<L3Protocol> ()->RemoveFace (m_face);
+  else if(GetNode ()->GetObject<BCubeL3Protocol> () != 0)
+  	GetNode ()->GetObject<BCubeL3Protocol> ()->RemoveFace (m_face);
 
   // step 3. Destroy face
   if (m_face->GetReferenceCount () != 1)
