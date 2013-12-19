@@ -41,7 +41,6 @@
 
 #include "ns3/ndn-forwarding-strategy.h"
 #include "ns3/ndn-fib.h"
-#include "ns3/ndn-fib2.h"
 #include "ns3/ndn-pit.h"
 #include "ns3/ndn-name.h"
 #include "ns3/ndn-content-store.h"
@@ -71,7 +70,6 @@ BCubeStackHelper::BCubeStackHelper ()
   m_strategyFactory.    SetTypeId ("ns3::ndn::fw::Flooding");
   m_contentStoreFactory.SetTypeId ("ns3::ndn::cs::Lru");
   m_fibFactory.         SetTypeId ("ns3::ndn::fib::Default");
-  m_fib2Factory.				SetTypeId ("ns3::ndn::fib2::Default");
   m_pitFactory.         SetTypeId ("ns3::ndn::pit::Persistent");
 
   
@@ -170,24 +168,6 @@ BCubeStackHelper::SetFib (const std::string &fibClass,
 }
 
 void
-BCubeStackHelper::SetFib2 (const std::string &fib2Class,
-                     const std::string &attr1, const std::string &value1,
-                     const std::string &attr2, const std::string &value2,
-                     const std::string &attr3, const std::string &value3,
-                     const std::string &attr4, const std::string &value4)
-{
-  m_fib2Factory.SetTypeId (fib2Class);
-  if (attr1 != "")
-      m_fib2Factory.Set (attr1, StringValue (value1));
-  if (attr2 != "")
-      m_fib2Factory.Set (attr2, StringValue (value2));
-  if (attr3 != "")
-      m_fib2Factory.Set (attr3, StringValue (value3));
-  if (attr4 != "")
-      m_fib2Factory.Set (attr4, StringValue (value4));
-}
-
-void
 BCubeStackHelper::EnableLimits (bool enable/* = true*/,
                            Time avgRtt/*=Seconds(0.1)*/,
                            uint32_t avgContentObject/*=1100*/,
@@ -237,9 +217,6 @@ BCubeStackHelper::Install (Ptr<Node> node) const
   Ptr<Fib> fib = m_fibFactory.Create<Fib> ();
   ndn->AggregateObject (fib);
   
-  // Create and aggregate FIB2
-  Ptr<Fib2> fib2 = m_fib2Factory.Create<Fib2> ();
-  ndn->AggregateObject (fib2);
 
   // Create and aggregate PIT
   ndn->AggregateObject (m_pitFactory.Create<Pit> ());

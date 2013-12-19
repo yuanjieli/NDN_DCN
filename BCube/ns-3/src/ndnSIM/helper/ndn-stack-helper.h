@@ -130,18 +130,7 @@ public:
           const std::string &attr3 = "", const std::string &value3 = "",
           const std::string &attr4 = "", const std::string &value4 = "");
           	
-          	
-  /**
-   * @brief Set FIB class and its attributes
-   * @param pitClass string, representing class of FIB
-   */
-  void
-  SetFib2 (const std::string &fib2Class,
-          const std::string &attr1 = "", const std::string &value1 = "",
-          const std::string &attr2 = "", const std::string &value2 = "",
-          const std::string &attr3 = "", const std::string &value3 = "",
-          const std::string &attr4 = "", const std::string &value4 = "");
-
+          	  
   typedef Callback< Ptr<NetDeviceFace>, Ptr<Node>, Ptr<L3Protocol>, Ptr<NetDevice> > NetDeviceFaceCreateCallback;
 
   /**
@@ -298,7 +287,6 @@ private:
   ObjectFactory m_contentStoreFactory;
   ObjectFactory m_pitFactory;
   ObjectFactory m_fibFactory;
-  ObjectFactory m_fib2Factory;
 
   bool     m_limitsEnabled;
   Time     m_avgRtt;
