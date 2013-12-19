@@ -693,7 +693,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
   Ptr<Packet> packetToSend = origPacket->Copy ();
   //Get the next hop
   fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (outFace);
 	NS_ASSERT(record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ());
 		
 	BCubeTag tag;
