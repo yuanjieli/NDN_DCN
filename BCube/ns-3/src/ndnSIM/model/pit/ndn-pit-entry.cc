@@ -119,7 +119,8 @@ Entry::AddIncoming (Ptr<Face> face)
   return ret.first;
 }
 
-AddIncoming (Ptr<Face> face, uint32_t localport)
+Entry::in_iterator
+Entry::AddIncoming (Ptr<Face> face, uint32_t localport)
 {
   std::pair<in_iterator,bool> ret =
   m_incoming.insert (IncomingFace (face, localport));
