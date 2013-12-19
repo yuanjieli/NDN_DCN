@@ -685,6 +685,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	BCubeTag tag;
 	packetToSend->RemovePacketTag(tag);
 	tag.SetNextHop(record->GetRoutingCost());
+	NS_LOG_UNCOND("RoutingCost=record->GetRoutingCost()");
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
   if (!successSend)
