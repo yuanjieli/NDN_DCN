@@ -316,7 +316,7 @@ void
 BCubeRoutingHelper::CalculateBCubeRoutes()
 {
 	
-	for(NodeList::iterator node = NodeList::Begin(); node != NodeList::End(); node++)
+	for(NodeList::Iterator node = NodeList::Begin(); node != NodeList::End(); node++)
 	{
 		/* Step 1: for each node, if it has local prefixes,
 		 * calculate multiple disjoint Steiner trees to all nodes.
