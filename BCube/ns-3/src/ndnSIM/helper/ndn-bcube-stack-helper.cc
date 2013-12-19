@@ -66,7 +66,6 @@ namespace ndn {
 
 BCubeStackHelper::BCubeStackHelper ()
   : m_limitsEnabled (false)
-  , m_needSetDefaultRoutes (false)
 {
   m_ndnFactory.         SetTypeId ("ns3::ndn::BCubeL3Protocol");
   m_strategyFactory.    SetTypeId ("ns3::ndn::fw::Flooding");
@@ -189,13 +188,6 @@ BCubeStackHelper::SetFib2 (const std::string &fib2Class,
 }
 
 void
-BCubeStackHelper::SetDefaultRoutes (bool needSet)
-{
-  NS_LOG_FUNCTION (this << needSet);
-  m_needSetDefaultRoutes = needSet;
-}
-
-void
 BCubeStackHelper::EnableLimits (bool enable/* = true*/,
                            Time avgRtt/*=Seconds(0.1)*/,
                            uint32_t avgContentObject/*=1100*/,
@@ -275,14 +267,6 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       if (res.first == 0 || res.second == 0)
         {
           return 0;
-        }
-
-      if (m_needSetDefaultRoutes)
-        {
-          // default route with lowest priority possible
-          AddRoute (node, "/", StaticCast<Face> (res.first), std::numeric_limits<int32_t>::max ());
-          //AddRoute (node, "/", StaticCast<Face> (res.first), std::numeric_limits<int32_t>::max ());
-          //AddRoute (node, "/", StaticCast<Face> (res.second), std::numeric_limits<int32_t>::max ());
         }
 
       res.first->SetUp ();

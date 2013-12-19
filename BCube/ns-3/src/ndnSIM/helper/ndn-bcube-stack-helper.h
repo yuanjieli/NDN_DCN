@@ -211,13 +211,7 @@ public:
    */
   static void
   AddRoute (const std::string &nodeName, const std::string &prefix, const std::string &otherNodeName, int32_t metric);
-
-  /**
-   * \brief Set flag indicating necessity to install default routes in FIB
-   */
-  void
-  SetDefaultRoutes (bool needSet);
-
+ 
 private:
 
   PairFace
@@ -239,7 +233,6 @@ private:
   Time     m_avgRtt;
   uint32_t m_avgContentObjectSize;
   uint32_t m_avgInterestSize;
-  bool     m_needSetDefaultRoutes;
 
 };
 
