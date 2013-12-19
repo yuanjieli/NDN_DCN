@@ -29,6 +29,15 @@ namespace pit {
 IncomingFace::IncomingFace (Ptr<Face> face)
   : m_face (face)
   , m_arrivalTime (Simulator::Now ())
+  , m_localport (std::numeric_limits<uint32_t>::max ())
+  // , m_nonce (nonce)
+{
+}
+
+IncomingFace::IncomingFace (Ptr<Face> face, uint32_t localport)
+  : m_face (face)
+  , m_arrivalTime (Simulator::Now ())
+  , m_localport (uint32_t localport)
   // , m_nonce (nonce)
 {
 }
@@ -36,6 +45,7 @@ IncomingFace::IncomingFace (Ptr<Face> face)
 IncomingFace::IncomingFace ()
   : m_face (0)
   , m_arrivalTime (0)
+  , m_localport (std::numeric_limits<uint32_t>::max ())
 {
 }
 
@@ -47,6 +57,7 @@ IncomingFace::operator = (const IncomingFace &other)
 {
   m_face = other.m_face;
   m_arrivalTime = other.m_arrivalTime;
+  m_localport = other.m_localport;
   return *this;
 }
 

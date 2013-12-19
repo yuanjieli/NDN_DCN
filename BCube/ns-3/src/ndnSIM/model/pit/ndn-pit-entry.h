@@ -93,6 +93,9 @@ class Entry : public SimpleRefCount<Entry>
 public:
   typedef std::set< IncomingFace > in_container; ///< @brief incoming faces container type
   typedef in_container::iterator in_iterator;                ///< @brief iterator to incoming faces
+  
+  typedef std::set<uint32_t> in_index;		// used for storing BCube switches' local port index
+  typedef in_index::iterator in_index_iterator;	//iterator for in_index
 
   // typedef OutgoingFaceContainer::type out_container; ///< @brief outgoing faces container type
   typedef std::set< OutgoingFace > out_container; ///< @brief outgoing faces container type
@@ -174,7 +177,7 @@ public:
    */
   virtual in_iterator
   AddIncoming (Ptr<Face> face);
-
+    
   /**
    * @brief Remove incoming entry for face `face`
    */
@@ -309,6 +312,7 @@ protected:
   nonce_container m_seenNonces;  ///< \brief map of nonces that were seen for this prefix
   in_container  m_incoming;      ///< \brief container for incoming interests
   out_container m_outgoing;      ///< \brief container for outgoing interests
+  in_index m_incoming_index;	///< \brief container for incoming interests' local port number
 
   Time m_expireTime;         ///< \brief Time when PIT entry will be removed
 

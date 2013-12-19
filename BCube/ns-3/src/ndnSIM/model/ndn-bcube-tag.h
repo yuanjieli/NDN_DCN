@@ -38,7 +38,9 @@ public:
   /**
    * @brief Default constructor
    */
-  BCubeTag () : m_nexthop (std::numeric_limits<uint32_t>::max ()) { };	
+  BCubeTag () : 
+  	m_nexthop (std::numeric_limits<uint32_t>::max ())
+  , m_prevhop (std::numeric_limits<uint32_t>::max ()) { };	
 
   /**
    * @brief Destructor

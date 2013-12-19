@@ -38,6 +38,7 @@ struct IncomingFace
 {
   Ptr< Face > m_face; ///< \brief face of the incoming Interest
   Time m_arrivalTime;   ///< \brief arrival time of the incoming Interest
+  uint32_t m_localport;	///< \brief for BCube switch's local port number
 
 public:
   /**
@@ -46,6 +47,8 @@ public:
    * \param lifetime lifetime of the incoming interest
    */
   IncomingFace (Ptr<Face> face);
+  
+  IncomingFace (Ptr<Face> face, uint32_t localport);
 
   /**
    * @brief Default constructor, necessary for Python bindings, but should not be used anywhere else.
