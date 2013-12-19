@@ -112,7 +112,7 @@ public:
   static void
   CalculateRoutes (); 
   
-  static void
+  void
   CalculateBCubeRoutes ();
   
   
