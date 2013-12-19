@@ -355,45 +355,6 @@ BCubeStackHelper::Install (const std::string &nodeName) const
 
 
 void
-BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face, int32_t metric)
-{
-  NS_LOG_LOGIC ("[" << node->GetId () << "]$ route add " << prefix << " via " << *face << " metric " << metric);
-
-  Ptr<Fib>  fib  = node->GetObject<Fib> ();
-
-  NameValue prefixValue;
-  prefixValue.DeserializeFromString (prefix, MakeNameChecker ());
-  fib->Add (prefixValue.Get (), face, metric);
-}
-
-void
-BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceId, int32_t metric)
-{
-  Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
-  NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
-
-  Ptr<Face> face = ndn->GetUploadFace (faceId);
-  NS_ASSERT_MSG (face != 0, "Face with ID [" << faceId << "] does not exist on node [" << node->GetId () << "]");
-
-  AddRoute (node, prefix, face, metric);
-}
-
-void
-BCubeStackHelper::AddRoute (const std::string &nodeName, const std::string &prefix, uint32_t faceId, int32_t metric)
-{
-  Ptr<Node> node = Names::Find<Node> (nodeName);
-  NS_ASSERT_MSG (node != 0, "Node [" << nodeName << "] does not exist");
-
-  Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
-  NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
-
-  Ptr<Face> face = ndn->GetUploadFace (faceId);
-  NS_ASSERT_MSG (face != 0, "Face with ID [" << faceId << "] does not exist on node [" << nodeName << "]");
-
-  AddRoute (node, prefix, face, metric);
-}
-
-void
 BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> otherNode, int32_t metric)
 {
   for (uint32_t deviceId = 0; deviceId < node->GetNDevices (); deviceId ++)

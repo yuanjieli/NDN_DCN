@@ -20,7 +20,8 @@
 
 #include "ndn-bcube-routing-helper.h"
 
-#include "ns3/ndn-l3-protocol.h"
+//#include "ns3/ndn-l3-protocol.h"
+#include "ns3/ndn-bcube-l3-protocol.h"
 #include "../model/ndn-net-device-face.h"
 #include "../model/ndn-global-router.h"
 #include "ns3/ndn-name.h"
@@ -64,7 +65,7 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
 {
   NS_LOG_LOGIC ("Node: " << node->GetId ());
 
-  Ptr<L3Protocol> ndn = node->GetObject<L3Protocol> ();
+  Ptr<BCubeL3Protocol> ndn = node->GetObject<BCubeL3Protocol> ();
   NS_ASSERT_MSG (ndn != 0, "Cannot install BCubeRoutingHelper before Ndn is installed on a node");
 
   Ptr<GlobalRouter> gr = node->GetObject<GlobalRouter> ();
@@ -77,61 +78,63 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
   gr = CreateObject<GlobalRouter> ();
   node->AggregateObject (gr);
 
-  for (uint32_t faceId = 0; faceId < ndn->GetNFaces (); faceId++)
+	//uploadlinks and download links share the device
+	//Here we only need to consider upload lnk, so faceId += 2
+  for (uint32_t faceId = 0; faceId < ndn->GetNFaces (); faceId += 2)	
     {
       Ptr<NetDeviceFace> face = DynamicCast<NetDeviceFace> (ndn->GetFace (faceId));
       if (face == 0)
-	{
-	  NS_LOG_DEBUG ("Skipping non-netdevice face");
-	  continue;
-	}
+			{
+			  NS_LOG_DEBUG ("Skipping non-netdevice face");
+			  continue;
+			}
 
       Ptr<NetDevice> nd = face->GetNetDevice ();
       if (nd == 0)
-	{
-	  NS_LOG_DEBUG ("Not a NetDevice associated with NetDeviceFace");
-	  continue;
-	}
+			{
+			  NS_LOG_DEBUG ("Not a NetDevice associated with NetDeviceFace");
+			  continue;
+			}
 
       Ptr<Channel> ch = nd->GetChannel ();
 
       if (ch == 0)
-	{
-	  NS_LOG_DEBUG ("Channel is not associated with NetDevice");
-	  continue;
-	}
+			{
+			  NS_LOG_DEBUG ("Channel is not associated with NetDevice");
+			  continue;
+			}
 
       if (ch->GetNDevices () == 2) // e.g., point-to-point channel
-	{
-	  for (uint32_t deviceId = 0; deviceId < ch->GetNDevices (); deviceId ++)
-	    {
-	      Ptr<NetDevice> otherSide = ch->GetDevice (deviceId);
-	      if (nd == otherSide) continue;
-
-	      Ptr<Node> otherNode = otherSide->GetNode ();
-	      NS_ASSERT (otherNode != 0);
-
-	      Ptr<GlobalRouter> otherGr = otherNode->GetObject<GlobalRouter> ();
-	      if (otherGr == 0)
-		{
-		  Install (otherNode);
-		}
-	      otherGr = otherNode->GetObject<GlobalRouter> ();
-	      NS_ASSERT (otherGr != 0);
-	      gr->AddIncidency (face, otherGr);
-	    }
-	}
+			{
+			  for (uint32_t deviceId = 0; deviceId < ch->GetNDevices (); deviceId ++)
+			    {
+			      Ptr<NetDevice> otherSide = ch->GetDevice (deviceId);
+			      if (nd == otherSide) continue;
+		
+			      Ptr<Node> otherNode = otherSide->GetNode ();
+			      NS_ASSERT (otherNode != 0);
+		
+			      Ptr<GlobalRouter> otherGr = otherNode->GetObject<GlobalRouter> ();
+			      if (otherGr == 0)
+						{
+						  Install (otherNode);
+						}
+			      otherGr = otherNode->GetObject<GlobalRouter> ();
+			      NS_ASSERT (otherGr != 0);
+			      gr->AddIncidency (face, otherGr);
+			    }
+			}
       else
-	{
-	  Ptr<GlobalRouter> grChannel = ch->GetObject<GlobalRouter> ();
-	  if (grChannel == 0)
-	    {
-	      Install (ch);
-	    }
-	  grChannel = ch->GetObject<GlobalRouter> ();
-
-	  gr->AddIncidency (0, grChannel);
-	}
+			{
+			  Ptr<GlobalRouter> grChannel = ch->GetObject<GlobalRouter> ();
+			  if (grChannel == 0)
+			    {
+			      Install (ch);
+			    }
+			  grChannel = ch->GetObject<GlobalRouter> ();
+		
+			  gr->AddIncidency (0, grChannel);
+			}
     }
 }
 
@@ -156,9 +159,9 @@ BCubeRoutingHelper::Install (Ptr<Channel> channel)
 
       Ptr<GlobalRouter> grOther = node->GetObject<GlobalRouter> ();
       if (grOther == 0)
-	{
-	  Install (node);
-	}
+			{
+			  Install (node);
+			}
       grOther = node->GetObject<GlobalRouter> ();
       NS_ASSERT (grOther != 0);
 

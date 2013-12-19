@@ -197,47 +197,7 @@ public:
   Ptr<FaceContainer>
   InstallAll () const;
 
-  /**
-   * \brief Add forwarding entry to FIB
-   *
-   * \param nodeName Node name
-   * \param prefix Routing prefix
-   * \param faceId Face index
-   * \param metric Routing metric
-   */
-  static void
-  AddRoute (const std::string &nodeName, const std::string &prefix, uint32_t faceId, int32_t metric);
 
-  /**
-   * \brief Add forwarding entry to FIB
-   *
-   * \param nodeName Node
-   * \param prefix Routing prefix
-   * \param faceId Face index
-   * \param metric Routing metric
-   */
-  static void
-  AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceId, int32_t metric);
-
-  /**
-   * \brief Add forwarding entry to FIB
-   *
-   * \param node   Node
-   * \param prefix Routing prefix
-   * \param face   Face
-   * \param metric Routing metric
-   */
-  static void
-  AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face> face, int32_t metric);
-
-  /**
-   * @brief Add forwarding entry to FIB (work only with point-to-point links)
-   *
-   * \param node Node
-   * \param prefix Routing prefix
-   * \param otherNode The other node, to which interests (will be used to infer face id
-   * \param metric Routing metric
-   */
   static void
   AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> otherNode, int32_t metric);
 
