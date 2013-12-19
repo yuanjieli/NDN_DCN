@@ -312,6 +312,34 @@ BCubeRoutingHelper::CalculateRoutes ()
     }
 }
 
+void
+BCubeRoutingHelper::CalculateBCubeRoutes()
+{
+	
+	for(NodeList::iterator node = NodeList::Begin(); node != NodeList::End(); node++)
+	{
+		/* Step 1: for each node, if it has local prefixes,
+		 * calculate multiple disjoint Steiner trees to all nodes.
+		 * The algorithm is from BCube paper (one-to-all communication).
+		 * Even if this node has multiple local prefixes, we only need to calculate
+		 * Steiner trees ONCE, and install FIBs based on these trees.
+		 */
+		Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
+	    if (source == 0)
+		{
+			NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
+			continue;
+		}
+		//Guarantee that this node is really a server
+		//Should ALWAYS be true because only switches don't install GlobalRouter
+		std::string src_name = Names::FindName(*node);
+		NS_ASSERT(src_name[0]=="S");
+		
+		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
+		
+		
+	}
+}
 
 } // namespace ndn
 } // namespace ns3

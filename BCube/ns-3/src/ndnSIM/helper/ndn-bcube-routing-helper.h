@@ -40,7 +40,9 @@ class BCubeRoutingHelper
 public:
   BCubeRoutingHelper(uint32_t nn, uint32_t kk):
   n (nn), k (kk) 
-  {}
+  {
+  	NS_ASSERT(nn>=1 && nn<10);	//For simplification of simulation
+  }
   /**
    * @brief Install GlobalRouter interface on a node
    *
@@ -104,9 +106,13 @@ public:
   static void
   CalculateRoutes (); 
   
+  static void
+  CalculateBCubeRoutes ();
+  
   
 
 private:
+  BCubeRoutingHelper();	//parameters for BCube are mandatory
   void
   Install (Ptr<Channel> channel);
   //BCube parameters. These parameters SHOULD be consistent with the SIGCOMM paper
