@@ -194,7 +194,11 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
   if (similarInterest && ShouldSuppressIncomingInterest (inFace, header, origPacket, pitEntry))
     {
-      pitEntry->AddIncoming (inFace/*, header->GetInterestLifetime ()*/);
+      //pitEntry->AddIncoming (inFace/*, header->GetInterestLifetime ()*/);
+      //For BCube: we also need extra port number
+      BCubeTag tag;
+      origPacket->PeekPacketTag(tag);
+      pitEntry->AddIncoming (inFace, tag.GetPrevHop());
       // update PIT entry lifetime
       pitEntry->UpdateLifetime (header->GetInterestLifetime ());
 
@@ -348,7 +352,12 @@ ForwardingStrategy::DidReceiveDuplicateInterest (Ptr<Face> inFace,
   // !!!! IMPORTANT CHANGE !!!! Duplicate interests will create incoming face entry !!!! //
   //                                                                                     //
   /////////////////////////////////////////////////////////////////////////////////////////
-  pitEntry->AddIncoming (inFace);
+  NS_LOG_UNCOND("ForwardingStrategy::DidReceiveDuplicateInterest");
+  //pitEntry->AddIncoming (inFace);
+  //For BCube: we also need extra port number
+  BCubeTag tag;
+  origPacket->PeekPacketTag(tag);
+  pitEntry->AddIncoming (inFace, tag.GetPrevHop());
   m_dropInterests (header, inFace);
 }
 
@@ -600,7 +609,12 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
   bool isRetransmitted = m_detectRetransmissions && // a small guard
                          DetectRetransmittedInterest (inFace, header, origPacket, pitEntry);
 
-  pitEntry->AddIncoming (inFace/*, header->GetInterestLifetime ()*/);
+  //pitEntry->AddIncoming (inFace/*, header->GetInterestLifetime ()*/);
+  //For BCube: we also need extra port number
+  BCubeTag tag;
+  origPacket->PeekPacketTag(tag);
+  pitEntry->AddIncoming (inFace, tag.GetPrevHop());
+  
   /// @todo Make lifetime per incoming interface
   pitEntry->UpdateLifetime (header->GetInterestLifetime ());
 
