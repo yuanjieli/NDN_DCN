@@ -683,7 +683,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	NS_ASSERT(record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ());
 		
 	BCubeTag tag;
-	packetToSend->PeekPacketTag(tag);
+	packetToSend->RemovePacketTag(tag);
 	tag.SetNextHop(record->GetRoutingCost());
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
