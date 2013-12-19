@@ -131,11 +131,11 @@ Producer::OnInterest (const Ptr<const Interest> &interest, Ptr<Packet> origPacke
   packet->AddTrailer (tail);
 
   // Echo back FwHopCountTag if exists
-  FwHopCountTag hopCountTag;
+  /*FwHopCountTag hopCountTag;
   if (origPacket->RemovePacketTag (hopCountTag))
     {
       packet->AddPacketTag (hopCountTag);
-    }
+    }*/
 
   m_protocolHandler (packet);
   

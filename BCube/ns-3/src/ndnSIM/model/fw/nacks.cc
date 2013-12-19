@@ -125,7 +125,7 @@ Nacks::DidReceiveDuplicateInterest (Ptr<Face> inFace,
       FwHopCountTag hopCountTag;
       if (origPacket->PeekPacketTag (hopCountTag))
         {
-     	  nack->AddPacketTag (hopCountTag);
+     	  //nack->AddPacketTag (hopCountTag);
         }
       else
         {
@@ -163,7 +163,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       FwHopCountTag hopCountTag;
       if (origPacket->PeekPacketTag (hopCountTag))
         {
-     	  	packet->AddPacketTag (hopCountTag);
+     	  	//packet->AddPacketTag (hopCountTag);
         }
       else
         {
@@ -279,7 +279,7 @@ Nacks::DidReceiveValidNack (Ptr<Face> inFace,
       FwHopCountTag hopCountTag;
       if (origPacket->PeekPacketTag (hopCountTag))
         {
-     	  nonNackInterest->AddPacketTag (hopCountTag);
+     	  //nonNackInterest->AddPacketTag (hopCountTag);
         }
       else
         {

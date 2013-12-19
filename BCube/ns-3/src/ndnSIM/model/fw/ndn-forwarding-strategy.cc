@@ -179,12 +179,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
     {
       NS_ASSERT (contentObjectHeader != 0);
 
-      FwHopCountTag hopCountTag;
-      if (origPacket->PeekPacketTag (hopCountTag))
-        {
-          contentObject->AddPacketTag (hopCountTag);
-        }
-
       pitEntry->AddIncoming (inFace/*, Seconds (1.0)*/);
 
       // Do data plane performance measurements
@@ -235,10 +229,8 @@ ForwardingStrategy::OnData (Ptr<Face> inFace,
 
       if (m_cacheUnsolicitedData)
         {
-          FwHopCountTag hopCountTag;
-
+      
           Ptr<Packet> payloadCopy = payload->Copy ();
-          payloadCopy->RemovePacketTag (hopCountTag);
 
           // Optimistically add or update entry in the content store
           cached = m_contentStore->Add (header, payloadCopy);

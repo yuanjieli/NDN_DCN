@@ -231,8 +231,8 @@ Consumer::SendPacket ()
 
   m_rtt->SentSeq (SequenceNumber32 (seq), 1);
 
-  FwHopCountTag hopCountTag;
-  packet->AddPacketTag (hopCountTag);
+  //FwHopCountTag hopCountTag;
+  //packet->AddPacketTag (hopCountTag);
 
   m_protocolHandler (packet);
 
