@@ -174,12 +174,12 @@ int main(int argc, char **argv)
 			//cout<<"swich"<<bc<<" port "<<port<<" connects to "<<"server "<<identityref[bc].portlist[port]<<endl;
 			fout<<"R"<<bc-1<<"        S"<<Bcubeid(identityref[bc].portlist[port], serverbeginnumber, servernumber, n, k)<<"        100Mbps      1        1ms    20\n";
 	}
-	for(int bc=switchnumber*k+1;bc<=nodenumber;bc++)
+	/*for(int bc=switchnumber*k+1;bc<=nodenumber;bc++)
 	{
 		for(int port=1;port<=k;port++)
 			//cout<<"server"<<bc<<" port "<<port<<" connects to "<<"swith "<<identityref[bc].portlist[port]<<endl;
 			fout<<"S"<<Bcubeid(bc, serverbeginnumber, servernumber, n, k)<<"        R"<<identityref[bc].portlist[port]-1<<"        100Mbps      1        1ms    20\n";
-	}
+	}*/
 	
 	fout.close();
 	

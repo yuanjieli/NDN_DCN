@@ -161,6 +161,7 @@ AnnotatedTopologyReader::Read (void)
       return m_nodes;
     }
 
+  //Create nodes. No devices are created
   while (!topgen.eof ())
     {
       string line;
@@ -325,6 +326,7 @@ AnnotatedTopologyReader::ApplySettings ()
   
   PointToPointHelper p2p;
 
+  //Create devices here!
   BOOST_FOREACH (Link &link, m_linksList)
     {
       // cout << "Link: " << Findlink.GetFromNode () << ", " << link.GetToNode () << endl;
