@@ -333,7 +333,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes()
 		//Guarantee that this node is really a server
 		//Should ALWAYS be true because only switches don't install GlobalRouter
 		std::string src_name = Names::FindName(*node);
-		NS_ASSERT(src_name[0]=="S");
+		NS_ASSERT(src_name[0]=='S');
 		
 		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
 		
