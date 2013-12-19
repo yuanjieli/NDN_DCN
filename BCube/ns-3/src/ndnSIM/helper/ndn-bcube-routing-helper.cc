@@ -48,6 +48,7 @@
 #include "boost-graph-ndn-global-routing-helper.h"
 
 #include <list>
+#include <vector>
 
 #include <math.h>
 
@@ -59,9 +60,9 @@ using namespace boost;
 namespace ns3 {
 namespace ndn {
 
-typedef std::list<Ptr<Node> > TreeNode_t;
+typedef std::vector<Ptr<Node> > TreeNode_t;
 typedef TreeNode_t::iterator	TreeNodeIterator;
-typedef std::list<std::pair<Ptr<Node>, Ptr<Node> > > TreeLink_t;
+typedef std::vector<std::pair<Ptr<Node>, Ptr<Node> > > TreeLink_t;
 typedef TreeLink_t::iterator TreeLinkIterator;
 
 void
@@ -367,7 +368,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			Ptr<Node> root = Names::Find(root_name);
 			NS_ASSERT(root != 0);
 			TreeNode_t TreeNode;
-			TreeNode.insert(root); 
+			TreeNode.push_back(root); 
 			//BuildSingSPT: Part I
 			for(size_t i = 0; i <= m_k; i++)
 			{
