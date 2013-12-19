@@ -3,6 +3,8 @@
 #include <sstream>
 #include <cmath>
 #include <string>
+#include <cstdlib>
+#include <cstring>
 
 using namespace std;
 
