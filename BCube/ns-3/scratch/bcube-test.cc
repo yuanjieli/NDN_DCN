@@ -91,6 +91,8 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
    
+  Simulator::Stop (Seconds (simulation_time));
+
   Simulator::Run ();
   Simulator::Destroy ();
   	
