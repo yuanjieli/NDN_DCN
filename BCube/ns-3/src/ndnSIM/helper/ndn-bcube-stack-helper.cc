@@ -350,6 +350,18 @@ BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face>
   fib->Add (prefixValue.Get (), face, metric);
 }
 
+void
+BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceId, int32_t metric)
+{
+  Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
+  NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
+
+  Ptr<Face> face = ndn->GetUploadFace (faceId);
+  NS_ASSERT_MSG (face != 0, "Face with ID [" << faceId << "] does not exist on node [" << node->GetId () << "]");
+
+  AddRoute (node, prefix, face, metric);
+}
+
 
 void
 BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node> otherNode, int32_t metric)
