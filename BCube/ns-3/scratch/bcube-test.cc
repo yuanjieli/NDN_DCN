@@ -59,16 +59,14 @@ main (int argc, char *argv[])
   p2p.Install (nodes.Get (0), nodes.Get (3));
   
   
+  ndn::SwitchStackHelper switchHelper;
+  switchHelper.Install (nodes.Get (0));	
   
-  
-
   ndn::BCubeStackHelper ndnHelper;  
   ndnHelper.Install (nodes.Get (1));
   ndnHelper.Install (nodes.Get (2));
   ndnHelper.Install (nodes.Get (3));
-  
-  ndn::SwitchStackHelper switchHelper;
-  switchHelper.Install (nodes.Get (0));		
+   	
   
   // Installing applications
 
