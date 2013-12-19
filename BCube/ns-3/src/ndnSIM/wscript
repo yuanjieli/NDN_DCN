@@ -97,14 +97,19 @@ def build(bld):
 
     headers.source = [
         "helper/ndn-stack-helper.h",
+        "helper/ndn-bcube-stack-helper.h",
+        "helper/ndn-switch-stack-helper.h",
         "helper/ndn-app-helper.h",
         "helper/ndn-header-helper.h",
         "helper/ndn-face-container.h",
         "helper/ndn-global-routing-helper.h",
+        "helper/ndn-bcube-routing-helper.h",
 
         "apps/ndn-app.h",
        
         "model/ndn-l3-protocol.h",
+        "model/ndn-l2-protocol.h",
+        "model/ndn-bcube-l3-protocol.h",
         "model/ndn-face.h",
         "model/ndn-app-face.h",
         "model/ndn-net-device-face.h",
