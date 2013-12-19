@@ -31,6 +31,7 @@
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndn-face.h"
 #include "ns3/ndn-app-face.h"
+#include "ns3/ndn-bcube-tag.h"
 
 #include "ns3/assert.h"
 #include "ns3/ptr.h"
@@ -690,6 +691,15 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 
   //transmission
   Ptr<Packet> packetToSend = origPacket->Copy ();
+  //Get the next hop
+  fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+	NS_ASSERT(record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ());
+		
+	BCubeTag tag;
+	packetToSend->PeekPacketTag(tag);
+	tag.SetNextHop(record->GetRoutingCost());
+	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
   if (!successSend)
     {
