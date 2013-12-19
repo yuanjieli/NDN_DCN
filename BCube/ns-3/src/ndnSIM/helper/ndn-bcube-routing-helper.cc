@@ -374,7 +374,7 @@ BCubeRoutingHelper::CalculateFIB2 ()
 			      	/*NS_LOG_UNCOND("Fib2 is adding "<<*(*it)
 			      								<<" to node "<<(*node2)->GetId()
 			      								<<" at face "<<i);*/
-			      	fib2->Add (*it, ndn->GetFace(i), 0);
+			      	fib2->Add (*it, ndn->GetUploadFace(i), 0);
 			      }  
 		      }
 					

@@ -280,7 +280,7 @@ BCubeStackHelper::Install (Ptr<Node> node) const
       if (m_needSetDefaultRoutes)
         {
           // default route with lowest priority possible
-          AddRoute (node, "/", StaticCast<Face> (res.first), std::numeric_limits<int32_t>::max ());
+          //AddRoute (node, "/", StaticCast<Face> (res.first), std::numeric_limits<int32_t>::max ());
           AddRoute (node, "/", StaticCast<Face> (res.second), std::numeric_limits<int32_t>::max ());
         }
 
