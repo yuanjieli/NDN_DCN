@@ -21,7 +21,7 @@
 #include "ndn-bcube-routing-helper.h"
 
 //#include "ns3/ndn-l3-protocol.h"
-#include "ns3/ndn-bcube-l3-protocol.h"
+#include "../model/ndn-bcube-l3-protocol.h"
 #include "../model/ndn-net-device-face.h"
 #include "../model/ndn-global-router.h"
 #include "ns3/ndn-name.h"
