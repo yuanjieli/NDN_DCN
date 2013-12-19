@@ -701,7 +701,12 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		
 	BCubeTag tag;
 	packetToSend->RemovePacketTag(tag);
-	tag.SetNextHop(record->GetRoutingCost());
+	/* To simplify implementation, we make the following assumption:
+	 * For each switch, it has no more than 10 ports (e.g. BCube[8,3] can already support 4096 switches)
+	 * So RoutingCost = prevhop*10 + nexthop;
+	 */
+	tag.SetNextHop(record->GetRoutingCost()%10);
+	tag.SetPrevHop(record->GetRoutingCost()/10);
 	NS_LOG_UNCOND("RoutingCost="<<record->GetRoutingCost());
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
