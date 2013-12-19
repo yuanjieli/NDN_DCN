@@ -317,7 +317,6 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 
   NS_LOG_LOGIC ("Packet from face " << *face << " received on node " <<  m_node->GetId ());
   
-  NS_LOG_UNCOND("BCubeL3Protocol: receive packet from face="<<face->GetId()<<" node="<<face->GetNode()->GetId());
   
   Ptr<Packet> packet = p->Copy (); // give upper layers a rw copy of the packet
   try
@@ -339,7 +338,7 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 							//servers receive interest from download link
 							if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
 							{
-								NS_LOG_UNCOND("Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
+								NS_LOG_UNCOND("BCubeL3Protocol: Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
 								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
 							}
 							else
@@ -350,7 +349,7 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 						//servers receive nack from upload link
 							if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) != m_uploadfaces.end())
 							{
-								NS_LOG_UNCOND("Receive nack from face="<<face->GetId()<<" node="<<m_node->GetId());
+								NS_LOG_UNCOND("BCubeL3Protocol: Receive nack from face="<<face->GetId()<<" node="<<m_node->GetId());
 								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
 							}
 							else
@@ -376,7 +375,7 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
             //servers receive Data from upload link
 						if(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face) != m_uploadfaces.end())
 						{
-							NS_LOG_UNCOND("Receive data from face="<<face->GetId()<<" node="<<m_node->GetId());
+							NS_LOG_UNCOND("BCubeL3Protocol: Receive data from face="<<face->GetId()<<" node="<<m_node->GetId());
 							m_forwardingStrategy->OnData (face, header, packet/*payload*/, p/*original packet*/);
 						}
 						else
