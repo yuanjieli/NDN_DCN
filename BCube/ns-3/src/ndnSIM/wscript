@@ -124,10 +124,7 @@ def build(bld):
 
         "model/fib/ndn-fib.h",
         "model/fib/ndn-fib-entry.h",
-        
-        "model/fib2/ndn-fib2.h",
-        "model/fib2/ndn-fib2-entry.h",
-
+               
         "model/pit/ndn-pit.h",
         "model/pit/ndn-pit-entry.h",
         "model/pit/ndn-pit-entry-incoming-face.h",
