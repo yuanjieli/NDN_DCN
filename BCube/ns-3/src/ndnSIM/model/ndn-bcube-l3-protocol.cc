@@ -317,8 +317,6 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 
   NS_LOG_LOGIC ("Packet from face " << *face << " received on node " <<  m_node->GetId ());
   
-  NS_LOG_UNCOND("Receive packet from face="<<face->GetId()<<" node="<<m_node->GetId());
-
   Ptr<Packet> packet = p->Copy (); // give upper layers a rw copy of the packet
   try
     {
@@ -338,7 +336,10 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 						{
 							//servers receive interest from download link
 							if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
+							{
+								NS_LOG_UNCOND("Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
 								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
+							}
 							else
 								m_forwardingStrategy->OnInterest (m_uploadfaces[face->GetId()/2], header, p/*original packet*/);
 						}
