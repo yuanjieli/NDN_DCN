@@ -45,6 +45,8 @@
 
 #include <boost/foreach.hpp>
 
+#include <algorithm>
+
 NS_LOG_COMPONENT_DEFINE ("ndn.L2Protocol");
 
 namespace ns3 {
@@ -228,7 +230,8 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         //Switch should receive Interest from uploadlink
         if(header->GetNack()==Interest::NORMAL_INTEREST)
         {
-        	NS_ASSERT(m_uploadfaces.find(face) != m_uploadfaces.end());
+        	NS_ASSERT(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face)
+      					!= m_uploadfaces.end());
         	//tag identifies the next hop!
 				  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
 				  				&& 0 <= tag.GetNextHop() 
@@ -239,7 +242,8 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         //Switch should receive NACK from downloadlink
         else
         {
-        	NS_ASSERT(m_downloadfaces.find(face) != m_downloadfaces.end());
+        	NS_ASSERT(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face)
+      					!= m_downloadfaces.end());
         	//tag identifies the next hop!
 				  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
 				  				&& 0 <= tag.GetNextHop() 
@@ -253,7 +257,8 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
     case HeaderHelper::CONTENT_OBJECT_NDNSIM:
       {
       	//Switch should receive Data from downloadlink
-      	NS_ASSERT(m_downloadfaces.find(face) != m_downloadfaces.end());
+      	NS_ASSERT(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face)
+      					!= m_downloadfaces.end());
       	//tag identifies the next hop!
 			  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
 			  				&& 0 <= tag.GetNextHop() 

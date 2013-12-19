@@ -42,6 +42,7 @@
 #include "ndn-net-device-face.h"
 
 #include <boost/foreach.hpp>
+#include <algorithm>
 
 NS_LOG_COMPONENT_DEFINE ("ndn.BCubeL3Protocol");
 
@@ -306,10 +307,12 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 						
 						if(header->GetNack()==Interest::NORMAL_INTEREST)
 						//servers receive interest from download link
-							NS_ASSERT(m_downloadfaces.find(face) != m_downloadfaces.end());
+							NS_ASSERT(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face)
+      					!= m_downloadfaces.end());
 						else
 						//servers receive nack from download link
-							NS_ASSERT(m_uploadfaces.find(face) != m_uploadfaces.end());	
+							NS_ASSERT(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face)
+      					!= m_uploadfaces.end());
 							
             m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
             
@@ -318,7 +321,8 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         case HeaderHelper::CONTENT_OBJECT_NDNSIM:
           {
           	//servers receive Data from upload link
-						NS_ASSERT(m_uploadfaces.find(face) != m_uploadfaces.end());
+						NS_ASSERT(std::find(m_uploadfaces.begin(), m_uploadfaces.end(), face)
+      					!= m_uploadfaces.end());
 						
             s_dataCounter ++;
             Ptr<ContentObject> header = Create<ContentObject> ();
