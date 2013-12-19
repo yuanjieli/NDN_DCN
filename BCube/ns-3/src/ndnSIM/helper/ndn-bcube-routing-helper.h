@@ -38,6 +38,9 @@ namespace ndn {
 class BCubeRoutingHelper
 {
 public:
+  BCubeRoutingHelper(uint32_t nn, uint32_t kk):
+  n (nn), k (kk) 
+  {}
   /**
    * @brief Install GlobalRouter interface on a node
    *
@@ -106,6 +109,10 @@ public:
 private:
   void
   Install (Ptr<Channel> channel);
+  //BCube parameters. These parameters SHOULD be consistent with the SIGCOMM paper
+  uint32_t n;	//#ports for each switch
+  uint32_t k;	//#levels. 
+  
 };
 
 } // namespace ndn
