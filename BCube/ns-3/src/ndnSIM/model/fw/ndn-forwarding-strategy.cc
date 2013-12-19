@@ -181,7 +181,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       //pitEntry->AddIncoming (inFace/*, Seconds (1.0)*/);
       //For BCube: we also need extra port number
       BCubeTag tag;
-      packet->PeekPacketTag(tag);
+      origPacket->PeekPacketTag(tag);
       pitEntry->AddIncoming (inFace, tag.GetPrevHop());
 
       // Do data plane performance measurements
