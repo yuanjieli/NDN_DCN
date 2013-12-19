@@ -183,7 +183,9 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       BCubeTag tag;
       origPacket->PeekPacketTag(tag);
       pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-
+      NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+      			  <<" face="<<inFace->GetId()
+      			  <<" prevhop="<<tag.GetPrevHop());
       // Do data plane performance measurements
       WillSatisfyPendingInterest (0, pitEntry);
 
@@ -199,6 +201,9 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       BCubeTag tag;
       origPacket->PeekPacketTag(tag);
       pitEntry->AddIncoming (inFace, tag.GetPrevHop());
+      NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+      			  <<" face="<<inFace->GetId()
+      			  <<" prevhop="<<tag.GetPrevHop());
       // update PIT entry lifetime
       pitEntry->UpdateLifetime (header->GetInterestLifetime ());
 
@@ -358,6 +363,9 @@ ForwardingStrategy::DidReceiveDuplicateInterest (Ptr<Face> inFace,
   BCubeTag tag;
   origPacket->PeekPacketTag(tag);
   pitEntry->AddIncoming (inFace, tag.GetPrevHop());
+  NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+      			  <<" face="<<inFace->GetId()
+      			  <<" prevhop="<<tag.GetPrevHop());
   m_dropInterests (header, inFace);
 }
 
@@ -570,6 +578,9 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
   BCubeTag tag;
   origPacket->PeekPacketTag(tag);
   pitEntry->AddIncoming (inFace, tag.GetPrevHop());
+  NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+      		  <<" face="<<inFace->GetId()
+      		  <<" prevhop="<<tag.GetPrevHop());
   
   /// @todo Make lifetime per incoming interface
   pitEntry->UpdateLifetime (header->GetInterestLifetime ());
