@@ -42,8 +42,6 @@ namespace pit { class Entry; }
 class FibFaceMetric;
 class Fib;
 namespace fib { class Entry; }
-class Fib2;
-namespace fib2 {class Entry; }
 class ContentStore;
 
 /**
@@ -132,20 +130,7 @@ public:
   virtual void
   WillRemoveFibEntry (Ptr<fib::Entry> fibEntry);
 
-	/**
-   * @brief Event fired every time a FIB2 entry is added to FIB2
-   * @param fibEntry FIB2 entry that was added
-   */
-  virtual void
-  DidAddFib2Entry (Ptr<fib2::Entry> fib2Entry);
-
-  /**
-   * @brief Fired just before FIB2 entry will be removed from FIB2
-   * @param fibEntry FIB2 entry that will be removed
-   */
-  virtual void
-  WillRemoveFib2Entry (Ptr<fib2::Entry> fib2Entry);
-  	
+	  	
 protected:
   /**
    * @brief An event that is fired every time a new PIT entry is created
@@ -490,7 +475,6 @@ protected:
 protected:
   Ptr<Pit> m_pit; ///< \brief Reference to PIT to which this forwarding strategy is associated
   Ptr<Fib> m_fib; ///< \brief FIB
-  Ptr<Fib2> m_fib2; ///< \brief FIB2, used for holding D_in
   Ptr<ContentStore> m_contentStore; ///< \brief Content store (for caching purposes only)
 
   bool m_cacheUnsolicitedData;

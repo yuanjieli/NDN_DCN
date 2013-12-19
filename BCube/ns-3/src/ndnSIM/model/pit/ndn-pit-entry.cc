@@ -21,7 +21,6 @@
 #include "ndn-pit-entry.h"
 
 #include "ns3/ndn-fib.h"
-#include "ns3/ndn-fib2.h"
 #include "ns3/ndn-name.h"
 #include "ns3/ndn-interest.h"
 
@@ -41,12 +40,11 @@ namespace pit {
 
 Entry::Entry (Pit &container,
               Ptr<const Interest> header,
-              Ptr<fib::Entry> fibEntry,
-              Ptr<fib2::Entry> fib2Entry)
+              Ptr<fib::Entry> fibEntry
+              )
   : m_container (container)
   , m_interest (header)
   , m_fibEntry (fibEntry)
-  , m_fib2Entry (fib2Entry)
   , m_expireTime (Simulator::Now () + (!header->GetInterestLifetime ().IsZero ()?
                                        header->GetInterestLifetime ():
                                        Seconds (1.0)))
@@ -236,13 +234,6 @@ Entry::GetFibEntry ()
 {
   return m_fibEntry;
 };
-
-Ptr<fib2::Entry>
-Entry::GetFib2Entry ()
-{
-  return m_fib2Entry;
-};
-
 
 
 const Entry::in_container &

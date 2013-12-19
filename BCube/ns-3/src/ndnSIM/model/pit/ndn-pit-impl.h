@@ -137,7 +137,6 @@ private:
 private:
   EventId m_cleanEvent;
   Ptr<Fib> m_fib; ///< \brief Link to FIB table
-  Ptr<Fib2> m_fib2; ///< \brief Link to FIB2 table
   Ptr<ForwardingStrategy> m_forwardingStrategy;
 
   static LogComponent g_log; ///< @brief Logging variable
@@ -227,10 +226,6 @@ PitImpl<Policy>::NotifyNewAggregate ()
     {
       m_fib = GetObject<Fib> ();
     }
-  if (m_fib2 == 0)
-  	{
-  		m_fib2 = GetObject<Fib2> ();
-  	}
   if (m_forwardingStrategy == 0)
     {
       m_forwardingStrategy = GetObject<ForwardingStrategy> ();
@@ -247,8 +242,7 @@ PitImpl<Policy>::DoDispose ()
 
   m_forwardingStrategy = 0;
   m_fib = 0;
-  m_fib2 = 0;
-
+ 
   Pit::DoDispose ();
 }
 
@@ -323,7 +317,6 @@ PitImpl<Policy>::Lookup (const Interest &header)
 {
   // NS_LOG_FUNCTION (header.GetName ());
   NS_ASSERT_MSG (m_fib != 0, "FIB should be set");
-  NS_ASSERT_MSG (m_fib2 != 0, "FIB2 should be set");
   NS_ASSERT_MSG (m_forwardingStrategy != 0, "Forwarding strategy  should be set");
 
   typename super::iterator foundItem, lastItem;
@@ -355,8 +348,7 @@ PitImpl<Policy>::Create (Ptr<const Interest> header)
 {
   NS_LOG_DEBUG (header->GetName ());
   Ptr<fib::Entry> fibEntry = m_fib->LongestPrefixMatch (*header);
-  Ptr<fib2::Entry> fib2Entry = m_fib2->LongestPrefixMatch (*header);
-  if (fibEntry == 0 || fib2Entry == 0)
+  if (fibEntry == 0)
   {
     return 0;
   }
@@ -365,7 +357,7 @@ PitImpl<Policy>::Create (Ptr<const Interest> header)
   //                "There should be at least default route set" <<
   //                " Prefix = "<< header->GetName() << ", NodeID == " << m_fib->GetObject<Node>()->GetId() << "\n" << *m_fib);
 
-  Ptr< entry > newEntry = ns3::Create< entry > (boost::ref (*this), header, fibEntry, fib2Entry);
+  Ptr< entry > newEntry = ns3::Create< entry > (boost::ref (*this), header, fibEntry);
   std::pair< typename super::iterator, bool > result = super::insert (header->GetName (), newEntry);
   if (result.first != super::end ())
     {

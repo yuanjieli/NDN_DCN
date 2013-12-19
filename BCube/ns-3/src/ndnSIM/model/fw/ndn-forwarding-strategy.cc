@@ -27,7 +27,6 @@
 #include "ns3/ndn-content-object.h"
 #include "ns3/ndn-pit.h"
 #include "ns3/ndn-fib.h"
-#include "ns3/ndn-fib2.h"
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndn-face.h"
 #include "ns3/ndn-app-face.h"
@@ -116,11 +115,7 @@ ForwardingStrategy::NotifyNewAggregate ()
   if (m_fib == 0)
     {
       m_fib = GetObject<Fib> ();
-    }
-  if (m_fib2 == 0)
-  	{
-  		m_fib2 = GetObject<Fib2> ();
-  	}
+    }  
   if (m_contentStore == 0)
     {
       m_contentStore = GetObject<ContentStore> ();
@@ -135,7 +130,6 @@ ForwardingStrategy::DoDispose ()
   m_pit = 0;
   m_contentStore = 0;
   m_fib = 0;
-  m_fib2 = 0;
 
   Object::DoDispose ();
 }
@@ -174,7 +168,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
   if (isDuplicated)
     {
       DidReceiveDuplicateInterest (inFace, header, origPacket, pitEntry);
-      NS_LOG_UNCOND("test 2");
       return;
     }
 
@@ -199,7 +192,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 
       // Actually satisfy pending interest
       SatisfyPendingInterest (0, contentObjectHeader, payload, contentObject, pitEntry);
-      NS_LOG_UNCOND("test 3");
       return;
     }
 
@@ -214,7 +206,6 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       m_dropInterests (header, inFace);	
       NS_LOG_UNCOND ("Suppress interests");
       DidSuppressSimilarInterest (inFace, header, origPacket, pitEntry);
-      NS_LOG_UNCOND("test 4");
       return;
     }
 
@@ -464,7 +455,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	Ptr<ContentObject> NewHeader = Create<ContentObject> ();
     	target->RemoveHeader(*NewHeader);
     	
-    	if(DynamicCast<AppFace>(incoming.m_face)==0)
+    	/*if(DynamicCast<AppFace>(incoming.m_face)==0)
     	{
     		
     		Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
@@ -508,7 +499,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	{
     		if(inFace==0)	//local cache hit should not increase rate
     			NewHeader->SetCE(2);
-    	}
+    	}*/
     	
     	
     		
@@ -761,18 +752,6 @@ ForwardingStrategy::DidAddFibEntry (Ptr<fib::Entry> fibEntry)
 
 void
 ForwardingStrategy::WillRemoveFibEntry (Ptr<fib::Entry> fibEntry)
-{
-  // do nothing here
-}
-
-void
-ForwardingStrategy::DidAddFib2Entry (Ptr<fib2::Entry> fib2Entry)
-{
-  // do nothing here
-}
-
-void
-ForwardingStrategy::WillRemoveFib2Entry (Ptr<fib2::Entry> fib2Entry)
 {
   // do nothing here
 }
