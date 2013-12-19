@@ -327,9 +327,12 @@ ExtractBCubeID(std::string &str, uint32_t *array)
 	}
 }
 void
-BCubeRoutingHelper::CalculateBCubeRoutes()
+BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 {
-	
+	//For simplification of simulation, we have some limits for n and k
+  	NS_ASSERT(m_n>=1 && m_n<MAX_N);	
+  	NS_ASSERT(m_k>=0 && m_k<MAX_K);
+  	
 	for(NodeList::Iterator node = NodeList::Begin(); node != NodeList::End(); node++)
 	{
 		/* Step 1: for each node, if it has local prefixes,

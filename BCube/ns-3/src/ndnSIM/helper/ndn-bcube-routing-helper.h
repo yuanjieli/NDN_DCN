@@ -41,14 +41,7 @@ namespace ndn {
  */
 class BCubeRoutingHelper
 {
-public:
-  BCubeRoutingHelper(uint32_t nn, uint32_t kk):
-  m_n (nn), m_k (kk) 
-  {
-  	//For simplification of simulation, we have some limits for n and k
-  	NS_ASSERT(nn>=1 && nn<MAX_N);	
-  	NS_ASSERT(kk>=0 && kk<MAX_K);
-  }
+public:  
   /**
    * @brief Install GlobalRouter interface on a node
    *
@@ -112,19 +105,17 @@ public:
   static void
   CalculateRoutes (); 
   
-  void
-  CalculateBCubeRoutes ();
+  //n: #ports for each switch
+  //k: #levels. 
+  //These parameters SHOULD be consistent with the SIGCOMM paper
+  static void
+  CalculateBCubeRoutes (uint32_t n, uint32_t k);
   
   
 
 private:
-  BCubeRoutingHelper();	//parameters for BCube are mandatory
   void
-  Install (Ptr<Channel> channel);
-  
-  //BCube parameters. These parameters SHOULD be consistent with the SIGCOMM paper
-  uint32_t m_n;	//#ports for each switch
-  uint32_t m_k;	//#levels. 
+  Install (Ptr<Channel> channel);  
   
 };
 
