@@ -36,7 +36,8 @@
 #include "ns3/callback.h"
 
 #include "../model/ndn-net-device-face.h"
-#include "../model/ndn-l3-protocol.h"
+//#include "../model/ndn-l3-protocol.h"
+#include "../model/ndn-bcube-l3-protocol.h"
 
 #include "ns3/ndn-forwarding-strategy.h"
 #include "ns3/ndn-fib.h"
@@ -67,7 +68,7 @@ BCubeStackHelper::BCubeStackHelper ()
   : m_limitsEnabled (false)
   , m_needSetDefaultRoutes (false)
 {
-  m_ndnFactory.         SetTypeId ("ns3::ndn::L3Protocol");
+  m_ndnFactory.         SetTypeId ("ns3::ndn::BCubeL3Protocol");
   m_strategyFactory.    SetTypeId ("ns3::ndn::fw::Flooding");
   m_contentStoreFactory.SetTypeId ("ns3::ndn::cs::Lru");
   m_fibFactory.         SetTypeId ("ns3::ndn::fib::Default");
@@ -230,15 +231,15 @@ BCubeStackHelper::Install (Ptr<Node> node) const
   // NS_ASSERT_MSG (m_forwarding, "SetForwardingHelper() should be set prior calling Install() method");
   Ptr<FaceContainer> faces = Create<FaceContainer> ();
 
-  if (node->GetObject<L3Protocol> () != 0)
+  if (node->GetObject<BCubeL3Protocol> () != 0)
     {
       NS_FATAL_ERROR ("BCubeStackHelper::Install (): Installing "
                       "a NdnStack to a node with an existing Ndn object");
       return 0;
     }
 
-  // Create L3Protocol
-  Ptr<L3Protocol> ndn = m_ndnFactory.Create<L3Protocol> ();
+  // Create BCubeL3Protocol
+  Ptr<BCubeL3Protocol> ndn = m_ndnFactory.Create<BCubeL3Protocol> ();
 
   // Create and aggregate FIB
   Ptr<Fib> fib = m_fibFactory.Create<Fib> ();
@@ -257,7 +258,7 @@ BCubeStackHelper::Install (Ptr<Node> node) const
   // Create and aggregate content store
   ndn->AggregateObject (m_contentStoreFactory.Create<ContentStore> ());
 
-  // Aggregate L3Protocol on node
+  // Aggregate BCubeL3Protocol on node
   node->AggregateObject (ndn);
 
   for (uint32_t index=0; index < node->GetNDevices (); index++)
@@ -293,14 +294,14 @@ BCubeStackHelper::Install (Ptr<Node> node) const
 }
 
 PairFace
-BCubeStackHelper::PointToPointNetDeviceCallBack (Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const
+BCubeStackHelper::PointToPointNetDeviceCallBack (Ptr<Node> node, Ptr<BCubeL3Protocol> ndn, Ptr<NetDevice> device) const
 {
   NS_LOG_DEBUG ("Creating point-to-point NetDeviceFace on node " << node->GetId ());
 
   Ptr<NetDeviceFace> uploadface = CreateObject<NetDeviceFace> (node, device);
   Ptr<NetDeviceFace> downloadface = CreateObject<NetDeviceFace> (node, device);
 
-  //ndn->AddFace (uploadface, downloadface);
+  ndn->AddFace (uploadface, downloadface);
   
   PairFace pair;
   pair.first = uploadface;
@@ -368,7 +369,7 @@ BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Face>
 void
 BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, uint32_t faceId, int32_t metric)
 {
-  Ptr<L3Protocol>     ndn = node->GetObject<L3Protocol> ();
+  Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
   NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
 
   Ptr<Face> face = ndn->GetFace (faceId);
@@ -383,7 +384,7 @@ BCubeStackHelper::AddRoute (const std::string &nodeName, const std::string &pref
   Ptr<Node> node = Names::Find<Node> (nodeName);
   NS_ASSERT_MSG (node != 0, "Node [" << nodeName << "] does not exist");
 
-  Ptr<L3Protocol>     ndn = node->GetObject<L3Protocol> ();
+  Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
   NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
 
   Ptr<Face> face = ndn->GetFace (faceId);
@@ -408,7 +409,7 @@ BCubeStackHelper::AddRoute (Ptr<Node> node, const std::string &prefix, Ptr<Node>
       if (channel->GetDevice (0)->GetNode () == otherNode ||
           channel->GetDevice (1)->GetNode () == otherNode)
         {
-          Ptr<L3Protocol> ndn = node->GetObject<L3Protocol> ();
+          Ptr<BCubeL3Protocol> ndn = node->GetObject<BCubeL3Protocol> ();
           NS_ASSERT_MSG (ndn != 0, "Ndn stack should be installed on the node");
 
           Ptr<Face> face = ndn->GetFaceByNetDevice (netDevice);

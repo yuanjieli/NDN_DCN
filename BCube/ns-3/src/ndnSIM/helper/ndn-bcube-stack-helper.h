@@ -35,7 +35,8 @@ namespace ndn {
 class FaceContainer;
 class Face;
 class NetDeviceFace;
-class L3Protocol;
+//class L3Protocol;
+class BCubeL3Protocol;
 
 /**
  * \ingroup ndn
@@ -260,7 +261,7 @@ public:
 private:
 
   PairFace
-  PointToPointNetDeviceCallBack(Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> netDevice) const;
+  PointToPointNetDeviceCallBack(Ptr<Node> node, Ptr<BCubeL3Protocol> ndn, Ptr<NetDevice> netDevice) const;
 
 private:
   BCubeStackHelper (const BCubeStackHelper &);
