@@ -220,6 +220,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       DidForwardSimilarInterest (inFace, header, origPacket, pitEntry);
     }
 
+	NS_LOG_UNCOND("Aha!");
   PropagateInterest (inFace, header, origPacket, pitEntry);
 }
 
