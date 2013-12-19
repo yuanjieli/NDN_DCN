@@ -56,6 +56,11 @@ NS_LOG_COMPONENT_DEFINE ("ndn.BCubeRoutingHelper");
 using namespace std;
 using namespace boost;
 
+typedef std::list<Ptr<Node> > TreeNode_t;
+typedef TreeNode_t::iterator	TreeNodeIterator;
+typedef std::list<std::pair<Ptr<Node>, Ptr<Node> > > TreeLink_t;
+typedef TreeLink_t::iterator TreeLinkIterator;
+
 namespace ns3 {
 namespace ndn {
 
@@ -315,9 +320,7 @@ BCubeRoutingHelper::CalculateRoutes ()
 //Auxiliary function for extracting BCubeID from node's name
 void
 ExtractBCubeID(std::string &str, uint32_t *array)
-{
-	NS_ASSERT(str.size()>1 && str.size()-1<=MAX_N);
-	
+{	
 	for(size_t k=1; k != str.size(); k++)
 	{
 		array[k-1] = str[k]-'0';
@@ -344,12 +347,29 @@ BCubeRoutingHelper::CalculateBCubeRoutes()
 		//Guarantee that this node is really a server
 		//Should ALWAYS be true because only switches don't install GlobalRouter
 		std::string src_name = Names::FindName(*node);
-		NS_ASSERT(src_name[0]=='S');
+		NS_ASSERT(src_name[0]=='S' && src_name.size() == m_n+1);
+		
 		//Extract source's BCubeID
 		uint32_t src_addr[MAX_N];
 		ExtractBCubeID(src_name, src_addr);
 		
 		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
+		
+		//for(size_t level = 0; level <= m_k; level++)
+		size_t level = 0;	//As first step, let's create one spanning tree only
+		{
+			//create root for this spanning tree
+			std::string root = src_name;
+			root[level] = '0' + (src_addr[level]+1)%m_n;
+			TreeNode_t TreeNode;
+			TreeNode.insert(Names::Find(root)); 
+			//BuildSingSPT: Part I
+			for(size_t i = 0; i <= k; i++)
+			{
+				size_t dim = (level+i)%(m_k+1);
+				
+			}	
+		}
 				
 	}
 }

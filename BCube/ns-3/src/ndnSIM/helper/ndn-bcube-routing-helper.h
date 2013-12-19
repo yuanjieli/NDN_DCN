@@ -43,7 +43,7 @@ class BCubeRoutingHelper
 {
 public:
   BCubeRoutingHelper(uint32_t nn, uint32_t kk):
-  n (nn), k (kk) 
+  m_n (nn), m_k (kk) 
   {
   	//For simplification of simulation, we have some limits for n and k
   	NS_ASSERT(nn>=1 && nn<MAX_N);	
@@ -123,8 +123,8 @@ private:
   Install (Ptr<Channel> channel);
   
   //BCube parameters. These parameters SHOULD be consistent with the SIGCOMM paper
-  uint32_t n;	//#ports for each switch
-  uint32_t k;	//#levels. 
+  uint32_t m_n;	//#ports for each switch
+  uint32_t m_k;	//#levels. 
   
 };
 
