@@ -461,7 +461,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	BCubeTag tag;
     	target->PeekPacketTag(tag);
-    	tag.SetNextHop(incoming->m_localport);	
+    	tag.SetNextHop(incoming.m_localport);	
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
       
