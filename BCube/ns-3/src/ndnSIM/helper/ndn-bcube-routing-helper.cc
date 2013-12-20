@@ -74,7 +74,7 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
   std::string node_name = Names::FindName(node);
   if(node_name.size()>0 && node_name[0]=='R')
   	return;
-  	
+  NS_LOG_UNCOND("BCubeRoutingHelper::Install "<<node_name);	
   Ptr<BCubeL3Protocol> ndn = node->GetObject<BCubeL3Protocol> ();
   NS_ASSERT_MSG (ndn != 0, "Cannot install BCubeRoutingHelper before Ndn is installed on a node");
 
