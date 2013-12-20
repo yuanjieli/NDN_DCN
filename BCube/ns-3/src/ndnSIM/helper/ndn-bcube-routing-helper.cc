@@ -472,7 +472,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		            if (fibLimits != 0)
 		            {
 		                // if it was created by the forwarding strategy via DidAddFibEntry event
-		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2.0 * Seconds (0.001) /*exact RTT*/);
+		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2.0 * 0.001 /*exact RTT*/);
 		            }
 					
 					
