@@ -36,6 +36,17 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {	
+  int simulation_time = 100;
+  
+  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
+  Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
+  Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
+  Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
+  Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
+  
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
   cmd.Parse (argc, argv);
@@ -46,16 +57,39 @@ main (int argc, char *argv[])
   topologyReader.Read ();
   
   ndn::SwitchStackHelper switchHelper;
-  switchHelper.InstallAll ();
+  switchHelper.InstallAll ();	//We will only install SwitchStackHelper to switches
   
   // Install NDN stack on all servers
   ndn::BCubeStackHelper ndnHelper;
+  ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
+  ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S00"));
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
+  
+   // Producer
+  ndn::AppHelper producerHelper ("ns3::ndn::Producer");
+  // Producer will reply to all requests starting with /prefix
+  producerHelper.SetPrefix ("/prefix");
+  producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
+  producerHelper.Install (Names::Find<Node>("S00"));
+  
+  //Consumer
+  ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
+  ApplicationContainer consumers;
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S01")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
+  Simulator::Stop (Seconds (simulation_time));
+
+  Simulator::Run ();
+  Simulator::Destroy ();
     	
   return 0;
 }
