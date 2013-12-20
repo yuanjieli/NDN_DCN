@@ -336,7 +336,7 @@ GetBCubeId(uint32_t i)
 	uint32_t j = i;
 	while(j!=0)
 	{
-		s_name.insert(1,1,j%n+'0');
+		str.insert(1,1,j%n+'0');
 		j /= n;
 	}
 	return str;
@@ -383,7 +383,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			Ptr<Node> root = Names::Find<Node>(root_name);
 			NS_ASSERT(root != 0);
 			TreeNode_t T;
-			TreeNode.push_back(root); 
+			T.push_back(root); 
 			
 			//BuildSingSPT: Part I
 			TreeLink_t TreeLink; //store all directional link of the Steiner Tree
@@ -401,7 +401,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						C = Names::Find<Node>(C_name);
 						NS_ASSERT(C != 0);
 						TreeLink.push_back(std::make_pair(B, C));
-						tmp.push_back(C);
+						T2.push_back(C);
 						B = C;
 					}
 				}
@@ -410,7 +410,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			}	
 			
 			//Part II
-			uint32_t nserver = pow(n,k+1);	//total number of servers
+			uint32_t nserver = pow(m_n,m_k+1);	//total number of servers
 			for(uint32_t i = 0; i != nserver; i++)
 			{
 				std::string s_name = GetBCubeId(i);
@@ -458,7 +458,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					NS_ASSERT(digit != m_n);
 					//metric = nexthop + prevhop*10
 					uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;
-					Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
+					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace (digit*2);
 					NS_ASSERT(face != 0);
@@ -472,7 +472,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		            if (fibLimits != 0)
 		            {
 		                // if it was created by the forwarding strategy via DidAddFibEntry event
-		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2 * 0.001 () /*exact RTT*/);
+		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2 * Seconds (0.001) /*exact RTT*/);
 		            }
 					
 					
