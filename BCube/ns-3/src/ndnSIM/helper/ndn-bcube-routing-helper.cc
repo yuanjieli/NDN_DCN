@@ -389,15 +389,12 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			NS_LOG_UNCOND("Route with level="<<level);
 			//create root for this spanning tree
 			std::string root_name = src_name;
-			root_name[level+1] = '0' + (src_addr[level+1]+1)%m_n;
-			NS_LOG_UNCOND("src_addr[level+1]+1="<<src_addr[level+1]+1
-						<<" m_n="<<m_n);
+			root_name[level+1] = '0' + (src_addr[level]+1)%m_n;
 			Ptr<Node> root = Names::Find<Node>(root_name);
 			NS_ASSERT(root != 0);
 			TreeNode_t T;
 			TreeLink_t TreeLink; //store all directional link of the Steiner Tree
 			T.push_back(root); 
-			NS_LOG_UNCOND("src_name="<<src_name<<" root_name="<<root_name);
 			//BuildSingSPT: Part I
 			
 			for(size_t i = 0; i <= m_k; i++)
