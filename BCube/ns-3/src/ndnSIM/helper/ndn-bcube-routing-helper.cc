@@ -376,7 +376,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				TreeLink_t TreeLink;
 				for(TreeNodeIterator it = TreeNode.begin(); it != TreeNode.end(); it++)
 				{
-					Ptr<Node> B = C = *it;
+					Ptr<Node> B = *it, C = *it;
 					std::string C_name = Names::FindName(C);
 					for(size_t j = 0; j < m_n-1; j ++)
 					{
