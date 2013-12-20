@@ -364,7 +364,7 @@ ForwardingStrategy::DidReceiveDuplicateInterest (Ptr<Face> inFace,
   BCubeTag tag;
   origPacket->PeekPacketTag(tag);
   pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-  NS_LOG_UNCOND("node="<<Names::FindName(inFace)
+  NS_LOG_UNCOND("node="<<Names::FindName(inFace->GetNode())
       		  <<" face="<<inFace->GetId()
       		  <<" prevhop="<<tag.GetPrevHop());
   m_dropInterests (header, inFace);
