@@ -375,7 +375,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		//Should ALWAYS be true because only switches don't install GlobalRouter
 		std::string src_name = Names::FindName(*node);
 		NS_LOG_UNCOND("src_name="<<src_name);
-		NS_ASSERT(src_name[0]=='S' && src_name.size() == m_n+1);
+		NS_ASSERT(src_name[0]=='S' && src_name.size() == m_k+2);
 		
 		//Extract source's BCubeID
 		uint32_t src_addr[MAX_N];
@@ -457,12 +457,12 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					std::string A = Names::FindName(it_link->first);
 					std::string B = Names::FindName(it_link->second);
 					uint32_t digit = 1;
-					for(; digit != m_n; digit++)
+					for(; digit < m_k+2; digit++)
 					{
 						if(A[digit] != B[digit])
 							break;
 					}
-					NS_ASSERT(digit != m_n);
+					NS_ASSERT(digit != m_k+2);
 					//metric = nexthop + prevhop*10
 					uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
