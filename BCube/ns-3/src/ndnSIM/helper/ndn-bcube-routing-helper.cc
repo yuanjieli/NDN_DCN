@@ -407,6 +407,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				{
 					Ptr<Node> B = *it, C = *it;
 					std::string C_name = Names::FindName(C);
+					//FIXME: j<m_n-1 or j<m_n-2 ?
 					for(size_t j = 0; j < m_n-2; j ++)
 					{
 						C_name[dim+1] = '0' + (C_name[dim+1]-'0'+1)%m_n;
@@ -483,7 +484,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
-					Ptr<Face> face = ndn->GetUploadFace (digit*2);
+					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
 					NS_ASSERT(face != 0);
 					
 					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
