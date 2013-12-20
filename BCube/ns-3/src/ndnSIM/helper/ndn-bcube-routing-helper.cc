@@ -330,7 +330,7 @@ ExtractBCubeID(std::string &str, uint32_t *array)
 }
 //Convert #server to BCubeID in string
 std::string
-GetBCubeId(uint32_t i)
+GetBCubeId(uint32_t i, uint32_t n)
 {
 	std::string str = "S";
 	uint32_t j = i;
@@ -405,7 +405,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						B = C;
 					}
 				}
-				TreeNode.insert(T.end()--,T2.begin(),T2.end());
+				T.insert(T.end()--,T2.begin(),T2.end());
 				
 			}	
 			
@@ -413,7 +413,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			uint32_t nserver = pow(m_n,m_k+1);	//total number of servers
 			for(uint32_t i = 0; i != nserver; i++)
 			{
-				std::string s_name = GetBCubeId(i);
+				std::string s_name = GetBCubeId(i, m_n);
 				if(s_name[level]!=src_name[level] || s_name == src_name)
 					continue;
 				Ptr<Node> S = Names::Find<Node>(s_name);
@@ -472,7 +472,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		            if (fibLimits != 0)
 		            {
 		                // if it was created by the forwarding strategy via DidAddFibEntry event
-		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2 * Seconds (0.001) /*exact RTT*/);
+		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2.0 * Seconds (0.001) /*exact RTT*/);
 		            }
 					
 					
