@@ -374,6 +374,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		//Guarantee that this node is really a server
 		//Should ALWAYS be true because only switches don't install GlobalRouter
 		std::string src_name = Names::FindName(*node);
+		NS_LOG_UNCOND("src_name="<<src_name);
 		NS_ASSERT(src_name[0]=='S' && src_name.size() == m_n+1);
 		
 		//Extract source's BCubeID
