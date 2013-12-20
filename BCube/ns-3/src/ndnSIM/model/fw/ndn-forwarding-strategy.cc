@@ -31,6 +31,7 @@
 #include "ns3/ndn-face.h"
 #include "ns3/ndn-app-face.h"
 #include "ns3/ndn-bcube-tag.h"
+#include "ns3/names.h"
 
 #include "ns3/assert.h"
 #include "ns3/ptr.h"
