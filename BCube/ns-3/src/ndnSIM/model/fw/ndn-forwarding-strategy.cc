@@ -579,9 +579,9 @@ ForwardingStrategy::PropagateInterest (Ptr<Face> inFace,
   BCubeTag tag;
   origPacket->PeekPacketTag(tag);
   pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-  NS_LOG_UNCOND("PropagateInterest: node="<<inFace->GetNode()->GetId()
+  /*NS_LOG_UNCOND("PropagateInterest: node="<<inFace->GetNode()->GetId()
       		  <<" face="<<inFace->GetId()
-      		  <<" prevhop="<<tag.GetPrevHop());
+      		  <<" prevhop="<<tag.GetPrevHop());*/
   
   /// @todo Make lifetime per incoming interface
   pitEntry->UpdateLifetime (header->GetInterestLifetime ());

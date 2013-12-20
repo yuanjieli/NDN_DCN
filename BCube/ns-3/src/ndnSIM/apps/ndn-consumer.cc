@@ -249,7 +249,7 @@ void
 Consumer::OnContentObject (const Ptr<const ContentObject> &contentObject,
                                Ptr<Packet> payload)
 {
-	NS_LOG_UNCOND(Simulator::Now().GetSeconds()<<" Consumer receives data");
+  //NS_LOG_UNCOND(Simulator::Now().GetSeconds()<<" Consumer receives data");
   if (!m_active) return;
 
   App::OnContentObject (contentObject, payload); // tracing inside
