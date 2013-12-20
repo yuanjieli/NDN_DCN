@@ -418,12 +418,12 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			
 			//Part II
 			uint32_t nserver = pow(m_n,m_k+1);	//total number of servers
+			NS_LOG_UNCOND("PartII: nserver="<<nserver<<" src_name="<<src_name);
 			for(uint32_t i = 0; i != nserver; i++)
 			{
 				std::string s_name = GetBCubeId(i, m_n);
 				if(s_name[level+1]!=src_name[level+1] || s_name == src_name)
 					continue;
-				NS_LOG_UNCOND("s_name="<<s_name);
 				Ptr<Node> S = Names::Find<Node>(s_name);
 				NS_ASSERT(S!=0);
 				
