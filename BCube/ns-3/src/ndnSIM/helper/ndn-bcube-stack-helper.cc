@@ -185,7 +185,12 @@ BCubeStackHelper::Install (const NodeContainer &c) const
 {
   Ptr<FaceContainer> faces = Create<FaceContainer> ();
   for (NodeContainer::Iterator i = c.Begin (); i != c.End (); ++i)
-    {
+    { 
+      std::string node_name = Names::FindName(*it);
+      //For topology not constructed by TopologyReader
+      if(node_name.size()!=0 && node_name[0]=='R')	//BCube switch
+      	continue;
+      
       faces->AddAll (Install (*i));
     }
   return faces;
