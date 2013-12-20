@@ -86,13 +86,13 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
+  /*consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
   consumers = consumerHelper.Install (Names::Find<Node>("S13")); 
   consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
+  consumers.Stop (Seconds (simulation_time));*/
   
   Simulator::Stop (Seconds (simulation_time));
 
