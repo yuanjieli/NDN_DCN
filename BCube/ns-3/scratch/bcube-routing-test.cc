@@ -54,6 +54,7 @@ main (int argc, char *argv[])
   
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
+  ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S00"));
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
     	
   return 0;
