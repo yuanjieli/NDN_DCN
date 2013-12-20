@@ -423,6 +423,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				std::string s_name = GetBCubeId(i, m_n);
 				if(s_name[level+1]!=src_name[level+1] || s_name == src_name)
 					continue;
+				NS_LOG_UNCOND("s_name="<<s_name);
 				Ptr<Node> S = Names::Find<Node>(s_name);
 				NS_ASSERT(S!=0);
 				
