@@ -346,7 +346,7 @@ GetBCubeId(uint32_t i, uint32_t n, uint32_t k)
 		j /= n;
 		count ++;
 	}
-	str.insert(1, k-count, '0');
+	str.insert(1, k+1-count, '0');
 	return str;
 }
 
