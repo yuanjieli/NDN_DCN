@@ -395,7 +395,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			TreeNode_t T;
 			TreeLink_t TreeLink; //store all directional link of the Steiner Tree
 			T.push_back(root); 
-			
+			NS_LOG_UNCOND("src_name="<<src_name<<" root_name="<<root_name);
 			//BuildSingSPT: Part I
 			
 			for(size_t i = 0; i <= m_k; i++)
@@ -420,6 +420,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 							T2.push_back(C);
 							B = C;
 						}
+						//FIXME: BUG HERE! HOW TO DEAL WITH SRC AND ROOT?
 						else
 						{
 							TreeLink.push_back(std::make_pair(*node, root));
