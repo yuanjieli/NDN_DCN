@@ -466,6 +466,11 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					
 					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
 		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
+		            
+		            NS_LOG_UNCOND("Node "<<it_link->second->GetId()
+		            			<<" installs FIB "<<prefix
+		            			<<" nexthop="<<face->GetId()
+		            			<<" metric="<<metric);
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
 		
