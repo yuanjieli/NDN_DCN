@@ -28,6 +28,7 @@
 #include "ns3/ndn-fib.h"
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndnSIM/utils/ndn-fw-hop-count-tag.h"
+#include "ns3/ndn-bcube-tag.h"
 #include "ns3/ndn-app-face.h"
 #include "ns3/ndn-app.h"
 
@@ -130,6 +131,8 @@ Nacks::DidReceiveDuplicateInterest (Ptr<Face> inFace,
         {
           NS_LOG_DEBUG ("No FwHopCountTag tag associated with received duplicated Interest");
         }
+        
+	  //FIXME: add BCubeTag here!
 
       inFace->Send (nack);
       m_outNacks (nackHeader, inFace);
@@ -175,26 +178,24 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
           NS_LOG_DEBUG ("Send NACK for " << boost::cref (nackHeader->GetName ()) << " to " << boost::cref (*incoming.m_face));
           
           Ptr<Packet> target = packet->Copy();
-    			Ptr<Interest> NewHeader = Create<Interest> ();
-    			target->RemoveHeader(*NewHeader);
-    			//This is for faces who want the data, so SetIntraSharing = 0
-    			NewHeader->SetIntraSharing (120);	//larger than 100
-    			/*if(DynamicCast<AppFace>(incoming.m_face)==0)
-    			{
-	    				//update nack counter 
-	          	Ptr<fib2::Entry> fib2Entry=pitEntry->GetFib2Entry();	
-		          fib2::FaceMetricContainer::type::index<fib2::i_face>::type::iterator record2
-			      	= fib2Entry->m_faces.get<fib2::i_face> ().find (incoming.m_face); 
-			      	NS_ASSERT(record2!=fib2Entry->m_faces.get<fib2::i_face> ().end ());
-			      	fib2Entry->m_faces.modify (record2,
-			                      ll::bind (&fib2::FaceMetric::IncreaseNackOut, ll::_1));
-			                      			
-    			}*/   
-    			 
+    	  Ptr<Interest> NewHeader = Create<Interest> ();
+    	  target->RemoveHeader(*NewHeader);
+    	  //This is for faces who want the data, so SetIntraSharing = 0
+    	  NewHeader->SetIntraSharing (120);	//larger than 100
+    	
 	                      	
-	        target->AddHeader(*NewHeader);	
+	      target->AddHeader(*NewHeader);	
+	        
+	      BCubeTag tag;
+		  target->RemovePacketTag(tag);
+		  /* To simplify implementation, we make the following assumption:
+	 	   * For each switch, it has no more than 10 ports (e.g. BCube[8,3] can already support 4096 switches)
+	 	   * So RoutingCost = prevhop*10 + nexthop;
+	       */
+		  tag.SetNextHop(incoming.m_localport);
+		  target->AddPacketTag(tag);
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
-					incoming.m_face->Send(target);
+			incoming.m_face->Send(target);
 					
           m_outNacks (nackHeader, incoming.m_face);
         }
