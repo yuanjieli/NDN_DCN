@@ -510,7 +510,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				}
 			}
 			
-		NS_LOG_UNCOND("");	
+		NS_LOG_UNCOND(" ");	
 		}
 				
 	}
