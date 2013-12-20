@@ -389,7 +389,6 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			//create root for this spanning tree
 			std::string root_name = src_name;
 			root_name[level+1] = '0' + (src_addr[level+1]+1)%m_n;
-			NS_LOG_UNCOND("root_name="<<root_name);
 			Ptr<Node> root = Names::Find<Node>(root_name);
 			NS_ASSERT(root != 0);
 			TreeNode_t T;
@@ -410,7 +409,9 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						C_name[dim+1] = '0' + (C_name[dim+1]-'0'+1)%m_n;
 						C = Names::Find<Node>(C_name);
 						NS_ASSERT(C != 0);
+						
 						TreeLink.push_back(std::make_pair(B, C));
+						NS_LOG_UNCOND("Part I: "<<Names::FindName(B)<<"->"<<C_name);
 						T2.push_back(C);
 						B = C;
 					}
@@ -421,11 +422,9 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			
 			//Part II
 			uint32_t nserver = pow(m_n,m_k+1);	//total number of servers
-			NS_LOG_UNCOND("PartII: nserver="<<nserver<<" src_name="<<src_name);
 			for(uint32_t i = 0; i != nserver; i++)
 			{
 				std::string s_name = GetBCubeId(i, m_n, m_k);
-				NS_LOG_UNCOND("S1's name="<<s_name);
 				if(s_name[level+1]!=src_name[level+1] || s_name == src_name)
 					continue;
 				Ptr<Node> S = Names::Find<Node>(s_name);
@@ -436,10 +435,10 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				else
 					s_name[level+1] = m_n-1+'0';
 					
-				NS_LOG_UNCOND("S2's name="<<s_name);	
 				Ptr<Node> S2 = Names::Find<Node>(s_name);
 				NS_ASSERT(S2!=0);
 				TreeLink.push_back(std::make_pair(S2, S));
+				NS_LOG_UNCOND("Part II: "<<s_name<<"->"<<Names::FindName(S));
 				T.push_back(S);
 			}
 			
