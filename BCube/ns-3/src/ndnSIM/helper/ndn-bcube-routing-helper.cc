@@ -335,15 +335,18 @@ ExtractBCubeID(std::string &str, uint32_t *array)
 }
 //Convert #server to BCubeID in string
 std::string
-GetBCubeId(uint32_t i, uint32_t n)
+GetBCubeId(uint32_t i, uint32_t n, uint32_t k)
 {
 	std::string str = "S";
 	uint32_t j = i;
+	size_t count = 0;
 	while(j!=0)
 	{
-		str.insert(1,1,(char)(j%n+'0'));
+		str.insert(1,1,j%n+'0');
 		j /= n;
+		count ++;
 	}
+	str.insert(1, k-count, '0');
 	return str;
 }
 
