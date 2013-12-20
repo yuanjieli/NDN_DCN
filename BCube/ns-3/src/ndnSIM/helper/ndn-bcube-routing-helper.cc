@@ -424,7 +424,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			NS_LOG_UNCOND("PartII: nserver="<<nserver<<" src_name="<<src_name);
 			for(uint32_t i = 0; i != nserver; i++)
 			{
-				std::string s_name = GetBCubeId(i, m_n);
+				std::string s_name = GetBCubeId(i, m_n, m_k);
 				NS_LOG_UNCOND("s_name="<<s_name);
 				if(s_name[level+1]!=src_name[level+1] || s_name == src_name)
 					continue;
