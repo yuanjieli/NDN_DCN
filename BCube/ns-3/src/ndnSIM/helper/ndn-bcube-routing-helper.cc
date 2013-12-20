@@ -125,14 +125,15 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
 		 Ptr<Node> otherNode = otherSide->GetNode ();
 		 NS_ASSERT (otherNode != 0);
 		
-		 Ptr<GlobalRouter> otherGr = otherNode->GetObject<GlobalRouter> ();
-		 if (otherGr == 0)
+		 //The other side SHOULD be switch, which doesn't have GlobalRouter
+		 /*Ptr<GlobalRouter> otherGr = otherNode->GetObject<GlobalRouter> ();
+		 if (otherGr == 0)	
 		 {
 			Install (otherNode);
 		 }
 		 otherGr = otherNode->GetObject<GlobalRouter> ();
 		 NS_ASSERT (otherGr != 0);
-		 gr->AddIncidency (face, otherGr);
+		 gr->AddIncidency (face, otherGr);*/
 	   }
 			     
     }
