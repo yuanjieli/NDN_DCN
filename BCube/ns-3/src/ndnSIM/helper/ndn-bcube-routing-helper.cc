@@ -396,7 +396,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			
 			//BuildSingSPT: Part I
 			TreeLink_t TreeLink; //store all directional link of the Steiner Tree
-			for(size_t i = 0; i < m_k; i++)
+			for(size_t i = 0; i <= m_k; i++)
 			{
 				size_t dim = (level+i)%(m_k+1);	
 				TreeNode_t T2;			
@@ -404,7 +404,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				{
 					Ptr<Node> B = *it, C = *it;
 					std::string C_name = Names::FindName(C);
-					for(size_t j = 0; j < m_n-1; j ++)
+					for(size_t j = 0; j < m_n-2; j ++)
 					{
 						C_name[dim+1] = '0' + (C_name[dim+1]-'0'+1)%m_n;
 						C = Names::Find<Node>(C_name);
