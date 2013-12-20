@@ -341,7 +341,7 @@ GetBCubeId(uint32_t i, uint32_t n)
 	uint32_t j = i;
 	while(j!=0)
 	{
-		str.insert(1,1,j%n+'0');
+		str.insert(1,1,(char)(j%n+'0'));
 		j /= n;
 	}
 	return str;
