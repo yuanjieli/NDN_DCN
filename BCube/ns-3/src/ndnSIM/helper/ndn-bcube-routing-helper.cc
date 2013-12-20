@@ -363,6 +363,9 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
 			continue;
 		}
+		
+		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
+		
 		//Guarantee that this node is really a server
 		//Should ALWAYS be true because only switches don't install GlobalRouter
 		std::string src_name = Names::FindName(*node);
@@ -371,8 +374,6 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		//Extract source's BCubeID
 		uint32_t src_addr[MAX_N];
 		ExtractBCubeID(src_name, src_addr);
-		
-		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
 		
 		//for(size_t level = 0; level <= m_k; level++)
 		size_t level = 0;	//As first step, let's create one spanning tree only
