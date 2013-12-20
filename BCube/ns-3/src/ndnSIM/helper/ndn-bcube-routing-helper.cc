@@ -432,9 +432,9 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				NS_ASSERT(S!=0);
 				
 				if(s_name[level+1]-'0'!=0)
-					s_name[level+1] = (s_name[level+1]-'0'-1)%m_n;
+					s_name[level+1] = (s_name[level+1]-'0'-1)%m_n+'0';
 				else
-					s_name[level+1] = m_n-1;
+					s_name[level+1] = m_n-1+'0';
 					
 				NS_LOG_UNCOND("S2's name="<<s_name);	
 				Ptr<Node> S2 = Names::Find<Node>(s_name);
