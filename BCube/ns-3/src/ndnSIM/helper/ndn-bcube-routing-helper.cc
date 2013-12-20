@@ -423,7 +423,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						else
 						{
 							TreeLink.push_back(std::make_pair(*node, root));
-							NS_LOG_UNCOND("Part I: "<<src_name<<"->"<<root_name);
+							NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
 						}
 							
 						
