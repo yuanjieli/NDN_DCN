@@ -51,6 +51,7 @@
 #include <vector>
 
 #include <math.h>
+#include <stdlib.h>
 
 NS_LOG_COMPONENT_DEFINE ("ndn.BCubeRoutingHelper");
 
@@ -327,6 +328,20 @@ ExtractBCubeID(std::string &str, uint32_t *array)
 		array[k-1] = str[k]-'0';
 	}
 }
+//Convert #server to BCubeID in string
+std::string
+GetBCubeId(uint32_t i)
+{
+	std::string str = "S";
+	uint32_t j = i;
+	while(j!=0)
+	{
+		s_name.insert(1,1,j%n+'0');
+		j /= n;
+	}
+	return str;
+}
+
 void
 BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 {
@@ -367,14 +382,16 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			root_name[level] = '0' + (src_addr[level]+1)%m_n;
 			Ptr<Node> root = Names::Find<Node>(root_name);
 			NS_ASSERT(root != 0);
-			TreeNode_t TreeNode;
+			TreeNode_t T;
 			TreeNode.push_back(root); 
+			
 			//BuildSingSPT: Part I
+			TreeLink_t TreeLink; //store all directional link of the Steiner Tree
 			for(size_t i = 0; i <= m_k; i++)
 			{
-				size_t dim = (level+i)%(m_k+1);
-				TreeLink_t TreeLink;
-				for(TreeNodeIterator it = TreeNode.begin(); it != TreeNode.end(); it++)
+				size_t dim = (level+i)%(m_k+1);	
+				TreeNode_t T2;			
+				for(TreeNodeIterator it = T.begin(); it != T.end(); it++)
 				{
 					Ptr<Node> B = *it, C = *it;
 					std::string C_name = Names::FindName(C);
@@ -384,11 +401,85 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						C = Names::Find<Node>(C_name);
 						NS_ASSERT(C != 0);
 						TreeLink.push_back(std::make_pair(B, C));
+						tmp.push_back(C);
 						B = C;
 					}
 				}
+				TreeNode.insert(T.end()--,T2.begin(),T2.end());
 				
 			}	
+			
+			//Part II
+			uint32_t nserver = pow(n,k+1);	//total number of servers
+			for(uint32_t i = 0; i != nserver; i++)
+			{
+				std::string s_name = GetBCubeId(i);
+				if(s_name[level]!=src_name[level] || s_name == src_name)
+					continue;
+				Ptr<Node> S = Names::Find<Node>(s_name);
+				NS_ASSERT(S!=0);
+				
+				if(s_name[level]-'0'!=0)
+					s_name[level] = (s_name[level]-'0'-1)%m_n;
+				else
+					s_name[level] = m_n-1;
+					
+				Ptr<Node> S2 = Names::Find<Node>(s_name);
+				NS_ASSERT(S2!=0);
+				TreeLink.push_back(std::make_pair(S2, S));
+				T.push_back(S);
+			}
+			
+			//Now we can build FIB 
+			BOOST_FOREACH(const Ptr<Name> &prefix, source->GetLocalPrefixes())
+			{
+				for(TreeLinkIterator it_link = TreeLink.begin(); it_link != TreeLink.end(); it_link++)
+				{
+					Ptr<GlobalRouter> gr = it_link->second->GetObject<GlobalRouter> ();
+					if(gr==0)
+					{
+						NS_LOG_DEBUG ("Node " << it_link->second->GetId () << " does not export GlobalRouter interface");
+						continue;
+					}
+					
+					Ptr<Fib> fib = gr -> GetObject<Fib>();
+					NS_ASSERT(fib != 0);
+					
+					//figure out the correct device
+					//For this pair, there should be only ONE different digit
+					std::string A = Names::FindName(it_link->first);
+					std::string B = Names::FindName(it_link->second);
+					uint32_t digit = 1;
+					for(; digit != m_n; digit++)
+					{
+						if(A[digit] != B[digit])
+							break;
+					}
+					NS_ASSERT(digit != m_n);
+					//metric = nexthop + prevhop*10
+					uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;
+					Ptr<BCubeL3Protocol>     ndn = node->GetObject<BCubeL3Protocol> ();
+					NS_ASSERT(ndn != 0);
+					Ptr<Face> face = ndn->GetUploadFace (digit*2);
+					NS_ASSERT(face != 0);
+					
+					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
+		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
+		
+		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
+		
+		            Ptr<Limits> fibLimits = entry->GetObject<Limits> ();
+		            if (fibLimits != 0)
+		            {
+		                // if it was created by the forwarding strategy via DidAddFibEntry event
+		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2 * 0.001 () /*exact RTT*/);
+		            }
+					
+					
+				}
+			}
+			
+			
 		}
 				
 	}
