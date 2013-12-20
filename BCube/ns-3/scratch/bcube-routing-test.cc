@@ -52,9 +52,9 @@ main (int argc, char *argv[])
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
-  ndn::GlobalRoutingHelper ndnGlobalRoutingHelper;
+  ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
-  ndnGlobalRoutingHelper.CalculateBCubeRoutes ();
+  ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
     	
   return 0;
 }
