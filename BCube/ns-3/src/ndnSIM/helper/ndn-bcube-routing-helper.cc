@@ -475,7 +475,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		            
 		            NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
-		            			<<" nexthop="<<face->GetId()
+		            			<<" nexthop="<<A
+		            			<<" face="<<face->GetId()
 		            			<<" metric="<<metric);
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
