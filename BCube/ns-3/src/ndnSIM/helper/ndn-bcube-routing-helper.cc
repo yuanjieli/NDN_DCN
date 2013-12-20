@@ -382,6 +382,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					{
 						C_name[dim] = '0' + (C_name[dim]-'0'+1)%m_n;
 						C = Names::Find<Node>(C_name);
+						NS_ASSERT(C != 0);
 						TreeLink.push_back(std::make_pair(B, C));
 						B = C;
 					}
