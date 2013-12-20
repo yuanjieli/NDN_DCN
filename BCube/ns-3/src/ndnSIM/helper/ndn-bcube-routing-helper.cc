@@ -94,10 +94,10 @@ BCubeRoutingHelper::Install (Ptr<Node> node)
     {
       Ptr<NetDeviceFace> face = DynamicCast<NetDeviceFace> (ndn->GetUploadFace (faceId));
       if (face == 0)
-			{
-			  NS_LOG_DEBUG ("Skipping non-netdevice face");
-			  continue;
-			}
+	  {
+		NS_LOG_DEBUG ("Skipping non-netdevice face");
+		continue;
+	  }
 
       Ptr<NetDevice> nd = face->GetNetDevice ();
       if (nd == 0)

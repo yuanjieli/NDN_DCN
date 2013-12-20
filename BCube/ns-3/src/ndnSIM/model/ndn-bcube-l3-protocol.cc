@@ -245,14 +245,17 @@ BCubeL3Protocol::RemoveFace (Ptr<Face> face)
 Ptr<Face>
 BCubeL3Protocol::GetUploadFace (uint32_t index) const
 {
-  NS_ASSERT (0 <= index && index < m_uploadfaces.size () && index%2==0);
-  return m_uploadfaces[index/2];
+  NS_ASSERT (0 <= index && index < 2*m_uploadfaces.size () && index%2==0);
+  if(DynamicCast<NetDeviceFace>(m_uploadfaces[index/2])!=0)
+  	return m_uploadfaces[index/2];
+  else	//app-face
+  	return 0;
 }
 
 Ptr<Face>
 BCubeL3Protocol::GetDownloadFace (uint32_t index) const
 {
-  NS_ASSERT (0 <= index && index < m_downloadfaces.size () && index%2==1);
+  NS_ASSERT (0 <= index && index < 2*m_downloadfaces.size () && index%2==1);
   return m_downloadfaces[index/2];
 }
 
