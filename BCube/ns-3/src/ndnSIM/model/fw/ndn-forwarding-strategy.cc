@@ -673,6 +673,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	if(packetToSend->RemovePacketTag(tag))	//there exists a tag: update m_cur
 	{
 		NS_ASSERT(tag.GetInterest()!=0);
+		NS_LOG_UNCOND("Aha!");
 		tag.SetCurTag(tag.GetCurTag()+1);
 	}
 	else	//no tag: MUST be from application/cosnumer
