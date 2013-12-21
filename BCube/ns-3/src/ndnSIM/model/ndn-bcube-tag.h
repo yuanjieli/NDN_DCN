@@ -41,9 +41,10 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-  , m_cur (0)	
+    m_cur (0)	
   ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
-  { };	
+  { 
+  };	
 
   /**
    * @brief Destructor
@@ -66,7 +67,7 @@ public:
   uint32_t
   GetNextHop() const
   {
-  	return GetDigit(m_cur);
+  	return this->GetDigit(m_cur);
   }
   
   uint32_t
@@ -75,7 +76,7 @@ public:
   	if(m_cur==0)
   		return std::numeric_limits<uint32_t>::max ();
   	else
-  		return GetDigit(m_cur-1);
+  		return this->GetDigit(m_cur-1);
   }
   
 
@@ -103,6 +104,7 @@ public:
   
 private:
   uint32_t GetDigit(uint32_t k);	//get kth digit of m_metric (k starts from 0)
+private:
   uint8_t m_cur;
   uint32_t m_metric;
 };
