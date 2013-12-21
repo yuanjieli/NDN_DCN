@@ -36,7 +36,7 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {	
-  int simulation_time = 100;
+  //int simulation_time = 100;
   
   Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
