@@ -57,7 +57,7 @@ public:
   }
   
   void
-  SetCurTag(uint_8 cur)
+  SetCurTag(uint8_t cur)
   {
   	m_cur = cur;
   	NS_ASSERT(m_cur>=0 && m_cur<MAX_K);
