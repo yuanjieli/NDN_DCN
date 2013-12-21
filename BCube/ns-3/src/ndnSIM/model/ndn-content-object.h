@@ -174,7 +174,7 @@ private:
   Time m_freshness;
   Time m_timestamp;
   uint32_t m_signature; // 0, means no signature, any other value application dependent (not a real signature)
-	uint8_t m_CE;	//Content_Existence bit, used for identifying the cooperation level
+  uint8_t m_CE;	//Content_Existence bit, used for identifying the cooperation level
 };
 
 typedef ContentObject ContentObjectHeader;

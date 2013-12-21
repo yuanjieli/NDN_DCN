@@ -138,11 +138,11 @@ void
 ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
                    				 Ptr<Packet> payload)
 {
-	if(!m_inited)
-	{
-		m_alpha = m_alpha_max;
-		m_inited = true;
-	}
+  if(!m_inited)
+  {
+	m_alpha = m_alpha_max;
+	m_inited = true;
+  }
 	
   Consumer::OnContentObject (contentObject, payload); // tracing inside
   //update interest limit
@@ -166,6 +166,34 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   }*/
     
 }
+
+void
+ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                   				 Ptr<Packet> payload)
+{
+	//rule out nacks with different prefixes
+	std::list<std::string>::const_iterator rhs = interest->GetName().begin();
+	bool match = true;
+	for(std::list<std::string>::iterator it = m_interestName.begin();
+			it != m_interestName.end(); it++)
+	{
+		if(rhs==interest->GetName().end()
+		|| *it!=*rhs)
+		{
+			match = false;
+			break;
+		}
+		rhs++;
+	}
+	if(!match)
+	{
+		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		return;
+	}
+	
+	m_data_count++;
+}
+                   				 
 
 void
 ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)

@@ -490,7 +490,33 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
           NS_LOG_DEBUG ("Cannot satisfy data to " << *incoming.m_face);
         }
     }
-
+	
+  //copy NACK to all applications of this node
+  Ptr<Node> node = inFace->GetNode();
+  NS_ASSERT(node!=0);
+  for(uint32_t k=0; k!=node->GetNApplications(); k++)
+  {
+      	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
+      	if(app!=0)
+      	{
+      		//If it is already forwarded to app, don't do it again
+      		bool ignore = false;
+      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      		{
+      			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
+      				ignore = true;
+      				break;
+      			}
+      		}
+      		//if inFace is not an application face, we may have intra-sharing problem
+      		if(!ignore && DynamicCast<AppFace>(inFace)==0)
+      		{
+	      		app->OnExtraContentObject(header, payload);
+	      	}
+      	}
+      	
+    }
+      
   // All incoming interests are satisfied. Remove them
   pitEntry->ClearIncoming ();
 

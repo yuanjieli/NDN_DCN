@@ -67,6 +67,10 @@ public:
   OnContentObject (const Ptr<const ContentObject> &contentObject,
                    Ptr<Packet> payload);
 
+  virtual void
+  OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                   Ptr<Packet> payload);
+
   /**
    * @brief Timeout event
    * @param sequenceNumber time outed sequence number
