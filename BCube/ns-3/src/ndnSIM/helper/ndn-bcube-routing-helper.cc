@@ -496,7 +496,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					NS_ASSERT(digit != m_k+2);
 					//metric = nexthop + prevhop*10
 					//uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;*/
-					int32_t metric = T[it_link->second]*10+(int32_t)(B[digit]-'0'); 
+					//int32_t metric = T[it_link->second]*10+(int32_t)(B[digit]-'0'); 
+					int32_t metric = T[it_link->second]*10;
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);

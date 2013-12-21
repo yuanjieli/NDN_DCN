@@ -42,7 +42,7 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-    m_cur (1)	
+    m_cur (0)	
   ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
   , m_interest (0)
   { 
@@ -68,7 +68,7 @@ public:
   void
   SetCurTag(uint8_t cur)
   {
-  	NS_ASSERT(cur>0 && cur<MAX_K);
+  	NS_ASSERT(cur>=0 && cur<MAX_K);
   	m_cur = cur;
   }
   
