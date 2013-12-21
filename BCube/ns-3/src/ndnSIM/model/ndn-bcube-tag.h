@@ -42,8 +42,8 @@ public:
    */
   BCubeTag () : 
   , m_cur (0)	
-  ,	m_nexthop (std::numeric_limits<uint32_t>::max ())
-  , m_prevhop (std::numeric_limits<uint32_t>::max ()) { };	
+  ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
+  { };	
 
   /**
    * @brief Destructor
