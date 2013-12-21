@@ -72,7 +72,7 @@ main (int argc, char *argv[])
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
   
    // Producer
-  ndn::AppHelper producerHelper ("ns3::ndn::Producer");
+  /*ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
@@ -86,18 +86,11 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  /*consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumers = consumerHelper.Install (Names::Find<Node>("S13")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));*/
   
   Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();
-  Simulator::Destroy ();
+  Simulator::Destroy ();*/
     	
   return 0;
 }

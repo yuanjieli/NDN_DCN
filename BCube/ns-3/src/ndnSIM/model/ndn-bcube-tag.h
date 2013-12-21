@@ -42,7 +42,7 @@ public:
    */
   BCubeTag () : 
   	m_totalhop (0)
-  , m_cur (0)
+  , m_cur (0)	
   ,	m_nexthop (std::numeric_limits<uint32_t>::max ())
   , m_prevhop (std::numeric_limits<uint32_t>::max ()) { };	
 
@@ -54,10 +54,22 @@ public:
   void
   CopyHop(uint8_t *rhs, uint8_t k);	//only called by consumers in BCube
 
+  void
+  SetNextHop(uint8_t rhs)
+  {
+  	m_nexthop = rhs;
+  }
+  
   uint32_t
   GetNextHop() const
   {
   	return m_nexthop;
+  }
+  
+  void
+  SetPrevHop(uint8_t rhs)
+  {
+  	m_prevhop = rhs;
   }
   
   uint32_t
