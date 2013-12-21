@@ -61,8 +61,14 @@ public:
   void
   SetCurTag(uint8_t cur)
   {
-  	m_cur = cur;
-  	NS_ASSERT(m_cur>=0 && m_cur<MAX_K);
+  	if(cur>=0 && cur<MAX_K)
+  		m_cur = cur;
+  }
+  
+  uint8_t
+  GetCurTag() const
+  {
+  	return m_cur;
   }
   
   uint32_t

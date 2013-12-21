@@ -669,16 +669,14 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	NS_ASSERT(record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ());
 		
 	BCubeTag tag;
-	packetToSend->RemovePacketTag(tag);
-	/* To simplify implementation, we make the following assumption:
-	 * For each switch, it has no more than 10 ports (e.g. BCube[8,3] can already support 4096 switches)
-	 * So RoutingCost = prevhop*10 + nexthop;
-	 */
-	tag.SetNextHop(record->GetRoutingCost()%10);
-	tag.SetPrevHop(record->GetRoutingCost()/10);
-	/*NS_LOG_UNCOND("RoutingCost="<<record->GetRoutingCost()
-				<<" nexthop="<<record->GetRoutingCost()%10
-				<<" prevhop="<<record->GetRoutingCost()/10);*/
+	if(packetToSend->RemovePacketTag(tag))	//there exists a tag: update m_cur
+		tag.SetCurTag(tag.GetCurTag()+1);
+	else	//no tag: MUST be from application/cosnumer
+	{
+		tag.SetCurTag(0);
+		tag.SetForwardingTag(record->GetRoutingCost());
+	}
+	
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
   if (!successSend)
