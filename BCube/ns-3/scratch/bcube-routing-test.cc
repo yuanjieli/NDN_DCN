@@ -36,8 +36,6 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {	
-  int simulation_time = 100;
-  
   Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
@@ -71,6 +69,7 @@ main (int argc, char *argv[])
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S00"));
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
   
+  /*int simulation_time = 100;
    // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
@@ -90,7 +89,7 @@ main (int argc, char *argv[])
   Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();
-  Simulator::Destroy ();
+  Simulator::Destroy ();*/
     	
   return 0;
 }
