@@ -44,6 +44,7 @@ public:
   BCubeTag () : 
     m_cur (0)	
   ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
+  , m_interest (0)
   { 
   };	
 
@@ -61,8 +62,8 @@ public:
   void
   SetCurTag(uint8_t cur)
   {
-  	if(cur>=0 && cur<MAX_K)
-  		m_cur = cur;
+  	NS_ASSERT(cur>=0 && cur<MAX_K);
+  	m_cur = cur;
   }
   
   uint8_t
@@ -74,23 +75,22 @@ public:
   uint32_t
   GetNextHop() const
   {
-  	uint32_t tmp = m_metric/pow(10,m_cur);
-	return tmp%10;
+  	return m_nexthop;
   }
   
   uint32_t
   GetPrevHop() const
   {
-  	if(m_cur==0)
-  		return std::numeric_limits<uint32_t>::max ();
-  	else
-  	{
-  		uint32_t tmp = m_metric/pow(10,m_cur-1);
-		return tmp%10;
-  	}
+  	return m_prevhop;
   }
   
-
+  uint32_t
+  SetNextHop(uint32_t rhs)	//For Data packet only
+  {
+  	NS_ASSERT(m_interest == 0);
+  	m_nexthop = rhs;
+  }
+  
   ////////////////////////////////////////////////////////
   // from ObjectBase
   ////////////////////////////////////////////////////////
@@ -116,6 +116,9 @@ public:
 private:
   uint8_t m_cur;
   uint32_t m_metric;
+  uint8_t m_interest;	//for interest or data?
+  uint32_t m_nexthop;
+  uint32_t m_prevhop;
 };
 
 } // namespace ndn
