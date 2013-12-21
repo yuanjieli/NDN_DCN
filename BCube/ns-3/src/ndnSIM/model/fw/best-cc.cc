@@ -25,6 +25,7 @@
 #include "ns3/ndn-pit.h"
 #include "ns3/ndn-pit-entry.h"
 #include "ns3/ndn-limits-delta-rate.h"
+#include "ns3/ndn-bcube-tag.h"
 
 #include "ns3/assert.h"
 #include "ns3/log.h"
