@@ -104,7 +104,7 @@ public:
                    Ptr<Packet> payload);
   virtual void
   OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
-                   Ptr<Packet> payload);
+                   Ptr<Packet> payload) = 0;
   
 protected:
   /**
