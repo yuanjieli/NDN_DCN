@@ -23,6 +23,8 @@
 
 #include "ns3/tag.h"
 
+#define MAX_K 10	//maximum number of hops
+
 namespace ns3 {
 namespace ndn {
 
@@ -39,30 +41,23 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-  	m_nexthop (std::numeric_limits<uint32_t>::max ())
+  	m_totalhop (0)
+  , m_cur (0)
+  ,	m_nexthop (std::numeric_limits<uint32_t>::max ())
   , m_prevhop (std::numeric_limits<uint32_t>::max ()) { };	
 
   /**
    * @brief Destructor
    */
   ~BCubeTag () { }
-
-  void
-  SetNextHop(uint8_t rhs)
-  {
-  	m_nexthop = rhs;
-  }
   
+  void
+  CopyHop(uint8_t *rhs, uint8_t k);	//only called by consumers in BCube
+
   uint32_t
   GetNextHop() const
   {
   	return m_nexthop;
-  }
-  
-  void
-  SetPrevHop(uint8_t rhs)
-  {
-  	m_prevhop = rhs;
   }
   
   uint32_t
@@ -94,6 +89,10 @@ public:
   Print (std::ostream &os) const;
   
 private:
+  uint8_t m_totalhop;
+  uint8_t m_cur;
+  uint8_t m_tags[MAX_K];
+  //local variables
   uint8_t m_nexthop;
   uint8_t m_prevhop;
 };
