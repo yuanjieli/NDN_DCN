@@ -22,7 +22,6 @@
 
 #include <cstdlib>
 #include <cstring>
-#include <cmath>
 
 namespace ns3 {
 namespace ndn {
@@ -62,13 +61,6 @@ BCubeTag::Deserialize (TagBuffer i)
 {
   m_metric = i.ReadU32 ();
   m_cur = i.ReadU8 (); 
-}
-
-uint32_t
-BCubeTag::GetDigit (uint32_t k)
-{
-	uint32_t tmp = m_metric/pow(10,k);
-	return tmp%10;
 }
 
 void

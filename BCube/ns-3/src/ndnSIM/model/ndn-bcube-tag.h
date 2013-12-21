@@ -22,6 +22,7 @@
 #define NDN_BCUBE_TAG_H
 
 #include "ns3/tag.h"
+#include <cmath>
 
 #define MAX_K 10	//maximum number of hops
 
@@ -67,7 +68,8 @@ public:
   uint32_t
   GetNextHop() const
   {
-  	return this->GetDigit(m_cur);
+  	uint32_t tmp = m_metric/pow(10,m_cur);
+	return tmp%10;
   }
   
   uint32_t
@@ -76,7 +78,10 @@ public:
   	if(m_cur==0)
   		return std::numeric_limits<uint32_t>::max ();
   	else
-  		return this->GetDigit(m_cur-1);
+  	{
+  		uint32_t tmp = m_metric/pow(10,m_cur-1);
+		return tmp%10;
+  	}
   }
   
 
@@ -102,8 +107,6 @@ public:
   virtual void
   Print (std::ostream &os) const;
   
-private:
-  uint32_t GetDigit(uint32_t k);	//get kth digit of m_metric (k starts from 0)
 private:
   uint8_t m_cur;
   uint32_t m_metric;
