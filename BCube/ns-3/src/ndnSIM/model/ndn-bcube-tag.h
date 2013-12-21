@@ -41,7 +41,6 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-  	m_totalhop (0)
   , m_cur (0)	
   ,	m_nexthop (std::numeric_limits<uint32_t>::max ())
   , m_prevhop (std::numeric_limits<uint32_t>::max ()) { };	
@@ -52,31 +51,33 @@ public:
   ~BCubeTag () { }
   
   void
-  CopyHop(uint8_t *rhs, uint8_t k);	//only called by consumers in BCube
-
-  void
-  SetNextHop(uint8_t rhs)
+  SetForwardingTag(uint32_t rhs)
   {
-  	m_nexthop = rhs;
+  	m_metric = rhs;
+  }
+  
+  void
+  SetCurTag(uint_8 cur)
+  {
+  	m_cur = cur;
+  	NS_ASSERT(m_cur>=0 && m_cur<MAX_K);
   }
   
   uint32_t
   GetNextHop() const
   {
-  	return m_nexthop;
-  }
-  
-  void
-  SetPrevHop(uint8_t rhs)
-  {
-  	m_prevhop = rhs;
+  	return GetDigit(m_cur);
   }
   
   uint32_t
   GetPrevHop() const
   {
-  	return m_prevhop;
+  	if(m_cur==0)
+  		return std::numeric_limits<uint32_t>::max ();
+  	else
+  		return GetDigit(m_cur-1);
   }
+  
 
   ////////////////////////////////////////////////////////
   // from ObjectBase
@@ -101,12 +102,9 @@ public:
   Print (std::ostream &os) const;
   
 private:
-  uint8_t m_totalhop;
+  uint32_t GetDigit(uint32_t k);	//get kth digit of m_metric (k starts from 0)
   uint8_t m_cur;
-  uint8_t m_tags[MAX_K];
-  //local variables
-  uint8_t m_nexthop;
-  uint8_t m_prevhop;
+  uint32_t m_metric;
 };
 
 } // namespace ndn

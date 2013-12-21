@@ -22,6 +22,7 @@
 
 #include <cstdlib>
 #include <cstring>
+#include <cmath>
 
 namespace ns3 {
 namespace ndn {
@@ -42,45 +43,32 @@ BCubeTag::GetInstanceTypeId () const
   return BCubeTag::GetTypeId ();
 }
 
-void
-BCubeTag::CopyHop(uint8_t *rhs, uint8_t n_hop)
-{
-	NS_ASSERT(n_hop>0 && n_hop<=MAX_K);
-	m_totalhop = n_hop ;
-	m_cur = 0;
-	memcpy(m_tags,rhs,sizeof(uint8_t)*n_hop);
-}
-
 uint32_t
 BCubeTag::GetSerializedSize () const
 {
-  return sizeof(uint8_t)*(2+MAX_K);
+  return sizeof(uint32_t) + sizeof(uint8_t);
 }
 
 void
 BCubeTag::Serialize (TagBuffer i) const
 {
-  i.WriteU8 (m_totalhop);
-  i.WriteU8 (m_cur+1);	//point to next hop
-  for(size_t j = 0; j != MAX_K; j++)
-  	i.WriteU8 (m_tags[j]);
-  	 
+  i.WriteU32 (m_metric);
+  i.WriteU8 (m_cur);	
+  
 }
   
 void
 BCubeTag::Deserialize (TagBuffer i)
 {
-  m_totalhop = i.ReadU8 ();
-  m_cur = i.ReadU8 ();
-  for(size_t j = 0; j != MAX_K; j++)
-  	m_tags[j] =  i.ReadU8 ();
-  
-  NS_ASSERT(m_cur>=0 && m_cur<MAX_K);	
-  m_nexthop = m_tags[m_cur];
-  if(m_cur==0)
-  	m_prevhop = std::numeric_limits<uint32_t>::max ();
-  else
-  	m_prevhop = m_tags[m_cur-1];
+  m_metric = i.ReadU32 ();
+  m_cur = i.ReadU8 (); 
+}
+
+uint32_t
+BCubeTag::GetDigit (uint32_t k)
+{
+	uint32_t tmp = m_metric/pow(10,k);
+	return tmp%10;
 }
 
 void
