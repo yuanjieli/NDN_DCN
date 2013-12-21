@@ -683,7 +683,10 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		tag.SetForwardingTag(record->GetRoutingCost());
 		tag.SetInterest(1);
 	}
-	tag.SetPrevHop(outFace->GetId()/2);
+	
+	std::string node_name = Names::FindName(outFace->GetNode());
+	
+	tag.SetPrevHop(node_name[outFace->GetId()/2+1]-'0');
 	
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);
