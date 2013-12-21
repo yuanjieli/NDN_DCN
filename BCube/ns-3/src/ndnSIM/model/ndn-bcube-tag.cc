@@ -61,8 +61,7 @@ void
 BCubeTag::Serialize (TagBuffer i) const
 {
   i.WriteU8 (m_totalhop);
-  m_cur++;	//point to next hop
-  i.WriteU8 (m_cur);
+  i.WriteU8 (m_cur+1);	//point to next hop
   for(size_t j = 0; j != MAX_K; j++)
   	i.WriteU8 (m_tags[j]);
   	 
