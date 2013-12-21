@@ -341,7 +341,7 @@ BCubeL3Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
 							//servers receive interest from download link
 							if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
 							{
-								//NS_LOG_UNCOND("BCubeL3Protocol: Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
+								NS_LOG_UNCOND("BCubeL3Protocol: Receive interest from face="<<face->GetId()<<" node="<<m_node->GetId());
 								m_forwardingStrategy->OnInterest (face, header, p/*original packet*/);
 							}
 							else
