@@ -177,7 +177,7 @@ ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
 	for(std::list<std::string>::iterator it = m_interestName.begin();
 			it != m_interestName.end(); it++)
 	{
-		if(rhs==interest->GetName().end()
+		if(rhs==contentObject->GetName().end()
 		|| *it!=*rhs)
 		{
 			match = false;
