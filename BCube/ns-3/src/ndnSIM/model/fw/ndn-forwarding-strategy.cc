@@ -512,7 +512,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
       		//if inFace is not an application face, we may have intra-sharing problem
       		if(!ignore && DynamicCast<AppFace>(inFace)==0)
       		{
-	      		app->OnExtraContentObject(header, payload);
+	      		app->OnExtraContentObject(header, payload->Copy());
 	      	}
       	}
       	
