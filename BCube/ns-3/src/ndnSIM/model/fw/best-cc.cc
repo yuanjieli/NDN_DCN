@@ -69,6 +69,102 @@ BestCC::BestCC ()
 }
 
 //Static Forwarding
+/*bool
+BestCC::DoPropagateInterest (Ptr<Face> inFace,
+                                Ptr<const Interest> header,
+                                Ptr<const Packet> origPacket,
+                                Ptr<pit::Entry> pitEntry)
+{
+	  NS_LOG_FUNCTION (this << header->GetName ());
+	  int propagatedCount = 0;
+	  Ptr<Face> optimalFace=0;
+	  
+	  //Step0: if there exists an application face, forward to it directly
+	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+	  {
+	  	if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
+	  	{
+	  			optimalFace = metricFace.GetFace();
+	  			break;	
+	  	}
+	  }
+  
+  	if(optimalFace==0)	//no application face
+  	{  
+		  double totalweight = 0;
+		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+		  {
+		  	
+		  	if(metricFace.GetFace()!=inFace)//it happens when using non-shortest path
+		  		totalweight += metricFace.GetFraction();
+		  }
+		  
+		  if(totalweight==0)return false;	//no available face
+		  	
+		  if(totalweight<1)totalweight = 1;
+		  	
+		  double target = rand()%(int)totalweight;
+		  double coin = 0;	
+		  //Step2: choose ONE face based on our congestion control strategy
+		  std::vector< Ptr<Face> > vecFaces;
+		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+		  	{
+			  	if(metricFace.GetFace()!=inFace)//it happens when using non-shortest path
+		  		{
+		  			coin += metricFace.GetFraction();
+		  			//if this link is already a bottleneck link, increase NACK by 1
+		  			
+		  			//if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
+		  			//at this stage, we don't care whether this face can send interests
+		  			//This would fix the bug when local link becomes bottleneck
+		  			if(coin>=target)
+		  			{
+		  				optimalFace = metricFace.GetFace();
+		  				break;
+		  			}
+		  		}
+		  	}
+		  	
+		  	if(optimalFace==0)return false;
+  	}
+  	
+	  //If we cannot send interest through optimalFace, increase NACK
+	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+	  {
+	  	//we found a face, but it cannot send
+	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+  	    if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+        {
+      		
+        	pitEntry->GetFibEntry ()->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseNack, ll::_1));
+        }
+	  	return false;
+	  }	
+	  
+	  Ptr<Limits> faceLimits = optimalFace->GetObject<Limits> ();
+	  faceLimits->BorrowLimit ();
+	  TrySendOutInterest (inFace, optimalFace, header, origPacket, pitEntry);
+	  propagatedCount++;
+	  //////////////////////////////////////////
+	  fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
+  	  if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
+      {
+      		
+        	pitEntry->GetFibEntry ()->m_faces.modify (record,
+                      ll::bind (&fib::FaceMetric::IncreaseInterest, ll::_1));
+      }  
+    //////////////////////////////////////////
+  
+  NS_LOG_INFO ("Propagated to " << propagatedCount << " faces");
+  return propagatedCount > 0;
+  
+  
+}*/
+
+//Static Forwarding for BCube
 bool
 BestCC::DoPropagateInterest (Ptr<Face> inFace,
                                 Ptr<const Interest> header,
