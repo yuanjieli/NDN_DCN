@@ -42,7 +42,7 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-    m_cur (0)	
+    m_cur (1)	
   ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
   , m_interest (0)
   { 

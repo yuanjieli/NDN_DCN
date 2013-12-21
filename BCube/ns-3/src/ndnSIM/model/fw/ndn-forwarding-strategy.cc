@@ -184,9 +184,9 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       BCubeTag tag;
       origPacket->PeekPacketTag(tag);
       pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-      NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+      /*NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
       			  <<" face="<<inFace->GetId()
-      			  <<" prevhop="<<tag.GetPrevHop());
+      			  <<" prevhop="<<tag.GetPrevHop());*/
       // Do data plane performance measurements
       WillSatisfyPendingInterest (0, pitEntry);
 
@@ -202,9 +202,9 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
       BCubeTag tag;
       origPacket->PeekPacketTag(tag);
       pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-      NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
+      /*NS_LOG_UNCOND("node="<<inFace->GetNode()->GetId()
       			  <<" face="<<inFace->GetId()
-      			  <<" prevhop="<<tag.GetPrevHop());
+      			  <<" prevhop="<<tag.GetPrevHop());*/
       // update PIT entry lifetime
       pitEntry->UpdateLifetime (header->GetInterestLifetime ());
 
@@ -364,9 +364,9 @@ ForwardingStrategy::DidReceiveDuplicateInterest (Ptr<Face> inFace,
   BCubeTag tag;
   origPacket->PeekPacketTag(tag);
   pitEntry->AddIncoming (inFace, tag.GetPrevHop());
-  NS_LOG_UNCOND("node="<<Names::FindName(inFace->GetNode())
+  /*NS_LOG_UNCOND("node="<<Names::FindName(inFace->GetNode())
       		  <<" face="<<inFace->GetId()
-      		  <<" prevhop="<<tag.GetPrevHop());
+      		  <<" prevhop="<<tag.GetPrevHop());*/
   m_dropInterests (header, inFace);
 }
 
@@ -470,6 +470,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	BCubeTag tag;
     	target->RemovePacketTag(tag);
+    	tag.SetCurTag(1);
     	tag.SetInterest(0);	//data packet
     	tag.SetNextHop(incoming.m_localport);
     	//NS_LOG_UNCOND("SatisfyPendingInterest: m_localport="<<incoming.m_localport);
