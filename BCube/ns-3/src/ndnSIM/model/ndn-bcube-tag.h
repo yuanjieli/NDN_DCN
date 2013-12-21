@@ -60,9 +60,9 @@ public:
   }
   
   uint32_t
-  GetForwardingTag() const
+  GetRoutingCost() const
   {
-  	return m_metric;
+  	return m_metric/pow(10,m_cur);
   }
   
   void

@@ -72,9 +72,8 @@ BCubeTag::Deserialize (TagBuffer i)
   //set nexthop if it is data packet
   if(m_interest)
   {
-  	/*m_nexthop = m_metric/pow(10,m_cur);
-  	m_nexthop = m_nexthop %10;*/
   	m_nexthop = m_metric/pow(10,m_cur);
+  	m_nexthop = m_nexthop %10;
   }
   
 }

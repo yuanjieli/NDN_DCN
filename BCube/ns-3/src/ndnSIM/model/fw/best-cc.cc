@@ -199,7 +199,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 			 	{
 			 		/*NS_LOG_UNCOND("metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost()
 			 					<<" tag.GetNextHop()="<<tag.GetNextHop());*/
-				 	if((uint32_t)(metricFace.GetRoutingCost())==tag.GetNextHop())
+				 	if((uint32_t)(metricFace.GetRoutingCost())==tag.GetRoutingCost())
 				 	{
 					 	optimalFace = metricFace.GetFace();
 					 	break;
