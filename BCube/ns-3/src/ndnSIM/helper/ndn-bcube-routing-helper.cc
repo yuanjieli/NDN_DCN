@@ -465,6 +465,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				TreeLink.push_back(std::make_pair(S2, S));
 				NS_LOG_UNCOND("Part II: "<<s2_name<<"->"<<s_name);
 				//T.push_back(S);
+				NS_LOG_UNCOND("T[S2]="<<T[S2]<<" s_name[level+1]="<<s_name[level+1]);
 				T[S] = T[S2]*10+(s_name[level+1]-'0');
 			}
 			
