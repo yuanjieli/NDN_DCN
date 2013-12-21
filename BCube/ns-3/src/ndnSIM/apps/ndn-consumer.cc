@@ -291,6 +291,12 @@ Consumer::OnContentObject (const Ptr<const ContentObject> &contentObject,
 }
 
 void
+Consumer::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                               Ptr<Packet> payload)
+{
+}
+
+void
 Consumer::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> origPacket)
 {
   if (!m_active) return;

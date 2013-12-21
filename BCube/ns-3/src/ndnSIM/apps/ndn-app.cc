@@ -123,6 +123,14 @@ App::OnContentObject (const Ptr<const ContentObject> &contentObject,
   m_receivedContentObjects (contentObject, payload, this, m_face);
 }
 
+void
+App::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                          Ptr<Packet> payload)
+{
+  NS_LOG_FUNCTION (this << contentObject << payload);
+  m_receivedContentObjects (contentObject, payload, this, m_face);
+}
+
 Ptr<Face>
 App::GetFace()
 {
