@@ -72,7 +72,7 @@ main (int argc, char *argv[])
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
   
    // Producer
-  /*ndn::AppHelper producerHelper ("ns3::ndn::Producer");
+  ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
@@ -90,7 +90,7 @@ main (int argc, char *argv[])
   Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();
-  Simulator::Destroy ();*/
+  Simulator::Destroy ();
     	
   return 0;
 }
