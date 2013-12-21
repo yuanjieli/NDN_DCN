@@ -84,7 +84,7 @@ public:
   	return m_prevhop;
   }
   
-  uint32_t
+  void
   SetNextHop(uint32_t rhs)	//For Data packet only
   {
   	NS_ASSERT(m_interest == 0);
