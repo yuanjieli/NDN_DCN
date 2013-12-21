@@ -81,7 +81,7 @@ main (int argc, char *argv[])
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S22")); 
+  consumers = consumerHelper.Install (Names::Find<Node>("S33")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
