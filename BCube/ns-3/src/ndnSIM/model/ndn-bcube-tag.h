@@ -91,6 +91,18 @@ public:
   	m_nexthop = rhs;
   }
   
+  void
+  SetInterest(uint8_t rhs)
+  {
+  	m_interest = rhs;
+  }
+  
+  uint8_t
+  GetInterest() const
+  {
+  	return m_interest;
+  }
+  
   ////////////////////////////////////////////////////////
   // from ObjectBase
   ////////////////////////////////////////////////////////

@@ -470,6 +470,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	
     	BCubeTag tag;
     	target->RemovePacketTag(tag);
+    	tag.SetInterest(0);	//data packet
     	tag.SetNextHop(incoming.m_localport);
     	//NS_LOG_UNCOND("SatisfyPendingInterest: m_localport="<<incoming.m_localport);
     	target->AddPacketTag(tag);	
@@ -670,11 +671,15 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		
 	BCubeTag tag;
 	if(packetToSend->RemovePacketTag(tag))	//there exists a tag: update m_cur
+	{
+		NS_ASSERT(tag.GetInterest()!=0);
 		tag.SetCurTag(tag.GetCurTag()+1);
+	}
 	else	//no tag: MUST be from application/cosnumer
 	{
 		tag.SetCurTag(0);
 		tag.SetForwardingTag(record->GetRoutingCost());
+		tag.SetInterest(1);
 	}
 	
 	packetToSend->AddPacketTag(tag);	

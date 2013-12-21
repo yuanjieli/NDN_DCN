@@ -192,6 +192,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 	 	   * For each switch, it has no more than 10 ports (e.g. BCube[8,3] can already support 4096 switches)
 	 	   * So RoutingCost = prevhop*10 + nexthop;
 	       */
+	      tag.SetInterest(0);	//nack is forwarded in the same way as data
 		  tag.SetNextHop(incoming.m_localport);
 		  target->AddPacketTag(tag);
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
