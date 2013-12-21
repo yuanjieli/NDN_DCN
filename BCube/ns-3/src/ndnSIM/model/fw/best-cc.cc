@@ -198,7 +198,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 			 	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 			 	{
 			 		NS_LOG_UNCOND("metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost()
-			 					<<" tag.GetNextHop()="<<tag.GetNextHop());
+			 					<<" tag.GetRoutingCost()="<<tag.GetRoutingCost());
 				 	if((uint32_t)(metricFace.GetRoutingCost())==tag.GetRoutingCost())
 				 	{
 					 	optimalFace = metricFace.GetFace();
