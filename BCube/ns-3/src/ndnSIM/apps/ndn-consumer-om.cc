@@ -172,7 +172,7 @@ ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
                    				 Ptr<Packet> payload)
 {
 	//rule out nacks with different prefixes
-	std::list<std::string>::const_iterator rhs = interest->GetName().begin();
+	std::list<std::string>::const_iterator rhs = contentObject->GetName().begin();
 	bool match = true;
 	for(std::list<std::string>::iterator it = m_interestName.begin();
 			it != m_interestName.end(); it++)
