@@ -59,6 +59,12 @@ public:
   	m_metric = rhs;
   }
   
+  uint32_t
+  GetForwardingTag() const
+  {
+  	return m_metric;
+  }
+  
   void
   SetCurTag(uint8_t cur)
   {

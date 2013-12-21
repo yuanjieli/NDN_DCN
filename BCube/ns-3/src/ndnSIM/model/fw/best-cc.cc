@@ -175,42 +175,62 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	  int propagatedCount = 0;
 	  Ptr<Face> optimalFace=0;
 	  
-	  //Step0: if there exists an application face, forward to it directly
-	  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+	//Step0: if there exists an application face, forward to it directly
+	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+	{
+	  if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
 	  {
-	  	if (DynamicCast<AppFace> (metricFace.GetFace ()) !=0)	//app-face
-	  	{
-	  			optimalFace = metricFace.GetFace();
-	  			break;	
-	  	}
+	  		optimalFace = metricFace.GetFace();
+	  		break;	
 	  }
-  
-  	if(optimalFace==0)	//no application face
-  	{  
-		  double totalweight = 0;
-		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
-		  {
-		  	
-		  	if(metricFace.GetFace()!=inFace)//it happens when using non-shortest path
-		  		totalweight += metricFace.GetFraction();
-		  }
+	}
+	
+	if(optimalFace==0)
+	{
+		//Step1: For intermediate servers, follow source routing 
+	 	if(DynamicCast<AppFace>(inFace)==0)	
+	 	{
+		 	BCubeTag tag;
+		 	if(originPacket->PeekPacketTag(tag))
+		 	{
+		 	 	//Find the corresponding face based on source tag
+			 	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+			 	{
+				 	if(metricFace.GetRoutingCost()==tag.GetNextHop())
+				 	{
+					 	optimalFace = metricFace.GetFace();
+					 	break;
+				 	}
+			 	}
+			 	NS_ASSERT(optimalFace != 0);
+		 	}
+		 	else	//There SHOULD be a source routing tag
+			 	return false;
+	 	}
+	 	//Step2: For consumers, do static traffic splitting
+	 	else	
+	 	{
+	 		double totalweight = 0;
+		  	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+		  	{
+		  		//SHOULD be redundant since inFace is appFace
+		  		if(metricFace.GetFace()!=inFace)//it happens when using non-shortest path
+		  			totalweight += metricFace.GetFraction();
+		  	}
 		  
-		  if(totalweight==0)return false;	//no available face
+		  	if(totalweight==0)return false;	//no available face
 		  	
-		  if(totalweight<1)totalweight = 1;
+		  	if(totalweight<1)totalweight = 1;
 		  	
-		  double target = rand()%(int)totalweight;
-		  double coin = 0;	
-		  //Step2: choose ONE face based on our congestion control strategy
-		  std::vector< Ptr<Face> > vecFaces;
-		  BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
+		  	double target = rand()%(int)totalweight;
+		  	double coin = 0;	
+		  	//Step3: choose ONE face based on our congestion control strategy
+		  	std::vector< Ptr<Face> > vecFaces;
+		 	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 		  	{
 			  	if(metricFace.GetFace()!=inFace)//it happens when using non-shortest path
 		  		{
 		  			coin += metricFace.GetFraction();
-		  			//if this link is already a bottleneck link, increase NACK by 1
-		  			
-		  			//if(coin>=target && CanSendOutInterest (inFace, metricFace.GetFace(), header, origPacket, pitEntry))
 		  			//at this stage, we don't care whether this face can send interests
 		  			//This would fix the bug when local link becomes bottleneck
 		  			if(coin>=target)
@@ -219,15 +239,16 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  				break;
 		  			}
 		  		}
-		  	}
-		  	
+		  	}  	
 		  	if(optimalFace==0)return false;
-  	}
-  	
-	  //If we cannot send interest through optimalFace, increase NACK
-	  if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
-	  {
-	  	//we found a face, but it cannot send
+	 	}
+	}
+	
+	    	
+	 //If we cannot send interest through optimalFace, increase NACK
+	 if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
+	 {
+		//we found a face, but it cannot send
 	  	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	   	= pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().find (optimalFace);
   	    if (record != pitEntry->GetFibEntry ()->m_faces.get<fib::i_face> ().end ())
@@ -252,7 +273,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseInterest, ll::_1));
       }  
-    //////////////////////////////////////////
+      //////////////////////////////////////////
   
   NS_LOG_INFO ("Propagated to " << propagatedCount << " faces");
   return propagatedCount > 0;
