@@ -358,7 +358,7 @@ ForwardingStrategy::DidReceiveDuplicateInterest (Ptr<Face> inFace,
   // !!!! IMPORTANT CHANGE !!!! Duplicate interests will create incoming face entry !!!! //
   //                                                                                     //
   /////////////////////////////////////////////////////////////////////////////////////////
-  NS_LOG_UNCOND("ForwardingStrategy::DidReceiveDuplicateInterest");
+  //NS_LOG_UNCOND("ForwardingStrategy::DidReceiveDuplicateInterest");
   //pitEntry->AddIncoming (inFace);
   //For BCube: we also need extra port number
   BCubeTag tag;
