@@ -192,12 +192,12 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	 	if(DynamicCast<AppFace>(inFace)==0)	
 	 	{
 		 	BCubeTag tag;
-		 	if(originPacket->PeekPacketTag(tag))
+		 	if(origPacket->PeekPacketTag(tag))
 		 	{
 		 	 	//Find the corresponding face based on source tag
 			 	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 			 	{
-				 	if(metricFace.GetRoutingCost()==tag.GetNextHop())
+				 	if((uint32_t)(metricFace.GetRoutingCost())==tag.GetNextHop())
 				 	{
 					 	optimalFace = metricFace.GetFace();
 					 	break;
