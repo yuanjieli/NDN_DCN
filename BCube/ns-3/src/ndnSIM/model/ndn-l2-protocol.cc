@@ -36,6 +36,8 @@
 #include "ns3/ndn-interest.h"
 #include "ns3/ndn-content-object.h"
 
+#include "ns3/names.h"
+
 #include "ns3/ndn-face.h"
 #include "ns3/ndn-forwarding-strategy.h"
 
@@ -235,13 +237,18 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         		return;
         	//tag identifies the next hop!
         	
-        	NS_LOG_UNCOND("L2Protocol: interest inFace="<<face->GetId()<<" NextHop="<<tag.GetNextHop());
-				  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
-				  				&& 0 <= tag.GetNextHop() 
-				  				&& tag.GetNextHop() < m_downloadfaces.size ());
-				  packet->AddHeader (*header);
+        	NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
+        				<<" receives interest from face="<<face->GetId()
+        				<<" prevhop="<<tag.GetPrevHop()
+        				<<" nexthop="<<tag.GetNextHop());
+        	
+        	
+			NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
+				  	&& 0 <= tag.GetNextHop() 
+				  	&& tag.GetNextHop() < m_downloadfaces.size ());
+			packet->AddHeader (*header);
 				  
-				  m_downloadfaces[tag.GetNextHop()]->Send(packet);
+			m_downloadfaces[tag.GetNextHop()]->Send(packet);
         }
         //Switch should receive NACK from downloadlink
         else
