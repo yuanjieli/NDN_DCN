@@ -418,9 +418,15 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 							//T2.push_back(C);
 							std::string B_name = Names::FindName(B);
 							if(T2.count(B)==0)
+							{
+								NS_LOG_UNCOND("T[B]="<<T[B]<<" B_name[dim]="<<B_name[dim]);
 								T2[C] = T[B]*10+(B_name[dim]-'0');
+							}
 							else
+							{
+								NS_LOG_UNCOND("T[B]="<<T[B]<<" B_name[dim]="<<B_name[dim]);
 								T2[C] = T2[B]*10+(B_name[dim]-'0');
+							}
 							B = C;
 						}
 						//FIXME: BUG HERE! HOW TO DEAL WITH SRC AND ROOT?
