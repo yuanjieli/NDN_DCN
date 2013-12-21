@@ -402,7 +402,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				TreeNode_t T2;			
 				for(TreeNodeIterator it = T.begin(); it != T.end(); it++)
 				{
-					Ptr<Node> B = it->second, C = it->second;
+					Ptr<Node> B = it->first, C = it->first;
 					std::string C_name = Names::FindName(C);
 					//FIXME: j<m_n-1 or j<m_n-2 ?
 					for(size_t j = 0; j < m_n-1; j ++)
