@@ -270,6 +270,11 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
       	//Switch should receive Data from downloadlink, and forwarded to uploadlink
       	if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
       		return;
+      		
+      	NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
+        				<<" receives data from face="<<face->GetId()
+        				<<" prevhop="<<tag.GetPrevHop()
+        				<<" nexthop="<<tag.GetNextHop());
       	//tag identifies the next hop!
 			  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
 			  				&& 0 <= tag.GetNextHop() 
