@@ -66,7 +66,7 @@ BCubeTag::Deserialize (TagBuffer i)
 void
 BCubeTag::Print (std::ostream &os) const
 {
-  os << m_nexthop;
+  os << m_metric<<" "<<m_cur;
 }
 
 } // namespace ndn
