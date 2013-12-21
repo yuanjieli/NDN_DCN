@@ -379,8 +379,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		uint32_t src_addr[MAX_N];
 		ExtractBCubeID(src_name, src_addr);
 		
-		for(size_t level = 0; level <= m_k; level++)
-		//size_t level = 0;	//As first step, let's create one spanning tree only
+		//for(size_t level = 0; level <= m_k; level++)
+		size_t level = 0;	//As first step, let's create one spanning tree only
 		{
 			NS_LOG_UNCOND("Route with level="<<level);
 			//create root for this spanning tree
@@ -496,7 +496,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					NS_ASSERT(digit != m_k+2);
 					//metric = nexthop + prevhop*10
 					//uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;*/
-					int32_t metric = T[it_link->second];
+					int32_t metric = T[it_link->second]*10+(B[digit]-'0');
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);

@@ -677,7 +677,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	}
 	else	//no tag: MUST be from application/cosnumer
 	{
-		tag.SetCurTag(0);
+		tag.SetCurTag(1);
 		tag.SetForwardingTag(record->GetRoutingCost());
 		tag.SetInterest(1);
 	}
