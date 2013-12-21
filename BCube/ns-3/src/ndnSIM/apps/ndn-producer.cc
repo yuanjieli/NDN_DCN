@@ -110,7 +110,7 @@ Producer::StopApplication ()
 void
 Producer::OnInterest (const Ptr<const Interest> &interest, Ptr<Packet> origPacket)
 {
-  NS_LOG_UNCOND("Producer receives Interest!");
+  //NS_LOG_UNCOND("Producer receives Interest!");
   App::OnInterest (interest, origPacket); // tracing inside
 
   NS_LOG_FUNCTION (this << interest);

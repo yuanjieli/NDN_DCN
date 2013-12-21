@@ -473,7 +473,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	tag.SetCurTag(1);
     	tag.SetInterest(0);	//data packet
     	tag.SetNextHop(incoming.m_localport);
-    	//NS_LOG_UNCOND("SatisfyPendingInterest: m_localport="<<incoming.m_localport);
+    	NS_LOG_UNCOND("SatisfyPendingInterest@"<<Names::FindName(inFace->GetNode())
+    				<<": m_localport="<<incoming.m_localport);
     	target->AddPacketTag(tag);	
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
