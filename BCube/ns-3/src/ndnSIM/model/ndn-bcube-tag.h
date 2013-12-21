@@ -62,7 +62,7 @@ public:
   uint32_t
   GetRoutingCost() const
   {
-  	return m_metric/pow(10,m_cur);
+  	return m_metric/pow(10,m_cur+1);
   }
   
   void
