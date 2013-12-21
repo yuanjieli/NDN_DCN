@@ -86,7 +86,7 @@ main (int argc, char *argv[])
   consumers.Stop (Seconds (simulation_time));
   
   consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S22")); 
+  consumers = consumerHelper.Install (Names::Find<Node>("S30")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
    
