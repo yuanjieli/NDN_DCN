@@ -81,8 +81,8 @@ BCubeTag::Deserialize (TagBuffer i)
   	m_prevhop = std::numeric_limits<uint32_t>::max ();
   else
   {
-  	m_nexthop = m_metric/pow(10,m_cur-1);
- 	m_nexthop = m_nexthop %10;
+  	m_prevthop = m_metric/pow(10,m_cur-1);
+ 	m_prevhop = m_prevhop %10;
   }
 }
 
