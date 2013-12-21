@@ -30,6 +30,7 @@
 #include "ns3/ndn-content-store.h"
 #include "ns3/ndn-face.h"
 #include "ns3/ndn-app-face.h"
+#include "ns3/ndn-app.h"
 #include "ns3/ndn-bcube-tag.h"
 #include "ns3/names.h"
 
