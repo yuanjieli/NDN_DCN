@@ -57,11 +57,7 @@ public:
   virtual void
   OnContentObject (const Ptr<const ContentObject> &contentObject,
                    Ptr<Packet> payload);
-                   
-  virtual void
-  OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
-                   Ptr<Packet> payload);
-
+            
 protected:
   /**
    * \brief Constructs the Interest packet and sends it using a callback to the underlying NDN protocol
