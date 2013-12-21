@@ -683,6 +683,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		tag.SetForwardingTag(record->GetRoutingCost());
 		tag.SetInterest(1);
 	}
+	tag.SetPrevHop(outFace->GetId()/2);
 	
 	packetToSend->AddPacketTag(tag);	
   bool successSend = outFace->Send (packetToSend);

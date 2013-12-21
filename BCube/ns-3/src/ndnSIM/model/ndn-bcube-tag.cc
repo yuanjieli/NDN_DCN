@@ -45,7 +45,7 @@ BCubeTag::GetInstanceTypeId () const
 uint32_t
 BCubeTag::GetSerializedSize () const
 {
-  return sizeof(uint32_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint32_t);
+  return sizeof(uint32_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint32_t)*2;
 }
 
 void
@@ -55,6 +55,7 @@ BCubeTag::Serialize (TagBuffer i) const
   i.WriteU8 (m_cur);	
   i.WriteU8 (m_interest);
   i.WriteU32 (m_nexthop);	//for Data only
+  i.WriteU32 (m_prevhop);	//for interest only
   
 }
   
@@ -65,25 +66,16 @@ BCubeTag::Deserialize (TagBuffer i)
   m_cur = i.ReadU8 (); 
   NS_ASSERT(m_cur>0 && m_cur<MAX_K);
   m_interest = i.ReadU8();
+  m_nexthop = i.ReadU32 ();
+  m_prevhop = i.ReadU32 ();
   
-  //set nexthop and prevhop
+  //set nexthop if it is data packet
   if(m_interest)
   {
   	m_nexthop = m_metric/pow(10,m_cur);
   	m_nexthop = m_nexthop %10;
   }
-  else	//data packet
-  {
-  	m_nexthop = i.ReadU32 ();
-  }
   
-  if(m_cur==0)
-  	m_prevhop = std::numeric_limits<uint32_t>::max ();
-  else
-  {
-  	m_prevhop = m_metric/pow(10,m_cur-1);
- 	m_prevhop = m_prevhop %10;
-  }
 }
 
 void

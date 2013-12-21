@@ -92,6 +92,13 @@ public:
   }
   
   void
+  SetPrevHop(uint32_t rhs)	//For interest packet only
+  {
+  	NS_ASSERT(m_interest != 0);
+  	m_prevhop = rhs;
+  }
+  
+  void
   SetInterest(uint8_t rhs)
   {
   	m_interest = rhs;
