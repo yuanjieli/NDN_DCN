@@ -102,8 +102,8 @@ public:
   /**
    * @brief Calculate for every node shortest path trees and install routes to all prefix origins
    */
-  static void
-  CalculateRoutes (); 
+  /*static void
+  CalculateRoutes (); */
   
   //n: #ports for each switch
   //k: #levels. 

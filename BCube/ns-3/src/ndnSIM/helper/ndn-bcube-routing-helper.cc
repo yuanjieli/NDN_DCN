@@ -49,6 +49,7 @@
 
 #include <list>
 #include <vector>
+#include <map>
 
 #include <math.h>
 #include <stdlib.h>
@@ -61,7 +62,7 @@ using namespace boost;
 namespace ns3 {
 namespace ndn {
 
-typedef std::vector<Ptr<Node> > TreeNode_t;
+typedef std::map<Ptr<Node>, int32_t > TreeNode_t;	//node + metric (BCube source routing)
 typedef TreeNode_t::iterator	TreeNodeIterator;
 typedef std::vector<std::pair<Ptr<Node>, Ptr<Node> > > TreeLink_t;
 typedef TreeLink_t::iterator TreeLinkIterator;
@@ -234,14 +235,9 @@ BCubeRoutingHelper::AddOriginsForAll ()
     }
 }
 
-void
+/*void
 BCubeRoutingHelper::CalculateRoutes ()
 {
-  /**
-   * Implementation of route calculation is heavily based on Boost Graph Library
-   * See http://www.boost.org/doc/libs/1_49_0/libs/graph/doc/table_of_contents.html for more details
-   */
-
   BOOST_CONCEPT_ASSERT(( VertexListGraphConcept< NdnGlobalRouterGraph > ));
   BOOST_CONCEPT_ASSERT(( IncidenceGraphConcept< NdnGlobalRouterGraph > ));
 
@@ -313,7 +309,7 @@ BCubeRoutingHelper::CalculateRoutes ()
 		                      if (fibLimits != 0)
 		                        {
 		                          // if it was created by the forwarding strategy via DidAddFibEntry event
-		                          fibLimits->SetLimits (faceLimits->GetMaxRate (), 2 * i->second.get<2> () /*exact RTT*/);
+		                          fibLimits->SetLimits (faceLimits->GetMaxRate (), 2 * i->second.get<2> () );
 		                          NS_LOG_DEBUG ("Set limit for prefix " << *prefix << " " << faceLimits->GetMaxRate () << " / " <<
 		                                        2*i->second.get<2> () << "s (" << faceLimits->GetMaxRate () * 2 * i->second.get<2> () << ")");
 		                        }
@@ -322,7 +318,7 @@ BCubeRoutingHelper::CalculateRoutes ()
 			    }
 			}
     }
-}
+}*/
 
 //Auxiliary function for extracting BCubeID from node's name
 void
@@ -383,8 +379,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		uint32_t src_addr[MAX_N];
 		ExtractBCubeID(src_name, src_addr);
 		
-		for(size_t level = 0; level <= m_k; level++)
-		//size_t level = 0;	//As first step, let's create one spanning tree only
+		//for(size_t level = 0; level <= m_k; level++)
+		size_t level = 0;	//As first step, let's create one spanning tree only
 		{
 			NS_LOG_UNCOND("Route with level="<<level);
 			//create root for this spanning tree
@@ -394,7 +390,10 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			NS_ASSERT(root != 0);
 			TreeNode_t T;
 			TreeLink_t TreeLink; //store all directional link of the Steiner Tree
-			T.push_back(root); 
+			
+			TreeLink.push_back(std::make_pair(*node, root));
+			T[root] = src_addr[level]; 
+			NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
 			//BuildSingSPT: Part I
 			
 			for(size_t i = 0; i <= m_k; i++)
@@ -403,7 +402,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				TreeNode_t T2;			
 				for(TreeNodeIterator it = T.begin(); it != T.end(); it++)
 				{
-					Ptr<Node> B = *it, C = *it;
+					Ptr<Node> B = it->second, C = it->second;
 					std::string C_name = Names::FindName(C);
 					//FIXME: j<m_n-1 or j<m_n-2 ?
 					for(size_t j = 0; j < m_n-1; j ++)
@@ -416,14 +415,20 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						{
 							TreeLink.push_back(std::make_pair(B, C));
 							NS_LOG_UNCOND("Part I: "<<Names::FindName(B)<<"->"<<C_name);
-							T2.push_back(C);
+							//T2.push_back(C);
+							std::string B_name = Names::FindName(B);
+							if(T2.count(B)==0)
+								T2[C] = T[B]*10+(B_name[dim]-'0');
+							else
+								T2[C] = T2[B]*10+(B_name[dim]-'0');
 							B = C;
 						}
 						//FIXME: BUG HERE! HOW TO DEAL WITH SRC AND ROOT?
 						else
 						{
-							TreeLink.push_back(std::make_pair(*node, root));
-							NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
+							//TreeLink.push_back(std::make_pair(*node, root));
+							
+							//NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
 						}
 							
 						
@@ -438,21 +443,24 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			for(uint32_t i = 0; i != nserver; i++)
 			{
 				std::string s_name = GetBCubeId(i, m_n, m_k);
+				
 				if(s_name[level+1]!=src_name[level+1] || s_name == src_name)
 					continue;
 				Ptr<Node> S = Names::Find<Node>(s_name);
 				NS_ASSERT(S!=0);
 				
-				if(s_name[level+1]-'0'!=0)
-					s_name[level+1] = (s_name[level+1]-'0'-1)%m_n+'0';
+				std::string s2_name = s_name;
+				if(s2_name[level+1]-'0'!=0)
+					s2_name[level+1] = (s2_name[level+1]-'0'-1)%m_n+'0';
 				else
-					s_name[level+1] = m_n-1+'0';
+					s2_name[level+1] = m_n-1+'0';
 					
-				Ptr<Node> S2 = Names::Find<Node>(s_name);
+				Ptr<Node> S2 = Names::Find<Node>(s2_name);
 				NS_ASSERT(S2!=0);
 				TreeLink.push_back(std::make_pair(S2, S));
 				NS_LOG_UNCOND("Part II: "<<s_name<<"->"<<Names::FindName(S));
-				T.push_back(S);
+				//T.push_back(S);
+				T[S] = T[S2]*10+s_name[level+1];
 			}
 			
 			//Now we can build FIB 
@@ -482,7 +490,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					}
 					NS_ASSERT(digit != m_k+2);
 					//metric = nexthop + prevhop*10
-					uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;
+					//uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;*/
+					int32_t metric = T[it_link->second];
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
