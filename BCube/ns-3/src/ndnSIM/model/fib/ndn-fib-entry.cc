@@ -218,7 +218,7 @@ Entry::ResetCount()
   		minCost = face->GetRoutingCost();
   }
   double K_bound = MAX_BOUND;
-  double w_lower_bound = 0.1;	//lower bound for probing traffic
+  double w_lower_bound = 5;	//lower bound for probing traffic
   double w_upper_bound = 100;	//upper bound for w
   double K = 0;
   double q_var = 0;
