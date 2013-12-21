@@ -434,7 +434,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						
 					}
 				}
-				T.insert(T.end()--,T2.begin(),T2.end());
+				//T.insert(T.end()--,T2.begin(),T2.end());
+				T.insert(T2.begin(),T2.end());
 				
 			}	
 			
