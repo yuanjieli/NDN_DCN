@@ -209,6 +209,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
         
       //copy NACK to all applications of this node
       Ptr<Node> node = inFace->GetNode();
+      if(Names::FindName(node)=="S10")
+      	NS_LOG_UNCOND("S10 has "<<node->GetNApplications()<<" apps");
       NS_ASSERT(node!=0);
       for(uint32_t k=0; k!=node->GetNApplications(); k++)
       {

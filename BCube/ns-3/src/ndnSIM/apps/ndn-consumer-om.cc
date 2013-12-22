@@ -218,7 +218,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	if(!match)
 	{
-		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		NS_LOG_UNCOND(Names::FindName(m_node)<<" mismatch app="<<m_interestName<<" nack="<<interest->GetName());
 		return;
 	}
 	
