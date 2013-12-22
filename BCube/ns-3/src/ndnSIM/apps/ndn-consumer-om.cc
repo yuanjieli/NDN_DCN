@@ -255,13 +255,13 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 void
 ConsumerOm::ShowInterestLimit()
 {
-	NS_LOG_UNCOND("ConsumerOm: "<<Names::FindName(m_node)<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit
+	/*NS_LOG_UNCOND("ConsumerOm: "<<Names::FindName(m_node)<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit
 								<<" interest="<<m_interest_count
 								<<" data="<<m_data_count
 								<<" nack="<<m_nack_count
-								<<" enack="<<m_extra_nack_count);
+								<<" enack="<<m_extra_nack_count);*/
 								
-	//NS_LOG_UNCOND("ConsumerOm "<<Names::FindName(m_node)<<": "<<m_data_count/109.5);
+	NS_LOG_UNCOND("ConsumerOm "<<Names::FindName(m_node)<<": "<<m_data_count/109.5);
 	
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
