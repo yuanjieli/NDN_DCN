@@ -96,17 +96,17 @@ main (int argc, char *argv[])
   consumers.Stop (Seconds (simulation_time));
   
   consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S31")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S32")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
   consumers = consumerHelper.Install (Names::Find<Node>("S11")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S21")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S31")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
