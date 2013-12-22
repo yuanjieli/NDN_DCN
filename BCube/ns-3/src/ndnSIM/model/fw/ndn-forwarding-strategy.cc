@@ -143,7 +143,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
 {
   m_inInterests (header, inFace);
   
-  if(Names::FindName(inFace->GetNode())=="S30" && DynamicCast<AppFace>(inFace==0)
+  if(Names::FindName(inFace->GetNode())=="S30" && DynamicCast<AppFace>(inFace)==0)
   	NS_LOG_UNCOND(Names::FindName(inFace->GetNode())<<" receives interest from "<<inFace->GetId());
 
   Ptr<pit::Entry> pitEntry = m_pit->Lookup (*header);
