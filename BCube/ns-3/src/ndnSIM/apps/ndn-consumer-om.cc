@@ -154,13 +154,12 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   	m_alpha += 1/m_limit;
   	if(m_alpha>m_alpha_max)
   		m_alpha = m_alpha_max;
+  	m_data_count++;
   }
   else	//local hit, send next requests immediately
   	//SendPacket();
   	SendRandomPacket();
-  	
-  
-  m_data_count++;	
+  		
   /*if(m_sendEvent.IsRunning())
   {
   	m_sendEvent.Cancel();
