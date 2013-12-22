@@ -73,14 +73,27 @@ main (int argc, char *argv[])
   // 3) Install BitTorrentClient applications on the desired number of nodes
   ApplicationContainer bitTorrentClients;
   Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
-  client->SetTorrent (sharedTorrent);
+  /*client->SetTorrent (sharedTorrent);
   Names::Find<Node> ("S33")->AddApplication (client);
   bitTorrentClients.Add (client);	
   
   client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
   Names::Find<Node> ("S22")->AddApplication (client);
-  bitTorrentClients.Add (client);	
+  bitTorrentClients.Add (client);	*/
+  for(uint8_t i=0; i<=3; i++)
+  	for(uint8_t j=0; j<=3; j++)
+  	{
+  		if(i==0 && j==0)continue;
+  		consumerHelper.SetPrefix ("/prefix");
+  		std::string str = "S";
+  		str += '0'+i;
+  		str += '0'+j;
+  		client = Create<BitTorrentClient> ();
+  		client->SetTorrent (sharedTorrent);
+  		Names::Find<Node> (str)->AddApplication (client);
+  		bitTorrentClients.Add (client);
+  	}
    
   client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
