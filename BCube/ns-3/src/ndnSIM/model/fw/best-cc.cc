@@ -315,7 +315,7 @@ BestCC::OnNack (Ptr<Face> inFace,
   if (pitEntry == 0)
   {
       // somebody is doing something bad
-      //NS_LOG_UNCOND(Names::FindName(inFace->GetNode())<< " receives unsolicated nack from face "<<inFace->GetId());
+      NS_LOG_UNCOND(Names::FindName(inFace->GetNode())<< " receives unsolicated nack from face "<<inFace->GetId());
       m_dropNacks (header, inFace);
       return;
   }
