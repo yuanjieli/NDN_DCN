@@ -233,8 +233,8 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       										<<" fraction="<<100-record->GetFraction()
       										<<" to"<<app->GetFace()->GetId());*/      									
 	      		nackHeader->SetIntraSharing(100-record->GetFraction());
-	      		if(Names::FindName(node)=="S10")
-      				NS_LOG_UNCOND("S10 sends extra nack here fraction="<<100-record->GetFraction());	
+	      		/*if(Names::FindName(node)=="S10")
+      				NS_LOG_UNCOND("S10 sends extra nack here fraction="<<100-record->GetFraction());*/	
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
       	}
