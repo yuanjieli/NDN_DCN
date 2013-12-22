@@ -179,7 +179,7 @@ ForwardingStrategy::OnInterest (Ptr<Face> inFace,
   if (contentObject != 0)
     {
       NS_ASSERT (contentObjectHeader != 0);
-
+	  NS_LOG_UNCOND("Cache hit@"<<Names::FindName(inFace->GetNode()));
       //pitEntry->AddIncoming (inFace/*, Seconds (1.0)*/);
       //For BCube: we also need extra port number
       BCubeTag tag;
