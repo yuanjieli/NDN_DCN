@@ -379,8 +379,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		uint32_t src_addr[MAX_N];
 		ExtractBCubeID(src_name, src_addr);
 		
-		//for(size_t level = 0; level <= m_k; level++)
-		size_t level = 0;	//As first step, let's create one spanning tree only
+		for(size_t level = 0; level <= m_k; level++)
+		//size_t level = 0;	//As first step, let's create one spanning tree only
 		{
 			NS_LOG_UNCOND("Route with level="<<level);
 			//create root for this spanning tree
