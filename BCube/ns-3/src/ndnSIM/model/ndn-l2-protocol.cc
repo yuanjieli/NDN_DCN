@@ -237,10 +237,10 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         		return;
         	//tag identifies the next hop!
         	
-        	NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
+        	/*NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
         				<<" receives interest from face="<<face->GetId()
         				<<" prevhop="<<tag.GetPrevHop()
-        				<<" nexthop="<<tag.GetNextHop());
+        				<<" nexthop="<<tag.GetNextHop());*/
         	
         	
 			NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
@@ -256,6 +256,11 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         	/*if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
         		return;*/
         	//tag identifies the next hop!
+        	NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
+        				<<" receives interest from face="<<face->GetId()
+        				<<" prevhop="<<tag.GetPrevHop()
+        				<<" nexthop="<<tag.GetNextHop());
+        				
 				  NS_ASSERT(tag.GetNextHop() != std::numeric_limits<uint32_t>::max ()
 				  				&& 0 <= tag.GetNextHop() 
 				  				&& tag.GetNextHop() < m_uploadfaces.size ());
