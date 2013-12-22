@@ -79,7 +79,7 @@ main (int argc, char *argv[])
   
   //Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
-  consumerHelper.SetAttribute("MaxSeq", IntegerValue(10000000));
+  consumerHelper.SetAttribute("MaxSeq", IntegerValue(100000));
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
   consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
