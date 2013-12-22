@@ -120,14 +120,14 @@ ConsumerOm::ScheduleNextPacket ()
   if (m_firstTime)
     {
       m_sendEvent = Simulator::Schedule (Seconds (0.0),
-                                         //&Consumer::SendPacket, this);
-                                         &ConsumerOm::SendRandomPacket, this);
+                                         &Consumer::SendPacket, this);
+                                         //&ConsumerOm::SendRandomPacket, this);
       m_firstTime = false;
     }
   else if (!m_sendEvent.IsRunning ())
     m_sendEvent = Simulator::Schedule (Seconds(1.0 / m_limit),
-                                       //&Consumer::SendPacket, this);
-                                       &ConsumerOm::SendRandomPacket, this);
+                                       &Consumer::SendPacket, this);
+                                       //&ConsumerOm::SendRandomPacket, this);
 }
 
 
@@ -156,8 +156,8 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   		m_alpha = m_alpha_max;
   }
   else	//local hit, send next requests immediately
-  	//SendPacket();
-  	SendRandomPacket();
+  	SendPacket();
+  	//SendRandomPacket();
   	
   
   m_data_count++;	
