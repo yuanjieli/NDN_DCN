@@ -98,9 +98,9 @@ main (int argc, char *argv[])
   		if(i==0 && j==0)continue;
   		consumerHelper.SetPrefix ("/prefix");
   		std::string str = 'S';
-  		str.append('0'+i);
-  		str.append('0'+j);
-  		consumers = consumerHelper.Install (Names::Find<Node>("S33")); 
+  		str += '0'+i;
+  		str += '0'+j;
+  		consumers = consumerHelper.Install (Names::Find<Node>(str)); 
   		consumers.Start (Seconds (0));	
   		consumers.Stop (Seconds (simulation_time));
   	}
