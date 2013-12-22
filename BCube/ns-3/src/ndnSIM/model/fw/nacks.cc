@@ -231,10 +231,10 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       				NS_LOG_UNCOND("Node="<<inFace->GetNode()->GetId()
       										<<" Extra NACK from face="<<inFace->GetId()
       										<<" fraction="<<100-record->GetFraction()
-      										<<" to"<<app->GetFace()->GetId());*/
-      			if(Names::FindName(node)=="S10")
-      				NS_LOG_UNCOND("S10 sends extra nack here");							
+      										<<" to"<<app->GetFace()->GetId());*/      									
 	      		nackHeader->SetIntraSharing(100-record->GetFraction());
+	      		if(Names::FindName(node)=="S10")
+      				NS_LOG_UNCOND("S10 sends extra nack here fraction="<<100-record->GetFraction());	
 	      		app->OnNack(nackHeader, origPacket->Copy());
 	      	}
       	}
