@@ -172,11 +172,11 @@ void
 Entry::ShowRate()
 {
 	//FIXME: To show throughput, change the condition here!
-	if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 2
+	/*if(m_faces.begin()->GetFace()->GetNode()->GetId() <= 2
 	&&(*m_prefix=="/prefix1" || *m_prefix=="/prefix2"))
 		NS_LOG_UNCOND(m_faces.begin()->GetFace()->GetNode()->GetId()<<" "
 							    <<Simulator::Now().GetSeconds()<<" "
-							    <<m_data/109.5);
+							    <<m_data/109.5);*/
 	m_data = 0;
 	
 	Simulator::Schedule(Seconds(SHOW_RATE_INTERVAL), &Entry::ShowRate, this);
