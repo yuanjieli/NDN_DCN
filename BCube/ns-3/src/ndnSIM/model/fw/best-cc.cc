@@ -208,7 +208,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 			 	NS_ASSERT(optimalFace != 0);
 		 	}
 		 	else	//There SHOULD be a source routing tag
+		 	{
+		 		NS_LOG_UNCOND("No source routing tag");
 			 	return false;
+			}
 	 	}
 	 	//Step2: For consumers, do static traffic splitting
 	 	else	
@@ -243,7 +246,11 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  			}
 		  		}
 		  	}  	
-		  	if(optimalFace==0)return false;
+		  	if(optimalFace==0)
+		  	{
+		  		NS_LOG_UNCOND("No available face at "<<Names::FindName(inFace->GetNode()));
+		  		return false;
+		  	}
 	 	}
 	}
 	
