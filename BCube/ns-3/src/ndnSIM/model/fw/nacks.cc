@@ -199,9 +199,9 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 		  target->AddPacketTag(tag);
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
           
-		  NS_LOG_UNCOND(Names::FindName(inFace->GetNode())
+		  /*NS_LOG_UNCOND(Names::FindName(inFace->GetNode())
 		  			 <<" sends nack to "<<(uint32_t)incoming.m_localport
-		  			 <<" through "<<incoming.m_face->GetId());
+		  			 <<" through "<<incoming.m_face->GetId());*/
 		  incoming.m_face->Send(target);
 					
           m_outNacks (nackHeader, incoming.m_face);
@@ -217,13 +217,13 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
       	{
       		bool ignore = false;
       		//If you already decrease the rate, don't decrease again
-      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      		/*BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
       		{
       			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
       				ignore = true;
       				break;
       			}
-      		}
+      		}*/
       		//if inFace is not an application face, we may have intra-sharing problem
       		if(!ignore && DynamicCast<AppFace>(inFace)==0)
       		{
