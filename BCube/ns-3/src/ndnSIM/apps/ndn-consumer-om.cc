@@ -277,9 +277,7 @@ ConsumerOm::SendRandomPacket()
 	if (!m_active) return;
   NS_LOG_FUNCTION_NOARGS ();
 
-  uint32_t seq=m_rand.GetValue (); 
-  while(seq>=m_seqMax)
-  	seq=m_rand.GetValue (); 
+  uint32_t seq=m_rand.GetValue (0,m_seqMax); 
 
   Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
   (*nameWithSequence) (seq);
