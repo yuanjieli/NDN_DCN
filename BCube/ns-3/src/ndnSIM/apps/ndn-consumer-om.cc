@@ -217,8 +217,6 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	if(!match)
 	{
-		if(Names::FindName(m_node)=="S10")
-			NS_LOG_UNCOND("S10 mismatch m_interestName"<<m_interestName<<" packet="<<interest->GetName());
 		return;
 	}
 	
@@ -248,6 +246,10 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	  	ScheduleNextPacket ();
 	  }*/
 		
+	}
+	else
+	{
+		NS_LOG_UNCOND("here?");
 	}
 	NS_LOG_INFO(GetNode()->GetId()<<" receives  nack");
 	
