@@ -92,8 +92,8 @@ main (int argc, char *argv[])
   
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
-  for(int i=0; i<=3; i++)
-  	for(int j=0; j<=3; j++)
+  for(uint8_t i=0; i<=3; i++)
+  	for(uint8_t j=0; j<=3; j++)
   	{
   		if(i==0 && j==0)continue;
   		consumerHelper.SetPrefix ("/prefix");
