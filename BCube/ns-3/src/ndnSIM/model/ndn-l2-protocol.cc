@@ -257,7 +257,7 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         		return;*/
         	//tag identifies the next hop!
         	NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
-        				<<" receives interest from face="<<face->GetId()
+        				<<" receives nack from face="<<face->GetId()
         				<<" prevhop="<<tag.GetPrevHop()
         				<<" nexthop="<<tag.GetNextHop());
         				
