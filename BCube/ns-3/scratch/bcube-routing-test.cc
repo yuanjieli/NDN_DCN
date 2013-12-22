@@ -60,7 +60,7 @@ main (int argc, char *argv[])
   // Install NDN stack on all servers
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
-  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "10000000000");	//WARNING: HUGE IMPACT!
   ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
