@@ -199,7 +199,6 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
 		  target->AddPacketTag(tag);
           //incoming.m_face->Send (packet->Copy ());	//by Felix: NACK is multicasted!!!
           
-		  if(Names::FindName(inFace->GetNode())=="S30")
 		  NS_LOG_UNCOND(Names::FindName(inFace->GetNode())
 		  			 <<" sends nack to "<<(uint32_t)incoming.m_localport
 		  			 <<" through "<<incoming.m_face->GetId());
