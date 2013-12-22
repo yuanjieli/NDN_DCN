@@ -227,6 +227,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 		if(interest->GetIntraSharing()>=100){
 			m_limit = m_limit - m_beta;
 			m_nack_count++;
+			NS_LOG_UNCOND("Normal nack");
 		}
 		else{
 			m_limit = m_limit - m_beta*(double)(interest->GetIntraSharing())/100.0;  
@@ -249,7 +250,6 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	else
 	{
-		NS_LOG_UNCOND("here?");
 	}
 	NS_LOG_INFO(GetNode()->GetId()<<" receives  nack");
 	
