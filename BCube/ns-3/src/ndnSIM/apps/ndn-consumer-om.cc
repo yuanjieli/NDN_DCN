@@ -278,11 +278,12 @@ ConsumerOm::SendRandomPacket()
   NS_LOG_FUNCTION_NOARGS ();
 
   uint32_t seq=m_rand.GetValue (); 
+  while(seq>=m_MaxSeq)
+  	seq=m_rand.GetValue (); 
 
   Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
   (*nameWithSequence) (seq);
-  //
-
+  
   Interest interestHeader;
   interestHeader.SetNonce               (m_rand.GetValue ());
   interestHeader.SetName                (nameWithSequence);
