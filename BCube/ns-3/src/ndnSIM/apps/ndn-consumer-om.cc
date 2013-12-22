@@ -217,6 +217,8 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	}
 	if(!match)
 	{
+		if(Names::FindName(m_node)=="S10")
+			NS_LOG_UNCOND("S10 mismatch m_interestName"<<m_interestName<<" packet="<<interest->GetName());
 		return;
 	}
 	
