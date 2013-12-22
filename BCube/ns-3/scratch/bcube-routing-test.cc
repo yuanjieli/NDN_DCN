@@ -69,7 +69,7 @@ main (int argc, char *argv[])
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S00"));
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
   
-  int simulation_time = 100;
+  int simulation_time = 400;
    // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix

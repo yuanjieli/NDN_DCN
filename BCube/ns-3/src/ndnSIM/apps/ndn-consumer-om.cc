@@ -192,7 +192,7 @@ ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
 		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
 		return;
 	}
-	
+	NS_LOG_UNCOND("OnExtraContentObject@"<<Names::FindName(m_node));
 	m_data_count++;
 }
                    				 
