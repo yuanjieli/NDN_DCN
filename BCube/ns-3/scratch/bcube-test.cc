@@ -17,80 +17,76 @@
  *
  * Author: Yuanjie Li <yuanjie.li@cs.ucla.edu>
  */
-// ndncc-multipath-fairness.cc Two consumers. One has two producers, the other has just one
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/point-to-point-module.h"
 #include "ns3/ndnSIM-module.h"
 #include "ns3/log.h"
 
+#include <cstdio>
+#include <set>
+#include <ctime>
 #include <string>
-
+#include <fstream>
+#include <sstream>
+#include <string>
 
 using namespace ns3;
 
 int 
 main (int argc, char *argv[])
-{
-	int simulation_time = 100;
-  // setting default parameters for PointToPoint links and channels
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1ms"));
+{	
+  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("100"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
-
+  
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
   cmd.Parse (argc, argv);
-
-  // Creating nodes
-  NodeContainer nodes;
-  nodes.Create (5);
-
-  // Connecting nodes using two links
-  PointToPointHelper p2p;
-  p2p.SetDeviceAttribute("DataRate", StringValue ("1Mbps"));
-  p2p.Install (nodes.Get (0), nodes.Get (1));
-  p2p.Install (nodes.Get (0), nodes.Get (2));
-  p2p.Install (nodes.Get (0), nodes.Get (3));
-  p2p.Install (nodes.Get (0), nodes.Get (4));
-  
+	
+  //Read topology from BCube
+  AnnotatedTopologyReader topologyReader ("", 25);
+  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-0.txt");
+  topologyReader.Read ();
   
   ndn::SwitchStackHelper switchHelper;
-  switchHelper.Install (nodes.Get (0));	
+  switchHelper.InstallAll ();	//We will only install SwitchStackHelper to switches
   
-  ndn::BCubeStackHelper ndnHelper;  
-  ndnHelper.Install (nodes.Get (1));
-  ndnHelper.Install (nodes.Get (2));
-  ndnHelper.Install (nodes.Get (3));
-  ndnHelper.Install (nodes.Get (4));
-   	
+  // Install NDN stack on all servers
+  ndn::BCubeStackHelper ndnHelper;
+  ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
+  ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
+  ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
-  // Installing applications
-
-  // Producer
+  ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
+  ndnGlobalRoutingHelper.InstallAll ();
+  ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S3"));
+  ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,0);
+  
+  int simulation_time = 100;
+   // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
   producerHelper.SetPrefix ("/prefix");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
-  producerHelper.Install (nodes.Get (4));   
+  producerHelper.Install (Names::Find<Node>("S3"));
   
-  //Add routes here
-  ndn::BCubeStackHelper::AddRoute (nodes.Get(1),"/prefix",0,01);
-  ndn::BCubeStackHelper::AddRoute (nodes.Get(2),"/prefix",0,12);
-  ndn::BCubeStackHelper::AddRoute (nodes.Get(3),"/prefix",0,23);
-  
-  
-  // Consumer
-  ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerCbr");
+  //Consumer
+  ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
-  consumerHelper.SetAttribute ("Frequency", StringValue("0.5"));
-  consumers = consumerHelper.Install (nodes.Get (1)); 
+  consumers = consumerHelper.Install (Names::Find<Node>("S0")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S1")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
    
@@ -98,6 +94,6 @@ main (int argc, char *argv[])
 
   Simulator::Run ();
   Simulator::Destroy ();
-  	
+    	
   return 0;
 }
