@@ -315,6 +315,7 @@ BestCC::OnNack (Ptr<Face> inFace,
   if (pitEntry == 0)
   {
       // somebody is doing something bad
+      NS_LOG_UNCOND("Unsolicated Nack here");
       m_dropNacks (header, inFace);
       return;
   }
