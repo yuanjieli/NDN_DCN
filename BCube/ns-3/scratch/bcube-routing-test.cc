@@ -60,7 +60,7 @@ main (int argc, char *argv[])
   // Install NDN stack on all servers
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
-  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "100000000");	//WARNING: HUGE IMPACT!
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
   ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
@@ -81,30 +81,20 @@ main (int argc, char *argv[])
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
+  consumerHelper.SetPrefix ("/prefix");
   consumers = consumerHelper.Install (Names::Find<Node>("S11")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
   consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S12")); 
+  consumers = consumerHelper.Install (Names::Find<Node>("S20")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S13")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S21")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S31")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
+   
   /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   for(uint8_t i=0; i<=3; i++)
