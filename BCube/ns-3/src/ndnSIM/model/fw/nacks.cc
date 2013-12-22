@@ -38,6 +38,7 @@
 #include "ns3/simulator.h"
 #include "ns3/boolean.h"
 #include "ns3/string.h"
+#include "ns3/names.h"
 
 #include <boost/ref.hpp>
 #include <boost/foreach.hpp>
@@ -145,6 +146,7 @@ Nacks::DidExhaustForwardingOptions (Ptr<Face> inFace,
                                     Ptr<const Packet> origPacket,
                                     Ptr<pit::Entry> pitEntry)
 {
+	NS_LOG_UNCOND(Names::FindName(inFace->GetNode())<<" generates NACK");
 	Ptr<fib::Entry> fibEntry=pitEntry->GetFibEntry();
 	fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record;
 	if (inFace!=0 && DynamicCast<AppFace>(inFace)==0)

@@ -202,7 +202,6 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 {
 	Consumer::OnNack (interest, packet);
 	
-	NS_LOG_UNCOND("OnNack@"<<Names::FindName(m_node));	
 	//rule out nacks with different prefixes
 	std::list<std::string>::const_iterator rhs = interest->GetName().begin();
 	bool match = true;
