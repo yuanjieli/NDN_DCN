@@ -493,10 +493,12 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     }
 	
   //copy NACK to all applications of this node
-  Ptr<Node> node = inFace->GetNode();
-  NS_ASSERT(node!=0);
-  for(uint32_t k=0; k!=node->GetNApplications(); k++)
+  if(inFace!=0)
   {
+  	Ptr<Node> node = inFace->GetNode();
+  	NS_ASSERT(node!=0);
+  	for(uint32_t k=0; k!=node->GetNApplications(); k++)
+  	{
       	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
       	if(app!=0)
       	{
@@ -517,6 +519,8 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
       	}
       	
     }
+  }
+  
       
   // All incoming interests are satisfied. Remove them
   pitEntry->ClearIncoming ();
