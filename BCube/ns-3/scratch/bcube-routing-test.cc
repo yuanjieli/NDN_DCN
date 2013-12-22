@@ -95,6 +95,16 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S31")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install (Names::Find<Node>("S32")); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));
+  
   /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   for(uint8_t i=0; i<=3; i++)
