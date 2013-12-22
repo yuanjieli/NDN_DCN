@@ -36,14 +36,14 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {	
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
+  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1ms"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("1000.0"));
   
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
