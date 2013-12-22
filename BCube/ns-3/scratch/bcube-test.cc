@@ -67,6 +67,7 @@ main (int argc, char *argv[])
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S3"));
+  ndnGlobalRoutingHelper.AddOrigin ("/prefix2", Names::Find<Node>("S0"));
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,0);
   
   int simulation_time = 100;
@@ -77,6 +78,10 @@ main (int argc, char *argv[])
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
   producerHelper.Install (Names::Find<Node>("S3"));
   
+  producerHelper.SetPrefix ("/prefix2");
+  producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
+  producerHelper.Install (Names::Find<Node>("S0"));
+  
   //Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
@@ -85,8 +90,8 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S1")); 
+  consumerHelper.SetPrefix ("/prefix2");
+  consumers = consumerHelper.Install (Names::Find<Node>("S3")); 
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
    

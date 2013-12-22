@@ -231,7 +231,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 			m_nack_count++;
 		}
 		else{
-			m_limit = m_limit - 2*m_beta*(double)(interest->GetIntraSharing())/100.0;  
+			m_limit = m_limit - m_beta*(double)(interest->GetIntraSharing())/100.0;  
 			//NS_LOG_UNCOND("Rate suppression at node "<<GetNode()->GetId()<<" "<<m_limit);
 			m_extra_nack_count++;
 			//To suppress intra-sharing competition, we may also want to decrease alpha for local requests
