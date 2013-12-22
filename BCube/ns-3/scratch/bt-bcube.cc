@@ -74,13 +74,13 @@ main (int argc, char *argv[])
   ApplicationContainer bitTorrentClients;
   Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
-  Names::Find<Node> ("S11")->AddApplication (client);
+  Names::Find<Node> ("S33")->AddApplication (client);
   bitTorrentClients.Add (client);	
   
-  client = Create<BitTorrentClient> ();
+  /*client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
   Names::Find<Node> ("S21")->AddApplication (client);
-  bitTorrentClients.Add (client);	
+  bitTorrentClients.Add (client);*/	
    
   client = Create<BitTorrentClient> ();
   client->SetTorrent (sharedTorrent);
