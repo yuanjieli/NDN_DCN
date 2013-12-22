@@ -43,7 +43,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("1000.0"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("100.0"));
   
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
