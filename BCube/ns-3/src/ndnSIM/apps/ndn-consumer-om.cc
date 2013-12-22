@@ -120,14 +120,14 @@ ConsumerOm::ScheduleNextPacket ()
   if (m_firstTime)
     {
       m_sendEvent = Simulator::Schedule (Seconds (0.0),
-                                         &Consumer::SendPacket, this);
-                                         //&ConsumerOm::SendRandomPacket, this);
+                                         //&Consumer::SendPacket, this);
+                                         &ConsumerOm::SendRandomPacket, this);
       m_firstTime = false;
     }
   else if (!m_sendEvent.IsRunning ())
     m_sendEvent = Simulator::Schedule (Seconds(1.0 / m_limit),
-                                       &Consumer::SendPacket, this);
-                                       //&ConsumerOm::SendRandomPacket, this);
+                                       //&Consumer::SendPacket, this);
+                                       &ConsumerOm::SendRandomPacket, this);
 }
 
 
@@ -148,16 +148,16 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
 	
   Consumer::OnContentObject (contentObject, payload); // tracing inside
   //update interest limit
-  //if(contentObject->GetCE()!=2)	//not a local cache hit
+  if(contentObject->GetCE()!=2)	//not a local cache hit
   {
   	m_limit = m_limit + m_alpha/m_limit;	//here we choose parameter such that the convergence time is similar to TCP
   	m_alpha += 1/m_limit;
   	if(m_alpha>m_alpha_max)
   		m_alpha = m_alpha_max;
   }
-  //else	//local hit, send next requests immediately
+  else	//local hit, send next requests immediately
   	//SendPacket();
-  	//SendRandomPacket();
+  	SendRandomPacket();
   	
   
   m_data_count++;	
