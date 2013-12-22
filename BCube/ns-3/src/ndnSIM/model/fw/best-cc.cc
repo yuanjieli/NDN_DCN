@@ -210,7 +210,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		 	}
 		 	else	//There SHOULD be a source routing tag
 		 	{
-		 		NS_LOG_UNCOND("No source routing tag");
 			 	return false;
 			}
 	 	}
@@ -249,7 +248,6 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	}  	
 		  	if(optimalFace==0)
 		  	{
-		  		NS_LOG_UNCOND("No available face at "<<Names::FindName(inFace->GetNode()));
 		  		return false;
 		  	}
 	 	}
