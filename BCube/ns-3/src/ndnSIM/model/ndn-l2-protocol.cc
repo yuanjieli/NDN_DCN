@@ -256,7 +256,6 @@ L2Protocol::Receive (const Ptr<Face> &face, const Ptr<const Packet> &p)
         	if(std::find(m_downloadfaces.begin(), m_downloadfaces.end(), face) != m_downloadfaces.end())
         		return;
         	//tag identifies the next hop!
-        	if(tag.GetNextHop()==4 || tag.GetNextHop()==5)
         	NS_LOG_UNCOND("L2Protocol: "<<Names::FindName(m_node)
         				<<" receives nack from face="<<face->GetId()
         				<<" prevhop="<<tag.GetPrevHop()
