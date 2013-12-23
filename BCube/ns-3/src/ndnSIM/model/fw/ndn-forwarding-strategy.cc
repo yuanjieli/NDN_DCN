@@ -702,7 +702,6 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	BCubeTag tag;
 	if(packetToSend->RemovePacketTag(tag))	//there exists a tag: update m_cur
 	{
-		NS_ASSERT(tag.GetInterest()!=0);
 		tag.SetPrevHop(tag.GetNextHop());
 		tag.SetNextHop(record.GetRoutingCost()%10);
 	}
@@ -710,7 +709,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	{
 		tag.SetForwardingTag(record->GetRoutingCost());
 		tag.SetPrevHop(tag.GetNextHop());
-		tag.SetNextHop(record.GetRoutingCost()%10);
+		tag.SetNextHop(record->GetRoutingCost()%10);
 	}
 	
 	std::string node_name = Names::FindName(outFace->GetNode());
