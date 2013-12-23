@@ -574,6 +574,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 			for(size_t k=0; k<=m_k; k++)
 			{
 				permutation[k] = (level+k+1)%(m_k+1);
+				NS_LOG_UNCOND("permutation[k] = "<<permutation[k]);
 				carry[k] = src_name[k+1]-'0';
 			}
 			
