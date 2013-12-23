@@ -42,9 +42,7 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-    m_cur (0)	
   ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
-  , m_interest (0)
   { 
   };	
 
@@ -56,28 +54,15 @@ public:
   void
   SetForwardingTag(uint32_t rhs)
   {
-  	m_metric = rhs;
+  	m_metric = rhs/10;	//we only carry permutation here
   }
   
   uint32_t
   GetRoutingCost() const
   {
-  	return m_metric/pow(10,m_cur+1);
+  	return m_metric;
   }
-  
-  void
-  SetCurTag(uint8_t cur)
-  {
-  	//NS_ASSERT(cur>=0 && cur<MAX_K);
-  	m_cur = cur;
-  }
-  
-  uint8_t
-  GetCurTag() const
-  {
-  	return m_cur;
-  }
-  
+   
   uint32_t
   GetNextHop() const
   {
@@ -91,31 +76,17 @@ public:
   }
   
   void
-  SetNextHop(uint32_t rhs)	//For Data packet only
+  SetNextHop(uint32_t rhs)
   {
-  	NS_ASSERT(m_interest == 0);
   	m_nexthop = rhs;
   }
   
   void
-  SetPrevHop(uint32_t rhs)	//For interest packet only
+  SetPrevHop(uint32_t rhs)
   {
-  	NS_ASSERT(m_interest != 0);
   	m_prevhop = rhs;
   }
-  
-  void
-  SetInterest(uint8_t rhs)
-  {
-  	m_interest = rhs;
-  }
-  
-  uint8_t
-  GetInterest() const
-  {
-  	return m_interest;
-  }
-  
+    
   ////////////////////////////////////////////////////////
   // from ObjectBase
   ////////////////////////////////////////////////////////
@@ -139,9 +110,7 @@ public:
   Print (std::ostream &os) const;
   
 private:
-  uint8_t m_cur;
   uint32_t m_metric;
-  uint8_t m_interest;	//for interest or data?
   uint32_t m_nexthop;
   uint32_t m_prevhop;
 };
