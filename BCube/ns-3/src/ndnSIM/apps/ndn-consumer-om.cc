@@ -263,7 +263,7 @@ ConsumerOm::ShowInterestLimit()
 	//NS_LOG_UNCOND("ConsumerOm "<<Names::FindName(m_node)<<": "<<m_data_count/109.5);
 	NS_LOG_UNCOND(Simulator::Now().GetSeconds()
 				<<" "<<m_node->GetId()
-				<<" "<m_data_count/109.5);
+				<<" "<<m_data_count/109.5);
 	
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
