@@ -606,7 +606,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 						 
 					TreeLink.push_back(std::make_pair(from, to));
 					from_name = to_name;
-				}while(to_name != src_name);
+				}while(true);//while(to_name != src_name);
 				
 			//Now we can build FIB
 			BOOST_FOREACH(const Ptr<Name> &prefix, source->GetLocalPrefixes())
