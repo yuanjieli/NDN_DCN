@@ -665,6 +665,9 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 					
 				}
 			}
+			
+			delete[] permutation;
+			delete[] carry;
 		
 		}
 		 

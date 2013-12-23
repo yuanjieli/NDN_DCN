@@ -110,12 +110,12 @@ main (int argc, char *argv[])
   		consumers = consumerHelper.Install (Names::Find<Node>(str)); 
   		consumers.Start (Seconds (0));	
   		consumers.Stop (Seconds (simulation_time));
-  	}*/
+  	}
    
   Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();
-  Simulator::Destroy ();
+  Simulator::Destroy ();*/
     	
   return 0;
 }
