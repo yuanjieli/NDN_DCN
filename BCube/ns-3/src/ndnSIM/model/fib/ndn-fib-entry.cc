@@ -23,6 +23,7 @@
 #include "ns3/ndn-name.h"
 #include "ns3/log.h"
 #include "ns3/simulator.h"
+#include "ns3/names.h"
 
 #include "ns3/node.h"
 
@@ -193,17 +194,16 @@ Entry::ResetCount()
        face++)
     {
     	
-    	/*if(face->GetFace()->GetNode()->GetId()<=1)
-	    	NS_LOG_UNCOND(
-	    								"nodeID="<<face->GetFace()->GetNode()->GetId()
-	    								<<" prefix="<<*m_prefix
-	    								<<" faceID="<<face->GetFace()->GetId()
-	    								<<" metric="<<face->GetFraction()
-	    								<<" interest="<<face->GetInterest()
-	    								<<" NACK="<<face->GetNack()
-	    								<<" Data_in="<<face->GetDataIn()
-	    								//<<" Data_CE="<<face->GetDataCE()
-	    								);*/
+    		if(Names::FindName(face->GetFace()->GetNode())=="S10")
+	    	NS_LOG_UNCOND(Names::FindName(face->GetFace()->GetNode())
+	    				<<" prefix="<<*m_prefix
+	    				<<" faceID="<<face->GetFace()->GetId()
+	    				<<" metric="<<face->GetFraction()
+	    				<<" interest="<<face->GetInterest()
+	    				<<" NACK="<<face->GetNack()
+	    				<<" Data_in="<<face->GetDataIn()
+	    			  //<<" Data_CE="<<face->GetDataCE()
+	    				);
 	    								
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
