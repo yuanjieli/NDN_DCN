@@ -80,7 +80,6 @@ main (int argc, char *argv[])
   		for(uint8_t k=0; k<8; k++)
   			for(uint8_t l=0; l<8; l++)
   			{
-  				consumerHelper.SetPrefix ("/prefix");
   				std::string str = "S";
   				str += '0'+i;
   				str += '0'+j;
