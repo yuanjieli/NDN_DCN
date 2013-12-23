@@ -79,7 +79,7 @@ main (int argc, char *argv[])
   producerHelper.Install (Names::Find<Node>("S00"));
   
   //Consumer
-  /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
+  ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   //consumerHelper.SetAttribute("MaxSeq", IntegerValue(100000));
   ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
@@ -87,57 +87,9 @@ main (int argc, char *argv[])
   consumers.Start (Seconds (0));	
   consumers.Stop (Seconds (simulation_time));
   
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S20")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
   
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S30")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S31")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S01")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S11")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S21")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S22")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S32")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S02")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
-  
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S12")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));*/
    
-  ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
+  /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   for(uint8_t i=0; i<=3; i++)
   	for(uint8_t j=0; j<=3; j++)
@@ -150,7 +102,7 @@ main (int argc, char *argv[])
   		consumers = consumerHelper.Install (Names::Find<Node>(str)); 
   		consumers.Start (Seconds (0));	
   		consumers.Stop (Seconds (simulation_time));
-  	}
+  	}*/
    
   Simulator::Stop (Seconds (simulation_time));
 
