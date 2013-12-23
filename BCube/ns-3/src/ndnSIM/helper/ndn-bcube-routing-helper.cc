@@ -555,12 +555,10 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 			//Initialize permutation and carry bit
 			uint32_t *permutation = new uint32_t[m_k+1];
 			uint32_t *carry = new uint32_t[m_k+1];
-			uint32_t total_permutation = 0;	//used for metric
 			for(size_t k=0; k<=m_k; k++)
 			{
 				permutation[k] = 1+(level+k)%(m_k+1);
 				carry[k] = src_name[k+1]-'0';
-				total_permutation += pow(10,k)*permutation[k];
 			}
 			
 			TreeLink_t TreeLink; //store all directional links
@@ -619,7 +617,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 					}
 					NS_ASSERT(digit != m_k+2);
 					
-					int32_t metric = total_permutation*10 + T[it_link->second];
+					int32_t metric = level*10 + T[it_link->second];
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
