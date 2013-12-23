@@ -42,7 +42,7 @@ public:
    * @brief Default constructor
    */
   BCubeTag () : 
-  ,	m_metric (std::numeric_limits<uint32_t>::max ()) 
+  m_metric (std::numeric_limits<uint32_t>::max ()) 
   { 
   };	
 
