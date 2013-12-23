@@ -198,7 +198,7 @@ Entry::ResetCount()
 	    	NS_LOG_UNCOND(Names::FindName(face->GetFace()->GetNode())
 	    				<<" prefix="<<*m_prefix
 	    				<<" faceID="<<face->GetFace()->GetId()
-	    				<<" metric="<<face->GetFraction()
+	    				<<" fraction="<<face->GetFraction()
 	    				<<" interest="<<face->GetInterest()
 	    				<<" NACK="<<face->GetNack()
 	    				<<" Data_in="<<face->GetDataIn()
@@ -209,14 +209,6 @@ Entry::ResetCount()
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
     }
     
-  double minCost = MAX_BOUND;
-  for (FaceMetricByFace::type::iterator face = m_faces.begin ();
-       face != m_faces.end ();
-       face++)
-  {
-  	if(face->GetRoutingCost()<minCost)
-  		minCost = face->GetRoutingCost();
-  }
   double K_bound = MAX_BOUND;
   double w_lower_bound = 5;	//lower bound for probing traffic
   double w_upper_bound = 100;	//upper bound for w
@@ -229,19 +221,13 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     {  
-    	if(face->GetRoutingCost()==minCost)
-    	{ 
-    		q_mean += face->GetNackOld(); 
-	    	facecount ++;
-	    }    								
+    	q_mean += face->GetNackOld(); 
+	    facecount ++;   								
     }
-  
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();
        face++)
     {  
-    	if(face->GetRoutingCost()==minCost)
-    	{
     		double tmp = face->GetFraction()*q_mean/100.0-face->GetNackOld();
     		q_var += tmp*tmp;
     		if(tmp>0)
@@ -257,8 +243,7 @@ Entry::ResetCount()
     			if(K_bound>tmp2)
     				K_bound = tmp2;
     				
-    		}
-    	}							
+    		}							
     }
   q_var = sqrt(q_var)/facecount;
   K = K_bound*tanh(q_var/(1+q_mean)/5);  
@@ -268,8 +253,7 @@ Entry::ResetCount()
        face != m_faces.end ();
        face++)
     { 
-    	if(face->GetRoutingCost()==minCost)
-    	{
+    	
 	      if(m_inited)
 	      {
 		      double fraction = face->GetFraction()
@@ -281,8 +265,7 @@ Entry::ResetCount()
 		    {
 	    		m_faces.modify (face,
 	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100.0/facecount));
-		    }
-    	}   	
+		    }  	
     									
     }  
   m_inited = true; 
