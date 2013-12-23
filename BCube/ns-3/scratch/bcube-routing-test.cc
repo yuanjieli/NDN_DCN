@@ -81,7 +81,7 @@ main (int argc, char *argv[])
   //Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   //consumerHelper.SetAttribute("MaxSeq", IntegerValue(100000));
-  ApplicationContainer consumers;
+  /*ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
   consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
   consumers.Start (Seconds (0));	
@@ -135,7 +135,7 @@ main (int argc, char *argv[])
   consumerHelper.SetPrefix ("/prefix");
   consumers = consumerHelper.Install (Names::Find<Node>("S12")); 
   consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));
+  consumers.Stop (Seconds (simulation_time));*/
    
   /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
@@ -152,10 +152,10 @@ main (int argc, char *argv[])
   		consumers.Stop (Seconds (simulation_time));
   	}*/
    
-  Simulator::Stop (Seconds (simulation_time));
+  /*Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();
-  Simulator::Destroy ();
+  Simulator::Destroy ()*/;
     	
   return 0;
 }
