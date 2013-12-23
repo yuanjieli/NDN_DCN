@@ -70,7 +70,7 @@ main (int argc, char *argv[])
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
   //ndnGlobalRoutingHelper.CalculateSharingRoutes (4,1);
   
-  int simulation_time = 400;
+  /*int simulation_time = 400;
    // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
@@ -81,7 +81,7 @@ main (int argc, char *argv[])
   //Consumer
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   //consumerHelper.SetAttribute("MaxSeq", IntegerValue(100000));
-  /*ApplicationContainer consumers;
+  ApplicationContainer consumers;
   consumerHelper.SetPrefix ("/prefix");
   consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
   consumers.Start (Seconds (0));	
