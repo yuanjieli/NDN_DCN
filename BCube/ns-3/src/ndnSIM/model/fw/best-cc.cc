@@ -198,7 +198,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		 	 	//Find the corresponding face based on source tag
 			 	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 			 	{
-			 		NS_LOG_UNCOND("metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost()
+			 		NS_LOG_UNCOND("metricFace.GetRoutingCost()/10="<<metricFace.GetRoutingCost()/10
 			 					<<" tag.GetRoutingCost()="<<tag.GetRoutingCost());
 				 	if((uint32_t)(metricFace.GetRoutingCost()/10)==tag.GetRoutingCost())
 				 	{
