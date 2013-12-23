@@ -703,7 +703,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	if(packetToSend->RemovePacketTag(tag))	//there exists a tag: update m_cur
 	{
 		tag.SetPrevHop(tag.GetNextHop());
-		tag.SetNextHop(record.GetRoutingCost()%10);
+		tag.SetNextHop(record->GetRoutingCost()%10);
 	}
 	else	//no tag: MUST be from application/cosnumer
 	{
