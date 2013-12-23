@@ -111,6 +111,10 @@ public:
   static void
   CalculateBCubeRoutes (uint32_t n, uint32_t k);
   
+  //Line-based routing
+  static void
+  CalculateSharingRoutes (uint32_t n, uint32_t k);
+  
   
 
 private:

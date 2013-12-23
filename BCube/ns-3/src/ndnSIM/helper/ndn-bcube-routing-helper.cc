@@ -376,7 +376,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		NS_ASSERT(src_name[0]=='S' && src_name.size() == m_k+2);
 		
 		//Extract source's BCubeID
-		uint32_t src_addr[MAX_N];
+		uint32_t src_addr[MAX_K];
 		ExtractBCubeID(src_name, src_addr);
 		
 		for(size_t level = 0; level <= m_k; level++)
@@ -529,6 +529,146 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		}
 				
 	}
+}
+
+void 
+BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
+{
+	//For simplification of simulation, we have some limits for n and k
+  	NS_ASSERT(m_n>=1 && m_n<MAX_N);	
+  	NS_ASSERT(m_k>=0 && m_k<MAX_K);
+  	
+  	for(NodeList::Iterator node = NodeList::Begin(); node != NodeList::End(); node++)
+  	{
+  		/* Step 1: for each node, if it has local prefixes,
+		 * calculate routes to all nodes
+		 * The algorithm is based on Hamming distance change,
+		 * which will generate a "line" of nodes.
+		 * This is ideal for in-network sharing
+		 */
+		Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
+	    if (source == 0)
+		{
+			NS_LOG_DEBUG ("Node " << (*node)->GetId () << " does not export GlobalRouter interface");
+			continue;
+		}
+		if(source->GetLocalPrefixes().empty()) continue;	//no local prefixes
+		
+		//Guarantee that this node is really a server
+		//Should ALWAYS be true because only switches don't install GlobalRouter
+		std::string src_name = Names::FindName(*node);
+		NS_ASSERT(src_name[0]=='S' && src_name.size() == m_k+2);
+		
+		//Extract source's BCubeID
+		uint32_t src_addr[MAX_K];
+		ExtractBCubeID(src_name, src_addr); 
+		
+		//for(size_t level = 0; level <= m_k ; level++)
+		size_t level = 0;
+		{
+			NS_LOG_UNCOND("Route with level="<<level);
+			
+			//Initialize permutation and carry bit
+			uint32_t *permutation = new uint32_t[m_k+1];
+			uint32_t *carry = new uint32_t[m_k+1];
+			for(size_t k=0; k<=m_k; k++)
+			{
+				permutation[k] = (level+k)%(m_k+1);
+				carry[k] = src_name[k+1]-'0';
+			}
+			
+			TreeLink_t TreeLink; //store all directional links
+			TreeNode_t T; //used for recording cost
+			
+			int count = 0;
+			std::string from_name = src_name;
+			std::string to_name = src_name;
+			do{
+					int index = 0;
+					int tmp;
+	label:
+					tmp = (dst[permutation[index]]-'0'+1)%m_n;
+					if(tmp != carry[index])			
+						to[permutation[index]] = '0'+ tmp;
+					else if(index==m_k)
+						break;
+					else	//make a carry
+					{
+						carry[index] = dst[permutation[index]]-'0';
+						index++;
+						goto label;				
+					}
+					Ptr<Node> from = Names::Find<Node>(from_name);
+					Ptr<Node> to = Names::Find<Node>(to_name);
+					if(T.empty())
+						T[to] = from_name[permutation[index]]-'0';
+					else
+						T[to] = T[from]*10 + from_name[permutation[index]]-'0';
+						 
+					TreeLink.push_back(std::make_pair(from, to));
+					from_name = to_name;
+				}while(to_name != src_name);
+				
+			//Now we can build FIB
+			BOOST_FOREACH(const Ptr<Name> &prefix, source->GetLocalPrefixes())
+			{
+				for(TreeLinkIterator it_link = TreeLink.begin(); it_link != TreeLink.end(); it_link++)
+				{
+					Ptr<GlobalRouter> gr = it_link->second->GetObject<GlobalRouter> ();
+					if(gr==0)
+					{
+						NS_LOG_DEBUG ("Node " << it_link->second->GetId () << " does not export GlobalRouter interface");
+						continue;
+					}
+					
+					Ptr<Fib> fib = gr -> GetObject<Fib>();
+					NS_ASSERT(fib != 0);
+					
+					//figure out the correct device
+					//For this pair, there should be only ONE different digit
+					std::string A = Names::FindName(it_link->first);
+					std::string B = Names::FindName(it_link->second);
+					uint32_t digit = 1;
+					for(; digit < m_k+2; digit++)
+					{
+						if(A[digit] != B[digit])
+							break;
+					}
+					NS_ASSERT(digit != m_k+2);
+					//metric = nexthop + prevhop*10
+					//uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;*/
+					//int32_t metric = T[it_link->second]*10+(int32_t)(B[digit]-'0'); 
+					int32_t metric = T[it_link->second];
+					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
+					NS_ASSERT(ndn != 0);
+					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
+					NS_ASSERT(face != 0);
+					
+					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
+		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
+		            
+		            NS_LOG_UNCOND("Node "<<B
+		            			<<" installs FIB "<<*prefix
+		            			<<" nexthop="<<A
+		            			<<" face="<<face->GetId()
+		            			<<" metric="<<metric);
+		
+		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
+		
+		            Ptr<Limits> fibLimits = entry->GetObject<Limits> ();
+		            if (fibLimits != 0)
+		            {
+		                // if it was created by the forwarding strategy via DidAddFibEntry event
+		                fibLimits->SetLimits (faceLimits->GetMaxRate (), 2.0 * 0.001 /*exact RTT*/);
+		            }
+					
+					
+				}
+			}
+		
+		}
+		 
+  	}
 }
 
 } // namespace ndn
