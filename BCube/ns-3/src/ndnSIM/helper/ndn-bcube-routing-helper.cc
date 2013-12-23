@@ -346,7 +346,7 @@ GetBCubeId(uint32_t i, uint32_t n, uint32_t k)
 	return str;
 }
 
-void
+/*void
 BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 {
 	//For simplification of simulation, we have some limits for n and k
@@ -355,12 +355,6 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
   	
 	for(NodeList::Iterator node = NodeList::Begin(); node != NodeList::End(); node++)
 	{
-		/* Step 1: for each node, if it has local prefixes,
-		 * calculate multiple disjoint Steiner trees to all nodes.
-		 * The algorithm is from BCube paper (one-to-all communication).
-		 * Even if this node has multiple local prefixes, we only need to calculate
-		 * Steiner trees ONCE, and install FIBs based on these trees.
-		 */
 		Ptr<GlobalRouter> source = (*node)->GetObject<GlobalRouter> ();
 	    if (source == 0)
 		{
@@ -494,9 +488,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 							break;
 					}
 					NS_ASSERT(digit != m_k+2);
-					//metric = nexthop + prevhop*10
-					//uint32_t metric = (A[digit]-'0')+(B[digit]-'0')*10;*/
-					//int32_t metric = T[it_link->second]*10+(int32_t)(B[digit]-'0'); 
+					 
 					int32_t metric = T[it_link->second];
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
@@ -524,15 +516,13 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					
 				}
 			}
-			
-		NS_LOG_UNCOND(" ");	
 		}
 				
 	}
-}
+}*/
 
 void 
-BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
+BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 {
 	//For simplification of simulation, we have some limits for n and k
   	NS_ASSERT(m_n>=1 && m_n<MAX_N);	
