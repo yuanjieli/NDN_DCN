@@ -553,8 +553,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		uint32_t src_addr[MAX_K];
 		ExtractBCubeID(src_name, src_addr); 
 		
-		//for(size_t level = 0; level <= m_k ; level++)
-		size_t level = 0;
+		for(size_t level = 0; level <= m_k ; level++)
+		//size_t level = 0;
 		{
 			NS_LOG_UNCOND("Route with level="<<level);
 			
