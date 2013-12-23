@@ -704,13 +704,13 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	{
 		NS_ASSERT(tag.GetInterest()!=0);
 		tag.SetPrevHop(tag.GetNextHop());
-		tag.SetNextHop(metric.GetRoutingCost()%10);
+		tag.SetNextHop(record.GetRoutingCost()%10);
 	}
 	else	//no tag: MUST be from application/cosnumer
 	{
 		tag.SetForwardingTag(record->GetRoutingCost());
 		tag.SetPrevHop(tag.GetNextHop());
-		tag.SetNextHop(metric.GetRoutingCost()%10);
+		tag.SetNextHop(record.GetRoutingCost()%10);
 	}
 	
 	std::string node_name = Names::FindName(outFace->GetNode());
