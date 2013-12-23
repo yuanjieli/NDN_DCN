@@ -64,7 +64,7 @@ BCubeTag::Deserialize (TagBuffer i)
 {
   m_metric = i.ReadU32 ();
   m_cur = i.ReadU8 (); 
-  NS_ASSERT(m_cur>=0 && m_cur<MAX_K);
+  //NS_ASSERT(m_cur>=0 && m_cur<MAX_K);
   m_interest = i.ReadU8();
   m_nexthop = i.ReadU32 ();
   m_prevhop = i.ReadU32 ();
