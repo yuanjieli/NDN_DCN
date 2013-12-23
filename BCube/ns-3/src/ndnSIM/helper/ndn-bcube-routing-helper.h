@@ -108,10 +108,12 @@ public:
   //n: #ports for each switch
   //k: #levels. 
   //These parameters SHOULD be consistent with the SIGCOMM paper
+  static void
+  CalculateBCubeRoutes (uint32_t n, uint32_t k);
   
   //Line-based routing
   static void
-  CalculateBCubeRoutes (uint32_t n, uint32_t k);
+  CalculateSharingRoutes (uint32_t n, uint32_t k);
   
   
 

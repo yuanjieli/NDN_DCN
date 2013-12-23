@@ -346,7 +346,7 @@ GetBCubeId(uint32_t i, uint32_t n, uint32_t k)
 	return str;
 }
 
-/*void
+void
 BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 {
 	//For simplification of simulation, we have some limits for n and k
@@ -388,8 +388,8 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			TreeLink.push_back(std::make_pair(*node, root));
 			T[root] = src_addr[level]; 
 			NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
-			//BuildSingSPT: Part I
 			
+			//BuildSingSPT: Part I
 			for(size_t i = 0; i <= m_k; i++)
 			{
 				size_t dim = (level+i)%(m_k+1);	
@@ -459,7 +459,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				TreeLink.push_back(std::make_pair(S2, S));
 				NS_LOG_UNCOND("Part II: "<<s2_name<<"->"<<s_name);
 				//T.push_back(S);
-				T[S] = T[S2]*10+(s2_name[level+1]-'0');
+				T[S] = s2_name[level+1]-'0';
 			}
 			
 			//Now we can build FIB 
@@ -489,7 +489,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					}
 					NS_ASSERT(digit != m_k+2);
 					 
-					int32_t metric = T[it_link->second];
+					int32_t metric = level*10+T[it_link->second];
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
@@ -519,10 +519,10 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		}
 				
 	}
-}*/
+}
 
 void 
-BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
+BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 {
 	//For simplification of simulation, we have some limits for n and k
   	NS_ASSERT(m_n>=1 && m_n<MAX_N);	
