@@ -580,21 +580,20 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 			TreeLink_t TreeLink; //store all directional links
 			TreeNode_t T; //used for recording cost
 			
-			int count = 0;
 			std::string from_name = src_name;
 			std::string to_name = src_name;
 			do{
-					int index = 0;
-					int tmp;
+					uint32_t index = 0;
+					uint32_t tmp;
 	label:
-					tmp = (dst[permutation[index]]-'0'+1)%m_n;
+					tmp = (to_name[permutation[index]]-'0'+1)%m_n;
 					if(tmp != carry[index])			
-						to[permutation[index]] = '0'+ tmp;
+						to_name[permutation[index]] = '0'+ tmp;
 					else if(index==m_k)
 						break;
 					else	//make a carry
 					{
-						carry[index] = dst[permutation[index]]-'0';
+						carry[index] = to_name[permutation[index]]-'0';
 						index++;
 						goto label;				
 					}
