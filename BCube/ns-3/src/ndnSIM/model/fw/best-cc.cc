@@ -207,6 +207,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 				 	}
 			 	}
 			 	NS_ASSERT(optimalFace != 0);
+			 	NS_LOG_UNCOND("");
 		 	}
 		 	else	//There SHOULD be a source routing tag
 		 	{
