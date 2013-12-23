@@ -564,7 +564,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			uint32_t total_permutation = 0;	//used for metric
 			for(size_t k=0; k<=m_k; k++)
 			{
-				permutation[k] = (level+k+1)%(m_k+2);
+				permutation[k] = 1+(level+k)%(m_k+1);
 				carry[k] = src_name[k+1]-'0';
 				total_permutation += pow(10,k)*permutation[k];
 			}
