@@ -59,7 +59,7 @@ main (int argc, char *argv[])
   
   // Install NDN stack on all servers
   ndn::BCubeStackHelper ndnHelper;
-  ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
+  //ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
   ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
   ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
@@ -70,7 +70,7 @@ main (int argc, char *argv[])
   ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
   //ndnGlobalRoutingHelper.CalculateSharingRoutes (4,1);
   
-  int simulation_time = 400;
+  /*int simulation_time = 400;
    // Producer
   ndn::AppHelper producerHelper ("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
@@ -79,15 +79,6 @@ main (int argc, char *argv[])
   producerHelper.Install (Names::Find<Node>("S00"));
   
   //Consumer
-  /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
-  //consumerHelper.SetAttribute("MaxSeq", IntegerValue(100000));
-  ApplicationContainer consumers;
-  consumerHelper.SetPrefix ("/prefix");
-  consumers = consumerHelper.Install (Names::Find<Node>("S10")); 
-  consumers.Start (Seconds (0));	
-  consumers.Stop (Seconds (simulation_time));*/
-  
-  
    
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
@@ -107,7 +98,7 @@ main (int argc, char *argv[])
   Simulator::Stop (Seconds (simulation_time));
 
   Simulator::Run ();
-  Simulator::Destroy ();
+  Simulator::Destroy ();*/
     	
   return 0;
 }

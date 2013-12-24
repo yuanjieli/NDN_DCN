@@ -111,6 +111,10 @@ Entry::UpdateStatus (Ptr<Face> face, FaceMetric::Status status)
   m_faces.get<i_nth> ().rearrange (m_faces.get<i_metric> ().begin ());
 }
 
+/* The metric is encoded as follows:
+ *  |level_i|nexthop_i|level_(i-1)|nexthop_(i-1)|...|#paths|
+ * 	We have to encode this way, because one face may be used for multiple one-way routing
+ */
 void
 Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
 {
@@ -120,19 +124,29 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
   FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
   if (record == m_faces.get<i_face> ().end ())
     {
-      m_faces.insert (FaceMetric (face, metric));
+      m_faces.insert (FaceMetric (face, metric*10+1));	//first metric
     }
   else
   {
+  	//FIXME: we may update metric to higher value
     // don't update metric to higher value
-    if (record->GetRoutingCost () > metric || record->GetStatus () == FaceMetric::NDN_FIB_RED)
+    /*if (record->GetRoutingCost () > metric || record->GetStatus () == FaceMetric::NDN_FIB_RED)
       {
         m_faces.modify (record,
                         ll::bind (&FaceMetric::SetRoutingCost, ll::_1, metric));
 
         m_faces.modify (record,
                         ll::bind (&FaceMetric::SetStatus, ll::_1, FaceMetric::NDN_FIB_YELLOW));
-      }
+      }*/
+    //For BCube(8,3), we need at most (3+1)*2+1=9 digits, so int32_t is just enough 
+	m_faces.modify(record, 
+				   ll::bind (&FaceMetric::SetRoutingCost, ll::_1,
+				   	record->GetRoutingCost ()%10+1	//#faces
+				   +(record->GetRoutingCost () - record->GetRoutingCost ()%10)*100	//previous routes (two-digit metric)	
+				   +metric*10	//new metrics
+				   ));
+	m_faces.modify (record,
+                        ll::bind (&FaceMetric::SetStatus, ll::_1, FaceMetric::NDN_FIB_YELLOW));
   }
 
   // reordering random access index same way as by metric index
