@@ -54,7 +54,7 @@ public:
   void
   SetForwardingTag(uint32_t rhs)
   {
-  	m_metric = rhs;	//we only carry permutation here
+  	m_metric = rhs/10;	//we only carry permutation here
   }
   
   uint32_t

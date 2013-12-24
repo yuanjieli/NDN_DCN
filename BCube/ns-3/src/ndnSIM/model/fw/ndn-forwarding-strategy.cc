@@ -727,7 +727,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		uint32_t choice = rand()%npaths;	//make a random choice
 		uint32_t label = record->GetRoutingCost()/10;
 		label /= pow(100,choice);
-		tag.SetForwardingTag(label/10);
+		tag.SetForwardingTag(label);
 		tag.SetNextHop(label%10);
 		
 		/*if(Names::FindName(inFace->GetNode())=="S10")
