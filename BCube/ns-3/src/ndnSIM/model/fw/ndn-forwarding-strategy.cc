@@ -729,6 +729,9 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		label /= pow(100,choice);
 		tag.SetForwardingTag(label/10);
 		tag.SetNextHop(label%10);
+		
+		if(Names::FindName(inFace->GetNode())=="S10")
+			NS_LOG_UNCOND("S10 chooses level="<<label/10<<" face="<<label%10);
 		//tag.SetNextHop(record->GetRoutingCost()%10);
 	}
 	
