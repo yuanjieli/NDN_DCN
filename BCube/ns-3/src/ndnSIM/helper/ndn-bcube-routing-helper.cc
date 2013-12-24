@@ -627,7 +627,9 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		            //entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?   
 		            Ptr<fib::Entry> entry = fib->Find(*prefix);
 		            if(entry==0)	//new entry
+		            {
 		            	 entry = fib->Add (prefix, face, 10*metric+1);
+		            }
 		    		else
 		    		{
 		    			//find the face

@@ -51,7 +51,7 @@ main (int argc, char *argv[])
 	
   //Read topology from BCube
   AnnotatedTopologyReader topologyReader ("", 25);
-  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-1.txt");
+  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-2.txt");
   topologyReader.Read ();
   
   ndn::SwitchStackHelper switchHelper;
@@ -66,9 +66,9 @@ main (int argc, char *argv[])
   
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
-  ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S00"));
+  ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S000"));
   //ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,1);
-  ndnGlobalRoutingHelper.CalculateSharingRoutes (4,1);
+  ndnGlobalRoutingHelper.CalculateSharingRoutes (4,2);
   
   /*int simulation_time = 400;
    // Producer
