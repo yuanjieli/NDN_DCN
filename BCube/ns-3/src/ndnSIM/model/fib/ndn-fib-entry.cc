@@ -139,6 +139,7 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
                         ll::bind (&FaceMetric::SetStatus, ll::_1, FaceMetric::NDN_FIB_YELLOW));
       }*/
     //For BCube(8,3), we need at most (3+1)*2+1=9 digits, so int32_t is just enough 
+    NS_LOG_UNCOND("Aha!");
 	m_faces.modify(record, 
 				   ll::bind (&FaceMetric::SetRoutingCost, ll::_1,
 				   	record->GetRoutingCost ()%10+1	//#faces

@@ -116,19 +116,10 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
             Ptr<EntryImpl> newEntry = Create<EntryImpl> (prefix);
             newEntry->SetTrie (result.first);
             result.first->set_payload (newEntry);
-            real_metric = 10*metric+1;
         }
-      else
-      {
-      	int32_t tmp = result.first->payload()->GetRoutingMetric(face);
-      	real_metric = tmp%10+1	//#faces
-				     +(tmp - tmp%10)*100	//previous routes (two-digit metric)	
-				     +metric*10;	//new metrics
-      }
-        
-      NS_LOG_UNCOND("real_metric="<<real_metric);	
+      
       super::modify (result.first,
-                     ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, real_metric));
+                     ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, metric));
       	
       if (result.second)
         {
