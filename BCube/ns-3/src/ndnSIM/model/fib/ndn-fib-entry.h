@@ -415,6 +415,9 @@ public:
    * Initial status of the next hop is set to YELLOW
    */
   void AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric);
+  
+  int32_t
+  GetRoutingMetric(Ptr<Face> face);
 
   /**
    * \brief Set real delay to the producer

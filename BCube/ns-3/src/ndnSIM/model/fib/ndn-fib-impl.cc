@@ -116,19 +116,21 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
             newEntry->SetTrie (result.first);
             result.first->set_payload (newEntry);
         }
-      fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	   	= result.first->m_faces.get<fib::i_face> ().find (optimalFace);  
-  	  if(record->GetRoutingCost()%10==0)	
+        
+      int32_t old_metric = result.first->GetRoutingMetric(face);
+  	  if(old_metric==-1)	
       	super::modify (result.first,
                      ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 10*metric+1));
       else
+      {
+      	
       	super::modify (result.first,
                       ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 
-                      record->GetRoutingCost ()%10+1	//#faces
-				     +(record->GetRoutingCost () - record->GetRoutingCost ()%10)*100	//previous routes (two-digit metric)	
+                       old_metric%10+1	//#faces
+				     +(old_metric - old_metric%10)*100	//previous routes (two-digit metric)	
 				     +metric*10	//new metrics
 				     ));
-                     
+      }               
 
       if (result.second)
         {

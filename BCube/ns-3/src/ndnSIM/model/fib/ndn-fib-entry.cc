@@ -153,6 +153,16 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
   m_faces.get<i_nth> ().rearrange (m_faces.get<i_metric> ().begin ());
 }
 
+int32_t
+Entry::GetRoutingMetric(Ptr<Face> face)
+{
+	FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
+	if(record == m_faces.get<i_face> ().end())
+		return -1;
+	else
+		return record->GetRoutingCost();
+}
+
 void
 Entry::SetRealDelayToProducer (Ptr<Face> face, Time delay)
 {
