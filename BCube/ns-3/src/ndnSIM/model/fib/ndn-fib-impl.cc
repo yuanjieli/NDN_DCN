@@ -106,6 +106,7 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
 {
   NS_LOG_FUNCTION (this->GetObject<Node> ()->GetId () << boost::cref(*prefix) << boost::cref(*face) << metric);
 
+  int32_t real_metric = 0;
   // will add entry if doesn't exists, or just return an iterator to the existing entry
   std::pair< super::iterator, bool > result = super::insert (*prefix, 0);
   if (result.first != super::end ())
@@ -115,26 +116,20 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
             Ptr<EntryImpl> newEntry = Create<EntryImpl> (prefix);
             newEntry->SetTrie (result.first);
             result.first->set_payload (newEntry);
+            real_metric = 10*metric+1;
         }
-        
-      int32_t old_metric = result.first->payload()->GetRoutingMetric(face);
-  	  if(old_metric==-1)	
-  	  {
-      	super::modify (result.first,
-                     ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 10*metric+1));
-      	NS_LOG_UNCOND("Here? "<<10*metric+1);
-      }
       else
       {
-      	
+      	int32_t tmp = result.first->payload()->GetRoutingMetric(face);
+      	real_metric = tmp%10+1	//#faces
+				     +(tmp - tmp%10)*100	//previous routes (two-digit metric)	
+				     +metric*10;	//new metrics
+      }
+        
+     
       	super::modify (result.first,
-                      ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 
-                       old_metric%10+1	//#faces
-				     +(old_metric - old_metric%10)*100	//previous routes (two-digit metric)	
-				     +metric*10	//new metrics
-				     ));
-      }               
-
+                     ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, real_metric));
+      	
       if (result.second)
         {
           // notify forwarding strategy about new FIB entry
