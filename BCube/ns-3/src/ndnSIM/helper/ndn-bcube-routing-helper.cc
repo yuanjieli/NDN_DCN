@@ -623,8 +623,8 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
 					NS_ASSERT(face != 0);
 					
-					//Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
-		            //entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?   
+					//For BCube(8,3), we need at most (3+1)*2+1=9 digits, so int32_t is just enough 
+					//Ptr<fib::Entry> entry = fib->Add (prefix, face, metric); 
 		            Ptr<fib::Entry> entry = fib->Find(*prefix);
 		            if(entry==0)	//new entry
 		            {
@@ -644,7 +644,8 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 				   							 );
 	   					else	//entry for other faces
 	   						entry = fib->Add (prefix, face, 10*metric+1);
-		    		}  
+		    		} 
+		    		entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?   
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
 		
