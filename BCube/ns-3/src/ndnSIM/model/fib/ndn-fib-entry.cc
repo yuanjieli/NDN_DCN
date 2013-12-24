@@ -124,7 +124,8 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
   FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
   if (record == m_faces.get<i_face> ().end ())
     {
-      m_faces.insert (FaceMetric (face, metric*10+1));	//first metric
+      int32_t real_metric = metric*10+1;
+      m_faces.insert (FaceMetric (face, real_metric));	//first metric
     }
   else
   {
