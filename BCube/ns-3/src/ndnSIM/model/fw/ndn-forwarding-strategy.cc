@@ -727,10 +727,9 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		uint32_t choice = rand()%npaths;	//make a random choice
 		uint32_t label = record->GetRoutingCost()/10;
 		label /= pow(100,choice);
+		label = label %100;
 		tag.SetForwardingTag(label);
 		tag.SetNextHop(label%10);
-		if(Names::FindName(inFace->GetNode())=="S301")
-			NS_LOG_UNCOND("S301: label="<<label);
 		
 		/*if(Names::FindName(inFace->GetNode())=="S10")
 			NS_LOG_UNCOND("S10 chooses level="<<label/10<<" face="<<label%10);*/
