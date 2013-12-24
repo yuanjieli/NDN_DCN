@@ -124,8 +124,7 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
   FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
   if (record == m_faces.get<i_face> ().end ())
     {
-      int32_t real_metric = metric*10+1;
-      m_faces.insert (FaceMetric (face, real_metric));	//first metric
+      m_faces.insert (FaceMetric (face, metric));	//first metric
     }
   else
   {
@@ -140,13 +139,14 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
                         ll::bind (&FaceMetric::SetStatus, ll::_1, FaceMetric::NDN_FIB_YELLOW));
       }*/
     //For BCube(8,3), we need at most (3+1)*2+1=9 digits, so int32_t is just enough 
-    NS_LOG_UNCOND("Aha!");
-	m_faces.modify(record, 
+	m_faces.modify (record,
+                    ll::bind (&FaceMetric::SetRoutingCost, ll::_1, metric));
+	/*m_faces.modify(record, 
 				   ll::bind (&FaceMetric::SetRoutingCost, ll::_1,
 				   	record->GetRoutingCost ()%10+1	//#faces
 				   +(record->GetRoutingCost () - record->GetRoutingCost ()%10)*100	//previous routes (two-digit metric)	
 				   +metric*10	//new metrics
-				   ));
+				   ));*/
 	m_faces.modify (record,
                         ll::bind (&FaceMetric::SetStatus, ll::_1, FaceMetric::NDN_FIB_YELLOW));
   }

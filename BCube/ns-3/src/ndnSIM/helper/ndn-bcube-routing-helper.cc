@@ -623,8 +623,26 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
 					NS_ASSERT(face != 0);
 					
-					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
-		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?      
+					//Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
+		            //entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?   
+		            Ptr<fib::Entry> entry = fib->Find(*prefix);
+		            if(entry==0)	//new entry
+		            	 entry = fib->Add (prefix, face, 10*metric+1);
+		    		else
+		    		{
+		    			//find the face
+		    			fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   					= entry->m_faces.get<fib::i_face> ().find (face);
+	   					
+	   					if(record!=0)
+	   						entry = fib->Add (prefix, face, 
+	   										  record->GetRoutingCost ()%10+1	//#faces
+				   						     +(record->GetRoutingCost () - record->GetRoutingCost ()%10)*100	//previous routes (two-digit metric)	
+				   						     +metric*10	//new metrics
+				   							 );
+	   					else	//entry for other faces
+	   						entry = fib->Add (prefix, face, 10*metric+1);
+		    		}  
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
 		
@@ -636,14 +654,14 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		            }
 		            
 		            Ptr<fib::Entry> newentry = fib->Find(*prefix);
-		            fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	   				= newentry->m_faces.get<fib::i_face> ().find (face);
+		            fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record2
+	   				= entry->m_faces.get<fib::i_face> ().find (face);
 		            
 		            NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
 		            			<<" nexthop="<<A
 		            			<<" face="<<face->GetId()
-		            			<<" metric="<<record->GetRoutingCost());
+		            			<<" metric="<<record2->GetRoutingCost());
 					
 					
 				}
