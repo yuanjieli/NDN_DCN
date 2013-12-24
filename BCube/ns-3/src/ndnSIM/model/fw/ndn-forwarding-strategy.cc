@@ -703,13 +703,33 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 	if(packetToSend->RemovePacketTag(tag))	//there exists a tag: update m_cur
 	{
 		tag.SetPrevHop(tag.GetNextHop());
-		tag.SetNextHop(record->GetRoutingCost()%10);
+		uint32_t npaths = record->GetRoutingCost()%10;	//the same face may be used by multiple paths
+		uint32_t k = 0;
+		while(k!=npaths)
+		{
+			uint32_t label = record->GetRoutingCost()/10;
+			label /= pow(100,k);
+			label = label %100;
+			if(label/10 == tag.GetRoutingCost())
+			{
+				 tag.SetNextHop(label%10);
+				 break;
+			}
+			k++;
+		}
+		//tag.SetNextHop(record->GetRoutingCost()%10);
 	}
 	else	//no tag: MUST be from application/cosnumer
 	{
-		tag.SetForwardingTag(record->GetRoutingCost());
+		//tag.SetForwardingTag(record->GetRoutingCost());
 		tag.SetPrevHop(tag.GetNextHop());
-		tag.SetNextHop(record->GetRoutingCost()%10);
+		uint32_t npaths = record->GetRoutingCost()%10;	//the same face may be used by multiple paths
+		uint32_t choice = rand()%npaths;	//make a random choice
+		uint32_t label = record->GetRoutingCost()/10;
+		label /= pow(100,k);
+		tag.SetForwardingTag(label/10);
+		tag.SetNextHop(label%10);
+		//tag.SetNextHop(record->GetRoutingCost()%10);
 	}
 	
 	std::string node_name = Names::FindName(outFace->GetNode());

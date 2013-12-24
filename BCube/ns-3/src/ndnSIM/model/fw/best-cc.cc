@@ -201,9 +201,29 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 			 	{
 			 		/*NS_LOG_UNCOND("metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost()
 			 					<<" tag.GetRoutingCost()="<<tag.GetRoutingCost());*/
-				 	if((uint32_t)(metricFace.GetRoutingCost()/10)==tag.GetRoutingCost())
+				 	/*if((uint32_t)(metricFace.GetRoutingCost()/10)==tag.GetRoutingCost())
 				 	{
 					 	optimalFace = metricFace.GetFace();
+					 	break;
+				 	}*/
+				 	uint32_t npaths = metricFace.GetRoutingCost()%10;	//the same face may be used by multiple paths
+				 	uint32_t k = 0;
+				 	bool match = false;
+				 	while(k!=npaths)
+				 	{
+				 		uint32_t label = metricFace.GetRoutingCost()/10;
+				 		label /= pow(100,k);
+				 		label = label %100;
+				 		if(label/10 == tag.GetRoutingCost())
+				 		{
+				 			match = true;
+				 			break;
+				 		}
+				 		k++;
+				 	}
+				 	if(match)
+				 	{
+				 		optimalFace = metricFace.GetFace();
 					 	break;
 				 	}
 			 	}
