@@ -630,7 +630,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		            			<<" installs FIB "<<*prefix
 		            			<<" nexthop="<<A
 		            			<<" face="<<face->GetId()
-		            			<<" metric="<<fib->Find(prefix)->GetRoutingCost());
+		            			<<" metric="<<fib->Find(*prefix)->GetRoutingCost());
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
 		
