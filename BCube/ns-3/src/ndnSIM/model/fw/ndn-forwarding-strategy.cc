@@ -726,7 +726,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
 		uint32_t npaths = record->GetRoutingCost()%10;	//the same face may be used by multiple paths
 		uint32_t choice = rand()%npaths;	//make a random choice
 		uint32_t label = record->GetRoutingCost()/10;
-		label /= pow(100,k);
+		label /= pow(100,choice);
 		tag.SetForwardingTag(label/10);
 		tag.SetNextHop(label%10);
 		//tag.SetNextHop(record->GetRoutingCost()%10);
