@@ -106,7 +106,6 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
 {
   NS_LOG_FUNCTION (this->GetObject<Node> ()->GetId () << boost::cref(*prefix) << boost::cref(*face) << metric);
 
-  int32_t real_metric = 0;
   // will add entry if doesn't exists, or just return an iterator to the existing entry
   std::pair< super::iterator, bool > result = super::insert (*prefix, 0);
   if (result.first != super::end ())
