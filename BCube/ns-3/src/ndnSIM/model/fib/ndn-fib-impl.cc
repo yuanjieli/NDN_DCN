@@ -122,7 +122,7 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
   	  {
       	super::modify (result.first,
                      ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 10*metric+1));
-      	NS_LOG_UNCOND("Here?");
+      	NS_LOG_UNCOND("Here? "<<10*metric+1);
       }
       else
       {
