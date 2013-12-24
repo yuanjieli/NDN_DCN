@@ -119,8 +119,11 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
         
       int32_t old_metric = result.first->payload()->GetRoutingMetric(face);
   	  if(old_metric==-1)	
+  	  {
       	super::modify (result.first,
                      ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 10*metric+1));
+      	NS_LOG_UNCOND("Here?");
+      }
       else
       {
       	
