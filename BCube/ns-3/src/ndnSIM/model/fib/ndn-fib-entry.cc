@@ -125,6 +125,7 @@ Entry::AddOrUpdateRoutingMetric (Ptr<Face> face, int32_t metric)
   if (record == m_faces.get<i_face> ().end ())
     {
       m_faces.insert (FaceMetric (face, metric*10+1));	//first metric
+      NS_LOG_UNCOND("metric="<<metric*10+1);
     }
   else
   {
