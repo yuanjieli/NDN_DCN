@@ -49,7 +49,7 @@ main (int argc, char *argv[])
   cmd.Parse (argc, argv);   
   	
 	//Read topology from BCube
-	AnnotatedTopologyReader topologyReader ("", 25);
+  AnnotatedTopologyReader topologyReader ("", 25);
   topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-3.txt");
   NodeContainer nodes = topologyReader.Read ();
   
