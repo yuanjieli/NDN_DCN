@@ -116,9 +116,17 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
             newEntry->SetTrie (result.first);
             result.first->set_payload (newEntry);
         }
-  
-      super::modify (result.first,
-                     ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, metric));
+  	  if(record->GetRoutingCost()%10==0)	
+      	super::modify (result.first,
+                     ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 10*metric+1));
+      else
+      	super::modify (result.first,
+                      ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, 
+                      record->GetRoutingCost ()%10+1	//#faces
+				     +(record->GetRoutingCost () - record->GetRoutingCost ()%10)*100	//previous routes (two-digit metric)	
+				     +metric*10	//new metrics
+				     ));
+                     
 
       if (result.second)
         {

@@ -103,7 +103,7 @@ Entry::UpdateStatus (Ptr<Face> face, FaceMetric::Status status)
   FaceMetricByFace::type::iterator record = m_faces.get<i_face> ().find (face);
   NS_ASSERT_MSG (record != m_faces.get<i_face> ().end (),
                  "Update status can be performed only on existing faces of CcxnFibEntry");
-
+  	
   m_faces.modify (record,
                   ll::bind (&FaceMetric::SetStatus, ll::_1, status));
 
