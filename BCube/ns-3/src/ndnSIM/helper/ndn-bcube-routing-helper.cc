@@ -627,7 +627,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
 		            
 		            fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
-	   				= fib->Find(*prefix)->m_faces.get<fib::i_face> ().find (face);
+	   				= entry->m_faces.get<fib::i_face> ().find (face);
 		            
 		            NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
