@@ -126,7 +126,7 @@ FibImpl::Add (const Ptr<const Name> &prefix, Ptr<Face> face, int32_t metric)
 				     +metric*10;	//new metrics
       }
         
-      NS_ASSERT("real_metric="<<real_metric);	
+      NS_LOG_UNCOND("real_metric="<<real_metric);	
       super::modify (result.first,
                      ll::bind (&Entry::AddOrUpdateRoutingMetric, ll::_1, face, real_metric));
       	
