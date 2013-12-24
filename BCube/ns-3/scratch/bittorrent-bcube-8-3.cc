@@ -83,7 +83,7 @@ main (int argc, char *argv[])
   				str += '0'+j;
   				str += '0'+k;
   				str += '0'+l;
-  				tr<BitTorrentClient> client = Create<BitTorrentClient> ();
+  				Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
   				client->SetTorrent (sharedTorrent);	
   				Names::Find<Node> (str)->AddApplication (client);
   				bitTorrentClients.Add (client);	
