@@ -214,8 +214,8 @@ Entry::ResetCount()
        face++)
     {
     	
-    		//if(Names::FindName(face->GetFace()->GetNode())=="S10")
-	    	/*NS_LOG_UNCOND(Names::FindName(face->GetFace()->GetNode())
+    		if(Names::FindName(face->GetFace()->GetNode())=="S333")
+	    	NS_LOG_UNCOND(Names::FindName(face->GetFace()->GetNode())
 	    				<<" prefix="<<*m_prefix
 	    				<<" faceID="<<face->GetFace()->GetId()
 	    				<<" fraction="<<face->GetFraction()
@@ -223,7 +223,7 @@ Entry::ResetCount()
 	    				<<" NACK="<<face->GetNack()
 	    				<<" Data_in="<<face->GetDataIn()
 	    				<<std::endl
-	    				);*/
+	    				);
 	    								
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
