@@ -220,10 +220,10 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 				 			break;
 				 		}
 				 		k++;
-				 		if(Names::FindName(inFace->GetNode())=="S201")
+				 		/*if(Names::FindName(inFace->GetNode())=="S201")
 				 			NS_LOG_UNCOND("label="<<label
 				 						<<" metricFace.GetRoutingCost()="<<metricFace.GetRoutingCost()
-				 						<<" tag.GetRoutingCost()="<<tag.GetRoutingCost()); 
+				 						<<" tag.GetRoutingCost()="<<tag.GetRoutingCost()); */
 				 	}
 				 	if(match)
 				 	{
