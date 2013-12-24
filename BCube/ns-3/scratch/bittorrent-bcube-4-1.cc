@@ -50,7 +50,7 @@ main (int argc, char *argv[])
   	
 	//Read topology from BCube
   AnnotatedTopologyReader topologyReader ("", 25);
-  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-2.txt");
+  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-2-bitorrent.txt");
   NodeContainer nodes = topologyReader.Read ();
   
   InternetStackHelper internet;
