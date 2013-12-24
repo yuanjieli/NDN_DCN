@@ -634,7 +634,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		    			fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
 	   					= entry->m_faces.get<fib::i_face> ().find (face);
 	   					
-	   					if(record!=0)
+	   					if(record!=entry->m_faces.get<fib::i_face> ().end())
 	   						entry = fib->Add (prefix, face, 
 	   										  record->GetRoutingCost ()%10+1	//#faces
 				   						     +(record->GetRoutingCost () - record->GetRoutingCost ()%10)*100	//previous routes (two-digit metric)	
