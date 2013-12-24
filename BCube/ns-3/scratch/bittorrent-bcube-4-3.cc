@@ -83,9 +83,9 @@ main (int argc, char *argv[])
   				str += '0'+j;
   				str += '0'+k;
   				str += '0'+l;
-  				Names::Find<Node> (str)->AddApplication (client);
   				Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
   				client->SetTorrent (sharedTorrent);	
+  				Names::Find<Node> (str)->AddApplication (client);		
   				if(i==0 && j==0 && k==0 && l==0)
   					DynamicCast<BitTorrentClient> (Names::Find<Node> (str)->GetApplication (1))->SetInitialBitfield ("full");
   			}
