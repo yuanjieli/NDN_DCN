@@ -75,14 +75,16 @@ main (int argc, char *argv[])
   ApplicationContainer bitTorrentClients;
   for(uint8_t i=0; i<4; i++)
   	for(uint8_t j=0; j<4; j++)
+  		for(uint8_t k=0; k<4; k++)
   			{
   				std::string str = "S";
   				str += '0'+i;
   				str += '0'+j;
+  				str += '0'+k;
   				Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
   				client->SetTorrent (sharedTorrent);	
   				Names::Find<Node> (str)->AddApplication (client);		
-  				if(i==0 && j==0)
+  				if(i==0 && j==0 && k==0)
   					DynamicCast<BitTorrentClient> (Names::Find<Node> (str)->GetApplication (1))->SetInitialBitfield ("full");
   			}
   
