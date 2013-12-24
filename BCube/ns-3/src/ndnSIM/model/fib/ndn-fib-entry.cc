@@ -222,7 +222,7 @@ Entry::ResetCount()
 	    				<<" interest="<<face->GetInterest()
 	    				<<" NACK="<<face->GetNack()
 	    				<<" Data_in="<<face->GetDataIn()
-	    				<<endl
+	    				<<std::endl
 	    				);
 	    								
       m_faces.modify (face,
