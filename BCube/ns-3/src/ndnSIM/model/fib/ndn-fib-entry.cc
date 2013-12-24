@@ -214,7 +214,7 @@ Entry::ResetCount()
        face++)
     {
     	
-    		if(Names::FindName(face->GetFace()->GetNode())=="S10")
+    		//if(Names::FindName(face->GetFace()->GetNode())=="S10")
 	    	NS_LOG_UNCOND(Names::FindName(face->GetFace()->GetNode())
 	    				<<" prefix="<<*m_prefix
 	    				<<" faceID="<<face->GetFace()->GetId()
@@ -222,7 +222,7 @@ Entry::ResetCount()
 	    				<<" interest="<<face->GetInterest()
 	    				<<" NACK="<<face->GetNack()
 	    				<<" Data_in="<<face->GetDataIn()
-	    			  //<<" Data_CE="<<face->GetDataCE()
+	    				<<endl
 	    				);
 	    								
       m_faces.modify (face,
