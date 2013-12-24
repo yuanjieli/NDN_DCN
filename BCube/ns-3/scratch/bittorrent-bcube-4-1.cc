@@ -50,7 +50,7 @@ main (int argc, char *argv[])
   	
 	//Read topology from BCube
   AnnotatedTopologyReader topologyReader ("", 25);
-  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-1.txt");
+  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-2.txt");
   NodeContainer nodes = topologyReader.Read ();
   
   InternetStackHelper internet;
@@ -66,7 +66,7 @@ main (int argc, char *argv[])
  	
   // 1) Install a BitTorrentTracker application (with default values) on one of the nodes
   Ptr<BitTorrentTracker> bitTorrentTracker = Create<BitTorrentTracker> ();
-  Names::Find<Node> ("S00")->AddApplication (bitTorrentTracker);	
+  Names::Find<Node> ("S000")->AddApplication (bitTorrentTracker);	
   
   // 2) Load a torrent file via the tracker application
   Ptr<Torrent> sharedTorrent = bitTorrentTracker->AddTorrent ("input/bittorrent/torrent-data", "input/bittorrent/torrent-data/100MB-full.dat.torrent");
