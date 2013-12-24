@@ -626,11 +626,14 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
 		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
 		            
+		            fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record
+	   				= fib->Find(*prefix)->m_faces.get<fib::i_face> ().find (face);
+		            
 		            NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
 		            			<<" nexthop="<<A
 		            			<<" face="<<face->GetId()
-		            			<<" metric="<<fib->Find(*prefix)->GetRoutingCost());
+		            			<<" metric="<<record->GetRoutingCost());
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
 		
