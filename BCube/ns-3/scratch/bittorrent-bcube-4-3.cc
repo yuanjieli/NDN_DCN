@@ -73,8 +73,6 @@ main (int argc, char *argv[])
   
   // 3) Install BitTorrentClient applications on the desired number of nodes
   ApplicationContainer bitTorrentClients;
-  Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
-  client->SetTorrent (sharedTorrent);
   for(uint8_t i=0; i<4; i++)
   	for(uint8_t j=0; j<4; j++)
   		for(uint8_t k=0; k<4; k++)
@@ -86,7 +84,8 @@ main (int argc, char *argv[])
   				str += '0'+k;
   				str += '0'+l;
   				Names::Find<Node> (str)->AddApplication (client);
-  				bitTorrentClients.Add (client);	
+  				Ptr<BitTorrentClient> client = Create<BitTorrentClient> ();
+  				client->SetTorrent (sharedTorrent);	
   				if(i==0 && j==0 && k==0 && l==0)
   					DynamicCast<BitTorrentClient> (Names::Find<Node> (str)->GetApplication (1))->SetInitialBitfield ("full");
   			}
