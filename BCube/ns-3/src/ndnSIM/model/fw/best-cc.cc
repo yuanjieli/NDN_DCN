@@ -242,10 +242,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 	 	//Step2: For consumers, do static traffic splitting
 	 	else	
 	 	{
-	 		double totalweight = 0;
+	 			double totalweight = 0;
 		  	BOOST_FOREACH (const fib::FaceMetric &metricFace, pitEntry->GetFibEntry ()->m_faces.get<fib::i_metric> ())
 		  	{
-		  		//SHOULD be redundant since inFace is appFace
 		  		if(metricFace.GetFace()!=inFace)//it happens when using non-shortest path
 		  			totalweight += metricFace.GetFraction();
 		  	}
@@ -277,9 +276,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  		return false;
 		  	}
 	 	}
-	}
-	
-	    	
+	}	    	
 	 //If we cannot send interest through optimalFace, increase NACK
 	 if(!CanSendOutInterest (inFace, optimalFace, header, origPacket, pitEntry))
 	 {
@@ -308,7 +305,7 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
         	pitEntry->GetFibEntry ()->m_faces.modify (record,
                       ll::bind (&fib::FaceMetric::IncreaseInterest, ll::_1));
       }  
-      //////////////////////////////////////////
+    //////////////////////////////////////////
   
   NS_LOG_INFO ("Propagated to " << propagatedCount << " faces");
   return propagatedCount > 0;

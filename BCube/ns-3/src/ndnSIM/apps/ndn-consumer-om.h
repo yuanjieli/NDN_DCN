@@ -22,7 +22,7 @@
 #define NDN_CONSUMER_OM_H
 
 #include "ndn-consumer.h"
-
+#include "ns3/random-variable-stream.h"
 namespace ns3 {
 namespace ndn {
 
@@ -104,9 +104,7 @@ protected:
   
   TracedCallback<Ptr<Node> /* node */, uint32_t /* appID */,
                  Time /* time */, double /*m_limit*/> m_TraceLimit;
-                 
-  
-  
+                  
 };
 
 } // namespace ndn

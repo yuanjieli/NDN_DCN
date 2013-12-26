@@ -41,7 +41,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("10"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
   
@@ -61,12 +61,13 @@ main (int argc, char *argv[])
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
   ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
-  ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
+  ndnHelper.EnableLimits(true,Seconds(0.1),40,10000);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S000"));
+  //ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,2);	
   ndnGlobalRoutingHelper.CalculateSharingRoutes (4,2);
   
   int simulation_time = 400;
@@ -76,7 +77,14 @@ main (int argc, char *argv[])
   producerHelper.SetPrefix ("/prefix");
   producerHelper.SetAttribute ("PayloadSize", StringValue("1024"));
   producerHelper.Install (Names::Find<Node>("S000"));
-  
+  	
+  /*ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
+  ApplicationContainer consumers;	
+  consumerHelper.SetPrefix ("/prefix");
+  consumers = consumerHelper.Install ("S001"); 
+  consumers.Start (Seconds (0));	
+  consumers.Stop (Seconds (simulation_time));*/
+  		
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   ApplicationContainer consumers;
   for(uint8_t i=0; i<4; i++)

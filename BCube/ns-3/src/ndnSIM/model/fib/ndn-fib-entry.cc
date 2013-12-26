@@ -214,7 +214,7 @@ Entry::ResetCount()
        face++)
     {
     	
-    		if(Names::FindName(face->GetFace()->GetNode())=="S333")
+    		/*if(face->GetFace()->GetNode()->GetId()==1)
 	    	NS_LOG_UNCOND(Names::FindName(face->GetFace()->GetNode())
 	    				<<" prefix="<<*m_prefix
 	    				<<" faceID="<<face->GetFace()->GetId()
@@ -223,7 +223,7 @@ Entry::ResetCount()
 	    				<<" NACK="<<face->GetNack()
 	    				<<" Data_in="<<face->GetDataIn()
 	    				<<std::endl
-	    				);
+	    				);*/
 	    								
       m_faces.modify (face,
                       ll::bind (&FaceMetric::ResetCounter, ll::_1));
@@ -266,8 +266,9 @@ Entry::ResetCount()
     		}							
     }
   q_var = sqrt(q_var)/facecount;
-  //K = K_bound*tanh(q_var/(1+q_mean)/5);  
-  K = K_bound*tanh(q_var/(1+q_mean)/2);  
+  K = K_bound*tanh(q_var/(1+q_mean)/5);  
+  //K = K_bound*tanh(q_var/(1+q_mean)/2);  
+  //K = K_bound*tanh(q_var/(1+q_mean)); 
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
        face != m_faces.end ();

@@ -466,7 +466,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     	////////////////////////////////////////////////////////////////////
     	Ptr<Packet> target = origPacket->Copy();
     	Ptr<ContentObject> NewHeader = Create<ContentObject> ();
-    	target->RemoveHeader(*NewHeader);
+    	target->RemoveHeader(*NewHeader);   	
     	
     	BCubeTag tag;
     	target->RemovePacketTag(tag);
@@ -475,6 +475,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     				<<": m_localport="<<incoming.m_localport);*/
     	target->AddPacketTag(tag);	
     	target->AddHeader(*NewHeader);	
+    	
     	////////////////////////////////////////////////////////////////////
       
       bool ok = incoming.m_face->Send (target);
@@ -689,7 +690,7 @@ ForwardingStrategy::TrySendOutInterest (Ptr<Face> inFace,
     {
       return false;
     }
-
+		
   pitEntry->AddOutgoing (outFace); 
 
   //transmission

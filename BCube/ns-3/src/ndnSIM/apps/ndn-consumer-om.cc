@@ -35,6 +35,13 @@
 
 #include "ns3/names.h"
 
+#include <boost/ref.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/bind.hpp>
+
+namespace ll = boost::lambda;
+
 #include <set>
 #include <list>
 #include <string>
@@ -103,8 +110,10 @@ ConsumerOm::ConsumerOm ()
 {
   NS_LOG_FUNCTION_NOARGS ();
   m_seqMax = std::numeric_limits<uint32_t>::max ();
+  //NS_LOG_UNCOND("m_seqMax="<<m_seqMax);	
   m_limit = m_initLimit;
   Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
+ 	
 }
 
 ConsumerOm::~ConsumerOm ()
@@ -120,14 +129,14 @@ ConsumerOm::ScheduleNextPacket ()
   if (m_firstTime)
     {
       m_sendEvent = Simulator::Schedule (Seconds (0.0),
-                                         //&Consumer::SendPacket, this);
-                                         &ConsumerOm::SendRandomPacket, this);
+                                         &Consumer::SendPacket, this);
+                                         //&ConsumerOm::SendRandomPacket, this);
       m_firstTime = false;
     }
   else if (!m_sendEvent.IsRunning ())
     m_sendEvent = Simulator::Schedule (Seconds(1.0 / m_limit),
-                                       //&Consumer::SendPacket, this);
-                                       &ConsumerOm::SendRandomPacket, this);
+                                       &Consumer::SendPacket, this);
+                                       //&ConsumerOm::SendRandomPacket, this);
 }
 
 
@@ -145,7 +154,7 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
 	m_alpha = m_alpha_max;
 	m_inited = true;
   }
-	
+  	
   Consumer::OnContentObject (contentObject, payload); // tracing inside
   //update interest limit
   if(contentObject->GetCE()!=2)	//not a local cache hit
@@ -157,8 +166,10 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   	m_data_count++;
   }
   else	//local hit, send next requests immediately
-  	//SendPacket();
-  	SendRandomPacket();
+  {	
+  	SendPacket();
+  	//SendRandomPacket();
+  }
   		
   /*if(m_sendEvent.IsRunning())
   {
@@ -234,8 +245,8 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 			m_alpha -= (double)(interest->GetIntraSharing())/100.0;
 			if(m_alpha<=0)m_alpha = 1;
 		}
-		if (m_limit <= m_initLimit)		//we need to avoid non-sense interest limit
-			m_limit = m_initLimit;	
+		if (m_limit <= 0.1)		//we need to avoid non-sense interest limit
+			m_limit = 0.1;	
 			
 		/*if(m_sendEvent.IsRunning())
 	  {
@@ -263,7 +274,8 @@ ConsumerOm::ShowInterestLimit()
 	//NS_LOG_UNCOND("ConsumerOm "<<Names::FindName(m_node)<<": "<<m_data_count/109.5);
 	NS_LOG_UNCOND(Simulator::Now().GetSeconds()
 				<<" "<<m_node->GetId()
-				<<" "<<m_data_count/109.5);
+				//<<" "<<m_data_count/109.5);
+				<<" "<<m_data_count/12.45);
 	
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
@@ -280,7 +292,9 @@ ConsumerOm::SendRandomPacket()
   NS_LOG_FUNCTION_NOARGS ();
 
   uint32_t seq=m_rand.GetValue (0,m_seqMax); 
+  //uint32_t seq = m_exp_rand.GetInteger(100000, m_seqMax);
   //uint32_t seq=m_rand.GetValue (); 
+  			
 
   Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
   (*nameWithSequence) (seq);

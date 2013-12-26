@@ -432,7 +432,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			}	
 			
 			//Part II
-			uint32_t nserver = pow(m_n,m_k+1);	//total number of servers
+			uint32_t nserver = pow((double)m_n,(double)m_k+1);	//total number of servers
 			for(uint32_t i = 0; i != nserver; i++)
 			{
 				std::string s_name = GetBCubeId(i, m_n, m_k);
@@ -484,13 +484,16 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 					NS_ASSERT(digit != m_k+2);
 					 
 					int32_t metric = level*10+T[it_link->second];
+					metric = 10*metric+1;
+					
 					Ptr<BCubeL3Protocol> ndn = it_link->second->GetObject<BCubeL3Protocol> ();
 					NS_ASSERT(ndn != 0);
 					Ptr<Face> face = ndn->GetUploadFace ((digit-1)*2);
 					NS_ASSERT(face != 0);
-					
+				
 					Ptr<fib::Entry> entry = fib->Add (prefix, face, metric);
-		            entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
+										
+		      entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
 		            
 		            NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
@@ -625,11 +628,11 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 					
 					//For BCube(8,3), we need at most (3+1)*2+1=9 digits, so int32_t is just enough 
 					//Ptr<fib::Entry> entry = fib->Add (prefix, face, metric); 
-		            Ptr<fib::Entry> entry = fib->Find(*prefix);
-		            if(entry==0)	//new entry
-		            {
-		            	 entry = fib->Add (prefix, face, 10*metric+1);
-		            }
+		        Ptr<fib::Entry> entry = fib->Find(*prefix);
+            if(entry==0)	//new entry
+            {
+            	 entry = fib->Add (prefix, face, 10*metric+1);
+            }
 		    		else
 		    		{
 		    			//find the face
