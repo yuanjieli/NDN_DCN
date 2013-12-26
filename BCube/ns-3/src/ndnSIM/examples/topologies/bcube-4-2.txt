@@ -1,0 +1,313 @@
+#BCube(4,2)
+
+router
+
+# node  comment     yPos    xPos
+S000     NA          1       1
+S001     NA          1       1
+S002     NA          1       1
+S003     NA          1       1
+S010     NA          1       1
+S011     NA          1       1
+S012     NA          1       1
+S013     NA          1       1
+S020     NA          1       1
+S021     NA          1       1
+S022     NA          1       1
+S023     NA          1       1
+S030     NA          1       1
+S031     NA          1       1
+S032     NA          1       1
+S033     NA          1       1
+S100     NA          1       1
+S101     NA          1       1
+S102     NA          1       1
+S103     NA          1       1
+S110     NA          1       1
+S111     NA          1       1
+S112     NA          1       1
+S113     NA          1       1
+S120     NA          1       1
+S121     NA          1       1
+S122     NA          1       1
+S123     NA          1       1
+S130     NA          1       1
+S131     NA          1       1
+S132     NA          1       1
+S133     NA          1       1
+S200     NA          1       1
+S201     NA          1       1
+S202     NA          1       1
+S203     NA          1       1
+S210     NA          1       1
+S211     NA          1       1
+S212     NA          1       1
+S213     NA          1       1
+S220     NA          1       1
+S221     NA          1       1
+S222     NA          1       1
+S223     NA          1       1
+S230     NA          1       1
+S231     NA          1       1
+S232     NA          1       1
+S233     NA          1       1
+S300     NA          1       1
+S301     NA          1       1
+S302     NA          1       1
+S303     NA          1       1
+S310     NA          1       1
+S311     NA          1       1
+S312     NA          1       1
+S313     NA          1       1
+S320     NA          1       1
+S321     NA          1       1
+S322     NA          1       1
+S323     NA          1       1
+S330     NA          1       1
+S331     NA          1       1
+S332     NA          1       1
+S333     NA          1       1
+R0     NA          1       1
+R1     NA          1       1
+R2     NA          1       1
+R3     NA          1       1
+R4     NA          1       1
+R5     NA          1       1
+R6     NA          1       1
+R7     NA          1       1
+R8     NA          1       1
+R9     NA          1       1
+R10     NA          1       1
+R11     NA          1       1
+R12     NA          1       1
+R13     NA          1       1
+R14     NA          1       1
+R15     NA          1       1
+R16     NA          1       1
+R17     NA          1       1
+R18     NA          1       1
+R19     NA          1       1
+R20     NA          1       1
+R21     NA          1       1
+R22     NA          1       1
+R23     NA          1       1
+R24     NA          1       1
+R25     NA          1       1
+R26     NA          1       1
+R27     NA          1       1
+R28     NA          1       1
+R29     NA          1       1
+R30     NA          1       1
+R31     NA          1       1
+R32     NA          1       1
+R33     NA          1       1
+R34     NA          1       1
+R35     NA          1       1
+R36     NA          1       1
+R37     NA          1       1
+R38     NA          1       1
+R39     NA          1       1
+R40     NA          1       1
+R41     NA          1       1
+R42     NA          1       1
+R43     NA          1       1
+R44     NA          1       1
+R45     NA          1       1
+R46     NA          1       1
+R47     NA          1       1
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+R0        S000        10Mbps      1        1us    50
+R0        S100        10Mbps      1        1us    50
+R0        S200        10Mbps      1        1us    50
+R0        S300        10Mbps      1        1us    50
+R1        S001        10Mbps      1        1us    50
+R1        S101        10Mbps      1        1us    50
+R1        S201        10Mbps      1        1us    50
+R1        S301        10Mbps      1        1us    50
+R2        S002        10Mbps      1        1us    50
+R2        S102        10Mbps      1        1us    50
+R2        S202        10Mbps      1        1us    50
+R2        S302        10Mbps      1        1us    50
+R3        S003        10Mbps      1        1us    50
+R3        S103        10Mbps      1        1us    50
+R3        S203        10Mbps      1        1us    50
+R3        S303        10Mbps      1        1us    50
+R4        S010        10Mbps      1        1us    50
+R4        S110        10Mbps      1        1us    50
+R4        S210        10Mbps      1        1us    50
+R4        S310        10Mbps      1        1us    50
+R5        S011        10Mbps      1        1us    50
+R5        S111        10Mbps      1        1us    50
+R5        S211        10Mbps      1        1us    50
+R5        S311        10Mbps      1        1us    50
+R6        S012        10Mbps      1        1us    50
+R6        S112        10Mbps      1        1us    50
+R6        S212        10Mbps      1        1us    50
+R6        S312        10Mbps      1        1us    50
+R7        S013        10Mbps      1        1us    50
+R7        S113        10Mbps      1        1us    50
+R7        S213        10Mbps      1        1us    50
+R7        S313        10Mbps      1        1us    50
+R8        S020        10Mbps      1        1us    50
+R8        S120        10Mbps      1        1us    50
+R8        S220        10Mbps      1        1us    50
+R8        S320        10Mbps      1        1us    50
+R9        S021        10Mbps      1        1us    50
+R9        S121        10Mbps      1        1us    50
+R9        S221        10Mbps      1        1us    50
+R9        S321        10Mbps      1        1us    50
+R10        S022        10Mbps      1        1us    50
+R10        S122        10Mbps      1        1us    50
+R10        S222        10Mbps      1        1us    50
+R10        S322        10Mbps      1        1us    50
+R11        S023        10Mbps      1        1us    50
+R11        S123        10Mbps      1        1us    50
+R11        S223        10Mbps      1        1us    50
+R11        S323        10Mbps      1        1us    50
+R12        S030        10Mbps      1        1us    50
+R12        S130        10Mbps      1        1us    50
+R12        S230        10Mbps      1        1us    50
+R12        S330        10Mbps      1        1us    50
+R13        S031        10Mbps      1        1us    50
+R13        S131        10Mbps      1        1us    50
+R13        S231        10Mbps      1        1us    50
+R13        S331        10Mbps      1        1us    50
+R14        S032        10Mbps      1        1us    50
+R14        S132        10Mbps      1        1us    50
+R14        S232        10Mbps      1        1us    50
+R14        S332        10Mbps      1        1us    50
+R15        S033        10Mbps      1        1us    50
+R15        S133        10Mbps      1        1us    50
+R15        S233        10Mbps      1        1us    50
+R15        S333        10Mbps      1        1us    50
+R16        S000        10Mbps      1        1us    50
+R16        S010        10Mbps      1        1us    50
+R16        S020        10Mbps      1        1us    50
+R16        S030        10Mbps      1        1us    50
+R17        S001        10Mbps      1        1us    50
+R17        S011        10Mbps      1        1us    50
+R17        S021        10Mbps      1        1us    50
+R17        S031        10Mbps      1        1us    50
+R18        S002        10Mbps      1        1us    50
+R18        S012        10Mbps      1        1us    50
+R18        S022        10Mbps      1        1us    50
+R18        S032        10Mbps      1        1us    50
+R19        S003        10Mbps      1        1us    50
+R19        S013        10Mbps      1        1us    50
+R19        S023        10Mbps      1        1us    50
+R19        S033        10Mbps      1        1us    50
+R20        S100        10Mbps      1        1us    50
+R20        S110        10Mbps      1        1us    50
+R20        S120        10Mbps      1        1us    50
+R20        S130        10Mbps      1        1us    50
+R21        S101        10Mbps      1        1us    50
+R21        S111        10Mbps      1        1us    50
+R21        S121        10Mbps      1        1us    50
+R21        S131        10Mbps      1        1us    50
+R22        S102        10Mbps      1        1us    50
+R22        S112        10Mbps      1        1us    50
+R22        S122        10Mbps      1        1us    50
+R22        S132        10Mbps      1        1us    50
+R23        S103        10Mbps      1        1us    50
+R23        S113        10Mbps      1        1us    50
+R23        S123        10Mbps      1        1us    50
+R23        S133        10Mbps      1        1us    50
+R24        S200        10Mbps      1        1us    50
+R24        S210        10Mbps      1        1us    50
+R24        S220        10Mbps      1        1us    50
+R24        S230        10Mbps      1        1us    50
+R25        S201        10Mbps      1        1us    50
+R25        S211        10Mbps      1        1us    50
+R25        S221        10Mbps      1        1us    50
+R25        S231        10Mbps      1        1us    50
+R26        S202        10Mbps      1        1us    50
+R26        S212        10Mbps      1        1us    50
+R26        S222        10Mbps      1        1us    50
+R26        S232        10Mbps      1        1us    50
+R27        S203        10Mbps      1        1us    50
+R27        S213        10Mbps      1        1us    50
+R27        S223        10Mbps      1        1us    50
+R27        S233        10Mbps      1        1us    50
+R28        S300        10Mbps      1        1us    50
+R28        S310        10Mbps      1        1us    50
+R28        S320        10Mbps      1        1us    50
+R28        S330        10Mbps      1        1us    50
+R29        S301        10Mbps      1        1us    50
+R29        S311        10Mbps      1        1us    50
+R29        S321        10Mbps      1        1us    50
+R29        S331        10Mbps      1        1us    50
+R30        S302        10Mbps      1        1us    50
+R30        S312        10Mbps      1        1us    50
+R30        S322        10Mbps      1        1us    50
+R30        S332        10Mbps      1        1us    50
+R31        S303        10Mbps      1        1us    50
+R31        S313        10Mbps      1        1us    50
+R31        S323        10Mbps      1        1us    50
+R31        S333        10Mbps      1        1us    50
+R32        S000        10Mbps      1        1us    50
+R32        S001        10Mbps      1        1us    50
+R32        S002        10Mbps      1        1us    50
+R32        S003        10Mbps      1        1us    50
+R33        S010        10Mbps      1        1us    50
+R33        S011        10Mbps      1        1us    50
+R33        S012        10Mbps      1        1us    50
+R33        S013        10Mbps      1        1us    50
+R34        S020        10Mbps      1        1us    50
+R34        S021        10Mbps      1        1us    50
+R34        S022        10Mbps      1        1us    50
+R34        S023        10Mbps      1        1us    50
+R35        S030        10Mbps      1        1us    50
+R35        S031        10Mbps      1        1us    50
+R35        S032        10Mbps      1        1us    50
+R35        S033        10Mbps      1        1us    50
+R36        S100        10Mbps      1        1us    50
+R36        S101        10Mbps      1        1us    50
+R36        S102        10Mbps      1        1us    50
+R36        S103        10Mbps      1        1us    50
+R37        S110        10Mbps      1        1us    50
+R37        S111        10Mbps      1        1us    50
+R37        S112        10Mbps      1        1us    50
+R37        S113        10Mbps      1        1us    50
+R38        S120        10Mbps      1        1us    50
+R38        S121        10Mbps      1        1us    50
+R38        S122        10Mbps      1        1us    50
+R38        S123        10Mbps      1        1us    50
+R39        S130        10Mbps      1        1us    50
+R39        S131        10Mbps      1        1us    50
+R39        S132        10Mbps      1        1us    50
+R39        S133        10Mbps      1        1us    50
+R40        S200        10Mbps      1        1us    50
+R40        S201        10Mbps      1        1us    50
+R40        S202        10Mbps      1        1us    50
+R40        S203        10Mbps      1        1us    50
+R41        S210        10Mbps      1        1us    50
+R41        S211        10Mbps      1        1us    50
+R41        S212        10Mbps      1        1us    50
+R41        S213        10Mbps      1        1us    50
+R42        S220        10Mbps      1        1us    50
+R42        S221        10Mbps      1        1us    50
+R42        S222        10Mbps      1        1us    50
+R42        S223        10Mbps      1        1us    50
+R43        S230        10Mbps      1        1us    50
+R43        S231        10Mbps      1        1us    50
+R43        S232        10Mbps      1        1us    50
+R43        S233        10Mbps      1        1us    50
+R44        S300        10Mbps      1        1us    50
+R44        S301        10Mbps      1        1us    50
+R44        S302        10Mbps      1        1us    50
+R44        S303        10Mbps      1        1us    50
+R45        S310        10Mbps      1        1us    50
+R45        S311        10Mbps      1        1us    50
+R45        S312        10Mbps      1        1us    50
+R45        S313        10Mbps      1        1us    50
+R46        S320        10Mbps      1        1us    50
+R46        S321        10Mbps      1        1us    50
+R46        S322        10Mbps      1        1us    50
+R46        S323        10Mbps      1        1us    50
+R47        S330        10Mbps      1        1us    50
+R47        S331        10Mbps      1        1us    50
+R47        S332        10Mbps      1        1us    50
+R47        S333        10Mbps      1        1us    50

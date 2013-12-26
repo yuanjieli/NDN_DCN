@@ -1,0 +1,18 @@
+#BCube(4,0)
+
+router
+
+# node  comment     yPos    xPos
+S0     NA          1       1
+S1     NA          1       1
+S2     NA          1       1
+S3     NA          1       1
+R0     NA          1       1
+
+link
+
+# srcNode   dstNode     bandwidth   metric  delay   queue
+R0        S0        10Mbps      1        1ms    20
+R0        S1        10Mbps      1        1ms    20
+R0        S2        10Mbps      1        1ms    20
+R0        S3        10Mbps      1        1ms    20
