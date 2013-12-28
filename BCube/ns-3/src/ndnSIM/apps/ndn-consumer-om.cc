@@ -179,7 +179,7 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
   }
   else	//local hit, send next requests immediately
   {	
-  	//SendPacket();
+  	SendPacket();
   	//SendRandomPacket();
   }
   		
