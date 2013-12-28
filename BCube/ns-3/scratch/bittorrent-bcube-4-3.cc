@@ -50,7 +50,7 @@ main (int argc, char *argv[])
   	
 	//Read topology from BCube
   AnnotatedTopologyReader topologyReader ("", 25);
-  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-3.txt");
+  topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-4-3-bittorrent.txt");
   NodeContainer nodes = topologyReader.Read ();
   
   InternetStackHelper internet;
@@ -75,7 +75,7 @@ main (int argc, char *argv[])
 	client->SetTorrent (sharedTorrent);	
 	Names::Find<Node> ("S0000")->AddApplication (client);		
 	DynamicCast<BitTorrentClient> (Names::Find<Node> ("S0000")->GetApplication (1))->SetInitialBitfield ("full");
-  for(uint8_t i=0; i<4; i++)
+  /*for(uint8_t i=0; i<4; i++)
   	for(uint8_t j=0; j<4; j++)
   		for(uint8_t k=0; k<4; k++)
   			for(uint8_t l=0; l<4; l++)
@@ -90,8 +90,8 @@ main (int argc, char *argv[])
 	  				client = Create<BitTorrentClient> ();
 	  				client->SetTorrent (sharedTorrent);	
 	  				Names::Find<Node> (str)->AddApplication (client);	 														
-  			}
-  /*client = Create<BitTorrentClient> ();
+  			}*/
+  client = Create<BitTorrentClient> ();
 	client->SetTorrent (sharedTorrent);	
 	Names::Find<Node> ("S0001")->AddApplication (client);	
 	client = Create<BitTorrentClient> ();
@@ -99,7 +99,7 @@ main (int argc, char *argv[])
 	Names::Find<Node> ("S0011")->AddApplication (client);	
 	client = Create<BitTorrentClient> ();
 	client->SetTorrent (sharedTorrent);	
-	Names::Find<Node> ("S0111")->AddApplication (client);	*/					
+	Names::Find<Node> ("S0111")->AddApplication (client);						
   
   // 4) Set up the BitTorrent metrics gatherer for output handling (here, we just log to the screen)
   GlobalMetricsGatherer* gatherer = GlobalMetricsGatherer::GetInstance ();

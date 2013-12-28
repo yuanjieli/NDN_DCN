@@ -41,7 +41,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("100"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
   
@@ -87,7 +87,7 @@ main (int argc, char *argv[])
   			for(uint8_t l=0; l<4; l++)
   			{
   				if(i==0 && j==0 && k==0 && l==0)continue;
-  				//if(rand()%10==1)
+  				//if(rand()%2==0)
   				{
   					consumerHelper.SetPrefix ("/prefix");
 	  				std::string str = "S";
