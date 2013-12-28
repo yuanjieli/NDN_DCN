@@ -126,6 +126,7 @@ void
 LimitsDeltaRate::UpdateBucket ()
 {
 	Ptr<Face> iFace = GetObject<Face>();
+	if(iFace==0)return;
 	NS_LOG_INFO(iFace->GetNode()->GetId()<<" "<<iFace->GetId()<<" "<<m_bucket<<" "<<m_nack<<" "<<GetAvailableInterestIncrement());
 	
 	
