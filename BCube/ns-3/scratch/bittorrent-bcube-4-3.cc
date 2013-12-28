@@ -88,9 +88,7 @@ main (int argc, char *argv[])
 	  				str += '0'+i;
 	  				str += '0'+j;
 	  				str += '0'+k;
-	  				str += '0'+l;
-	  				client = Create<BitTorrentClient> ();
-	  				client->SetTorrent (sharedTorrent);	
+	  				str += '0'+l;	  				
 	  				Names::Find<Node> (str)->AddApplication (client);	 
 	  			}
   			}
