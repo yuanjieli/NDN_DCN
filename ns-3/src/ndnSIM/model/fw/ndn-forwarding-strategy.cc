@@ -506,34 +506,6 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
     		if(inFace==0)	//local cache hit should not increase rate
     			NewHeader->SetCE(2);
     	}
-    	
-    	if(inFace!=0)
-		  {
-		  	Ptr<Node> node = inFace->GetNode();
-		  	NS_ASSERT(node!=0);
-		  	for(uint32_t k=0; k!=node->GetNApplications(); k++)
-		  	{
-		      	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
-		      	if(app!=0)
-		      	{
-		      		//If it is already forwarded to app, don't do it again
-		      		bool ignore = false;
-		      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
-		      		{
-		      			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
-		      				ignore = true;
-		      				break;
-		      			}
-		      		}
-		      		//if inFace is not an application face, we may have intra-sharing problem
-		      		if(!ignore && DynamicCast<AppFace>(inFace)==0)
-		      		{
-			      		app->OnExtraContentObject(header, payload->Copy());
-			      	}
-		      	}
-		      	
-		    }
-		  }
     		
     	target->AddHeader(*NewHeader);	
     	////////////////////////////////////////////////////////////////////
@@ -549,6 +521,47 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
           NS_LOG_DEBUG ("Cannot satisfy data to " << *incoming.m_face);
         }
     }
+    
+  //copy content to all applications of this node
+	bool extra_content = false;
+  Ptr<Node> node;
+  BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+  {
+  	if(DynamicCast<AppFace>(incoming.m_face)==0)
+  	{
+  		extra_content = true;
+  		node = incoming.m_face->GetNode();
+  		break;
+  	}
+  }  
+  //if(inFace!=0)
+  if(extra_content)
+  {
+  	//Ptr<Node> node = inFace->GetNode();
+  	NS_ASSERT(node!=0);
+  	for(uint32_t k=0; k!=node->GetNApplications(); k++)
+  	{
+      	Ptr<App> app = DynamicCast<App>(node->GetApplication(k));
+      	if(app!=0)
+      	{
+      		//If it is already forwarded to app, don't do it again
+      		bool ignore = false;
+      		BOOST_FOREACH (const pit::IncomingFace &incoming, pitEntry->GetIncoming ())
+      		{
+      			if(app->GetFace()->GetId()==incoming.m_face->GetId()){
+      				ignore = true;
+      				break;
+      			}
+      		}
+      		//if inFace is not an application face, we may have intra-sharing problem
+      		//if(!ignore && DynamicCast<AppFace>(inFace)==0)
+      		if(!ignore)
+      		{
+	      		app->OnExtraContentObject(header, payload->Copy());
+	      	}
+      	}      	
+    }
+  } 
 
   // All incoming interests are satisfied. Remove them
   pitEntry->ClearIncoming ();

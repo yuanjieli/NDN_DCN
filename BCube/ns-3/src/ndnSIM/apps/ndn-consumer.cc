@@ -287,7 +287,7 @@ Consumer::OnContentObject (const Ptr<const ContentObject> &contentObject,
   m_seqTimeouts.erase (seq);
   m_retxSeqs.erase (seq);
 
-  //m_rtt->AckSeq (SequenceNumber32 (seq));
+  m_rtt->AckSeq (SequenceNumber32 (seq));
 }
 
 void
