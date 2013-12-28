@@ -266,8 +266,8 @@ Entry::ResetCount()
     		}							
     }
   q_var = sqrt(q_var)/facecount;
-  K = K_bound*tanh(q_var/(1+q_mean)/5);  
-  //K = K_bound*tanh(q_var/(1+q_mean)/2);  
+ 	//K = K_bound*tanh(q_var/(1+q_mean)/5);  
+  K = K_bound*tanh(q_var/(1+q_mean)/2);  
   //K = K_bound*tanh(q_var/(1+q_mean)); 
   
   for (FaceMetricByFace::type::iterator face = m_faces.begin ();
@@ -275,7 +275,7 @@ Entry::ResetCount()
        face++)
     { 
     	
-	      if(m_inited)
+	      /*if(m_inited)
 	      {
 		      double fraction = face->GetFraction()
 		      								+ K * (face->GetFraction()*q_mean/100.0-face->GetNackOld());
@@ -286,7 +286,11 @@ Entry::ResetCount()
 		    {
 	    		m_faces.modify (face,
 	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100.0/facecount));
-		    }  	
+		    }*/
+		    
+		    m_faces.modify (face,
+	                      ll::bind (&FaceMetric::SetFraction, ll::_1,100.0/facecount));
+		    
     									
     }  
   m_inited = true; 

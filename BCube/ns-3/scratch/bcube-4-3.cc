@@ -41,7 +41,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("100"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("20"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
   
@@ -61,7 +61,7 @@ main (int argc, char *argv[])
   // Install NDN stack on all servers
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
-  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
+  ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");
   ndnHelper.EnableLimits(true,Seconds(0.1),40,10000);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
@@ -80,14 +80,16 @@ main (int argc, char *argv[])
   producerHelper.Install (Names::Find<Node>("S0000"));
   
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
+  //consumerHelper.SetAttribute("MaxSeq",IntegerValue(1000));	
   ApplicationContainer consumers;
-  for(uint8_t i=0; i<4; i++)
+  /*for(uint8_t i=0; i<4; i++)
   	for(uint8_t j=0; j<4; j++)
   		for(uint8_t k=0; k<4; k++)
   			for(uint8_t l=0; l<4; l++)
   			{
   				if(i==0 && j==0 && k==0 && l==0)continue;
   				//if(rand()%2==0)
+  				if(rand()%4==0)
   				{
   					consumerHelper.SetPrefix ("/prefix");
 	  				std::string str = "S";
@@ -100,7 +102,11 @@ main (int argc, char *argv[])
 	  				consumers.Stop (Seconds (simulation_time));
   				}
   				
-  			}
+  			}*/
+  consumerHelper.SetPrefix ("/prefix");	
+  consumers = consumerHelper.Install (Names::Find<Node>("S3333")); 
+	consumers.Start (Seconds (0));	
+	consumers.Stop (Seconds (simulation_time));		
    
   Simulator::Stop (Seconds (simulation_time));
 

@@ -191,8 +191,8 @@ Consumer::SendPacket ()
         {
           if (m_seq >= m_seqMax)
             {
-            	//NS_LOG_UNCOND("Node "<<GetNode()->GetId()<<" finishes at t="<<Simulator::Now().GetSeconds()<<"s");
-            	//NS_LOG_UNCOND(Simulator::Now().GetSeconds());
+            	NS_LOG_UNCOND("Node "<<GetNode()->GetId()<<" finishes at t="<<Simulator::Now().GetSeconds()<<"s");
+            	//NS_LOG_UNCOND(Simulator::Now().GetSeconds()<<" ");
               return; // we are totally done
             }
         }

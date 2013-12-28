@@ -154,19 +154,12 @@ ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
                    				 Ptr<Packet> payload)
 {
 	
-	/*uint32_t seq = boost::lexical_cast<uint32_t> (contentObject->GetName ().GetComponents ().back ());
+	uint32_t seq = boost::lexical_cast<uint32_t> (contentObject->GetName ().GetComponents ().back ());
 	if(!m_chunk_finished[seq])
 	{
 		chunk_count[seq]++;
 		m_chunk_finished[seq] = true;
-		m_total_chunk ++;
-		if(m_total_chunk == MAX_SEQ)
-		{
-			NS_LOG_UNCOND(Simulator::Now().GetSeconds()<<" "<<Names::FindName(m_node)<<" is done!");
-			//StopApplication();
-			return;					
-		}
-	}*/
+	}
 	
   if(!m_inited)
   {
@@ -218,8 +211,13 @@ ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
 	}
 	if(!match)
 	{
-		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" content="<<contentObject->GetName());
 		return;
+	}
+	uint32_t seq = boost::lexical_cast<uint32_t> (contentObject->GetName ().GetComponents ().back ());
+	if(!m_chunk_finished[seq])
+	{
+		m_chunk_finished[seq] = true;
 	}
 	//NS_LOG_UNCOND("OnExtraContentObject@"<<Names::FindName(m_node));
 	m_data_count++;
@@ -310,18 +308,20 @@ ConsumerOm::SendRandomPacket()
 	if (!m_active) return;
   NS_LOG_FUNCTION_NOARGS ();
 
-  uint32_t seq=m_rand.GetValue (0,m_seqMax); 
-  //uint32_t seq = m_exp_rand.GetInteger(100000, m_seqMax);
-  //uint32_t seq=m_rand.GetValue (); 
-  /*uint32_t seq = MAX_SEQ;
+  //uint32_t seq=m_rand.GetValue (0,MAX_SEQ); 
+  uint32_t seq = MAX_SEQ;
   for(size_t k=0; k!=MAX_SEQ; k++)
   	if(!m_chunk_finished[k])
   	{	
   		if(seq == MAX_SEQ || chunk_count[seq]<chunk_count[k])
   			seq = k;
+  			break;
   	}
 	if(seq==MAX_SEQ)
-		return;*/
+	{	
+		//NS_LOG_UNCOND("Node "<<GetNode()->GetId()<<" finishes at t="<<Simulator::Now().GetSeconds()<<"s");
+		return;
+	}
 		
   Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
   (*nameWithSequence) (seq);
@@ -332,13 +332,9 @@ ConsumerOm::SendRandomPacket()
   interestHeader.SetInterestLifetime    (m_interestLifeTime);
 
   // NS_LOG_INFO ("Requesting Interest: \n" << interestHeader);
-  NS_LOG_INFO ("> Interest for " << seq);
 
   Ptr<Packet> packet = Create<Packet> ();
   packet->AddHeader (interestHeader);
-  NS_LOG_DEBUG ("Interest packet size: " << packet->GetSize ());
-
-  NS_LOG_DEBUG ("Trying to add " << seq << " with " << Simulator::Now () << ". already " << m_seqTimeouts.size () << " items");
 
   /*m_seqTimeouts.insert (SeqTimeout (seq, Simulator::Now ()));
   m_seqFullDelay.insert (SeqTimeout (seq, Simulator::Now ()));

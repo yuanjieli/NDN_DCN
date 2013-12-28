@@ -376,7 +376,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 		for(size_t level = 0; level <= m_k; level++)
 		//size_t level = 0;	//As first step, let's create one spanning tree only
 		{
-			NS_LOG_UNCOND("Route with level="<<level);
+			//NS_LOG_UNCOND("Route with level="<<level);
 			//create root for this spanning tree
 			std::string root_name = src_name;
 			root_name[level+1] = '0' + (src_addr[level]+1)%m_n;
@@ -387,7 +387,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 			
 			TreeLink.push_back(std::make_pair(*node, root));
 			T[root] = src_addr[level]; 
-			NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
+			//NS_LOG_UNCOND("root: "<<src_name<<"->"<<root_name);
 			
 			//BuildSingSPT: Part I
 			for(size_t i = 0; i <= m_k; i++)
@@ -408,7 +408,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 						if(C!=*node)
 						{
 							TreeLink.push_back(std::make_pair(B, C));
-							NS_LOG_UNCOND("Part I: "<<Names::FindName(B)<<"->"<<C_name);
+							//NS_LOG_UNCOND("Part I: "<<Names::FindName(B)<<"->"<<C_name);
 							//T2.push_back(C);
 							std::string B_name = Names::FindName(B);
 						
@@ -451,7 +451,7 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 				Ptr<Node> S2 = Names::Find<Node>(s2_name);
 				NS_ASSERT(S2!=0);
 				TreeLink.push_back(std::make_pair(S2, S));
-				NS_LOG_UNCOND("Part II: "<<s2_name<<"->"<<s_name);
+				//NS_LOG_UNCOND("Part II: "<<s2_name<<"->"<<s_name);
 				//T.push_back(S);
 				T[S] = s2_name[level+1]-'0';
 			}
@@ -495,11 +495,11 @@ BCubeRoutingHelper::CalculateBCubeRoutes(uint32_t m_n, uint32_t m_k)
 										
 		      entry->SetRealDelayToProducer (face, Seconds (0.001));	//1ms?
 		            
-		            NS_LOG_UNCOND("Node "<<B
+		            /*NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
 		            			<<" nexthop="<<A
 		            			<<" face="<<face->GetId()
-		            			<<" metric="<<metric);
+		            			<<" metric="<<metric);*/
 		
 		        	Ptr<Limits> faceLimits = face->GetObject<Limits> ();
 		
@@ -553,7 +553,7 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		for(size_t level = 0; level <= m_k ; level++)
 		//size_t level = 0;
 		{
-			NS_LOG_UNCOND("Route with level="<<level);
+			//NS_LOG_UNCOND("Route with level="<<level);
 			
 			//Initialize permutation and carry bit
 			uint32_t *permutation = new uint32_t[m_k+1];
@@ -663,11 +663,11 @@ BCubeRoutingHelper::CalculateSharingRoutes(uint32_t m_n, uint32_t m_k)
 		            fib::FaceMetricContainer::type::index<fib::i_face>::type::iterator record2
 	   				= entry->m_faces.get<fib::i_face> ().find (face);
 		            
-		            NS_LOG_UNCOND("Node "<<B
+		            /*NS_LOG_UNCOND("Node "<<B
 		            			<<" installs FIB "<<*prefix
 		            			<<" nexthop="<<A
 		            			<<" face="<<face->GetId()
-		            			<<" metric="<<record2->GetRoutingCost());
+		            			<<" metric="<<record2->GetRoutingCost());*/
 					
 					
 				}
