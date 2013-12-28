@@ -57,6 +57,10 @@ public:
   virtual void
   OnContentObject (const Ptr<const ContentObject> &contentObject,
                    Ptr<Packet> payload);
+                   
+  virtual void
+  OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                   Ptr<Packet> payload);                        
 
 protected:
   /**

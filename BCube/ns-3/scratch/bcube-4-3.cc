@@ -36,7 +36,7 @@ using namespace ns3;
 int 
 main (int argc, char *argv[])
 {	
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("1us"));
+  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10us"));
   Config::SetDefault ("ns3::DropTailQueue::MaxPackets", StringValue ("50"));
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
@@ -44,6 +44,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
+  
   
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
@@ -61,12 +62,13 @@ main (int argc, char *argv[])
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
   ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
-  ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
+  ndnHelper.EnableLimits(true,Seconds(0.1),40,10000);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S0000"));
+  //ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,3);
   ndnGlobalRoutingHelper.CalculateSharingRoutes (4,3);
   
   int simulation_time = 400;
@@ -85,15 +87,19 @@ main (int argc, char *argv[])
   			for(uint8_t l=0; l<4; l++)
   			{
   				if(i==0 && j==0 && k==0 && l==0)continue;
-  				consumerHelper.SetPrefix ("/prefix");
-  				std::string str = "S";
-  				str += '0'+i;
-  				str += '0'+j;
-  				str += '0'+k;
-  				str += '0'+l;
-  				consumers = consumerHelper.Install (Names::Find<Node>(str)); 
-  				consumers.Start (Seconds (0));	
-  				consumers.Stop (Seconds (simulation_time));
+  				//if(rand()%10==1)
+  				{
+  					consumerHelper.SetPrefix ("/prefix");
+	  				std::string str = "S";
+	  				str += '0'+i;
+	  				str += '0'+j;
+	  				str += '0'+k;
+	  				str += '0'+l;
+	  				consumers = consumerHelper.Install (Names::Find<Node>(str)); 
+	  				consumers.Start (Seconds (0));	
+	  				consumers.Stop (Seconds (simulation_time));
+  				}
+  				
   			}
    
   Simulator::Stop (Seconds (simulation_time));

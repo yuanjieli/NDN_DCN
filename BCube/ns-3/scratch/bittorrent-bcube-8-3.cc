@@ -49,7 +49,7 @@ main (int argc, char *argv[])
   cmd.Parse (argc, argv);   
   	
 	//Read topology from BCube
-	AnnotatedTopologyReader topologyReader ("", 25);
+	AnnotatedTopologyReader topologyReader ("", 1);
   topologyReader.SetFileName ("src/ndnSIM/examples/topologies/bcube-8-3.txt");
   NodeContainer nodes = topologyReader.Read ();
   
@@ -63,7 +63,7 @@ main (int argc, char *argv[])
  	//Turn on global static routing
   Ipv4GlobalRoutingHelper::PopulateRoutingTables ();
   
- 	
+ 	NS_LOG_UNCOND("test 4");
   // 1) Install a BitTorrentTracker application (with default values) on one of the nodes
   Ptr<BitTorrentTracker> bitTorrentTracker = Create<BitTorrentTracker> ();
   Names::Find<Node> ("S0000")->AddApplication (bitTorrentTracker);	
@@ -72,7 +72,7 @@ main (int argc, char *argv[])
   Ptr<Torrent> sharedTorrent = bitTorrentTracker->AddTorrent ("input/bittorrent/torrent-data", "input/bittorrent/torrent-data/100MB-full.dat.torrent");
   
   // 3) Install BitTorrentClient applications on the desired number of nodes
-  ApplicationContainer bitTorrentClients;
+  /*ApplicationContainer bitTorrentClients;
   for(uint8_t i=0; i<8; i++)
   	for(uint8_t j=0; j<8; j++)
   		for(uint8_t k=0; k<8; k++)
@@ -89,8 +89,22 @@ main (int argc, char *argv[])
   				bitTorrentClients.Add (client);	
   				if(i==0 && j==0 && k==0 && l==0)
   					DynamicCast<BitTorrentClient> (Names::Find<Node> (str)->GetApplication (1))->SetInitialBitfield ("full");
-  			}
+  			}*/
   
+  ApplicationContainer bitTorrentClients;
+  Ptr<BitTorrentClient> client;
+  
+  client = Create<BitTorrentClient> ();
+  client->SetTorrent (sharedTorrent);	
+  Names::Find<Node> ("S3333")->AddApplication (client);
+  bitTorrentClients.Add (client);	
+  
+  client = Create<BitTorrentClient> ();
+  client->SetTorrent (sharedTorrent);	
+  Names::Find<Node> ("S0000")->AddApplication (client);
+  bitTorrentClients.Add (client);	
+  DynamicCast<BitTorrentClient> (Names::Find<Node> ("S0000")->GetApplication (1))->SetInitialBitfield ("full");
+  	
   // 4) Set up the BitTorrent metrics gatherer for output handling (here, we just log to the screen)
   GlobalMetricsGatherer* gatherer = GlobalMetricsGatherer::GetInstance ();
   gatherer->SetFileNamePrefix ("This will be ignored while logging to the screen", false);

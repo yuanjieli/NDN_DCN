@@ -21,10 +21,14 @@
 #ifndef NDN_CONSUMER_OM_H
 #define NDN_CONSUMER_OM_H
 
+//#define MAX_SEQ 200
+
 #include "ndn-consumer.h"
 #include "ns3/random-variable-stream.h"
 namespace ns3 {
 namespace ndn {
+	
+//static uint32_t chunk_count[MAX_SEQ];	//commonest-first algorithm	
 
 /**
  * @ingroup ndn
@@ -101,6 +105,9 @@ protected:
   uint32_t						m_data_count;		//used for counting received data
   uint32_t						m_nack_count;
   uint32_t						m_extra_nack_count;
+  
+  //bool 								m_chunk_finished[MAX_SEQ];
+  //uint32_t						m_total_chunk;
   
   TracedCallback<Ptr<Node> /* node */, uint32_t /* appID */,
                  Time /* time */, double /*m_limit*/> m_TraceLimit;

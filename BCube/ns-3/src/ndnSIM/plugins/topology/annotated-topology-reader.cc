@@ -249,15 +249,19 @@ AnnotatedTopologyReader::Read (void)
 void
 AnnotatedTopologyReader::AssignIpv4Addresses (Ipv4Address base)
 {
-  Ipv4AddressHelper address (base, Ipv4Mask ("/24"));
+  //Ipv4AddressHelper address (base, Ipv4Mask ("/24"));
+  Ipv4AddressHelper address (base, Ipv4Mask ("/28"));
     
   BOOST_FOREACH (const Link &link, m_linksList)
     {
       address.Assign (NetDeviceContainer (link.GetFromNetDevice (),
                                           link.GetToNetDevice ()));
         
-      base = Ipv4Address (base.Get () + 256);
-      address.SetBase (base, Ipv4Mask ("/24"));
+      //base = Ipv4Address (base.Get () + 256);
+      //address.SetBase (base, Ipv4Mask ("/24"));
+      base = Ipv4Address (base.Get () + 16);
+      address.SetBase (base, Ipv4Mask ("/28"));
+      
     }
 }
         

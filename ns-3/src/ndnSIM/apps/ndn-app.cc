@@ -122,6 +122,12 @@ App::OnContentObject (const Ptr<const ContentObject> &contentObject,
   m_receivedContentObjects (contentObject, payload, this, m_face);
 }
 
+void
+App::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                          Ptr<Packet> payload)
+{  
+}
+
 Ptr<Face>
 App::GetFace()
 {

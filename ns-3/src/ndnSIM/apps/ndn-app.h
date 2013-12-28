@@ -103,6 +103,9 @@ public:
   OnContentObject (const Ptr<const ContentObject> &contentObject,
                    Ptr<Packet> payload);
   
+  virtual void
+  OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                   Ptr<Packet> payload);
 protected:
   /**
    * @brief Do cleanup when application is destroyed

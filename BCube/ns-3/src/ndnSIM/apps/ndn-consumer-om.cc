@@ -107,12 +107,16 @@ ConsumerOm::ConsumerOm ()
   , m_data_count (0)
   , m_nack_count (0)
   , m_extra_nack_count (0)
+  //, m_total_chunk(0)
 {
   NS_LOG_FUNCTION_NOARGS ();
   m_seqMax = std::numeric_limits<uint32_t>::max ();
   //NS_LOG_UNCOND("m_seqMax="<<m_seqMax);	
   m_limit = m_initLimit;
   Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
+  	
+  //memset(m_chunk_finished,false,sizeof(bool)*MAX_SEQ);
+  //memset(chunk_count,0,sizeof(uint32_t)*MAX_SEQ);
  	
 }
 
@@ -149,6 +153,21 @@ void
 ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
                    				 Ptr<Packet> payload)
 {
+	
+	/*uint32_t seq = boost::lexical_cast<uint32_t> (contentObject->GetName ().GetComponents ().back ());
+	if(!m_chunk_finished[seq])
+	{
+		chunk_count[seq]++;
+		m_chunk_finished[seq] = true;
+		m_total_chunk ++;
+		if(m_total_chunk == MAX_SEQ)
+		{
+			NS_LOG_UNCOND(Simulator::Now().GetSeconds()<<" "<<Names::FindName(m_node)<<" is done!");
+			//StopApplication();
+			return;					
+		}
+	}*/
+	
   if(!m_inited)
   {
 	m_alpha = m_alpha_max;
@@ -294,8 +313,16 @@ ConsumerOm::SendRandomPacket()
   uint32_t seq=m_rand.GetValue (0,m_seqMax); 
   //uint32_t seq = m_exp_rand.GetInteger(100000, m_seqMax);
   //uint32_t seq=m_rand.GetValue (); 
-  			
-
+  /*uint32_t seq = MAX_SEQ;
+  for(size_t k=0; k!=MAX_SEQ; k++)
+  	if(!m_chunk_finished[k])
+  	{	
+  		if(seq == MAX_SEQ || chunk_count[seq]<chunk_count[k])
+  			seq = k;
+  	}
+	if(seq==MAX_SEQ)
+		return;*/
+		
   Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
   (*nameWithSequence) (seq);
   

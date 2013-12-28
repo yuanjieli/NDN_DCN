@@ -41,7 +41,7 @@ main (int argc, char *argv[])
   Config::SetDefault ("ns3::ndn::fw::Nacks::EnableNACKs", BooleanValue (true));
   Config::SetDefault ("ns3::ndn::Limits::LimitsDeltaRate::UpdateInterval", StringValue ("1.0")); //This parameter is essential for fairness! We should analyze it.
   Config::SetDefault ("ns3::ndn::ConsumerOm::NackFeedback", StringValue ("1"));
-  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("200"));
+  Config::SetDefault ("ns3::ndn::ConsumerOm::DataFeedback", StringValue ("10"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::LimitInterval", StringValue ("1.0"));
   Config::SetDefault ("ns3::ndn::ConsumerOm::InitLimit", StringValue ("10.0"));
   
@@ -61,7 +61,7 @@ main (int argc, char *argv[])
   ndn::BCubeStackHelper ndnHelper;
   ndnHelper.SetForwardingStrategy("ns3::ndn::fw::BestCC::PerOutFaceDeltaLimits");
   ndnHelper.SetContentStore ("ns3::ndn::cs::Fifo", "MaxSize", "0");	//WARNING: HUGE IMPACT!
-  ndnHelper.EnableLimits(true,Seconds(0.1),40,1100);
+  ndnHelper.EnableLimits(true,Seconds(0.1),40,10000);
   ndnHelper.InstallAll ();	//We will only install BCubeStackHelper to servers
   
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;

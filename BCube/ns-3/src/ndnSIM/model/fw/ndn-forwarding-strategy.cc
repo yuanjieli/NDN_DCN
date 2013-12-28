@@ -490,7 +490,7 @@ ForwardingStrategy::SatisfyPendingInterest (Ptr<Face> inFace,
         }
     }
 	
-  //copy NACK to all applications of this node
+  //copy content to all applications of this node
   if(inFace!=0)
   {
   	Ptr<Node> node = inFace->GetNode();

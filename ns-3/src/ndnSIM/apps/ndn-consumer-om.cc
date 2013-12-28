@@ -37,6 +37,14 @@
 #include <list>
 #include <string>
 
+#include "ns3/names.h"
+
+#include <boost/ref.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/bind.hpp>
+namespace ll = boost::lambda;
+
 NS_LOG_COMPONENT_DEFINE ("ndn.ConsumerOm");
 
 namespace ns3 {
@@ -88,7 +96,7 @@ ConsumerOm::GetTypeId (void)
 }
     
 ConsumerOm::ConsumerOm ()
-  : m_initLimit (100.0)
+  : m_initLimit (10.0)
   , m_beta (1.1)
   , m_alpha (20.0)
   , m_alpha_max (20.0)
@@ -196,7 +204,7 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 	if(interest->GetNack()==Interest::NACK_GIVEUP_PIT)	//NOT NACK_CONGESTION
 	//if(interest->GetNack()==Interest::NACK_CONGESTION)
 	{
-		if(interest->GetIntraSharing()>=100){
+		if(interest->GetIntraSharing()>100){
 			m_limit = m_limit - m_beta;
 			m_nack_count++;
 		}
@@ -223,13 +231,46 @@ ConsumerOm::OnNack (const Ptr<const Interest> &interest, Ptr<Packet> packet)
 }
 
 void
+ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
+                   				 Ptr<Packet> payload)
+{
+	//rule out nacks with different prefixes
+	std::list<std::string>::const_iterator rhs = contentObject->GetName().begin();
+	bool match = true;
+	for(std::list<std::string>::iterator it = m_interestName.begin();
+			it != m_interestName.end(); it++)
+	{
+		if(rhs==contentObject->GetName().end()
+		|| *it!=*rhs)
+		{
+			match = false;
+			break;
+		}
+		rhs++;
+	}
+	if(!match)
+	{
+		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" nack="<<interest->GetName());
+		return;
+	}
+	//NS_LOG_UNCOND("OnExtraContentObject@"<<Names::FindName(m_node));
+	m_data_count++;
+}
+
+void
 ConsumerOm::ShowInterestLimit()
 {
-	NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit
+	/*NS_LOG_UNCOND("ConsumerOm: "<<GetNode()->GetId()<<" "<<Simulator::Now().GetSeconds()<<" "<<m_limit
 								<<" interest="<<m_interest_count
 								<<" data="<<m_data_count
 								<<" nack="<<m_nack_count
-								<<" enack="<<m_extra_nack_count);
+								<<" enack="<<m_extra_nack_count);*/
+								
+	NS_LOG_UNCOND(Simulator::Now().GetSeconds()
+				<<" "<<m_node->GetId()
+				//<<" "<<m_data_count/109.5);
+				<<" "<<m_data_count/12.45);
+											
 	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
 	m_interest_count = 0;
