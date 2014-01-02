@@ -294,20 +294,8 @@ ConsumerOm::SendRandomPacket()
 	if (!m_active) return;
   NS_LOG_FUNCTION_NOARGS ();
 
-  //uint32_t seq=m_rand.GetValue (0,MAX_SEQ); 
-  uint32_t seq = MAX_SEQ;
-  for(size_t k=0; k!=MAX_SEQ; k++)
-  	if(!m_chunk_finished[k])
-  	{	
-  		if(seq == MAX_SEQ || chunk_count[seq]<chunk_count[k])
-  			seq = k;
-  			break;
-  	}
-	if(seq==MAX_SEQ)
-	{	
-		//NS_LOG_UNCOND("Node "<<GetNode()->GetId()<<" finishes at t="<<Simulator::Now().GetSeconds()<<"s");
-		return;
-	}
+  uint32_t seq=m_rand.GetValue (0,m_seqMax); 
+  
 		
   Ptr<Name> nameWithSequence = Create<Name> (m_interestName);
   (*nameWithSequence) (seq);
