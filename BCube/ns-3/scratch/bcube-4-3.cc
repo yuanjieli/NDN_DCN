@@ -82,14 +82,14 @@ main (int argc, char *argv[])
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
   //consumerHelper.SetAttribute("MaxSeq",IntegerValue(1000));	
   ApplicationContainer consumers;
-  /*for(uint8_t i=0; i<4; i++)
+  for(uint8_t i=0; i<4; i++)
   	for(uint8_t j=0; j<4; j++)
   		for(uint8_t k=0; k<4; k++)
   			for(uint8_t l=0; l<4; l++)
   			{
   				if(i==0 && j==0 && k==0 && l==0)continue;
   				//if(rand()%2==0)
-  				if(rand()%4==0)
+  				//if(rand()%4==0)
   				{
   					consumerHelper.SetPrefix ("/prefix");
 	  				std::string str = "S";
@@ -102,11 +102,11 @@ main (int argc, char *argv[])
 	  				consumers.Stop (Seconds (simulation_time));
   				}
   				
-  			}*/
-  consumerHelper.SetPrefix ("/prefix");	
+  			}
+  /*consumerHelper.SetPrefix ("/prefix");	
   consumers = consumerHelper.Install (Names::Find<Node>("S3333")); 
 	consumers.Start (Seconds (0));	
-	consumers.Stop (Seconds (simulation_time));		
+	consumers.Stop (Seconds (simulation_time));	*/	
    
   Simulator::Stop (Seconds (simulation_time));
 

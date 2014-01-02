@@ -37,7 +37,9 @@
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
+#include <boost/lexical_cast.hpp>
 namespace ll = boost::lambda;
+	
 	
 namespace ns3 {
 namespace ndn {
@@ -253,7 +255,9 @@ BestCC::DoPropagateInterest (Ptr<Face> inFace,
 		  	
 		  	if(totalweight<1)totalweight = 1;
 		  	
-		  	double target = rand()%(int)totalweight;
+		  	uint32_t seq = boost::lexical_cast<uint32_t> (header->GetName ().GetComponents ().back ());
+		  	double target = seq%(int)totalweight;	
+		  	//double target = rand()%(int)totalweight;
 		  	double coin = 0;	
 		  	//Step3: choose ONE face based on our congestion control strategy
 		  	std::vector< Ptr<Face> > vecFaces;
