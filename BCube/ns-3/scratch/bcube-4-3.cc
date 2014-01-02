@@ -68,8 +68,8 @@ main (int argc, char *argv[])
   ndn::BCubeRoutingHelper ndnGlobalRoutingHelper;
   ndnGlobalRoutingHelper.InstallAll ();
   ndnGlobalRoutingHelper.AddOrigin ("/prefix", Names::Find<Node>("S0000"));
-  ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,3);
-  //ndnGlobalRoutingHelper.CalculateSharingRoutes (4,3);
+  //ndnGlobalRoutingHelper.CalculateBCubeRoutes (4,3);
+  ndnGlobalRoutingHelper.CalculateSharingRoutes (4,3);
   
   int simulation_time = 400;
    // Producer
