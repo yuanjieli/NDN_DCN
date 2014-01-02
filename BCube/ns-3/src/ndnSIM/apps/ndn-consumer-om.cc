@@ -107,7 +107,6 @@ ConsumerOm::ConsumerOm ()
   , m_data_count (0)
   , m_nack_count (0)
   , m_extra_nack_count (0)
-  //, m_total_chunk(0)
 {
   NS_LOG_FUNCTION_NOARGS ();
   m_seqMax = std::numeric_limits<uint32_t>::max ();
@@ -115,8 +114,6 @@ ConsumerOm::ConsumerOm ()
   m_limit = m_initLimit;
   Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
   	
-  //memset(m_chunk_finished,false,sizeof(bool)*MAX_SEQ);
-  //memset(chunk_count,0,sizeof(uint32_t)*MAX_SEQ);
  	
 }
 
@@ -153,14 +150,7 @@ void
 ConsumerOm::OnContentObject (const Ptr<const ContentObject> &contentObject,
                    				 Ptr<Packet> payload)
 {
-	
-	uint32_t seq = boost::lexical_cast<uint32_t> (contentObject->GetName ().GetComponents ().back ());
-	if(!m_chunk_finished[seq])
-	{
-		chunk_count[seq]++;
-		m_chunk_finished[seq] = true;
-	}
-	
+		
   if(!m_inited)
   {
 	m_alpha = m_alpha_max;
@@ -214,11 +204,7 @@ ConsumerOm::OnExtraContentObject (const Ptr<const ContentObject> &contentObject,
 		//NS_LOG_UNCOND("mismatch app="<<m_interestName<<" content="<<contentObject->GetName());
 		return;
 	}
-	uint32_t seq = boost::lexical_cast<uint32_t> (contentObject->GetName ().GetComponents ().back ());
-	if(!m_chunk_finished[seq])
-	{
-		m_chunk_finished[seq] = true;
-	}
+	
 	//NS_LOG_UNCOND("OnExtraContentObject@"<<Names::FindName(m_node));
 	m_data_count++;
 }
@@ -294,7 +280,7 @@ ConsumerOm::ShowInterestLimit()
 				//<<" "<<m_data_count/109.5);
 				<<" "<<m_data_count/12.45);
 	
-	//m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
+	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
 	m_interest_count = 0;
 	m_data_count = 0;

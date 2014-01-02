@@ -80,7 +80,6 @@ main (int argc, char *argv[])
   producerHelper.Install (Names::Find<Node>("S0000"));
   
   ndn::AppHelper consumerHelper ("ns3::ndn::ConsumerOm");
-  //consumerHelper.SetAttribute("MaxSeq",IntegerValue(1000));	
   ApplicationContainer consumers;
   for(uint8_t i=0; i<4; i++)
   	for(uint8_t j=0; j<4; j++)
