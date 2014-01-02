@@ -294,7 +294,7 @@ ConsumerOm::ShowInterestLimit()
 				//<<" "<<m_data_count/109.5);
 				<<" "<<m_data_count/12.45);
 	
-	m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
+	//m_TraceLimit (GetNode(), GetId(), Simulator::Now(), m_limit);
 	Simulator::Schedule (Seconds (m_limitInterval), &ConsumerOm::ShowInterestLimit, this);
 	m_interest_count = 0;
 	m_data_count = 0;
